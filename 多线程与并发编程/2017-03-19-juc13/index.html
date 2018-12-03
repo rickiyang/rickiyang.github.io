@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Microsoft YaHei:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|Menlo:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/adele.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/adele.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/adele.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/adele.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="java,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Rickiyang's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="这一节我们将探讨引用类型原子类：AtomicReference, AtomicStampedRerence, AtomicMarkableReference。AtomicReference的使用非常简单，根据API我们就可以知道如何用，但是后两个从名字上看起来感觉是很难的样子，其实只是他的样子长得有点吓人，并且确实发挥了很大的作用（解决了ABA问题）。所以并没有那么可怕，就让我们一起来克服困难吧。">
+<meta name="keywords" content="java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java并发编程（十三）----(JUC原子类)引用类型介绍（CAS和ABA的介绍）">
+<meta property="og:url" content="http://rickiyang.github.io/多线程与并发编程/2017-03-19-juc13/index.html">
+<meta property="og:site_name" content="Rickiyang&#39;s blog">
+<meta property="og:description" content="这一节我们将探讨引用类型原子类：AtomicReference, AtomicStampedRerence, AtomicMarkableReference。AtomicReference的使用非常简单，根据API我们就可以知道如何用，但是后两个从名字上看起来感觉是很难的样子，其实只是他的样子长得有点吓人，并且确实发挥了很大的作用（解决了ABA问题）。所以并没有那么可怕，就让我们一起来克服困难吧。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://i.imgur.com/WHz1hpa.png">
+<meta property="og:image" content="http://i.imgur.com/JHnfHNT.png">
+<meta property="og:image" content="http://i.imgur.com/ANevGLg.png">
+<meta property="og:updated_time" content="2018-12-03T12:36:52.148Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java并发编程（十三）----(JUC原子类)引用类型介绍（CAS和ABA的介绍）">
+<meta name="twitter:description" content="这一节我们将探讨引用类型原子类：AtomicReference, AtomicStampedRerence, AtomicMarkableReference。AtomicReference的使用非常简单，根据API我们就可以知道如何用，但是后两个从名字上看起来感觉是很难的样子，其实只是他的样子长得有点吓人，并且确实发挥了很大的作用（解决了ABA问题）。所以并没有那么可怕，就让我们一起来克服困难吧。">
+<meta name="twitter:image" content="http://i.imgur.com/WHz1hpa.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://rickiyang.github.io/多线程与并发编程/2017-03-19-juc13/">
+
+
+
+
+
+  <title>java并发编程（十三）----(JUC原子类)引用类型介绍（CAS和ABA的介绍） | Rickiyang's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Rickiyang's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://rickiyang.github.io/多线程与并发编程/2017-03-19-juc13/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Rickiyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/adele.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rickiyang's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">java并发编程（十三）----(JUC原子类)引用类型介绍（CAS和ABA的介绍）</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-26T01:02:00+08:00">
+                2017-03-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/多线程与并发编程/" itemprop="url" rel="index">
+                    <span itemprop="name">多线程与并发编程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  15
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这一节我们将探讨引用类型原子类：AtomicReference, AtomicStampedRerence, AtomicMarkableReference。AtomicReference的使用非常简单，根据API我们就可以知道如何用，但是后两个从名字上看起来感觉是很难的样子，其实只是他的样子长得有点吓人，并且确实发挥了很大的作用（解决了ABA问题）。所以并没有那么可怕，就让我们一起来克服困难吧。</p>
+<h4 id="1-AtomicReference简介"><a href="#1-AtomicReference简介" class="headerlink" title="1 AtomicReference简介"></a>1 AtomicReference简介</h4><p>AtomicReference的使用非常简单，首先我们来看一下他的方法：</p>
+<pre><code>构造函数：
+AtomicReference()               //使用 null 初始值创建新的 AtomicReference。 
+AtomicReference(V initialValue) //使用给定的初始值创建新的 AtomicReference。 
+
+方法：
+boolean compareAndSet(V expect, V update) //如果当前值 == 预期值，则以原子方式将该值设置为给定的更新值。 
+V get()                        //获取当前值。 
+V getAndSet(V newValue)        //以原子方式设置为给定值，并返回旧值。 
+void lazySet(V newValue)       //最终设置为给定值。 
+void set(V newValue)           //设置为给定值。 
+String toString()              //返回当前值的字符串表示形式。 
+boolean weakCompareAndSet(V expect, V update) // 如果当前值 == 预期值，则以原子方式将该值设置为给定的更新值。 
+</code></pre><p>下面我们看一个例子来了解下使用方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AtomicReferenceTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        AtomicReference atomic1 = <span class="keyword">new</span> AtomicReference();</span><br><span class="line">        atomic1.set(<span class="string">"aaa"</span>);</span><br><span class="line">        atomic1.set(<span class="keyword">new</span> StringBuffer(<span class="string">"str"</span>));</span><br><span class="line">        Map map = <span class="keyword">new</span> HashMap();</span><br><span class="line">        map.put(<span class="string">"name"</span>,<span class="string">"xiaoming"</span>);</span><br><span class="line">        atomic1.set(map);</span><br><span class="line">        System.out.println(atomic1.get());</span><br><span class="line"></span><br><span class="line">        String[] s = &#123;<span class="string">"aa"</span>,<span class="string">"bb"</span>,<span class="string">"cc"</span>&#125;;</span><br><span class="line">        AtomicReference atomic2 = <span class="keyword">new</span> AtomicReference(s);</span><br><span class="line">        System.out.println(atomic2.get());</span><br><span class="line">        atomic2.set(atomic1);</span><br><span class="line">        System.out.println(atomic2.get());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<pre><code>{name=xiaoming}
+[Ljava.lang.String;@766e119d
+{name=xiaoming}
+
+Process finished with exit code 0
+</code></pre><p>由上面程序我们可以看到：AtomicReference可以set任何类型的值并且都是以原子的形式操作的。</p>
+<h4 id="2-CAS和ABA"><a href="#2-CAS和ABA" class="headerlink" title="2 CAS和ABA"></a>2 CAS和ABA</h4><p>在介绍AtomicStampedRerence, AtomicMarkableReference之前我们的先谈一谈CAS和ABA的问题，因为这两个类的设计就是为了避免CAS操作中的ABA问题而设计的.</p>
+<h5 id="2-1-CAS-原子操作的基石"><a href="#2-1-CAS-原子操作的基石" class="headerlink" title="2.1 CAS 原子操作的基石"></a>2.1 CAS 原子操作的基石</h5><p>我们知道之前我们学过的Synchronized是一种独占锁。一个线程获得该锁，那么其余的线程只能等待该线程释放锁才能获得。这其实是一种悲观锁的形式。那么乐观锁是如何实现的呢？乐观锁是每次都不加锁，假设完成某项任务没有冲突。如果因为冲突失败那就重试，直到成功为止。</p>
+<p>今天我们要说的CAS就是<strong>乐观锁的实现机制</strong>。可用于在多线程编程中实现不被打断的数据交换操作，从而避免多线程同时改写某一数据时由于执行顺序不确定性以及中断的不可预知性产生的数据不一致问题。 该操作通过将内存中的值与指定数据进行比较，当数值一样时将内存中的数据替换为新的值。</p>
+<p>CAS:Compare and Swap，这个操作用C语言来描述就是下面这个样子（代码来自Wikipedia的Compare And Swap词条）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">compare_and_swap</span> <span class="params">(<span class="keyword">int</span>* reg, <span class="keyword">int</span> oldval, <span class="keyword">int</span> newval)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> old_reg_val = *reg;</span><br><span class="line">  <span class="keyword">if</span> (old_reg_val == oldval)</span><br><span class="line">     *reg = newval;</span><br><span class="line">  <span class="keyword">return</span> old_reg_val;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>意思就是说，看一看内存*reg里的值是不是oldval，如果是的话，则对其赋值newval。</p>
+<p>CAS有3个操作数，内存值V，旧的预期值A，要修改的新值B。当且仅当预期值A和内存值V相同时，将内存值V修改为B，否则什么都不做。</p>
+<p>在使用上，通常会记录下某块内存中的旧值，通过对旧值进行一系列的操作后得到新值，然后通过CAS操作将新值与旧值进行交换。如果这块内存的值在这期间内没被修改过，则旧值会与内存中的数据相同，这时CAS操作将会成功执行 使内存中的数据变为新值。如果内存中的值在这期间内被修改过，则一般来说旧值会与内存中的数据不同，这时CAS操作将会失败，新值将不会被写入内存。</p>
+<h5 id="2-2-原子操作"><a href="#2-2-原子操作" class="headerlink" title="2.2 原子操作"></a>2.2 原子操作</h5><p>虽然我们是在用java语言去执行原子操作，但是最终还是对应到处理器上去执行。那么在处理器上是如何执行原子操作的呢？</p>
+<p>32位IA-32处理器使用基于对缓存加锁或总线加锁的方式来实现多处理器之间的原子操作。</p>
+<p><strong>第一个机制是通过总线锁保证原子性。</strong>。如果多个处理器同时对共享变量进行读改写（i++就是经典的读改写操作）操作，那么共享变量就会被多个处理器同时进行操作，这样读改写操作就不是原子的，操作完之后共享变量的值会和期望的不一致，举个例子：如果i=1,我们进行两次i++操作，我们期望的结果是3，但是有可能结果是2。</p>
+<p>原因是有可能多个处理器同时从各自的缓存中读取变量i，分别进行加一操作，然后分别写入系统内存当中。那么想要保证读改写共享变量的操作是原子的，就必须保证CPU1读改写共享变量的时候，CPU2不能操作缓存了该共享变量内存地址的缓存。</p>
+<p>处理器使用总线锁就是来解决这个问题的。所谓总线锁就是使用处理器提供的一个LOCK＃信号，当一个处理器在总线上输出此信号时，其他处理器的请求将被阻塞住,那么该处理器可以独占使用共享内存。</p>
+<p><strong>第二个机制是通过缓存锁定保证原子性</strong>。在同一时刻我们只需保证对某个内存地址的操作是原子性即可，但总线锁定把CPU和内存之间通信锁住了，这使得锁定期间，其他处理器不能操作其他内存地址的数据，所以总线锁定的开销比较大，最近的处理器在某些场合下使用缓存锁定代替总线锁定来进行优化。</p>
+<p>上面说了cpu的原子操作是如何实现的，那么在java中一定也有相应的方法去驱动处理器来实现原子操作。JUC包中的原子类都是基于CAS来实现的，我们不妨以AtomicInteger为例来跟踪一下，看看到底是如何实现原子操作的。</p>
+<p>首先我们能看到在AtomicInteger中的value值是这样定义的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">int</span> value;</span><br></pre></td></tr></table></figure>
+<p>我们再来看他的get方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">get</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   <span class="keyword">return</span> value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>直接返回value值，说明在无锁的情况下，通过volatile来做控制，保证值是可见的。</p>
+<p>下面我们接着看一下i++在原子类中是怎么实现的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">getAndSet</span><span class="params">(<span class="keyword">int</span> newValue)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">        <span class="keyword">int</span> current = get();</span><br><span class="line">        <span class="keyword">if</span> (compareAndSet(current, newValue))</span><br><span class="line">            <span class="keyword">return</span> current;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>能看到，首先把volatile修饰的内存中的原始值赋值给当前变量，为了下面compareAndSet方法拿内存中的值和新值比较进行CAS操作。所以关键就在于这个compareAndSet（）方法，我们接着进入这个方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">compareAndSet</span><span class="params">(<span class="keyword">int</span> expect, <span class="keyword">int</span> update)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> unsafe.compareAndSwapInt(<span class="keyword">this</span>, valueOffset, expect, update);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们看到compareAndSet方法中返回的是unsafe类的方法，我们知道java不能直接访问操作系统底层，而是通过本地方法来访问。<strong>Unsafe类提供了硬件级别的原子操作</strong>，这就与硬件相挂钩了。由此我们从java到处理器的通道就打通了。</p>
+<p>具体的compareAndSwapInt()方法的实现属于JDK底层的实现，我们在此不多做说明，有兴趣的可以查阅相关资料，看java的底层c语言源码。大致的过程我们可以说明如下：CAS 操作包含三个操作数 —— 内存位置（V）、预期原值（A）和新值(B)。如果内存位置的值与预期原值相匹配，那么处理器会自动将该位置值更新为新值。否则，处理器不做任何操作。无论哪种情况，它都会在 CAS 指令之前返回该位置的值。CAS 有效地说明了“我认为位置 V 应该包含值 A；如果包含该值，则将 B 放到这个位置；否则，不要更改该位置，只告诉我这个位置现在的值即可。” Java并发包(java.util.concurrent)中大量使用了CAS操作,<strong>涉及到并发的地方都调用了sun.misc.Unsafe类方法进行CAS操作</strong>。</p>
+<h5 id="2-3-ABA问题"><a href="#2-3-ABA问题" class="headerlink" title="2.3 ABA问题"></a>2.3 ABA问题</h5><p>上面我们结合着处理器对原子操作的处理机制一起讲了java对原子操作的处理方式，那么难道这种方式就一定是完美的吗。下面我们举出一种情况大家分析看看：</p>
+<ol>
+<li>进程P1在共享变量中读到值为A</li>
+<li>P1被抢占了，进程P2执行</li>
+<li>P2把共享变量里的值从A改成了B，再改回到A，此时被P1抢占。</li>
+<li>P1回来看到共享变量里的值没有被改变，于是继续执行。</li>
+</ol>
+<p>你觉得这会出现什么问题呢？我们知道java底层代码都是用c语言实现的，虽然java中没有指针，但不代表java底层代码中没有使用。虽然P1以为变量值没有改变，继续执行了，但是这个会引发一些潜在的问题。ABA问题最容易发生在lock free 的算法中的，CAS首当其冲，<strong>因为CAS判断的是指针的地址</strong>（c语言的特性）。如果这个地址被重用了呢，问题就很大了。</p>
+<p>现有一个用单向链表实现的堆栈，栈顶为A，这时线程T1已经知道A.next为B，然后希望用CAS将栈顶替换为B:</p>
+<p><img src="http://i.imgur.com/WHz1hpa.png" alt=""></p>
+<p>在T1执行上面这条指令之前，线程T2介入，将A、B出栈，再pushD、C、A，此时堆栈结构如下图，而对象B此时已经出栈：</p>
+<p><img src="http://i.imgur.com/JHnfHNT.png" alt=""></p>
+<p>在CAS中c语言的堆栈实现过程大致如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">push(node):</span><br><span class="line"> curr := head</span><br><span class="line">  old := curr</span><br><span class="line">  node-&gt;next = curr</span><br><span class="line">  <span class="keyword">while</span> (old != (curr = CAS(&amp;head, curr, node))) &#123;</span><br><span class="line">      old = curr</span><br><span class="line">      node-&gt;next = curr</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">pop():</span><br><span class="line">   curr := head</span><br><span class="line">   old := curr</span><br><span class="line">   next = curr-&gt;next</span><br><span class="line">   <span class="keyword">while</span> (old != (curr = CAS(&amp;head, curr, next))) &#123;</span><br><span class="line">       old = curr</span><br><span class="line">       next = curr-&gt;next</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> curr</span><br></pre></td></tr></table></figure>
+<p>假如，在pop函数中，next = curr-&gt;next 和 while之间，线程被切换走，此时轮到线程T1执行CAS操作，检测发现栈顶仍为A，所以CAS成功，栈顶变为B，<strong>但实际上B.next为null，即while此时还没有执行呢</strong>，所以此时的情况变为：</p>
+<p><img src="http://i.imgur.com/ANevGLg.png" alt=""></p>
+<p>其中堆栈中只有B元素的引用地址，C和D组成的链表不再存在于堆栈中，平白无故就把C、D丢掉了。</p>
+<p>如果这个例子你没有看懂的话，我可以再举出一个生活中的例子：</p>
+<p><em>你拿着一个装满钱的手提箱在飞机场，此时过来了一个火辣性感的美女，然后她很暖昧地挑逗着你，并趁你不注意的时候，把用一个一模一样的手提箱和你那装满钱的箱子调了个包，然后就离开了，你看到你的手提箱还在那，于是就提着手提箱去赶飞机去了。</em></p>
+<p>以上就是ABA问题。</p>
+<h4 id="3-解决ABA问题之道"><a href="#3-解决ABA问题之道" class="headerlink" title="3 解决ABA问题之道"></a>3 解决ABA问题之道</h4><p>因为CAS需要在操作值的时候检查下值有没有发生变化，如果没有发生变化则更新，但是如果一个值原来是A，变成了B，又变成了A，那么使用CAS进行检查时会发现它的值没有发生变化，但是实际上却变化了。<strong>ABA问题的解决思路就是使用版本号</strong>。在变量前面追加上版本号，每次变量更新的时候把版本号加一，那么A－B－A 就会变成1A-2B－3A。 为了避免CAS过程中的ABA问题，并发包提供了两个类，AtomicStampedReference和AtomicMarkableReference。前者相当于一个[引用,integer]的二元组，后者相当于一个[引用,boolean]的二元组。<br>AtomicStampedReference可用来作为带版本号的原子引用，而AtomicMarkableReference可用于表示已删除的节点。</p>
+<p>这个类的compareAndSet方法作用是首先检查当前引用是否等于预期引用，并且当前标志是否等于预期标志，如果全部相等，则以原子方式将该引用和该标志的值设置为给定的更新值。  </p>
+<p>我们先来看一下AtomicStampedReference的方法，AtomicStampedReference 维护带有整数“标志”的对象引用，可以用原子方式对其进行更新：</p>
+<pre><code>构造方法：
+AtomicStampedReference(V initialRef, int initialStamp) //创建具有给定初始值的新 AtomicStampedReference
+
+方法：
+ boolean attemptStamp(V expectedReference, int newStamp) //如果当前引用 == 预期引用，则以原子方式将该标志的值设置为给定的更新值。 
+boolean compareAndSet(V expectedReference, V newReference, int expectedStamp, int newStamp) //如果当前引用 == 预期引用，并且当前标志等于预期标志，                                                                                则以原子方式将该引用和该标志的值设置为给定的更新值。 
+V get(int[] stampHolder)   //返回该引用和该标志的当前值。 
+V getReference()           //返回该引用的当前值。 
+int getStamp()             // 返回该标志的当前值。 
+void set(V newReference, int newStamp) // 无条件地同时设置该引用和标志的值。 
+boolean weakCompareAndSet(V expectedReference, V newReference, int expectedStamp, int newStamp) //如果当前引用 == 预期引用，并且当前标志等于预期标志，则以原子方式将该引用和该标志的值设置为给定的更新值。
+</code></pre><p>看来看一下AtomicMarkableReference的方法：</p>
+<p>构造方法：<br>    AtomicMarkableReference(V initialRef, boolean initialMark) //创建具有给定初始值的新 AtomicMarkableReference。</p>
+<p>方法：<br>    boolean attemptMark(V expectedReference, boolean newMark) //如果当前引用 == 预期引用，则以原子方式将该标记的值设置为给定的更新值。<br>    boolean compareAndSet(V expectedReference, V newReference, boolean expectedMark, boolean newMark) //如果当前引用 == 预期引用，并且当前标记等于预期标记，那么以原子方式将引用和标记的值设置为给定的更新值。<br>    V get(boolean[] markHolder) // 返回该引用和该标记的当前值。<br>    V getReference() //返回该引用的当前值。<br>    boolean isMarked() //返回该标记的当前值。<br>    void set(V newReference, boolean newMark) //无条件地同时设置该引用和标记的值。<br>    boolean weakCompareAndSet(V expectedReference, V newReference, boolean expectedMark, boolean newMark) //如果当前引用 == 预期引用，并且当前标记等于预期标记，那么以原子方式将引用和标记的值设置为给定的更新值。 </p>
+<p>AtomicMarkableReference类描述的一个(Object,Boolean)的对，可以原子的修改Object或者Boolean的值，这种数据结构在一些缓存或者状态描述中比较有用。这种结构在单个或者同时修改Object/Boolean的时候能够有效的提高吞吐量。</p>
+<p>AtomicStampedReference类维护带有整数“标志”的对象引用，可以用原子方式对其进行更新。对比AtomicMarkableReference类的(Object,Boolean)，AtomicStampedReference维护的是一种类似(Object,int)的数据结构，其实就是对对象（引用）的一个并发计数。但是与AtomicInteger不同的是，此数据结构可以携带一个对象引用（Object），并且能够对此对象和计数同时进行原子操作。</p>
+<p>下面我们就AtomicStampedReference 的使用举一个例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AtomicStampedReferenceTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        AtomicInteger atomicInt = <span class="keyword">new</span> AtomicInteger(<span class="number">100</span>);</span><br><span class="line">        atomicInt.compareAndSet(<span class="number">100</span>, <span class="number">101</span>);</span><br><span class="line">        atomicInt.compareAndSet(<span class="number">101</span>, <span class="number">100</span>);</span><br><span class="line">        System.out.println(<span class="string">"new value = "</span> + atomicInt.get());</span><br><span class="line">        <span class="keyword">boolean</span> result1 = atomicInt.compareAndSet(<span class="number">100</span>, <span class="number">101</span>);</span><br><span class="line">        System.out.println(result1); <span class="comment">// result:true</span></span><br><span class="line"></span><br><span class="line">        AtomicInteger v1 = <span class="keyword">new</span> AtomicInteger(<span class="number">100</span>);</span><br><span class="line">        AtomicInteger v2 = <span class="keyword">new</span> AtomicInteger(<span class="number">101</span>);</span><br><span class="line">        AtomicStampedReference&lt;AtomicInteger&gt; stampedRef = <span class="keyword">new</span> AtomicStampedReference&lt;AtomicInteger&gt;(v1, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> stamp = stampedRef.getStamp();</span><br><span class="line">        stampedRef.compareAndSet(v1, v2, stampedRef.getStamp(),</span><br><span class="line">                stampedRef.getStamp() + <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        System.out.println(stampedRef.getStamp());</span><br><span class="line">        stampedRef.compareAndSet(v2, v1, stampedRef.getStamp(),</span><br><span class="line">                stampedRef.getStamp() + <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"new value = "</span> + stampedRef.getReference());</span><br><span class="line">        <span class="keyword">boolean</span> result2 = stampedRef.compareAndSet(v1, v2, stamp, stamp + <span class="number">1</span>);</span><br><span class="line">        System.out.println(result2); <span class="comment">// result:false</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果为：</p>
+<pre><code>new value = 100
+true
+1
+new value = 100
+false
+
+Process finished with exit code 0
+</code></pre><p>上面的输出结果可以看到AtomicInteger 执行cas操作成功，AtomicStampedReference执行cas操作失败。我们可以看到在24行compareAndSet(v1, v2, stamp, stamp + 1)中第三个参数期待的标志位值为1，但是经过上面两次的值变更，stampedRef.getStamp()已经是2了，所以此刻期待值与内存中的标志位值不符，操作失败。</p>
+<p>AtomicMarkableReference的使用方法也是类似，在此就不另做介绍，大家可以多多使用才会知道这些类所带来的好处。</p>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/多线程与并发编程/2017-03-19-juc13/">java并发编程（十三）----(JUC原子类)引用类型介绍（CAS和ABA的介绍）</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Rickiyang 的个人博客">Rickiyang</a></p>
+  <p><span>发布时间:</span>2017年03月26日 - 01:02</p>
+  <p><span>最后更新:</span>2018年12月03日 - 20:36</p>
+  <p><span>原始链接:</span><a href="/多线程与并发编程/2017-03-19-juc13/" title="java并发编程（十三）----(JUC原子类)引用类型介绍（CAS和ABA的介绍）">http://rickiyang.github.io/多线程与并发编程/2017-03-19-juc13/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://rickiyang.github.io/多线程与并发编程/2017-03-19-juc13/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
+</div>
+<script>
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({
+          title: "",
+          text: '复制成功',
+          icon: "success",
+          showConfirmButton: true
+          });
+    });
+    });
+</script>
+
+
+      
+    </div>
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #636363;font-size:14px;letter-spacing: 10px">本文结束啦<i class="fa fa-bell"></i>感谢您的阅读</div>
+    
+</div>
+
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"> <i class="”fa" fa-tag”=""></i> java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/多线程与并发编程/2017-03-19-juc14/" rel="next" title="java并发编程（十四）----(JUC原子类)对象的属性修改类型介绍">
+                <i class="fa fa-chevron-left"></i> java并发编程（十四）----(JUC原子类)对象的属性修改类型介绍
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/多线程与并发编程/2017-03-19-juc15/" rel="prev" title="（十五）----(线程池)java线程池简介">
+                （十五）----(线程池)java线程池简介 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/adele.png" alt="Rickiyang">
+            
+              <p class="site-author-name" itemprop="name">Rickiyang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/rickiyang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:medee1320@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/a953713428" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-google"></i>CSDN</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="953713428" target="_blank" title="QQ">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>QQ</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-AtomicReference简介"><span class="nav-number">1.</span> <span class="nav-text">1 AtomicReference简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-CAS和ABA"><span class="nav-number">2.</span> <span class="nav-text">2 CAS和ABA</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-CAS-原子操作的基石"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 CAS 原子操作的基石</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-原子操作"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 原子操作</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-ABA问题"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 ABA问题</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-解决ABA问题之道"><span class="nav-number">3.</span> <span class="nav-text">3 解决ABA问题之道</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Rickiyang</span>
+
+  
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+-->
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共113.7k字</span>
+</div>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https'){
+   bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else{
+  bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <!-- 页面点击小红心 -->
+  <script type="text/javascript" src="/js/src/love.js"></script>
+  <!---->
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

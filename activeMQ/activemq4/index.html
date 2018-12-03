@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Microsoft YaHei:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|Menlo:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/adele.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/adele.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/adele.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/adele.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="学习,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Rickiyang's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="前面的理论准备已经很充分，这一节我们来实战：将activemq整合到Spring框架才行中，因为Spring已经集成了JMS，这也为我们配置activermq带来了方便。 1. Spring对jms的支持因为Spring已经将JMS集成到框架里面了，对jms做了自己的封装，我们使用起来更加方便，在Spring中使用jms比较麻烦的就是配置，在Spring中配置JMS大体需要8个部分：  Conne">
+<meta name="keywords" content="学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="消息中间件-activemq实战之整合Spring(四)">
+<meta property="og:url" content="http://rickiyang.github.io/activeMQ/activemq4/index.html">
+<meta property="og:site_name" content="Rickiyang&#39;s blog">
+<meta property="og:description" content="前面的理论准备已经很充分，这一节我们来实战：将activemq整合到Spring框架才行中，因为Spring已经集成了JMS，这也为我们配置activermq带来了方便。 1. Spring对jms的支持因为Spring已经将JMS集成到框架里面了，对jms做了自己的封装，我们使用起来更加方便，在Spring中使用jms比较麻烦的就是配置，在Spring中配置JMS大体需要8个部分：  Conne">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://img.blog.csdn.net/20170505081848348?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYTk1MzcxMzQyOA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170505081958553?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYTk1MzcxMzQyOA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2018-12-03T12:36:52.154Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="消息中间件-activemq实战之整合Spring(四)">
+<meta name="twitter:description" content="前面的理论准备已经很充分，这一节我们来实战：将activemq整合到Spring框架才行中，因为Spring已经集成了JMS，这也为我们配置activermq带来了方便。 1. Spring对jms的支持因为Spring已经将JMS集成到框架里面了，对jms做了自己的封装，我们使用起来更加方便，在Spring中使用jms比较麻烦的就是配置，在Spring中配置JMS大体需要8个部分：  Conne">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170505081848348?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYTk1MzcxMzQyOA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://rickiyang.github.io/activeMQ/activemq4/">
+
+
+
+
+
+  <title>消息中间件-activemq实战之整合Spring(四) | Rickiyang's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Rickiyang's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://rickiyang.github.io/activeMQ/activemq4/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Rickiyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/adele.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rickiyang's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">消息中间件-activemq实战之整合Spring(四)</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-17T01:02:00+08:00">
+                2017-03-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/activeMQ/" itemprop="url" rel="index">
+                    <span itemprop="name">activeMQ</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  17
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>前面的理论准备已经很充分，这一节我们来实战：将activemq整合到Spring框架才行中，因为Spring已经集成了JMS，这也为我们配置activermq带来了方便。</p>
+<h4 id="1-Spring对jms的支持"><a href="#1-Spring对jms的支持" class="headerlink" title="1. Spring对jms的支持"></a>1. Spring对jms的支持</h4><p>因为Spring已经将JMS集成到框架里面了，对jms做了自己的封装，我们使用起来更加方便，在Spring中使用jms比较麻烦的就是配置，在Spring中配置JMS大体需要8个部分：</p>
+<ol>
+<li>ConnectionFactory： 和jms服务器的连接, 可以是外部的jms server, 也可以使用embedded ActiveMQ Broker；</li>
+<li>Destination： 有topic和queue两种方式；</li>
+<li>JmsTemplate： spring提供的jms模板；</li>
+<li>MessageConverter： 消息转换器；</li>
+<li>MessageProducer： 消息生产者；</li>
+<li>MessageConsumer： 消息消费者；</li>
+<li>MessageListener： 消息监听器；</li>
+<li>MessageListenerContainer： 消息监听容器。</li>
+</ol>
+<p>下面我把完整的配置文件按照上面的步骤拆开分别讲解：</p>
+<p><strong>1.1首先我们配置ConnectionFactory：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;amq:connectionFactory id=<span class="string">"amqConnectionFactory"</span></span><br><span class="line">                   brokerURL=<span class="string">"tcp://127.0.0.1:61616"</span></span><br><span class="line">                   userName=<span class="string">"admin"</span></span><br><span class="line">                   password=<span class="string">"admin"</span> /&gt;</span><br></pre></td></tr></table></figure>
+<p>brokerURL是指要连接的activeMQ server的地址，该配置即使用activemq独立的消息存储环境，即使服务器重启消息也不会丢失。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 配置JMS连接工厂 --&gt;</span><br><span class="line">&lt;bean id=<span class="string">"connectionFactory"</span></span><br><span class="line">      <span class="class"><span class="keyword">class</span></span>=<span class="string">"org.springframework.jms.connection.CachingConnectionFactory"</span>&gt;</span><br><span class="line">    &lt;constructor-arg ref=<span class="string">"amqConnectionFactory"</span> /&gt;</span><br><span class="line">    &lt;property name=<span class="string">"sessionCacheSize"</span> value=<span class="string">"100"</span> /&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+<p>我们从Spring给我们提供的connectionFactory中获取Connection，并且把该connectionFactory注册到上面定义的activemq server中。</p>
+<p><strong>1.2 Destination：</strong></p>
+<p>由前面我们知道Destination有两种形式：P2P和Pub/Sub。那么在配置中表示就是：</p>
+ <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 定义消息队列（Queue） --&gt;</span><br><span class="line">&lt;bean id=<span class="string">"demoQueueDestination"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"org.apache.activemq.command.ActiveMQQueue"</span>&gt;</span><br><span class="line">    &lt;!-- 设置消息队列的名字 --&gt;</span><br><span class="line">    &lt;constructor-arg&gt;</span><br><span class="line">        &lt;value&gt;first-queue&lt;/value&gt;</span><br><span class="line">    &lt;/constructor-arg&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+<p>或：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 定义消息队列（topic） --&gt;</span><br><span class="line">&lt;bean id=<span class="string">"demoQueueDestination"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"org.apache.activemq.command.ActiveMQTopic"</span>&gt;</span><br><span class="line">    &lt;!-- 设置消息队列的名字 --&gt;</span><br><span class="line">    &lt;constructor-arg&gt;</span><br><span class="line">        &lt;value&gt;first-queue&lt;/value&gt;</span><br><span class="line">    &lt;/constructor-arg&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>1.3 JmsTemplate：</strong></p>
+<p>将connectionFactory和defaultDestination注入JmsTemplate中：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 配置JMS模板（Queue），Spring提供的JMS工具类，它发送、接收消息。 --&gt;</span><br><span class="line">&lt;bean id=<span class="string">"jmsTemplate"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"org.springframework.jms.core.JmsTemplate"</span>&gt;</span><br><span class="line">    &lt;property name=<span class="string">"connectionFactory"</span> ref=<span class="string">"connectionFactory"</span> /&gt;</span><br><span class="line">    &lt;property name=<span class="string">"defaultDestination"</span> ref=<span class="string">"demoQueueDestination"</span> /&gt;</span><br><span class="line">    &lt;property name=<span class="string">"receiveTimeout"</span> value=<span class="string">"10000"</span> /&gt;</span><br><span class="line">    &lt;!-- <span class="keyword">true</span>是topic，<span class="keyword">false</span>是queue，默认是<span class="keyword">false</span>，此处显示写出<span class="keyword">false</span> --&gt;</span><br><span class="line">    &lt;property name=<span class="string">"pubSubDomain"</span> value=<span class="string">"false"</span> /&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+<p>在Java相关处理文件中添加(这里用的是@Inject注解，当然也可以用@Autowired)：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Resource</span>(name=<span class="string">"jmsTemplate"</span>)</span><br><span class="line"><span class="keyword">private</span> JmsTemplate jmsTemplate;</span><br><span class="line"></span><br><span class="line">TextMessage textMessage = (TextMessage) jmsTemplate.receive(destination);</span><br></pre></td></tr></table></figure>
+<p><strong>1.4 MessageConverter</strong></p>
+<p>MessageConverter实现的是org.springframework.jms.support.converter.MessageConverter接口, 提供消息的转换功能。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=<span class="string">"defaultMessageConverter"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"cn.edu.hust.activemq.filter.DefaultMessageConverter"</span> /&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>1.5 MessageProducer和MessageConsumer</strong></p>
+<p>此处灵活使用，可以以服务的形式提供也可以以工具类的形式提供，详情见下面的示例代码。</p>
+<p><strong>1.6 MessageListener</strong></p>
+<p>消息的消费者应有的有对应的Listener。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 配置消息队列监听者（Queue） --&gt;</span><br><span class="line">&lt;bean id=<span class="string">"queueMessageListener"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"cn.edu.hust.activemq.filter.QueueMessageListener"</span> /&gt; =</span><br></pre></td></tr></table></figure>
+<p><strong>1.7 MessageListenerContainer</strong></p>
+<p>MessageListenerContainer即Listener的容器，用来对Listener坐一些配置，每一个listener都对应着一个Container：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 显示注入消息监听容器（Queue），配置连接工厂，监听的目标是demoQueueDestination，监听器是上面定义的监听器 --&gt;</span><br><span class="line">&lt;bean id=<span class="string">"queueListenerContainer"</span></span><br><span class="line">      <span class="class"><span class="keyword">class</span></span>=<span class="string">"org.springframework.jms.listener.DefaultMessageListenerContainer"</span>&gt;</span><br><span class="line">    &lt;property name=<span class="string">"connectionFactory"</span> ref=<span class="string">"connectionFactory"</span> /&gt;</span><br><span class="line">    &lt;property name=<span class="string">"destination"</span> ref=<span class="string">"demoQueueDestination"</span> /&gt;</span><br><span class="line">    &lt;property name=<span class="string">"messageListener"</span> ref=<span class="string">"queueMessageListener"</span> /&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+<p>Spring为我们听过了两种类型的MessageListenerContainer：SimpleMessageListenerContainer和DefaultMessageListenerContainer。</p>
+<ul>
+<li>SimpleMessageListenerContainer会在一开始的时候就创建一个会话Session和消费者Consumer，并且会适用标准的JMS的MessageConsumer.setMessageListener()方法注册监听器让JMS提供调用监听器的回调函数。它不会动态的适应运行时需要和参与外部的事务管理。兼容性方面，它非常接近于独立的JMS规范，但一般不兼容J2EE的JMS限制。大多数情况下，我们还是使用DefaultMessageListenerContainer。</li>
+<li>DefaultMessageListenerContainer，与SimpleMessageListenerContainer相比，它会动态的适应运行时的需求，并且能够参与外部的事务管理。</li>
+</ul>
+<p>上面就是mq的配置文件部分，如果从上到下的配置部分都清楚地话使用起来肯定没有问题，我们再做一个简要的总结：</p>
+<ol>
+<li>可以有一个或者多个消息生产者向同一个destination发送消息；</li>
+<li>queue类型的只能有一个消息消费者；</li>
+<li>topic类型的可以有多个消息消费者；</li>
+<li>每个消费者对应一个MessageListener和一个MessageListenerContainer。</li>
+</ol>
+<p>下面我们看一下整合的全部代码：</p>
+<p>首先上pom.xml看一下依赖的jar包：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line">&lt;project xmlns=<span class="string">"http://maven.apache.org/POM/4.0.0"</span> xmlns:xsi=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span><br><span class="line">  xsi:schemaLocation=<span class="string">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"</span>&gt;</span><br><span class="line">  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;</span><br><span class="line">  &lt;groupId&gt;q&lt;/groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;q&lt;/artifactId&gt;</span><br><span class="line">  &lt;packaging&gt;war&lt;/packaging&gt;</span><br><span class="line">  &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;</span><br><span class="line">  &lt;name&gt;q Maven Webapp&lt;/name&gt;</span><br><span class="line">  &lt;url&gt;http:<span class="comment">//maven.apache.org&lt;/url&gt;</span></span><br><span class="line">  &lt;properties&gt;</span><br><span class="line">    &lt;springframework&gt;4.3.0.RELEASE&lt;/springframework&gt;</span><br><span class="line">  &lt;/properties&gt;</span><br><span class="line"></span><br><span class="line">  &lt;dependencies&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">      &lt;groupId&gt;junit&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;junit&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;4.10&lt;/version&gt;</span><br><span class="line">      &lt;scope&gt;test&lt;/scope&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line">    &lt;!-- spring --&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">      &lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;spring-core&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;$&#123;springframework&#125;&lt;/version&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">      &lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;spring-context&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;$&#123;springframework&#125;&lt;/version&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">      &lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;spring-tx&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;$&#123;springframework&#125;&lt;/version&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">      &lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;spring-webmvc&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;$&#123;springframework&#125;&lt;/version&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">      &lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;spring-jms&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;$&#123;springframework&#125;&lt;/version&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line">    &lt;!-- xbean 如&lt;amq:connectionFactory /&gt; --&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">      &lt;groupId&gt;org.apache.xbean&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;xbean-spring&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;3.16&lt;/version&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- activemq --&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">      &lt;groupId&gt;org.apache.activemq&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;activemq-core&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;5.7.0&lt;/version&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">      &lt;groupId&gt;org.apache.activemq&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;activemq-pool&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;5.12.1&lt;/version&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line">  &lt;/dependencies&gt;</span><br><span class="line">  &lt;build&gt;</span><br><span class="line">    &lt;finalName&gt;q&lt;/finalName&gt;</span><br><span class="line">    &lt;plugins&gt;</span><br><span class="line">      &lt;plugin&gt;</span><br><span class="line">        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;</span><br><span class="line">        &lt;configuration&gt;</span><br><span class="line">          &lt;source&gt;1.6&lt;/source&gt;</span><br><span class="line">          &lt;target&gt;1.6&lt;/target&gt;</span><br><span class="line">        &lt;/configuration&gt;</span><br><span class="line">      &lt;/plugin&gt;</span><br><span class="line">    &lt;/plugins&gt;</span><br><span class="line">  &lt;/build&gt;</span><br><span class="line">&lt;/project&gt;</span><br></pre></td></tr></table></figure>
+<p>然后是我们的Spring配置文件applicationContext.xml:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span>?&gt;</span><br><span class="line">&lt;!-- 查找最新的schemaLocation 访问 http:<span class="comment">//www.springframework.org/schema/ --&gt;</span></span><br><span class="line">&lt;beans xmlns=<span class="string">"http://www.springframework.org/schema/beans"</span></span><br><span class="line">       xmlns:context=<span class="string">"http://www.springframework.org/schema/context"</span></span><br><span class="line">       xmlns:mvc=<span class="string">"http://www.springframework.org/schema/mvc"</span></span><br><span class="line">       xmlns:xsi=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span><br><span class="line">       xsi:schemaLocation=<span class="string">"http://www.springframework.org/schema/aop</span></span><br><span class="line"><span class="string">http://www.springframework.org/schema/aop/spring-aop-4.0.xsd</span></span><br><span class="line"><span class="string">http://www.springframework.org/schema/beans</span></span><br><span class="line"><span class="string">http://www.springframework.org/schema/beans/spring-beans-4.0.xsd</span></span><br><span class="line"><span class="string">http://www.springframework.org/schema/context</span></span><br><span class="line"><span class="string">http://www.springframework.org/schema/context/spring-context-4.0.xsd</span></span><br><span class="line"><span class="string">http://www.springframework.org/schema/mvc</span></span><br><span class="line"><span class="string">http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd"</span>&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 指定Sping组件扫描的基本包路径 --&gt;</span><br><span class="line">    &lt;context:component-scan base-<span class="keyword">package</span>=<span class="string">"cn.edu.hust.activemq"</span> &gt;</span><br><span class="line">        &lt;!-- 这里只扫描Controller，不可重复加载Service --&gt;</span><br><span class="line">        &lt;context:include-filter type=<span class="string">"annotation"</span> expression=<span class="string">"org.springframework.stereotype.Controller"</span>/&gt;</span><br><span class="line">    &lt;/context:component-scan&gt;</span><br><span class="line">    &lt;!-- 启用MVC注解 --&gt;</span><br><span class="line">    &lt;mvc:annotation-driven /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- JSP视图解析器--&gt;</span><br><span class="line">    &lt;bean <span class="class"><span class="keyword">class</span></span>=<span class="string">"org.springframework.web.servlet.view.InternalResourceViewResolver"</span>&gt;</span><br><span class="line">        &lt;property name=<span class="string">"prefix"</span> value=<span class="string">"/"</span> /&gt;</span><br><span class="line">        &lt;property name=<span class="string">"suffix"</span> value=<span class="string">".jsp"</span> /&gt;</span><br><span class="line">        &lt;!--  定义其解析视图的order顺序为<span class="number">1</span> --&gt;</span><br><span class="line">        &lt;property name=<span class="string">"order"</span> value=<span class="string">"1"</span> /&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+<p>activemq的配置文件applicationContext-ActiveMQ.xml：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span>?&gt;</span><br><span class="line">&lt;beans xmlns=<span class="string">"http://www.springframework.org/schema/beans"</span></span><br><span class="line">       xmlns:xsi=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span><br><span class="line">       xmlns:amq=<span class="string">"http://activemq.apache.org/schema/core"</span></span><br><span class="line">       xmlns:context=<span class="string">"http://www.springframework.org/schema/context"</span></span><br><span class="line">       xmlns:mvc=<span class="string">"http://www.springframework.org/schema/mvc"</span></span><br><span class="line">       xsi:schemaLocation=<span class="string">"</span></span><br><span class="line"><span class="string">http://www.springframework.org/schema/beans</span></span><br><span class="line"><span class="string">http://www.springframework.org/schema/beans/spring-beans-4.1.xsd</span></span><br><span class="line"><span class="string">http://www.springframework.org/schema/context</span></span><br><span class="line"><span class="string">http://www.springframework.org/schema/context/spring-context-4.1.xsd</span></span><br><span class="line"><span class="string">http://www.springframework.org/schema/mvc</span></span><br><span class="line"><span class="string">http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd</span></span><br><span class="line"><span class="string">http://activemq.apache.org/schema/core</span></span><br><span class="line"><span class="string">http://activemq.apache.org/schema/core/activemq-core-5.12.1.xsd"</span>&gt;</span><br><span class="line"></span><br><span class="line">    &lt;context:component-scan base-<span class="keyword">package</span>=<span class="string">"cn.edu.hust.activemq"</span> /&gt;</span><br><span class="line">    &lt;mvc:annotation-driven /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;amq:connectionFactory id=<span class="string">"amqConnectionFactory"</span></span><br><span class="line">                           brokerURL=<span class="string">"tcp://127.0.0.1:61616"</span></span><br><span class="line">                           userName=<span class="string">"admin"</span></span><br><span class="line">                           password=<span class="string">"admin"</span> /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 配置JMS连接工厂 --&gt;</span><br><span class="line">    &lt;bean id=<span class="string">"connectionFactory"</span></span><br><span class="line">          <span class="class"><span class="keyword">class</span></span>=<span class="string">"org.springframework.jms.connection.CachingConnectionFactory"</span>&gt;</span><br><span class="line">        &lt;constructor-arg ref=<span class="string">"amqConnectionFactory"</span> /&gt;</span><br><span class="line">        &lt;property name=<span class="string">"sessionCacheSize"</span> value=<span class="string">"100"</span> /&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 定义消息队列（Queue） --&gt;</span><br><span class="line">    &lt;bean id=<span class="string">"demoQueueDestination"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"org.apache.activemq.command.ActiveMQQueue"</span>&gt;</span><br><span class="line">        &lt;!-- 设置消息队列的名字 --&gt;</span><br><span class="line">        &lt;constructor-arg&gt;</span><br><span class="line">            &lt;value&gt;first-queue&lt;/value&gt;</span><br><span class="line">        &lt;/constructor-arg&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 配置JMS模板（Queue），Spring提供的JMS工具类，它发送、接收消息。 --&gt;</span><br><span class="line">    &lt;bean id=<span class="string">"jmsTemplate"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"org.springframework.jms.core.JmsTemplate"</span>&gt;</span><br><span class="line">        &lt;property name=<span class="string">"connectionFactory"</span> ref=<span class="string">"connectionFactory"</span> /&gt;</span><br><span class="line">        &lt;property name=<span class="string">"defaultDestination"</span> ref=<span class="string">"demoQueueDestination"</span> /&gt;</span><br><span class="line">        &lt;property name=<span class="string">"receiveTimeout"</span> value=<span class="string">"10000"</span> /&gt;</span><br><span class="line">        &lt;!-- <span class="keyword">true</span>是topic，<span class="keyword">false</span>是queue，默认是<span class="keyword">false</span>，此处显示写出<span class="keyword">false</span> --&gt;</span><br><span class="line">        &lt;property name=<span class="string">"pubSubDomain"</span> value=<span class="string">"false"</span> /&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 配置消息队列监听者（Queue） --&gt;</span><br><span class="line">    &lt;bean id=<span class="string">"queueMessageListener"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"cn.edu.hust.activemq.filter.QueueMessageListener"</span> /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 显示注入消息监听容器（Queue），配置连接工厂，监听的目标是demoQueueDestination，监听器是上面定义的监听器 --&gt;</span><br><span class="line">    &lt;bean id=<span class="string">"queueListenerContainer"</span></span><br><span class="line">          <span class="class"><span class="keyword">class</span></span>=<span class="string">"org.springframework.jms.listener.DefaultMessageListenerContainer"</span>&gt;</span><br><span class="line">        &lt;property name=<span class="string">"connectionFactory"</span> ref=<span class="string">"connectionFactory"</span> /&gt;</span><br><span class="line">        &lt;property name=<span class="string">"destination"</span> ref=<span class="string">"demoQueueDestination"</span> /&gt;</span><br><span class="line">        &lt;property name=<span class="string">"messageListener"</span> ref=<span class="string">"queueMessageListener"</span> /&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+<p>配置的介绍在上面我已经讲过了，不明白的地方翻到上面去看看。</p>
+<p>web.xml文件的配置如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span>?&gt;</span><br><span class="line">&lt;web-app xmlns=<span class="string">"http://java.sun.com/xml/ns/javaee"</span></span><br><span class="line">         xmlns:xsi=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span><br><span class="line">         xsi:schemaLocation=<span class="string">"http://java.sun.com/xml/ns/javaee</span></span><br><span class="line"><span class="string">          http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"</span></span><br><span class="line">         version=<span class="string">"3.0"</span>&gt;</span><br><span class="line">&lt;display-name&gt;Archetype Created Web Application&lt;/display-name&gt;</span><br><span class="line">    &lt;context-param&gt;</span><br><span class="line">        &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;</span><br><span class="line">        &lt;param-value&gt;classpath:applicationContext-ActiveMQ.xml&lt;/param-value&gt;</span><br><span class="line">    &lt;/context-param&gt;</span><br><span class="line"></span><br><span class="line">    &lt;listener&gt;</span><br><span class="line">        &lt;listener-<span class="class"><span class="keyword">class</span>&gt;<span class="title">org</span>.<span class="title">springframework</span>.<span class="title">web</span>.<span class="title">context</span>.<span class="title">ContextLoaderListener</span>&lt;/<span class="title">listener</span>-<span class="title">class</span>&gt;</span></span><br><span class="line"><span class="class">    &lt;/<span class="title">listener</span>&gt;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">    &lt;<span class="title">servlet</span>&gt;</span></span><br><span class="line"><span class="class">        &lt;<span class="title">servlet</span>-<span class="title">name</span>&gt;<span class="title">springMVC</span>&lt;/<span class="title">servlet</span>-<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="class">        &lt;<span class="title">servlet</span>-<span class="title">class</span>&gt;<span class="title">org</span>.<span class="title">springframework</span>.<span class="title">web</span>.<span class="title">servlet</span>.<span class="title">DispatcherServlet</span>&lt;/<span class="title">servlet</span>-<span class="title">class</span>&gt;</span></span><br><span class="line"><span class="class">        &lt;<span class="title">init</span>-<span class="title">param</span>&gt;</span></span><br><span class="line"><span class="class">            &lt;<span class="title">param</span>-<span class="title">name</span>&gt;<span class="title">contextConfigLocation</span>&lt;/<span class="title">param</span>-<span class="title">name</span>&gt;</span></span><br><span class="line">            &lt;param-value&gt;classpath:applicationContext.xml&lt;/param-value&gt;</span><br><span class="line">        &lt;/init-param&gt;</span><br><span class="line">        &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;</span><br><span class="line">    &lt;/servlet&gt;</span><br><span class="line">    &lt;servlet-mapping&gt;</span><br><span class="line">        &lt;servlet-name&gt;springMVC&lt;/servlet-name&gt;</span><br><span class="line">        &lt;url-pattern&gt;/&lt;/url-pattern&gt;</span><br><span class="line">    &lt;/servlet-mapping&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 处理编码格式 --&gt;</span><br><span class="line">    &lt;filter&gt;</span><br><span class="line">        &lt;filter-name&gt;characterEncodingFilter&lt;/filter-name&gt;</span><br><span class="line">        &lt;filter-<span class="class"><span class="keyword">class</span>&gt;<span class="title">org</span>.<span class="title">springframework</span>.<span class="title">web</span>.<span class="title">filter</span>.<span class="title">CharacterEncodingFilter</span>&lt;/<span class="title">filter</span>-<span class="title">class</span>&gt;</span></span><br><span class="line"><span class="class">        &lt;<span class="title">init</span>-<span class="title">param</span>&gt;</span></span><br><span class="line"><span class="class">            &lt;<span class="title">param</span>-<span class="title">name</span>&gt;<span class="title">encoding</span>&lt;/<span class="title">param</span>-<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="class">            &lt;<span class="title">param</span>-<span class="title">value</span>&gt;<span class="title">UTF</span>-8&lt;/<span class="title">param</span>-<span class="title">value</span>&gt;</span></span><br><span class="line"><span class="class">        &lt;/<span class="title">init</span>-<span class="title">param</span>&gt;</span></span><br><span class="line"><span class="class">        &lt;<span class="title">init</span>-<span class="title">param</span>&gt;</span></span><br><span class="line"><span class="class">            &lt;<span class="title">param</span>-<span class="title">name</span>&gt;<span class="title">forceEncoding</span>&lt;/<span class="title">param</span>-<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="class">            &lt;<span class="title">param</span>-<span class="title">value</span>&gt;<span class="title">true</span>&lt;/<span class="title">param</span>-<span class="title">value</span>&gt;</span></span><br><span class="line"><span class="class">        &lt;/<span class="title">init</span>-<span class="title">param</span>&gt;</span></span><br><span class="line"><span class="class">    &lt;/<span class="title">filter</span>&gt;</span></span><br><span class="line"><span class="class">    &lt;<span class="title">filter</span>-<span class="title">mapping</span>&gt;</span></span><br><span class="line"><span class="class">        &lt;<span class="title">filter</span>-<span class="title">name</span>&gt;<span class="title">characterEncodingFilter</span>&lt;/<span class="title">filter</span>-<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="class">        &lt;<span class="title">url</span>-<span class="title">pattern</span>&gt;/*&lt;/<span class="title">url</span>-<span class="title">pattern</span>&gt;</span></span><br><span class="line"><span class="class">    &lt;/<span class="title">filter</span>-<span class="title">mapping</span>&gt;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">&lt;/<span class="title">web</span>-<span class="title">app</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>我们的工程目录结构如下：</p>
+<p><img src="http://img.blog.csdn.net/20170505081848348?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYTk1MzcxMzQyOA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>上service的代码：</p>
+<p>ProducerService.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.jms.Destination;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by Administrator on 2017/5/3.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ProducerService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">sendMessage</span><span class="params">(Destination destination,<span class="keyword">final</span> String msg)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">sendMessage</span><span class="params">(<span class="keyword">final</span> String msg)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ProducerServiceImpl.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cn.edu.hust.activemq.service.ProducerService;</span><br><span class="line"><span class="keyword">import</span> org.springframework.jms.core.JmsTemplate;</span><br><span class="line"><span class="keyword">import</span> org.springframework.jms.core.MessageCreator;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Service;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.annotation.Resource;</span><br><span class="line"><span class="keyword">import</span> javax.jms.Destination;</span><br><span class="line"><span class="keyword">import</span> javax.jms.JMSException;</span><br><span class="line"><span class="keyword">import</span> javax.jms.Message;</span><br><span class="line"><span class="keyword">import</span> javax.jms.Session;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by Administrator on 2017/5/3.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProducerServiceImpl</span> <span class="keyword">implements</span> <span class="title">ProducerService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Resource</span>(name=<span class="string">"jmsTemplate"</span>)</span><br><span class="line">    <span class="keyword">private</span> JmsTemplate jmsTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendMessage</span><span class="params">(Destination destination, <span class="keyword">final</span> String msg)</span> </span>&#123;</span><br><span class="line">        System.out.println(Thread.currentThread().getName()+<span class="string">" 向队列"</span>+destination.toString()+<span class="string">"发送消息---------&gt;"</span>+msg);</span><br><span class="line">        jmsTemplate.send(destination, <span class="keyword">new</span> MessageCreator() &#123;</span><br><span class="line">            <span class="function"><span class="keyword">public</span> Message <span class="title">createMessage</span><span class="params">(Session session)</span> <span class="keyword">throws</span> JMSException </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> session.createTextMessage(msg);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendMessage</span><span class="params">(<span class="keyword">final</span> String msg)</span> </span>&#123;</span><br><span class="line">        String destination = jmsTemplate.getDefaultDestinationName();</span><br><span class="line">        System.out.println(Thread.currentThread().getName()+<span class="string">" 向队列"</span>+destination+<span class="string">"发送消息--------&gt;"</span>+msg);</span><br><span class="line">        jmsTemplate.send(<span class="keyword">new</span> MessageCreator() &#123;</span><br><span class="line">            <span class="function"><span class="keyword">public</span> Message <span class="title">createMessage</span><span class="params">(Session session)</span> <span class="keyword">throws</span> JMSException </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> session.createTextMessage(msg);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ConsumerService.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.jms.Destination;</span><br><span class="line"><span class="keyword">import</span> javax.jms.TextMessage;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by Administrator on 2017/5/3.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ConsumerService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function">TextMessage <span class="title">receive</span><span class="params">(Destination destination)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ConsumerServiceImpl.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cn.edu.hust.activemq.service.ConsumerService;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.jms.Destination;</span><br><span class="line"><span class="keyword">import</span> javax.jms.TextMessage;</span><br><span class="line"><span class="keyword">import</span> org.springframework.jms.core.JmsTemplate;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Service;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.annotation.Resource;</span><br><span class="line"><span class="keyword">import</span> javax.jms.JMSException;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by Administrator on 2017/5/3.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConsumerServiceImpl</span> <span class="keyword">implements</span> <span class="title">ConsumerService</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Resource</span>(name=<span class="string">"jmsTemplate"</span>)</span><br><span class="line">    <span class="keyword">private</span> JmsTemplate jmsTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> TextMessage <span class="title">receive</span><span class="params">(Destination destination)</span></span>&#123;</span><br><span class="line">        TextMessage textMessage = (TextMessage) jmsTemplate.receive(destination);</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            System.out.println(<span class="string">"从队列"</span> + destination.toString() + <span class="string">"收到了消息：\t"</span></span><br><span class="line">                    + textMessage.getText());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (JMSException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> textMessage;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>QueueMessageListener.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.jms.JMSException;</span><br><span class="line"><span class="keyword">import</span> javax.jms.Message;</span><br><span class="line"><span class="keyword">import</span> javax.jms.MessageListener;</span><br><span class="line"><span class="keyword">import</span> javax.jms.TextMessage;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by Administrator on 2017/5/3.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">QueueMessageListener</span> <span class="keyword">implements</span> <span class="title">MessageListener</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onMessage</span><span class="params">(Message message)</span> </span>&#123;</span><br><span class="line">        TextMessage tm = (TextMessage) message;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">"QueueMessageListener监听到了文本消息：\t"</span></span><br><span class="line">                    + tm.getText());</span><br><span class="line">            <span class="comment">//do something ...</span></span><br><span class="line">        &#125; <span class="keyword">catch</span> (JMSException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来是controller:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cn.edu.hust.activemq.service.ConsumerService;</span><br><span class="line"><span class="keyword">import</span> cn.edu.hust.activemq.service.ProducerService;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMethod;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ResponseBody;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.annotation.Resource;</span><br><span class="line"><span class="keyword">import</span> javax.jms.Destination;</span><br><span class="line"><span class="keyword">import</span> javax.jms.TextMessage;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by Administrator on 2017/5/3.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MessageController</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Logger logger = LoggerFactory.getLogger(MessageController.class);</span><br><span class="line">    <span class="meta">@Resource</span>(name = <span class="string">"demoQueueDestination"</span>)</span><br><span class="line">    <span class="keyword">private</span> Destination destination;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//队列消息生产者</span></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> ProducerService producer;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//队列消息消费者</span></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> ConsumerService consumer;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/SendMessage"</span>, method = RequestMethod.GET)</span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">send</span><span class="params">(String msg)</span> </span>&#123;</span><br><span class="line">        logger.info(Thread.currentThread().getName()+<span class="string">"------------开始发送消息"</span>);</span><br><span class="line">        producer.sendMessage(msg);</span><br><span class="line">        logger.info(Thread.currentThread().getName()+<span class="string">"------------发送完毕"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(value= <span class="string">"/ReceiveMessage"</span>,method = RequestMethod.GET)</span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">receive</span><span class="params">()</span></span>&#123;</span><br><span class="line">        logger.info(Thread.currentThread().getName()+<span class="string">"------------开始接受消息"</span>);</span><br><span class="line">        TextMessage tm = consumer.receive(destination);</span><br><span class="line">        logger.info(Thread.currentThread().getName()+<span class="string">"------------接受完毕"</span>);</span><br><span class="line">        <span class="keyword">return</span> tm;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>代码就是上面这些，我们先启动acticemq server，然后下启动工程，在地址栏中输入：<a href="http://localhost:8080/SendMessage?msg=nihao，" target="_blank" rel="noopener">http://localhost:8080/SendMessage?msg=nihao，</a><br>代码很简单我就没有写前台页面啦，msg部分你可以随便写。回车之后我们去看一下控制台消息就发送出去了。</p>
+<p><img src="http://img.blog.csdn.net/20170505081958553?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYTk1MzcxMzQyOA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/activeMQ/activemq4/">消息中间件-activemq实战之整合Spring(四)</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Rickiyang 的个人博客">Rickiyang</a></p>
+  <p><span>发布时间:</span>2017年03月17日 - 01:02</p>
+  <p><span>最后更新:</span>2018年12月03日 - 20:36</p>
+  <p><span>原始链接:</span><a href="/activeMQ/activemq4/" title="消息中间件-activemq实战之整合Spring(四)">http://rickiyang.github.io/activeMQ/activemq4/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://rickiyang.github.io/activeMQ/activemq4/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
+</div>
+<script>
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({
+          title: "",
+          text: '复制成功',
+          icon: "success",
+          showConfirmButton: true
+          });
+    });
+    });
+</script>
+
+
+      
+    </div>
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #636363;font-size:14px;letter-spacing: 10px">本文结束啦<i class="fa fa-bell"></i>感谢您的阅读</div>
+    
+</div>
+
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/学习/" rel="tag"> <i class="”fa" fa-tag”=""></i> 学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Netty/Netty10/" rel="next" title="Netty学习(十)-Netty文件上传">
+                <i class="fa fa-chevron-left"></i> Netty学习(十)-Netty文件上传
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Netty/Netty9/" rel="prev" title="Netty学习(九)-Netty编解码技术之Marshalling">
+                Netty学习(九)-Netty编解码技术之Marshalling <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/adele.png" alt="Rickiyang">
+            
+              <p class="site-author-name" itemprop="name">Rickiyang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/rickiyang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:medee1320@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/a953713428" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-google"></i>CSDN</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="953713428" target="_blank" title="QQ">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>QQ</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Spring对jms的支持"><span class="nav-number">1.</span> <span class="nav-text">1. Spring对jms的支持</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Rickiyang</span>
+
+  
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+-->
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共113.7k字</span>
+</div>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https'){
+   bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else{
+  bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <!-- 页面点击小红心 -->
+  <script type="text/javascript" src="/js/src/love.js"></script>
+  <!---->
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

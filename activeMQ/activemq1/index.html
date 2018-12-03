@@ -1,0 +1,1647 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Microsoft YaHei:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|Menlo:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/adele.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/adele.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/adele.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/adele.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="学习,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Rickiyang's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="在一个公司创立初期，他可能只有几个应用，系统之间的关联也不是那么大，A系统调用B系统就直接调用B提供的API接口；后来这个公司做大了，他一步步发展有了几十个系统，这时候A系统要调用B系统的接口，但是B系统前几天刚改了一下接口A并不知情。所以A发现调不通于是给B系统管理员打电话，小王啊，改了接口咋不告诉我呢。我还以为我们系统出错了呢。弄得小王一顿尴尬，我这自己改个东西还的通知这个通知那个的。 ###">
+<meta name="keywords" content="学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="消息中间件和JMS介绍(一)">
+<meta property="og:url" content="http://rickiyang.github.io/activeMQ/activemq1/index.html">
+<meta property="og:site_name" content="Rickiyang&#39;s blog">
+<meta property="og:description" content="在一个公司创立初期，他可能只有几个应用，系统之间的关联也不是那么大，A系统调用B系统就直接调用B提供的API接口；后来这个公司做大了，他一步步发展有了几十个系统，这时候A系统要调用B系统的接口，但是B系统前几天刚改了一下接口A并不知情。所以A发现调不通于是给B系统管理员打电话，小王啊，改了接口咋不告诉我呢。我还以为我们系统出错了呢。弄得小王一顿尴尬，我这自己改个东西还的通知这个通知那个的。 ###">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://i.imgur.com/Y6vUXNA.png">
+<meta property="og:image" content="http://i.imgur.com/rVHHyTG.jpg">
+<meta property="og:image" content="http://i.imgur.com/RBm4pWV.jpg">
+<meta property="og:image" content="http://i.imgur.com/JolUiw6.jpg">
+<meta property="og:image" content="http://i.imgur.com/uSYlT5P.jpg">
+<meta property="og:updated_time" content="2018-12-03T12:36:52.154Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="消息中间件和JMS介绍(一)">
+<meta name="twitter:description" content="在一个公司创立初期，他可能只有几个应用，系统之间的关联也不是那么大，A系统调用B系统就直接调用B提供的API接口；后来这个公司做大了，他一步步发展有了几十个系统，这时候A系统要调用B系统的接口，但是B系统前几天刚改了一下接口A并不知情。所以A发现调不通于是给B系统管理员打电话，小王啊，改了接口咋不告诉我呢。我还以为我们系统出错了呢。弄得小王一顿尴尬，我这自己改个东西还的通知这个通知那个的。 ###">
+<meta name="twitter:image" content="http://i.imgur.com/Y6vUXNA.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://rickiyang.github.io/activeMQ/activemq1/">
+
+
+
+
+
+  <title>消息中间件和JMS介绍(一) | Rickiyang's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Rickiyang's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://rickiyang.github.io/activeMQ/activemq1/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Rickiyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/adele.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rickiyang's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">消息中间件和JMS介绍(一)</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-17T01:02:00+08:00">
+                2017-03-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/activeMQ/" itemprop="url" rel="index">
+                    <span itemprop="name">activeMQ</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  6.8k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  25
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在一个公司创立初期，他可能只有几个应用，系统之间的关联也不是那么大，A系统调用B系统就直接调用B提供的API接口；后来这个公司做大了，他一步步发展有了几十个系统，这时候A系统要调用B系统的接口，但是B系统前几天刚改了一下接口A并不知情。所以A发现调不通于是给B系统管理员打电话，小王啊，改了接口咋不告诉我呢。我还以为我们系统出错了呢。弄得小王一顿尴尬，我这自己改个东西还的通知这个通知那个的。</p>
+<p>####<strong> 1  中间件介绍</strong><br>我们看到上面的故事中的小王他真的是很累啊。自己修改一个接口还的给所有调用接口的系统管理员打电话告知API发生变化。说到这个问题啊，还是的说我们系统之间的耦合。对于一个小公司来说是无所谓，但是对于一个大公司这种情况简直是致命的。于是最近几年这些越来越大的互联网公司在这种挑战下提出了中间件这个概念：中间件在操作系统软件，网络和数据库之上，应用软件之下，总的作用是为处于自己上层的软件提供灵活的开发环境。因而中间件是指一类软件，是基于分布式处理的软件，最突出的特点是其网络通信功能。也可认为中间件是位于平台和应用之间的通用服务，这些服务具有标准的程序接口和协议。针对不同的操作系统和硬件平台，可以有符合接口和协议的多种实现。</p>
+<p><img src="http://i.imgur.com/Y6vUXNA.png" alt=""></p>
+<p>#####<strong> 1.1 中间件分类</strong><br>中间件可以分为六类：</p>
+<p>1) 终端仿真/屏幕转换</p>
+<p>2) 数据访问中间件（UDA）</p>
+<p>3) 远程过程调用中间件（RPC）</p>
+<p>4) 消息中间件（MOM）</p>
+<p>5) 交易中间件（TPM）</p>
+<p>6) 对象中间件</p>
+<p>然而在实际应用中，一般将中间件分为两大类：</p>
+<p>一类是底层中间件，用于支撑单个应用系统或解决一类问题，包括交易中间件、应用服务器、消息中间件、数据访问中间件等；</p>
+<p>另一类是高层中间件，更多的用于系统整合，包括企业应用集成中间件、工作流中间件、门户中间件等，他们通常会与多个应用系统打交道，在系统中层次较高，并大多基于前一类的底层中间件运行。</p>
+<p><strong>终端仿真/屏幕转换</strong></p>
+<p>此类中间件用于实现客户机图形用户接口与已有的字符接口方式的服务器应用程序之间的互操作，应用与早期的大型机系统，现在已很少使用。</p>
+<p><strong>数据访问中间件</strong></p>
+<p>此类中间件是为了建立数据应用资源互操作的模式，对异构环境下的数据库或文件系统实现联接。</p>
+<p><strong>远程过程调用中间件</strong></p>
+<p>此类中间件可以使开发人员在需要时调用位于远端服务器上的过程，屏蔽了在调用过程中的通信细节。一个应用程序使用RPC来远程执行一个位于不同地址空间里的过程，在效果上看和执行本地调用相同。</p>
+<p><strong>交易中间件</strong></p>
+<p>此类中间件是专门针对联机交易系统而设计的。联机交易系统需要处理大量并发进程，处理并发涉及到操作系统，文件系统，编程语言，数据通信，数据库系统，系统管理，应用软件等。而交易中间件根据分布式交易处理的标准及参考模型，对资源管理，交易管理和应用进行了实现，从而使得基于交易中间件开发应用程序更为简单。交易中间件基本上只适用于联机交易系统，是一种较为专用的中间件。</p>
+<p><strong>消息中间件</strong></p>
+<p>此类中间件是指利用高效可靠的消息传递机制进行平台无关的数据交流，并基于数据通信来进行分布式系统的集成。通过提供消息传递和消息排队模型，它可以在分布式环境下扩展进程间的通信。</p>
+<p>消息中间件可以即支持同步方式，又支持异步方式。异步中间件比同步中间件具有更强的容错性，在系统故障时可以保证消息的正常传输。异步中间件技术又分为两类：广播方式和发布/订阅方式。由于发布/订阅方式可以指定哪种类型的用户可以接受哪种类型的消息，更加有针对性，事实上已成为异步中间件的非正式标准。目前主流的消息中间件产品有IBM的MQSeries，BEA的MessageQ和Sun的JMS等[1]。</p>
+<p><strong>对象中间件</strong></p>
+<p>传统的对象技术通过封装、继承及多态提供了良好的代码重用功能。但这些对象只存在与一个程序中，外界并不知道它们的存在，也无法访问它们。对象中间件提供了一个标准的构建框架，能使不同厂家的软件通过不同的地址空间，网络和操作系统实现交互访问。对象中间件的目标是为软件用户及开发者提供一种应用级的即插即用的互操作性。目前主流的对象中间件有OMG的CORBA，Microsoft 的COM以及IBM的SOM，Sun的RMI等。</p>
+<p><strong>中间件的特点</strong></p>
+<p>一般来讲，中间件具有以下一些特点：满足大量应用的需求，运行于多种硬件和操作系统平台，支持分布式计算，支持标准接口和协议。开发人员通过调用中间件提供的大量API，实现异构环境的通信，从而屏蔽异构系统中复杂的操作系统和网络协议。</p>
+<p>由于标准接口对于可移植性和标准协议对于互操作性的重要性，中间件已成为许多标准化工作的主要部分。分布式应用软件借助中间件可以在不同的技术之间共享资源。</p>
+<p>总的来说，中间件屏蔽了底层操作系统的复杂性，使程序开发人员面对一个简单而统一的开发环境，减少了程序设计的复杂性，将注意力集中与自己的业务上，不必再为程序在不同软件系统上的移植而重复工作，从而大大减少了技术上的负担。</p>
+<h4 id="2-消息中间件"><a href="#2-消息中间件" class="headerlink" title=" 2  消息中间件"></a><strong> 2  消息中间件</strong></h4><p>面向消息的中间件（MOM），提供了以松散耦合的灵活方式集成应用程序的一种机制。它们提供了基于存储和转发的应用程序之间的异步数据发送，即应用程序彼此不直接通信，而是与作为中介的MOM通信。MOM提供了有保证的消息发送（至少是在尽可能地做到这一点），应用程序开发人员无需了解远程过程调用（RPC）和网络/通信协议的细节。</p>
+<p>消息队列技术是分布式应用间交换信息的一种技术。消息队列可驻留在内存或磁盘上,队列存储消息直到它们被用程序读走。通过消息队列，应用程序可独立地执行–它们不需要知道彼此的位置、或在继续执行前不需要等待接收程序接收此消息。在分布式计算环境中，为了集成分布式应用，开发者需要对异构网络环境下的分布式应用提供有效的通信手段。为了管理需要共享的信息，对应用提供公共的信息交换机制是重要的。设计分布式应用的方法主要有：远程过程调用(RPC)–分布式计算环境(DCE)的基础标准成分之一；对象事务监控(OTM)–基于CORBA的面向对象工业标准与事务处理(TP)监控技术的组合；消息队列(MessageQueue)–构造分布式应用的松耦合方法。</p>
+<p>MOM将消息路由给应用程B，这样消息就可以存在于完全不同的计算机上，MOM负责处理网络通信。如果网络连接不可用，MOM会存储消息，直到连接变得可用时，再将消息转发给应用程序B。</p>
+<p>灵活性的另一方面体现在，当应用程序A发送其消息时，应用程序B甚至可以不处于执行状态。MOM将保留这个消息，直到应用程序B开始执行并试着检索消息为止。这还防止了应用程序A因为等待应用程序B检索消息而出现阻塞。这种异步通信要求应用程序的设计与现在大多数应用程序不同，不过，对于时间无关或并行处理，它可能是一个极其有用的方法。</p>
+<h5 id="2-1-消息中间件的传递模式"><a href="#2-1-消息中间件的传递模式" class="headerlink" title=" 2.1 消息中间件的传递模式"></a><strong> 2.1 消息中间件的传递模式</strong></h5><p>消息中间件一般有两种传递模式：点对点模式(P2P)和发布-订阅模式(Pub/Sub)。</p>
+<p><strong>点对点模式</strong></p>
+<p>Point-to-Point(P2P)我们很容易理解，即生产者和消费者之间的消息往来。<br><img src="http://i.imgur.com/rVHHyTG.jpg" alt=""></p>
+<p>每个消息都被发送到特定的消息队列，接收者从队列中获取消息。队列保留着消息，直到他们被消费或超时。</p>
+<p>P2P的特点：</p>
+<ol>
+<li>每个消息只有一个消费者（Consumer）(即一旦被消费，消息就不再在消息队列中)；</li>
+<li>发送者和接收者之间在时间上没有依赖性，也就是说当发送者发送了消息之后，不管接收者有没有正在运行，它不会影响到消息被发送到队列；</li>
+<li>接收者在成功接收消息之后需向队列应答成功。</li>
+</ol>
+<p><strong>发布-订阅模式(Pub/Sub)</strong></p>
+<p>我们可以联想到卖报纸的过程：印刷厂把当天的报纸印好然后送到邮递员手里，邮递员风雨兼程的把报纸送到每一位订阅者手里。由此我们可以看到发布-订阅模式的一些特点：</p>
+<ol>
+<li>每个消息可以有多个消费者；</li>
+<li>发布者和订阅者之间有时间上的依赖性。针对某个主题（Topic）的订阅者，它必须创建一个订阅者之后，才能消费发布者的消息，而且为了消费消息，订阅者必须保持运行的状态；</li>
+</ol>
+<p><img src="http://i.imgur.com/RBm4pWV.jpg" alt=""></p>
+<p>由上介绍我们可以看出这两种模式各有千秋，如果你需要点对点的发送消息那么使用P2P更专注，如果你是群发消息，显然pub/sub模式更适合。</p>
+<h4 id="3-基于多种协议的消息传递机制"><a href="#3-基于多种协议的消息传递机制" class="headerlink" title=" 3 基于多种协议的消息传递机制"></a><strong> 3 基于多种协议的消息传递机制</strong></h4><p>目前市场上对于网络消息传递的协议版本很多，不同的协议有不同的规范，我们在使用时要比对实现不同协议的产品。下面我们看一下目前主流的消息传递协议：</p>
+<h5 id="3-1-AMQP协议"><a href="#3-1-AMQP协议" class="headerlink" title=" 3.1 AMQP协议"></a><strong> 3.1 AMQP协议</strong></h5><p>AMQP，即Advanced Message Queuing Protocol，高级消息队列协议，是应用层协议的一个开放标准，为面向消息的中间件设计。AMQP协议是一种二进制协议，提供客户端应用与消息中间件之间异步、安全、高效地交互。</p>
+<p>AMQP是一个应用层的异步消息传递协议，为面向消息的中间件而设计。其目的是通过协议使应用模块之间或应用程序与中间件等进行充分解耦。而在设计初期，AMQP的原始用途只是为金融界提供一个可以彼此协作的消息协议。现在已经有相当一部分遵循AMQP的服务器和客户端供使用。其中RabbitMQ是AMQP的一款开源标准实现。</p>
+<p>支持所有消息中间件的功能：消息交换、文件传输、流传输、远程进程调用等。</p>
+<p>AMQP的服务器(Broker)主要由交换器、消息、队列组成。Broker的主要功能是消息的路由和缓存。对于需要保障可靠性的消息，RabbitMQ可以将消息、队列和交换器的数据写入本地硬盘。而对于响应时间敏感的消息，RabbitMQ可以不配置持久化机制。</p>
+<p>解决的问题：</p>
+<p>1）信息的发送者和接收者如何维持这个连接，如果一方的连接中断，这期间的数据如何防止丢失？</p>
+<p> 2）如何降低发送者和接收者的耦合度？</p>
+<p> 3）如何让Priority高的接收者先接到数据？</p>
+<p> 4）如何做到load balance？有效均衡接收者的负载？</p>
+<p> 5）如何有效的将数据发送到相关的接收者？也就是说将接收者subscribe 不同的数据，如何做有效的filter。</p>
+<p> 6）如何做到可扩展，甚至将这个通信模块发到cluster上？</p>
+<p> 7）如何保证接收者接收到了完整，正确的数据？</p>
+<p> AMQP协议解决了以上的问题，而RabbitMQ实现了AMQP。</p>
+<h5 id="3-2-STOMP协议"><a href="#3-2-STOMP协议" class="headerlink" title=" 3.2 STOMP协议"></a><strong> 3.2 STOMP协议</strong></h5><p>STOMP即Simple (or Streaming) Text Orientated Messaging Protocol，简单(流)文本定向消息协议。</p>
+<p>它提供了一个可互操作的连接格式，允许STOMP客户端与任意STOMP消息代理（Broker）进行交互。STOMP协议由于设计简单，易于开发客户端，因此在多种语言和多种平台上得到广泛地应用。</p>
+<p>STOMP协议的前身是TTMP协议（一个简单的基于文本的协议），专为消息中间件设计。</p>
+<p>STOMP是一个非常简单和容易实现的协议，其设计灵感源自于HTTP的简单性。尽管STOMP协议在服务器端的实现可能有一定的难度，但客户端的实现却很容易。例如，可以使用Telnet登录到任何的STOMP代理，并与STOMP代理进行交互。</p>
+<p>STOMP是除AMQP开放消息协议之外地另外一个选择, 实现了被用在JMS brokers中特定的有线协议，比如OpenWire。它仅仅是实现通用消息操作中的一部分，并非想要覆盖全面的消息API。</p>
+<p>STOMP server就好像是一系列的目的地, 消息会被发送到这里。STOMP协议把目的地当作不透明的字符串，其语法是服务端具体的实现。 此外STOMP没有定义目的地的交付语义是什么，语义的目的地可以从服务器到服务器，甚至从目的地到目的地。这使得服务器有可创造性的语义，去支持STOMP。</p>
+<p>STOMP client的用户代理可以充当两个角色(可能同时)： </p>
+<ol>
+<li>作为生产者，通过SENDframe发送消息到server</li>
+<li>作为消费者，发送SUBSCRIBEframe到目的地并且通过MESSAGEframe从server获取消息。</li>
+</ol>
+<p>STOMP协议工作于TCP协议之上，使用了下列命令：</p>
+<ul>
+<li><p>SEND 发送</p>
+</li>
+<li><p>SUBSCRIBE 订阅</p>
+</li>
+<li><p>UNSUBSCRIBE 退订</p>
+</li>
+<li><p>BEGIN 开始</p>
+</li>
+<li><p>COMMIT 提交</p>
+</li>
+<li><p>ABORT 取消</p>
+</li>
+<li><p>ACK 确认</p>
+</li>
+<li><p>DISCONNECT 断开</p>
+</li>
+</ul>
+<p>目前最流行的STOMP消息代理是Apache ActiveMQ。</p>
+<h5 id="3-3-JMS协议"><a href="#3-3-JMS协议" class="headerlink" title=" 3.3 JMS协议"></a><strong> 3.3 JMS协议</strong></h5><p>JMS是Java Message Service的缩写，即Java消息服务。</p>
+<p>在大型互联网中，我们采用消息中间件可以进行应用之间的解耦以及操作的异步，这是消息中间件两个最基础的特点，也正是我们所需要的。在此基础上，我们着重思考的是消息的顺序保证、扩展性、可靠性、业务操作与消息发送一致性，以及多集群订阅者等方面的问题。当然，这些我们要思考的东西，JMS都已经想到了，先看下JMS能帮开发者做什么：</p>
+<p><strong>1、定义一组消息公用概念和实用工具</strong></p>
+<p>所有Java应用程序都可以使用JMS中定义的API去完成消息的创建、接收与发送，任何实现了JMS标准的MOM都可以作为消息的中介，完成消息的存储转发</p>
+<p><strong>2、最大化消息应用程序的可移植性</strong></p>
+<p>MOM提供了有保证的消息发送，应用程序开发人员无需了解远程过程调用（RPC）和网络/通信协议的细节，提供了程序的可移植性</p>
+<p><strong>3、最大化降低应用程序与应用程序之间的耦合度</strong></p>
+<p>由于MOM的存在，各个应用程序只关心和MOM之间如何进行消息的接收与发送，而无须关注MOM的另一边，其他程序是如何接收和发送的</p>
+<p>JMS定义了一套通用的接口和相关语义，提供了诸如持久、验证和事务的消息服务，它最主要的目的是允许Java应用程序访问现有的消息中间件。JMS规范没有指定在消息节点间所使用的通讯底层协议，来保证应用开发人员不用与其细节打交道，一个特定的JMS实现可能提供基于TCP/IP、HTTP、UDP或者其它的协议。</p>
+<p>由于没有统一的规范和标准，基于消息中间件的应用不可移植，不同的消息中间件也不能互操作，这大大阻碍了消息中间件的发展。 Java Message Service(JMS, Java消息服务)是SUN及其伙伴公司提出的旨在统一各种消息中间件系统接口的规范。</p>
+<p>目前许多厂商采用并实现了JMS API，现在，JMS产品能够为企业提供一套完整的消息传递功能，目前我们看到的比较流行的JMS商业软件和开源产品：WebLogic、SonicMQ、ActiveMQ、OpenJMS都是基于JMS规范的实现。</p>
+<h4 id="4-JMS介绍"><a href="#4-JMS介绍" class="headerlink" title=" 4 JMS介绍"></a><strong> 4 JMS介绍</strong></h4><p>在 JMS 之前，每一家 MOM 厂商都用专有 API 为应用程序提供对其产品的访问，通常可用于许多种语言，其中包括 Java 语言。JMS 通过 MOM 产品为 Java 程序提供了一个发送和接收消息的标准的、便利的方法。用 JMS 编写的程序可以在任何实现 JMS 标准的 MOM 上运行。</p>
+<p>JMS 可移植性的关键在于：JMS API 是由 Sun 作为一组接口而提供的。提供了 JMS 功能的产品是通过提供一个实现这些接口的提供者来做到这一点的。开发人员可以通过定义一组消息和一组交换这些消息的客户机应用程序建立 JMS 应用程序。</p>
+<p>JMS 支持两种消息类型P2P 和Pub/Sub，在JMS消息模型中，根据点对点模式和发布/订阅模式，这些要素由扩展出了各自的内容：</p>
+<table><br>        <tr><br>            <th>JMS标准</th><br>            <th>点对点模式</th><br> <th>发布/订阅模式</th><br>        </tr><br>        <tr><br>            <th>ConnectionFactory</th><br>            <th>QueueConnectionFactory</th><br> <th>TopicConnectionFactory</th><br>        </tr><br>       <tr><br>            <th>Connection</th><br>            <th>QueueConnection</th><br> <th>TopicConnection</th><br>        </tr><br><tr><br>            <th>Destination</th><br>            <th>Queue</th><br> <th>Topic</th><br>        </tr><br><tr><br>            <th>Session</th><br>            <th>QueueSession</th><br> <th>TopicSession</th><br>        </tr><br><tr><br>            <th>MessageProducer</th><br>            <th>QueueSender</th><br> <th>TopicPublisher</th><br>        </tr><br><tr><br>            <th>MessageConsumer</th><br>            <th>QueueReceiver</th><br> <th>TopicSubscriber</th><br>        </tr><br>    </table>
+
+<p>JMS为发开者提供了很多的要素，看一下比较重要的几个：</p>
+<table><br>        <tr><br>            <th>要    素</th><br>            <th>作    用</th><br>        </tr><br>        <tr><br>            <th>Destination</th><br>            <th>表示消息所走通道的目标定义，用来定义消息从发送端发出后要走的通道，而不是接收方。Destination属于管理类对象</th><br>        </tr><br>        <tr><br>            <th>ConnectionFactory</th><br>            <th>顾名思义，用于创建连接对象，ConnectionFactory属于管理类的对象</th><br>        </tr><br>        <tr><br>            <th>Connection</th><br>            <th>连接接口，所负责的重要工作时创建Session</th><br>        </tr><br>         <tr><br>            <th>Session</th><br>            <th>会话接口，这是一个非常重要的对象，消息发送者、消息接收者以及消息对象本身，都是通过这个会话对象创建的</th><br>        </tr><br> <tr><br>            <th>MessageConsumer</th><br>            <th>消息的消费者，也就是订阅消息并处理消息的对象</th><br>        </tr><br> <tr><br>            <th>MessageProducer</th><br>            <th>消息的生产者，也就是用来发送消息的对象</th><br>        </tr><br><tr><br>            <th>XXXMessage</th><br>            <th>指各种类型的消息对象，包括ByteMesage、ObjectMessage、StreamMessage和TextMessage这5种</th><br>        </tr><br>    </table>
+
+<p><strong>JMS消息模型</strong></p>
+<p>JMS 消息由以下几部分组成：消息头，属性，消息体。</p>
+<ol>
+<li>消息头（header）：JMS消息头包含了许多字段，它们是消息发送后由JMS提供者或消息发送者产生，用来表示消息、设置优先权和失效时间等等，并且为消息确定路由。</li>
+<li>属性（property）：由消息发送者产生，用来添加删除消息头以外的附加信息。</li>
+<li>消息体（body）：由消息发送者产生，JMS中定义了5种消息体：ByteMessage、MapMessage、ObjectMessage、StreamMessage和TextMessage。</li>
+</ol>
+<p><strong>JMS编程模型</strong></p>
+<p>一般来说我们在开发基于JMS协议的客户端由一下几部构成：</p>
+<p>1) 用JNDI 得到ConnectionFactory对象；</p>
+<p>2) 用JNDI 得到目标队列或主题对象，即Destination对象；</p>
+<p>3) 用ConnectionFactory创建Connection 对象；</p>
+<p>4) 用Connection对象创建一个或多个JMS Session；</p>
+<p>5) 用Session 和Destination 创建MessageProducer和MessageConsumer；</p>
+<p>6) 通知Connection 开始传递消息。</p>
+<p>因为jms需要使用到J2EE服务器，我们平常用的tomcat属于J2SE类型的服务器，常见的J2EE服务器包括：Geronimo,JBoss 4, GlassFish,WebLogic 。我们在这里使用glassfish 容器。安装和使用有很多教程，在此就不贴了。首先我们进去glassfish的控制台，设置一下我们的发送者和接受者对象：</p>
+<p><img src="http://i.imgur.com/JolUiw6.jpg" alt=""></p>
+<p><img src="http://i.imgur.com/uSYlT5P.jpg" alt=""></p>
+<p>下面我们用oracle提供的jms接口来写一个服务端，我们先来写一个P2P模式的例子：</p>
+<p>MySender.java</p>
+<pre><code>import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import javax.naming.*;
+import javax.jms.*;
+
+public class MySender {
+    public static void main(String[] args) {
+        try
+        {   //1)创建一个connection
+            InitialContext ctx=new InitialContext();
+            QueueConnectionFactory f=(QueueConnectionFactory)ctx.lookup(&quot;myQueueConnectionFactory&quot;);
+            QueueConnection con=f.createQueueConnection();
+            con.start();
+            //2) 创建一个会话接口
+            QueueSession ses=con.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
+            //3) 获取会话接口对象
+            Queue t=(Queue)ctx.lookup(&quot;myQueue&quot;);
+            //4)创建一个发送者对象
+            QueueSender sender=ses.createSender(t);
+            //5) 创建一个消息对象
+            TextMessage msg=ses.createTextMessage();
+
+            //6) 把我们的消息写入msg对象中
+            BufferedReader b=new BufferedReader(new InputStreamReader(System.in));
+            while(true)
+            {
+                System.out.println(&quot;Enter Msg, end to terminate:&quot;);
+                String s=b.readLine();
+                if (s.equals(&quot;end&quot;))
+                    break;
+                msg.setText(s);
+                //7) 发送消息
+                sender.send(msg);
+                System.out.println(&quot;Message successfully sent.&quot;);
+            }
+            //8) 关闭连接
+            con.close();
+        }catch(Exception e){System.out.println(e);}
+    }
+}
+</code></pre><p>MyReceiver.java</p>
+<pre><code>import javax.jms.*;
+import javax.naming.InitialContext;
+
+public class MyReceiver {
+    public static void main(String[] args) {
+        try{
+            //1) 创建一个connection
+            InitialContext ctx=new InitialContext();
+            QueueConnectionFactory f=(QueueConnectionFactory)ctx.lookup(&quot;myQueueConnectionFactory&quot;);
+            QueueConnection con=f.createQueueConnection();
+            con.start();
+            //2) 创建一个会话接口
+            QueueSession ses=con.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
+            //3) 获取会话接口对象
+            Queue t=(Queue)ctx.lookup(&quot;myQueue&quot;);
+            //4)创建一个发送者对象
+            QueueReceiver receiver=ses.createReceiver(t);
+
+            //5) 创建一个消监听对象
+            MyListener listener=new MyListener();
+
+            //6) 将监听器注册到receiver，用来监听receiver
+            receiver.setMessageListener(listener);
+
+            System.out.println(&quot;Receiver1 is ready, waiting for messages...&quot;);
+            System.out.println(&quot;press Ctrl+c to shutdown...&quot;);
+            while(true){
+                Thread.sleep(1000);
+            }
+        }catch(Exception e){System.out.println(e);}
+    }
+
+}
+</code></pre><p>MyListener.java</p>
+<pre><code>import javax.jms.*;
+
+public class MyListener implements MessageListener {
+
+    public void onMessage(Message m) {
+        try{
+            TextMessage msg=(TextMessage)m;
+
+            System.out.println(&quot;following message is received:&quot;+msg.getText());
+        }catch(JMSException e){System.out.println(e);}
+    }
+}
+</code></pre><p>Pub/Sub模式：</p>
+<p>MySender.java</p>
+<pre><code>import javax.jms.*;
+import javax.naming.InitialContext;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+public class MySender {
+    public static void main(String[] args) {
+        try
+        {   //1)创建一个connection
+            InitialContext ctx=new InitialContext();
+            TopicConnectionFactory f=(TopicConnectionFactory)ctx.lookup(&quot;myTopicConnectionFactory&quot;);
+            TopicConnection con=f.createTopicConnection();
+            con.start();
+            //2) 创建一个会话接口
+            TopicSession ses=con.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
+            //3) 获取会话接口对象
+            Topic t=(Topic)ctx.lookup(&quot;myTopic&quot;);
+            //4)创建一个发送者对象
+            TopicPublisher publisher=ses.createPublisher(t);
+            //5) 创建一个消息对象
+            TextMessage msg=ses.createTextMessage();
+
+            //6) 把我们的消息写入msg对象中
+            BufferedReader b=new BufferedReader(new InputStreamReader(System.in));
+            while(true)
+            {
+                System.out.println(&quot;Enter Msg, end to terminate:&quot;);
+                String s=b.readLine();
+                if (s.equals(&quot;end&quot;))
+                    break;
+                msg.setText(s);
+                //7) 发送消息
+                publisher.publish(msg);
+                System.out.println(&quot;Message successfully sent.&quot;);
+            }
+            //8) 关闭连接
+            con.close();
+        }catch(Exception e){System.out.println(e);}
+    }
+}
+</code></pre><p>MyReceiver.java</p>
+<pre><code>import javax.jms.*;
+import javax.naming.InitialContext;
+
+public class MyReceiver {
+    public static void main(String[] args) {
+        try{
+            //1) 创建一个connection
+            InitialContext ctx=new InitialContext();
+            TopicConnectionFactory f=(TopicConnectionFactory)ctx.lookup(&quot;myTopicConnectionFactory&quot;);
+            TopicConnection con=f.createTopicConnection();
+            //2) 创建一个会话接口
+            TopicSession ses=con.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
+            //3) 获取会话接口对象
+            Topic t=(Topic)ctx.lookup(&quot;myTopic&quot;);
+            //4)创建一个发送者对象
+            TopicSubscriber receiver=ses.createSubscriber(t);
+
+            //5) 创建一个消监听对象
+            MyListener listener=new MyListener();
+
+            //6) 将监听器注册到receiver，用来监听receiver
+            receiver.setMessageListener(listener);
+
+            System.out.println(&quot;Receiver1 is ready, waiting for messages...&quot;);
+            System.out.println(&quot;press Ctrl+c to shutdown...&quot;);
+            while(true){
+                Thread.sleep(1000);
+            }
+        }catch(Exception e){System.out.println(e);}
+    }
+
+}
+</code></pre><p>MyListener.java</p>
+<pre><code>import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.MessageListener;
+import javax.jms.TextMessage;
+
+public class MyListener implements MessageListener {
+
+    public void onMessage(Message m) {
+        try{
+            TextMessage msg=(TextMessage)m;
+
+            System.out.println(&quot;following message is received:&quot;+msg.getText());
+        }catch(JMSException e){System.out.println(e);}
+    }
+}
+</code></pre><p>上面两个案例我们运行可以看到消息成功的发送出去了。熟悉了JMS的语法，使用起来还是很简单。</p>
+<p>上面我们介绍到了JMS，JMS是一个用于提供消息服务的技术规范，它制定了在整个消息服务提供过程中的所有数据结构和交互流程。JMS即Java消息服务（Java Message Service）应用程序接口，是一个Java平台中关于面向消息中间件（MOM）的API。　Java消息服务是一个与具体平台无关的API，绝大多数MOM提供商都对JMS提供支持。</p>
+<p>下面我们引入另一个概念：MQ（Message Queue）。</p>
+<p>应用程序通过写和检索出入列队的针对应用程序的数据（消息）来通信，而无需专用连接来链接它们。消息传递指的是程序之间通过在消息中发送数据进行通信，而不是通过直接调用彼此来通信，直接调用通常是用于诸如远程过程调用的技术。排队指的是应用程序通过队列来通信。队列的使用除去了接收和发送应用程序同时执行的要求。</p>
+<p>MQ和JMS类似，但不同的是JMS是SUN Java消息中间件服务的一个标准和API定义，而MQ则是遵循了AMQP协议的具体实现和产品。JMS是一个用于提供消息服务的技术规范，它制定了在整个消息服务提供过程中的所有数据结构和交互流程。而MQ则是消息队列服务，是面向消息中间件（MOM）的最终实现，是真正的服务提供者；MQ的实现可以基于JMS，也可以基于其他规范或标准。MQ 有很多产品：IBM的，rabbitmq, activemq 等，rabbitmq 只支持点对点的方式。所以没有完全实现JMS的标准，所以说它不是一个JMS产品，而rabitmq 和Jobss JMS 它们实现了JMS的各项标准，是开源的JMS产品。目前完全实现JMS协议的mq是activemq，所以接下来我们先重点看一下activemq。从activemq入手去探索javaEE的世界。</p>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/activeMQ/activemq1/">消息中间件和JMS介绍(一)</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Rickiyang 的个人博客">Rickiyang</a></p>
+  <p><span>发布时间:</span>2017年03月17日 - 01:02</p>
+  <p><span>最后更新:</span>2018年12月03日 - 20:36</p>
+  <p><span>原始链接:</span><a href="/activeMQ/activemq1/" title="消息中间件和JMS介绍(一)">http://rickiyang.github.io/activeMQ/activemq1/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://rickiyang.github.io/activeMQ/activemq1/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
+</div>
+<script>
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({
+          title: "",
+          text: '复制成功',
+          icon: "success",
+          showConfirmButton: true
+          });
+    });
+    });
+</script>
+
+
+      
+    </div>
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #636363;font-size:14px;letter-spacing: 10px">本文结束啦<i class="fa fa-bell"></i>感谢您的阅读</div>
+    
+</div>
+
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/学习/" rel="tag"> <i class="”fa" fa-tag”=""></i> 学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Netty/nio4/" rel="next" title="java学习-NIO(四)Selector">
+                <i class="fa fa-chevron-left"></i> java学习-NIO(四)Selector
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Netty/nio1/" rel="prev" title="java学习-NIO(一)简介">
+                java学习-NIO(一)简介 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/adele.png" alt="Rickiyang">
+            
+              <p class="site-author-name" itemprop="name">Rickiyang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/rickiyang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:medee1320@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/a953713428" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-google"></i>CSDN</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="953713428" target="_blank" title="QQ">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>QQ</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-消息中间件"><span class="nav-number">1.</span> <span class="nav-text"> 2  消息中间件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-消息中间件的传递模式"><span class="nav-number">1.1.</span> <span class="nav-text"> 2.1 消息中间件的传递模式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-基于多种协议的消息传递机制"><span class="nav-number">2.</span> <span class="nav-text"> 3 基于多种协议的消息传递机制</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-AMQP协议"><span class="nav-number">2.1.</span> <span class="nav-text"> 3.1 AMQP协议</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-STOMP协议"><span class="nav-number">2.2.</span> <span class="nav-text"> 3.2 STOMP协议</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-3-JMS协议"><span class="nav-number">2.3.</span> <span class="nav-text"> 3.3 JMS协议</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-JMS介绍"><span class="nav-number">3.</span> <span class="nav-text"> 4 JMS介绍</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Rickiyang</span>
+
+  
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+-->
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共113.7k字</span>
+</div>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https'){
+   bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else{
+  bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <!-- 页面点击小红心 -->
+  <script type="text/javascript" src="/js/src/love.js"></script>
+  <!---->
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
