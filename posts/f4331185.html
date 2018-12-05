@@ -140,7 +140,7 @@
 <meta property="og:description" content="首先我们来回忆一下上一节讲过的synchronized关键字，该关键字用于给代码段或方法加锁，使得某一时刻它修饰的方法或代码段只能被一个线程访问。那么试想，当我们遇到这样的情况：当synchronized修饰的方法或代码段因为某种原因（IO异常或是sleep方法）被阻塞了，但是锁有没有被释放，那么其他线程除了等待以外什么事都做不了。当我们遇到这种情况该怎么办呢？我们今天讲到的Lock锁将有机会为此">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://i.imgur.com/FpFZGXS.png">
-<meta property="og:updated_time" content="2018-12-03T12:36:52.147Z">
+<meta property="og:updated_time" content="2018-12-05T06:13:34.113Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java并发编程（四）----（JUC）Lock锁初探">
 <meta name="twitter:description" content="首先我们来回忆一下上一节讲过的synchronized关键字，该关键字用于给代码段或方法加锁，使得某一时刻它修饰的方法或代码段只能被一个线程访问。那么试想，当我们遇到这样的情况：当synchronized修饰的方法或代码段因为某种原因（IO异常或是sleep方法）被阻塞了，但是锁有没有被释放，那么其他线程除了等待以外什么事都做不了。当我们遇到这种情况该怎么办呢？我们今天讲到的Lock锁将有机会为此">
@@ -391,18 +391,7 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/多线程与并发编程/" itemprop="url" rel="index">
+                  <a href="/categories/多线程与并发编程/" itemprop="url" rel="index">
                     <span itemprop="name">多线程与并发编程</span>
                   </a>
                 </span>
@@ -521,7 +510,7 @@
   <p><span>本文标题:</span><a href="/posts/f4331185.html">java并发编程（四）----（JUC）Lock锁初探</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Rickiyang 的个人博客">Rickiyang</a></p>
   <p><span>发布时间:</span>2017年03月18日 - 01:02</p>
-  <p><span>最后更新:</span>2018年12月03日 - 20:36</p>
+  <p><span>最后更新:</span>2018年12月05日 - 14:13</p>
   <p><span>原始链接:</span><a href="/posts/f4331185.html" title="java并发编程（四）----（JUC）Lock锁初探">https://blog.rickiyang.cn/posts/f4331185.html</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.rickiyang.cn/posts/f4331185.html" aria-label="复制成功！"></i></span>
   </p>
@@ -579,8 +568,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/87e472dc.html" rel="next" title="Netty学习(五)-DelimiterBasedFrameDecoder">
-                <i class="fa fa-chevron-left"></i> Netty学习(五)-DelimiterBasedFrameDecoder
+              <a href="/posts/d48afec7.html" rel="next" title="Netty学习(三）-Netty重要接口讲解">
+                <i class="fa fa-chevron-left"></i> Netty学习(三）-Netty重要接口讲解
               </a>
             
           </div>
@@ -696,7 +685,7 @@ var jiathis_config={
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -706,8 +695,8 @@ var jiathis_config={
               
               
               <div class="site-state-item site-state-categories">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -718,7 +707,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -838,7 +827,7 @@ var jiathis_config={
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共116.2k字</span>
+  <span class="post-count">博客全站共117.4k字</span>
 </div>
 
 <script>

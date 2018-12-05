@@ -1392,7 +1392,7 @@ pre .javascript .function {
   border-radius: 50%;
 }
 .posts-collapse .post {
-  margin: 30px 0;
+  margin: 10px 0;
 }
 .posts-collapse .post-header {
   position: relative;
@@ -1887,7 +1887,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #7985ad;
+  background: #12c3cb;
 }
 .links-of-blogroll {
   font-size: 13px;

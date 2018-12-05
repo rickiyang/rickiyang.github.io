@@ -140,7 +140,7 @@
 <meta property="og:description" content="在TCP协议中我们知道当我们在接收消息时候，我们如何判断我们一次读取到的包就是整包消息呢，特别是对于使用了长连接和使用了非阻塞I/O的程序。上节我们也说了上层应用协议为了对消息进行区分一般采用4种方式。前面三种我们都说了，第四种是：通过在消息头定义长度字段来标识消息总长度。这个我们还没讲。当然Netty也提供了相应的解码器：LengthFieldBasedFrameDecoder。 大多数的协议（">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://i.imgur.com/uYXV45n.png">
-<meta property="og:updated_time" content="2018-12-03T12:36:52.152Z">
+<meta property="og:updated_time" content="2018-12-04T09:28:26.151Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Netty学习(六)-LengthFieldBasedFrameDecoder解码器">
 <meta name="twitter:description" content="在TCP协议中我们知道当我们在接收消息时候，我们如何判断我们一次读取到的包就是整包消息呢，特别是对于使用了长连接和使用了非阻塞I/O的程序。上节我们也说了上层应用协议为了对消息进行区分一般采用4种方式。前面三种我们都说了，第四种是：通过在消息头定义长度字段来标识消息总长度。这个我们还没讲。当然Netty也提供了相应的解码器：LengthFieldBasedFrameDecoder。 大多数的协议（">
@@ -533,7 +533,7 @@
   <p><span>本文标题:</span><a href="/posts/2b5f20ba.html">Netty学习(六)-LengthFieldBasedFrameDecoder解码器</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Rickiyang 的个人博客">Rickiyang</a></p>
   <p><span>发布时间:</span>2017年03月17日 - 01:02</p>
-  <p><span>最后更新:</span>2018年12月03日 - 20:36</p>
+  <p><span>最后更新:</span>2018年12月04日 - 17:28</p>
   <p><span>原始链接:</span><a href="/posts/2b5f20ba.html" title="Netty学习(六)-LengthFieldBasedFrameDecoder解码器">https://blog.rickiyang.cn/posts/2b5f20ba.html</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.rickiyang.cn/posts/2b5f20ba.html" aria-label="复制成功！"></i></span>
   </p>
@@ -591,8 +591,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/f693139f.html" rel="next" title="Netty学习(七)-Netty编解码技术以及ProtoBuf和Thrift的介绍">
-                <i class="fa fa-chevron-left"></i> Netty学习(七)-Netty编解码技术以及ProtoBuf和Thrift的介绍
+              <a href="/posts/9afa0af8.html" rel="next" title="Netty学习(八)-Netty的心跳机制">
+                <i class="fa fa-chevron-left"></i> Netty学习(八)-Netty的心跳机制
               </a>
             
           </div>
@@ -601,8 +601,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/posts/d48afec7.html" rel="prev" title="Netty学习(三）-Netty重要接口讲解">
-                Netty学习(三）-Netty重要接口讲解 <i class="fa fa-chevron-right"></i>
+              <a href="/posts/f693139f.html" rel="prev" title="Netty学习(七)-Netty编解码技术以及ProtoBuf和Thrift的介绍">
+                Netty学习(七)-Netty编解码技术以及ProtoBuf和Thrift的介绍 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -699,7 +699,7 @@ var jiathis_config={
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -709,8 +709,8 @@ var jiathis_config={
               
               
               <div class="site-state-item site-state-categories">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -721,7 +721,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -825,7 +825,7 @@ var jiathis_config={
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共116.2k字</span>
+  <span class="post-count">博客全站共117.4k字</span>
 </div>
 
 <script>

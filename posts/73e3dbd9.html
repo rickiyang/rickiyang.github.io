@@ -118,7 +118,7 @@
 
 
 
-  <meta name="keywords" content="爱生活,爱造作">
+  <meta name="keywords" content="工具类,">
 
 
 
@@ -131,13 +131,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Rickiyang&#39;s blog">
-<meta property="og:url" content="https://blog.rickiyang.cn/categories/hive/index.html">
+<meta name="description" content="日常开发中经常遇到调用外部接口失败的情况，这时候我们需要去设置失败重试机制，正常情况我们的重试机制是：如果出错了，一般是网络抖动或者延迟的情况，设置重试一次，或者几次，可能是如下方案：try-catch-redo简单重试模式： 12345try&amp;#123;    doSomething();&amp;#125; catch &amp;#123;    redo();&amp;#125; 如果想定制什么时候重试，重试几次，">
+<meta name="keywords" content="工具类">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java重试工具类:spring-retry和guava-retryer">
+<meta property="og:url" content="https://blog.rickiyang.cn/posts/73e3dbd9.html">
 <meta property="og:site_name" content="Rickiyang&#39;s blog">
+<meta property="og:description" content="日常开发中经常遇到调用外部接口失败的情况，这时候我们需要去设置失败重试机制，正常情况我们的重试机制是：如果出错了，一般是网络抖动或者延迟的情况，设置重试一次，或者几次，可能是如下方案：try-catch-redo简单重试模式： 12345try&amp;#123;    doSomething();&amp;#125; catch &amp;#123;    redo();&amp;#125; 如果想定制什么时候重试，重试几次，">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-05T06:13:34.121Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Rickiyang&#39;s blog">
+<meta name="twitter:title" content="java重试工具类:spring-retry和guava-retryer">
+<meta name="twitter:description" content="日常开发中经常遇到调用外部接口失败的情况，这时候我们需要去设置失败重试机制，正常情况我们的重试机制是：如果出错了，一般是网络抖动或者延迟的情况，设置重试一次，或者几次，可能是如下方案：try-catch-redo简单重试模式： 12345try&amp;#123;    doSomething();&amp;#125; catch &amp;#123;    redo();&amp;#125; 如果想定制什么时候重试，重试几次，">
 
 
 
@@ -167,13 +172,13 @@
 
 
 
-  <link rel="canonical" href="https://blog.rickiyang.cn/categories/hive/">
+  <link rel="canonical" href="https://blog.rickiyang.cn/posts/73e3dbd9.html">
 
 
 
 
 
-  <title>分类: hive | Rickiyang's blog</title>
+  <title>java重试工具类:spring-retry和guava-retryer | Rickiyang's blog</title>
   
 
 
@@ -192,7 +197,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -318,64 +323,294 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block category">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h2>hive<small>分类</small>
-        </h2>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/73e3dbd9.html">
 
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/posts/88686410.html" itemprop="url">
-              
-                <span itemprop="name">hive基础知识</span>
-              
-            </a>
-        
-      </h3>
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Rickiyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/adele.png">
+    </span>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-05-16T22:15:00+08:00" content="2018-05-16">
-          05-16
-        </time>
-      </div>
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rickiyang's blog">
+    </span>
 
-    </header>
-  </article>
-
+    
+      <header class="post-header">
 
         
-              
-              
+        
+          <h2 class="post-title" itemprop="name headline">java重试工具类:spring-retry和guava-retryer</h2>
+        
 
-             
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-05T23:20:04+08:00">
+                2018-12-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/java开发工具类/" itemprop="url" rel="index">
+                    <span itemprop="name">java开发工具类</span>
+                  </a>
+                </span>
+
                 
-                <div class="collection-title">
-                  <h2 class="archive-year motion-element" id="archive-year-2018">2018</h2>
-                </div>
-             
+                
               
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>日常开发中经常遇到调用外部接口失败的情况，这时候我们需要去设置失败重试机制，正常情况我们的重试机制是：如果出错了，一般是网络抖动或者延迟的情况，设置重试一次，或者几次，可能是如下方案：<br>try-catch-redo简单重试模式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    doSomething();</span><br><span class="line">&#125; <span class="keyword">catch</span> &#123;</span><br><span class="line">    redo();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果想定制什么时候重试，重试几次，就需要我们自己定义重试策略，那么我们的代码就稍微复杂一些，可能是如下方案：<br>try-catch-redo-retry strategy策略重试模式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    doSomething();</span><br><span class="line">&#125; <span class="keyword">catch</span> &#123;</span><br><span class="line">    redo(retryTime,interval);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如上是我们一般的处理方案，由上我们大致可以看出如果想要实现一个优雅的重试方案，需要我们详细的去考虑重试机制，重试策略，重试失败措施，重试代码如何做到不侵入业务代码等等。所以，这样的一个小功能我们也是可以做成很有意思的小组件的。现代分布式系统中系统调用如此频繁，重试机制也是大家开发中的重复性劳动，所以这种不必要的代码已经有人给我们写好了，分别是Java中的Spring-Retry和Guava-Retrying。</p>
+<p>其中Spring-Retry是基于Throwable类型的重试机制，即针对可捕获异常执行重试策略，并提供相应的回滚策略；而Guava-Retrying提供了更为丰富的重试源定义，譬如多个异常或者多个返回值。</p>
+<p>Spring-Retry:</p>
+<p>引入jar包：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.retry&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-retry&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.2.2.RELEASE&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<p>通过构造一个重试模板来执行重试策略，在重试模板中可以设置重试次数，重试间隔和回退策略。我们通过一段代码来看一下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">retryDoSomething</span><span class="params">(<span class="keyword">final</span> Map&lt;String, Object&gt; map)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">// 构建重试模板实例</span></span><br><span class="line">        RetryTemplate retryTemplate = <span class="keyword">new</span> RetryTemplate();</span><br><span class="line">        <span class="comment">// 设置重试策略，主要设置重试次数</span></span><br><span class="line">        SimpleRetryPolicy policy = <span class="keyword">new</span> SimpleRetryPolicy(<span class="number">3</span>, Collections.singletonMap(Exception.class, <span class="keyword">true</span>));</span><br><span class="line">        <span class="comment">// 设置重试回退操作策略，主要设置重试间隔时间</span></span><br><span class="line">        FixedBackOffPolicy fixedBackOffPolicy = <span class="keyword">new</span> FixedBackOffPolicy();</span><br><span class="line">        fixedBackOffPolicy.setBackOffPeriod(<span class="number">100</span>);</span><br><span class="line">        retryTemplate.setRetryPolicy(policy);</span><br><span class="line">        retryTemplate.setBackOffPolicy(fixedBackOffPolicy);</span><br><span class="line">        <span class="comment">// 通过RetryCallback 重试回调实例包装正常逻辑逻辑，第一次执行和重试执行执行的都是这段逻辑</span></span><br><span class="line">        <span class="keyword">final</span> RetryCallback&lt;Object, Exception&gt; retryCallback = <span class="keyword">new</span> RetryCallback&lt;Object, Exception&gt;() &#123;</span><br><span class="line">            <span class="comment">//RetryContext 重试操作上下文约定，统一spring-try包装</span></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> Object <span class="title">doWithRetry</span><span class="params">(RetryContext context)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">"do some thing"</span>);</span><br><span class="line">                Exception e = doSomething(map);</span><br><span class="line">                System.out.println(context.getRetryCount());</span><br><span class="line">                <span class="keyword">throw</span> e;<span class="comment">//这个点特别注意，重试的根源通过Exception返回</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="comment">// 通过RecoveryCallback 重试流程正常结束或者达到重试上限后的退出恢复操作实例</span></span><br><span class="line">        <span class="keyword">final</span> RecoveryCallback&lt;Object&gt; recoveryCallback = <span class="keyword">new</span> RecoveryCallback&lt;Object&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> Object <span class="title">recover</span><span class="params">(RetryContext context)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">"do recory operation"</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 由retryTemplate 执行execute方法开始逻辑执行</span></span><br><span class="line">            retryTemplate.execute(retryCallback, recoveryCallback);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>spring-retry是通过RetryTemplate的execute方法来执行重试代码的，execute方法是线程安全的，实现中他将retry的餐参数对象保存在ThreadLocal中：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">RetryContext context = <span class="keyword">this</span>.open(retryPolicy, state);</span><br><span class="line"><span class="comment">//ThreadLocal中保存context对象</span></span><br><span class="line">RetrySynchronizationManager.register(context);</span><br></pre></td></tr></table></figure>
+<p>以上代码需要注意的是重试的执行逻辑是在RetryCallback类中实现的，触发重试逻辑是在doWithRetry方法中抛出泛型异常。这就意味着如果你的代码并没有异常抛出但是仍然需要在某种返回值的条件下触发重试逻辑的时候，你需要手动的判断该返回值然后抛出异常。这个操作有点强人所难。</p>
+<p>所以在此基础之上，guava-retryer重新做了设计，在支持重试次数和重试频度的基础上，能够兼容支持多个异常或者自定义实体对象的重试源定义。</p>
+<p>引入jar：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.github.rholder&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;guava-retrying&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.0.0&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<p>代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> LedgerResult <span class="title">requestRestry</span><span class="params">(NrRequestParams nrRequestParams)</span> </span>&#123;</span><br><span class="line">        Retryer&lt;LedgerResult&gt; retryer = RetryerBuilder.&lt;LedgerResult&gt;newBuilder()</span><br><span class="line">                .retryIfExceptionOfType(BizException.class)</span><br><span class="line">                .retryIfException()</span><br><span class="line">                .retryIfResult(result -&gt; result == <span class="keyword">null</span>)</span><br><span class="line">                .withWaitStrategy(WaitStrategies.fixedWait(<span class="number">5</span>, TimeUnit.MINUTES))</span><br><span class="line">                .withStopStrategy(StopStrategies.stopAfterAttempt(<span class="number">10</span>))</span><br><span class="line">                .withRetryListener(<span class="keyword">new</span> RetryListener() &#123;</span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="keyword">public</span> &lt;V&gt; <span class="function"><span class="keyword">void</span> <span class="title">onRetry</span><span class="params">(Attempt&lt;V&gt; attempt)</span> </span>&#123;</span><br><span class="line">                        <span class="keyword">long</span> attemptNumber = attempt.getAttemptNumber();</span><br><span class="line">                        <span class="keyword">if</span> (attemptNumber &gt; <span class="number">1</span>) &#123;</span><br><span class="line">                            logger.info(<span class="string">"&lt;=====重试次数:&#123;&#125;,params:&#123;&#125;"</span>, attemptNumber - <span class="number">1</span>, nrRequestParams);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)</span><br><span class="line">                .build();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> retryer.call(() -&gt; requestLedger(nrRequestParams));</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ExecutionException e) &#123;</span><br><span class="line">            logger.error(<span class="string">"&lt;&lt;&lt;&lt;&lt;=====重试失败====参数：&#123;&#125;"</span>, nrRequestParams, e);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RetryException e) &#123;</span><br><span class="line">            logger.error(<span class="string">"&lt;&lt;&lt;&lt;&lt;=====重试失败====参数：&#123;&#125;"</span>, nrRequestParams, e);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>通过RetryerBuilder来构造工厂对象，设置重试策略，比如支持特定异常类型，支持检测返回值类型判定，一个全局的监控方法，更加优雅的重试策略和停止策略设置等等。</p>
+<p>guava的api对于用户来说更加的友好，大家会选择哪一个用于日常开发不言自明。</p>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/posts/73e3dbd9.html">java重试工具类:spring-retry和guava-retryer</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Rickiyang 的个人博客">Rickiyang</a></p>
+  <p><span>发布时间:</span>2018年12月05日 - 23:20</p>
+  <p><span>最后更新:</span>2018年12月05日 - 14:13</p>
+  <p><span>原始链接:</span><a href="/posts/73e3dbd9.html" title="java重试工具类:spring-retry和guava-retryer">https://blog.rickiyang.cn/posts/73e3dbd9.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.rickiyang.cn/posts/73e3dbd9.html" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
+</div>
+<script>
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({
+          title: "",
+          text: '复制成功',
+          icon: "success",
+          showConfirmButton: true
+          });
+    });
+    });
+</script>
+
+
       
     </div>
 
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #636363;font-size:14px;letter-spacing: 10px">本文结束啦<i class="fa fa-bell"></i>感谢您的阅读</div>
+    
+</div>
+
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/工具类/" rel="tag"> <i class="”fa" fa-tag”=""></i> 工具类</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/88686410.html" rel="next" title="hive基础知识">
+                <i class="fa fa-chevron-left"></i> hive基础知识
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
 
 
           </div>
@@ -383,6 +618,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -421,7 +660,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -431,8 +670,8 @@
               
               
               <div class="site-state-item site-state-categories">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -443,7 +682,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -547,7 +786,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共116.2k字</span>
+  <span class="post-count">博客全站共117.4k字</span>
 </div>
 
 <script>
@@ -683,7 +922,9 @@
 
 
   
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
 
 
   

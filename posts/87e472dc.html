@@ -139,7 +139,7 @@
 <meta property="og:site_name" content="Rickiyang&#39;s blog">
 <meta property="og:description" content="上一节我们说了LineBasedframeDecoder来解决粘包拆包的问题，TCP以流的方式进行数据传输，上层应用协议为了对消息进行区分，一般采用如下4种方式：  消息长度固定，累计读取到消息长度总和为定长Len的报文之后即认为是读取到了一个完整的消息。计数器归位，重新读取。 将回车换行符作为消息结束符。 将特殊的分隔符作为消息分隔符，回车换行符是他的一种。 通过在消息头定义长度字段来标识消息总">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-03T12:36:52.152Z">
+<meta property="og:updated_time" content="2018-12-04T09:28:26.149Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Netty学习(五)-DelimiterBasedFrameDecoder">
 <meta name="twitter:description" content="上一节我们说了LineBasedframeDecoder来解决粘包拆包的问题，TCP以流的方式进行数据传输，上层应用协议为了对消息进行区分，一般采用如下4种方式：  消息长度固定，累计读取到消息长度总和为定长Len的报文之后即认为是读取到了一个完整的消息。计数器归位，重新读取。 将回车换行符作为消息结束符。 将特殊的分隔符作为消息分隔符，回车换行符是他的一种。 通过在消息头定义长度字段来标识消息总">
@@ -529,7 +529,7 @@ server receive order : #org.apache.catalina.util.LifecycleBase.level = FINE;the 
   <p><span>本文标题:</span><a href="/posts/87e472dc.html">Netty学习(五)-DelimiterBasedFrameDecoder</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Rickiyang 的个人博客">Rickiyang</a></p>
   <p><span>发布时间:</span>2017年03月17日 - 01:02</p>
-  <p><span>最后更新:</span>2018年12月03日 - 20:36</p>
+  <p><span>最后更新:</span>2018年12月04日 - 17:28</p>
   <p><span>原始链接:</span><a href="/posts/87e472dc.html" title="Netty学习(五)-DelimiterBasedFrameDecoder">https://blog.rickiyang.cn/posts/87e472dc.html</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.rickiyang.cn/posts/87e472dc.html" aria-label="复制成功！"></i></span>
   </p>
@@ -587,8 +587,8 @@ server receive order : #org.apache.catalina.util.LifecycleBase.level = FINE;the 
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/c0d0b105.html" rel="next" title="消息中间件和JMS介绍(一)">
-                <i class="fa fa-chevron-left"></i> 消息中间件和JMS介绍(一)
+              <a href="/posts/f693139f.html" rel="next" title="Netty学习(七)-Netty编解码技术以及ProtoBuf和Thrift的介绍">
+                <i class="fa fa-chevron-left"></i> Netty学习(七)-Netty编解码技术以及ProtoBuf和Thrift的介绍
               </a>
             
           </div>
@@ -597,8 +597,8 @@ server receive order : #org.apache.catalina.util.LifecycleBase.level = FINE;the 
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/posts/f4331185.html" rel="prev" title="java并发编程（四）----（JUC）Lock锁初探">
-                java并发编程（四）----（JUC）Lock锁初探 <i class="fa fa-chevron-right"></i>
+              <a href="/posts/278c909d.html" rel="prev" title="Netty学习(四)-TCP粘包和拆包">
+                Netty学习(四)-TCP粘包和拆包 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -704,7 +704,7 @@ var jiathis_config={
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -714,8 +714,8 @@ var jiathis_config={
               
               
               <div class="site-state-item site-state-categories">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -726,7 +726,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -846,7 +846,7 @@ var jiathis_config={
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共116.2k字</span>
+  <span class="post-count">博客全站共117.4k字</span>
 </div>
 
 <script>

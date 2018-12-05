@@ -141,7 +141,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://i.imgur.com/QcZkTTz.jpg">
 <meta property="og:image" content="http://img.blog.csdn.net/20170327234130148?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYTk1MzcxMzQyOA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2018-12-03T12:36:52.152Z">
+<meta property="og:updated_time" content="2018-12-04T09:28:26.150Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Netty学习(四)-TCP粘包和拆包">
 <meta name="twitter:description" content="我们都知道TCP是基于字节流的传输协议。那么数据在通信层传播其实就像河水一样并没有明显的分界线，而数据具体表示什么意思什么地方有句号什么地方有分号这个对于TCP底层来说并不清楚。应用层向TCP层发送用于网间传输的、用8位字节表示的数据流，然后TCP把数据流分区成适当长度的报文段，之后TCP把结果包传给IP层，由它来通过网络将包传送给接收端实体的TCP层。所以对于这个数据拆分成大包小包的问题就是我们">
@@ -540,7 +540,7 @@
   <p><span>本文标题:</span><a href="/posts/278c909d.html">Netty学习(四)-TCP粘包和拆包</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Rickiyang 的个人博客">Rickiyang</a></p>
   <p><span>发布时间:</span>2017年03月17日 - 01:02</p>
-  <p><span>最后更新:</span>2018年12月03日 - 20:36</p>
+  <p><span>最后更新:</span>2018年12月04日 - 17:28</p>
   <p><span>原始链接:</span><a href="/posts/278c909d.html" title="Netty学习(四)-TCP粘包和拆包">https://blog.rickiyang.cn/posts/278c909d.html</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.rickiyang.cn/posts/278c909d.html" aria-label="复制成功！"></i></span>
   </p>
@@ -598,8 +598,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/d48afec7.html" rel="next" title="Netty学习(三）-Netty重要接口讲解">
-                <i class="fa fa-chevron-left"></i> Netty学习(三）-Netty重要接口讲解
+              <a href="/posts/87e472dc.html" rel="next" title="Netty学习(五)-DelimiterBasedFrameDecoder">
+                <i class="fa fa-chevron-left"></i> Netty学习(五)-DelimiterBasedFrameDecoder
               </a>
             
           </div>
@@ -715,7 +715,7 @@ var jiathis_config={
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -725,8 +725,8 @@ var jiathis_config={
               
               
               <div class="site-state-item site-state-categories">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -737,7 +737,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -857,7 +857,7 @@ var jiathis_config={
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共116.2k字</span>
+  <span class="post-count">博客全站共117.4k字</span>
 </div>
 
 <script>
