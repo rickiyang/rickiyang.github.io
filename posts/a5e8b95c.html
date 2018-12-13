@@ -1,0 +1,1564 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|FZSongKeBenXiuKai:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|Optima:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/adele.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/adele.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/adele.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/adele.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="hadoop学习,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Rickiyang's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="我们先回忆一下hadoop在完全分布式环境中运行的基本知识： HDFS集群有两类节点以管理者-工作者模式运行：一个namenode和多个datanode。namenode管理文件系统的命名空间，维护着文件系统树以及整棵树内所有的文件和目录，这些信息以两个文件形式永久的存储在本地磁盘上：命令空间镜像(fsimage)和编辑日志文件(edits)。 namenode也记录着每个文件中的各个块所在的数据">
+<meta name="keywords" content="hadoop学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hadoop学习(九)----hadoop HA环境搭建">
+<meta property="og:url" content="https://blog.rickiyang.cn/posts/a5e8b95c.html">
+<meta property="og:site_name" content="Rickiyang&#39;s blog">
+<meta property="og:description" content="我们先回忆一下hadoop在完全分布式环境中运行的基本知识： HDFS集群有两类节点以管理者-工作者模式运行：一个namenode和多个datanode。namenode管理文件系统的命名空间，维护着文件系统树以及整棵树内所有的文件和目录，这些信息以两个文件形式永久的存储在本地磁盘上：命令空间镜像(fsimage)和编辑日志文件(edits)。 namenode也记录着每个文件中的各个块所在的数据">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.imgur.com/l9NRJaF.png">
+<meta property="og:image" content="https://i.imgur.com/F3MwdrY.png">
+<meta property="og:image" content="https://i.imgur.com/IeAp8SO.png">
+<meta property="og:updated_time" content="2018-12-13T02:14:20.611Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hadoop学习(九)----hadoop HA环境搭建">
+<meta name="twitter:description" content="我们先回忆一下hadoop在完全分布式环境中运行的基本知识： HDFS集群有两类节点以管理者-工作者模式运行：一个namenode和多个datanode。namenode管理文件系统的命名空间，维护着文件系统树以及整棵树内所有的文件和目录，这些信息以两个文件形式永久的存储在本地磁盘上：命令空间镜像(fsimage)和编辑日志文件(edits)。 namenode也记录着每个文件中的各个块所在的数据">
+<meta name="twitter:image" content="https://i.imgur.com/l9NRJaF.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://blog.rickiyang.cn/posts/a5e8b95c.html">
+
+
+
+
+
+  <title>hadoop学习(九)----hadoop HA环境搭建 | Rickiyang's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Rickiyang's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/a5e8b95c.html">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Rickiyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/adele.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rickiyang's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">hadoop学习(九)----hadoop HA环境搭建</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-09T23:53:26+08:00">
+                2018-07-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/大数据学习/" itemprop="url" rel="index">
+                    <span itemprop="name">大数据学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/大数据学习/hadoop/" itemprop="url" rel="index">
+                    <span itemprop="name">hadoop</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.8k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  11
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>我们先回忆一下hadoop在完全分布式环境中运行的基本知识：</p>
+<p>HDFS集群有两类节点以管理者-工作者模式运行：一个namenode和多个datanode。namenode管理文件系统的命名空间，维护着文件系统树以及整棵树内所有的文件和目录，这些信息以两个文件形式永久的存储在本地磁盘上：命令空间镜像(fsimage)和编辑日志文件(edits)。</p>
+<p>namenode也记录着每个文件中的各个块所在的数据节点信息，但它并不永久的保存块的位置信息，因为这些信息在系统启动时由数据节点重建。</p>
+<p>客户端代表用户通过与namenode和datanode交互来访问整个文件系统。客户端提供一个提供文件系统接口来访问数据，因此用户在编程时无需知道namenode和datanode也可以实现相应的操作功能。</p>
+<p>datanode时文件系统的工作节点。他们被客户端或者namenode调度去触发存储或检索数据块，并定期向namenode发送他们所存储的块的列表信息。</p>
+<h4 id="1-hadoop-HA和Federation"><a href="#1-hadoop-HA和Federation" class="headerlink" title="1.hadoop HA和Federation"></a>1.hadoop HA和Federation</h4><p>如果没有namenode，hdfs文件系统将无法使用。如果运行namenode服务的机器被destroy，后果就是文件系统上的所有文件将会成为废数据：因为你根本就不知道如何去重建datanode。基于此对namenode实现容错非常重要，hadoop为此提供了两种机制。</p>
+<h5 id="1-1-hadoop2-0之前的单点故障解决方案"><a href="#1-1-hadoop2-0之前的单点故障解决方案" class="headerlink" title="1.1 hadoop2.0之前的单点故障解决方案"></a>1.1 hadoop2.0之前的单点故障解决方案</h5><ol>
+<li>secondary namenode（以下简称SNN）。SNN并不是HA，它本身所起的作用是阶段性的合并edits和fsimage以缩短集群启动的时间。因为SNN是在每次checkpoint的时候触发合并，如果namenode宕机SNN肯定会丢失一段时间的数据，这段时间取决于checkpoint的周期。所以这种方式无法保证数据完整性。</li>
+<li>NFS方案(网络文件系统)。设置多个data目录，让namenode在持久化元数据的时候同时同时写入多个目录。这种方案在院里上是可行的。</li>
+</ol>
+<h5 id="1-2-hadoop2-0单点故障解决方案"><a href="#1-2-hadoop2-0单点故障解决方案" class="headerlink" title="1.2 hadoop2.0单点故障解决方案"></a>1.2 hadoop2.0单点故障解决方案</h5><p>Hadoop官方提供了一种quorum journal manager来实现高可用，在高可用配置下，edit log不再存放在名称节点，而是存放在一个共享存储的地方，这个共享存储由若干Journal Node组成，一般是3个节点(JN小集群)， 每个JN专门用于存放来自NN的编辑日志，编辑日志由活跃状态的名称节点写入。</p>
+<p>要有2个NN节点，二者之中只能有一个处于活跃状态（active），另一个是待命状态（standby），只有active节点才能对外提供读写HDFS服务，也只有active态的NN才能向JN写入编辑日志；standby的名称节点只负责从JN小集群中的JN节点拷贝数据到本地存放。另外，各个datanode也要同时向两个namenode节点报告状态(心跳信息、块信息)。</p>
+<p>一主一从的2个NameNode节点同时和3个JN构成的组保持通信，活跃的NameNode节点负责往JN集群写入编辑日志，待命的NN节点负责观察JN组中的编辑日志,并且把日志拉取到待命节点（接管Secondary NameNode的工作）。再加上两节点各自的fsimage镜像文件，这样一来就能确保两个NN的元数据保持同步。一旦active不可用，standby继续对外提供服。架构分为手动模式和自动模式，其中手动模式是指由管理员通过命令进行主备切换，这通常在服务升级时有用，自动模式可降低运维成本，但存在潜在危险。这两种模式下的架构如下。</p>
+<p>【手动模式】</p>
+<p><img src="https://i.imgur.com/l9NRJaF.png" alt=""></p>
+<p>【自动模式】</p>
+<p><img src="https://i.imgur.com/F3MwdrY.png" alt=""></p>
+<p><a href="https://issues.apache.org/jira/browse/HDFS-1623" title="tu " target="_blank" rel="noopener">图片来源于：HDFS-1623</a></p>
+<p>作者：Sanjay Radia, Suresh Srinivas<br>Yahoo! Inc</p>
+<p>以上两种模式都是基于共享存储系统，active master将信息写入sharedStorage，standby读取信息保持与mastr同步。常用的共享文件系统有zookeeper(被YARN HA采用)，NFS(被HDFS HA采用)，HDFS(被MapReduce HA采用)。</p>
+<p>自动方式中采用了ZKFailoverController，是基于zk实现的切换控制器，主要由两个核心组件构成：ActiveStandByElector和HealthMonitor，中，ActiveStandbyElector负责与zookeeper集群交互，通过尝试获取全局锁，以判断所管理的master进入active还是standby状态；HealthMonitor负责监控各个活动master的状态，以根据它们状态进行状态切换。</p>
+<p>datanode需要同时向两个namenode汇报，这是让standby随时保持集群最新状态的必要步骤。</p>
+<p>隔离机制(Fencing),防止脑裂。脑裂是指在主备切换时，由于切换不彻底或其他原因，导致客户端和Slave误以为出现两个active master，最终使得整个集群处于混乱状态。</p>
+<p>隔离机制一般包括三个方面：</p>
+<ol>
+<li>共享存储fencing：确保只有一个Master往共享存储中写数据。</li>
+<li>客户端fencing：确保只有一个Master可以响应客户端的请求。</li>
+<li>Slave fencing：确保只有一个Master可以向Slave下发命令。</li>
+</ol>
+<p>Hadoop公共库中对外提供了两种fencing实现，分别是sshfence和shellfence（缺省实现），其中sshfence是指通过ssh登陆目标Master节点上，使用命令fuser将进程杀死（通过tcp端口号定位进程pid，该方法比jps命令更准确），shellfence是指执行一个用户事先定义的shell命令（脚本）完成隔离。</p>
+<h5 id="1-3-hadoop2-0-里的Federation实现"><a href="#1-3-hadoop2-0-里的Federation实现" class="headerlink" title="1.3 hadoop2.0 里的Federation实现"></a>1.3 hadoop2.0 里的Federation实现</h5><p><img src="https://i.imgur.com/IeAp8SO.png" alt=""></p>
+<p><a href="https://issues.apache.org/jira/browse/HDFS-1052" target="_blank" rel="noopener">图片来源： HDFS-1052 设计文档</a></p>
+<p>根据文档大致理解他的设计：</p>
+<ol>
+<li>多个namenode共用一个集群里的datanode的资源，每个datanode都可以单独对外提供服务；</li>
+<li>每个namenode都会定义一个存储池，有单独的id，每个datanode都会为所有的存储池提供服服务；</li>
+<li>datanode会按照存储池id向其对应的namenode汇报信息，同时datanode也会向所有namenode汇报本地存储资源可用情况；</li>
+<li>如果需要在客户端方便的访问若干个namende上的资源，可以使用客户端挂载表，把不同的目录映射到不同的namenode上去，但前提是namenode必须存在相应的目录。</li>
+</ol>
+<h4 id="2-搭建我们的-HA-hadoop集群"><a href="#2-搭建我们的-HA-hadoop集群" class="headerlink" title="2. 搭建我们的 HA hadoop集群"></a>2. 搭建我们的 HA hadoop集群</h4><p>前面我们已经搭建过权完全分布的hadoop集群。HA的搭建引入了JournalNode节点，所以需要修改之前的配置文件，我们先把需要修改的部分贴出来，这次我们的集群规划是：</p>
+<p>zookeeper集群：</p>
+<p>192.168.238.128   hadoopmaster </p>
+<p>192.168.238.129   hadoopslaver1</p>
+<p>192.168.238.130   hadoopslaver2</p>
+<p>hadoop集群：</p>
+<p>192.168.238.128   hadoopmaster   namenodeMaster节点    ResourceManager节点   Journalnode节点</p>
+<p>192.168.238.129   hadoopslaver1  namenodeStandBy节点    ResourceManager节点   Journalnode节点</p>
+<p>192.168.238.130   hadoopslaver2  datanode节点   nodemanager1</p>
+<p>192.168.238.131   hadoopslaver3  datanode节点   nodemanager1</p>
+<p>下面看需要修改的配置文件：</p>
+<p>core-site.xml</p>
+<pre><code>&lt;configuration&gt;
+&lt;!-- 指定hdfs的nameservice为ns1 --&gt;
+&lt;property&gt;
+&lt;name&gt;fs.defaultFS&lt;/name&gt;
+&lt;value&gt;hdfs://ns1&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;!-- 指定HDFS数据存放路径，默认存放在linux的/tmp目录中 --&gt;
+&lt;property&gt;
+&lt;name&gt;hadoop.tmp.dir&lt;/name&gt;
+&lt;value&gt;/usr/local/hadoop/tmp&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;!-- 指定zookeeper的地址 --&gt;
+&lt;property&gt;
+&lt;name&gt;ha.zookeeper.quorum&lt;/name&gt;
+&lt;value&gt;hadoopmaster:2181,hadoopslaver1:2181,hadoopslaver2:2181&lt;/value&gt;
+&lt;/property&gt;
+&lt;/configuration&gt;
+</code></pre><p>之前配置的value是：hdfs://机器名:9000,现在改为名称服务，会对应到hdfs-site.xml中的配置。</p>
+<p>hdfs-site.xml，配置这个nameservice中有几个namenode：</p>
+<pre><code>&lt;configuration&gt; 
+&lt;!--指定hdfs的nameservice为ns1，需要和core-site.xml中的保持一致 --&gt;
+&lt;property&gt;
+&lt;name&gt;dfs.nameservices&lt;/name&gt;
+&lt;value&gt;ns1&lt;/value&gt;
+&lt;/property&gt;
+​
+&lt;!-- ns1下面有两个NameNode，分别是nn1，nn2 --&gt;
+&lt;property&gt;
+&lt;name&gt;dfs.ha.namenodes.ns1&lt;/name&gt;
+&lt;value&gt;nn1,nn2&lt;/value&gt;
+&lt;/property&gt;
+​
+&lt;!-- nn1的RPC通信地址 --&gt;
+&lt;property&gt;
+&lt;name&gt;dfs.namenode.rpc-address.ns1.nn1&lt;/name&gt;
+&lt;value&gt;hadoopmaster:9000&lt;/value&gt;
+&lt;/property&gt;
+​
+&lt;!-- nn1的http通信地址 --&gt;
+&lt;property&gt;
+&lt;name&gt;dfs.namenode.http-address.ns1.nn1&lt;/name&gt;
+&lt;value&gt;hadoopmaster:50070&lt;/value&gt;
+&lt;/property&gt;
+​
+&lt;!-- nn2的RPC通信地址 --&gt;
+&lt;property&gt;
+&lt;name&gt;dfs.namenode.rpc-address.ns1.nn2&lt;/name&gt;
+&lt;value&gt;hadoopslaver1:9000&lt;/value&gt;
+&lt;/property&gt;
+​
+&lt;!-- nn2的http通信地址 --&gt;
+&lt;property&gt;
+&lt;name&gt;dfs.namenode.http-address.ns1.nn2&lt;/name&gt;
+&lt;value&gt;hadoopslaver1:50070&lt;/value&gt;
+&lt;/property&gt;
+​
+&lt;!-- 指定NameNode的日志在JournalNode上的存放位置 --&gt;
+&lt;property&gt;
+&lt;name&gt;dfs.namenode.shared.edits.dir&lt;/name&gt;
+&lt;value&gt;qjournal://hadoopmaster:8485;hadoopslaver1:8485;/ns1&lt;/value&gt;
+&lt;/property&gt;
+​
+&lt;!-- 指定JournalNode在本地磁盘存放数据的位置 --&gt;
+&lt;property&gt;
+&lt;name&gt;dfs.journalnode.edits.dir&lt;/name&gt;
+&lt;value&gt;usr/local/hadoop/journal&lt;/value&gt;
+&lt;/property&gt;
+​
+&lt;!-- 开启NameNode失败自动切换 --&gt;
+&lt;property&gt;
+&lt;name&gt;dfs.ha.automatic-failover.enabled&lt;/name&gt;
+&lt;value&gt;true&lt;/value&gt;
+&lt;/property&gt;
+​
+&lt;!-- 配置失败自动切换实现方式 --&gt;
+&lt;property&gt;
+&lt;name&gt;dfs.client.failover.proxy.provider.ns1&lt;/name&gt;
+&lt;value&gt;org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider&lt;/value&gt;
+&lt;/property&gt;
+​
+&lt;!-- 配置隔离机制方法，多个机制用换行分割，即每个机制暂用一行--&gt;
+&lt;property&gt;
+&lt;name&gt;dfs.ha.fencing.methods&lt;/name&gt;
+&lt;value&gt;
+sshfence
+shell(/bin/true)
+&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;!-- 使用sshfence隔离机制时需要ssh免登陆 --&gt;
+&lt;property&gt;
+&lt;name&gt;dfs.ha.fencing.ssh.private-key-files&lt;/name&gt;
+&lt;value&gt;/root/.ssh/id_rsa&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;!-- 配置sshfence隔离机制超时时间 --&gt;
+&lt;property&gt;
+&lt;name&gt;dfs.ha.fencing.ssh.connect-timeout&lt;/name&gt;
+&lt;value&gt;30000&lt;/value&gt;
+&lt;/property&gt;
+&lt;/configuration&gt;
+</code></pre><p>mapred-site.xml:</p>
+<pre><code>&lt;configuration&gt;
+&lt;property&gt;
+&lt;name&gt;mapreduce.framework.name&lt;/name&gt;
+&lt;value&gt;yarn&lt;/value&gt;
+&lt;/property&gt;
+&lt;/configuration&gt;
+</code></pre><p>yarn-site.xml:</p>
+<pre><code>&lt;configuration&gt;
+&lt;!-- 开启RM高可靠 --&gt;
+&lt;property&gt;
+&lt;name&gt;yarn.resourcemanager.ha.enabled&lt;/name&gt;
+&lt;value&gt;true&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;!-- 指定RM的cluster id --&gt;
+&lt;property&gt;
+&lt;name&gt;yarn.resourcemanager.cluster-id&lt;/name&gt;
+&lt;value&gt;yrc&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;!-- 指定RM的名字 --&gt;
+&lt;property&gt;
+&lt;name&gt;yarn.resourcemanager.ha.rm-ids&lt;/name&gt;
+&lt;value&gt;rm1,rm2&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;!-- 分别指定RM的地址 --&gt;
+&lt;property&gt;
+&lt;name&gt;yarn.resourcemanager.hostname.rm1&lt;/name&gt;
+&lt;value&gt;hadoopmaster&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+&lt;name&gt;yarn.resourcemanager.hostname.rm2&lt;/name&gt;
+&lt;value&gt;hadoopslaver1&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;!-- 指定zk集群地址 --&gt;
+&lt;property&gt;
+&lt;name&gt;yarn.resourcemanager.zk-address&lt;/name&gt;
+&lt;value&gt;hadoopmaster:2181,hadoopslaver1:2181,hadoopslaver2:2181&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+&lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;
+&lt;value&gt;mapreduce_shuffle&lt;/value&gt;
+&lt;/property&gt;
+&lt;/configuration&gt;
+</code></pre><p>将配置好的HA分发到其余机器上。</p>
+<p>下面我们来启动HA集群：</p>
+<ol>
+<li><p>启动zookeeper集群：</p>
+<p> 在每一台机器上输入：</p>
+<pre><code>zkServer.sh start    
+</code></pre></li>
+<li><p>启动journalnode:</p>
+<p> 在hadoopmaster和hadooslaver1上启动journalnode节点：</p>
+<pre><code>hadoop-daemon.sh start journalnode
+</code></pre></li>
+</ol>
+<ol start="3">
+<li><p>格式化HDFS和zookeeper：</p>
+<pre><code>格式化HDFS:
+
+hdfs namenode -format        
+</code></pre><p> 格式化zookeeper：</p>
+<pre><code>hdfs zkfc -formatZK
+</code></pre></li>
+</ol>
+<p>以上操作完毕我们就可以启动hadoop 集群了：</p>
+<pre><code>start-all.sh
+</code></pre><p>在hadoopslaver1上启动resourceManager作为Yarn的备用主节点：</p>
+<pre><code>yarn-daemon.sh start resourcemanager
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/posts/a5e8b95c.html">hadoop学习(九)----hadoop HA环境搭建</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Rickiyang 的个人博客">Rickiyang</a></p>
+  <p><span>发布时间:</span>2018年07月09日 - 23:53</p>
+  <p><span>最后更新:</span>2018年12月13日 - 10:14</p>
+  <p><span>原始链接:</span><a href="/posts/a5e8b95c.html" title="hadoop学习(九)----hadoop HA环境搭建">https://blog.rickiyang.cn/posts/a5e8b95c.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.rickiyang.cn/posts/a5e8b95c.html" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
+</div>
+<script>
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({
+          title: "",
+          text: '复制成功',
+          icon: "success",
+          showConfirmButton: true
+          });
+    });
+    });
+</script>
+
+
+      
+    </div>
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #636363;font-size:14px;letter-spacing: 10px">本文结束啦<i class="fa fa-bell"></i>感谢您的阅读</div>
+    
+</div>
+
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/hadoop学习/" rel="tag"> <i class="”fa" fa-tag”=""></i> hadoop学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/de556527.html" rel="next" title="hadoop学习(八)----mapReduce的工作机制">
+                <i class="fa fa-chevron-left"></i> hadoop学习(八)----mapReduce的工作机制
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/9d4156ed.html" rel="prev" title="spark集群环境搭建">
+                spark集群环境搭建 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/adele.png" alt="Rickiyang">
+            
+              <p class="site-author-name" itemprop="name">Rickiyang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">82</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/rickiyang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:medee1320@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/a953713428" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-google"></i>CSDN</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="953713428" target="_blank" title="QQ">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>QQ</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-hadoop-HA和Federation"><span class="nav-number">1.</span> <span class="nav-text">1.hadoop HA和Federation</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-hadoop2-0之前的单点故障解决方案"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 hadoop2.0之前的单点故障解决方案</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-hadoop2-0单点故障解决方案"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 hadoop2.0单点故障解决方案</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-hadoop2-0-里的Federation实现"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 hadoop2.0 里的Federation实现</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-搭建我们的-HA-hadoop集群"><span class="nav-number">2.</span> <span class="nav-text">2. 搭建我们的 HA hadoop集群</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Rickiyang</span>
+
+  
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+-->
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共207.7k字</span>
+</div>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https'){
+   bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else{
+  bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <!-- 页面点击小红心 -->
+  <script type="text/javascript" src="/js/src/love.js"></script>
+  <!---->
+</body>
+</html>

@@ -1,0 +1,1733 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|FZSongKeBenXiuKai:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|Optima:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/adele.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/adele.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/adele.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/adele.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="spark学习,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Rickiyang's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="Spark的核心是建立在统一的抽象RDD之上，使得Spark的各个组件可以无缝进行集成，在同一个应用程序中完成大数据计算任务 。 1. RDD设计背景在实际应用中，存在许多迭代式算法（比如机器学习、图算法等）和交互式数据挖掘工具，这些应用场景的共同之处是，不同计算阶段之间会重用中间结果，即一个阶段的输出结果会作为下一个阶段的输入。但是，目前的MapReduce框架都是把中间结果写入到HDFS中，带">
+<meta name="keywords" content="spark学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RDD的设计与运行原理">
+<meta property="og:url" content="https://blog.rickiyang.cn/posts/d422b66e.html">
+<meta property="og:site_name" content="Rickiyang&#39;s blog">
+<meta property="og:description" content="Spark的核心是建立在统一的抽象RDD之上，使得Spark的各个组件可以无缝进行集成，在同一个应用程序中完成大数据计算任务 。 1. RDD设计背景在实际应用中，存在许多迭代式算法（比如机器学习、图算法等）和交互式数据挖掘工具，这些应用场景的共同之处是，不同计算阶段之间会重用中间结果，即一个阶段的输出结果会作为下一个阶段的输入。但是，目前的MapReduce框架都是把中间结果写入到HDFS中，带">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.imgur.com/jztn48J.jpg">
+<meta property="og:image" content="https://i.imgur.com/ep5VDRn.jpg">
+<meta property="og:image" content="https://i.imgur.com/kB8zCwT.jpg">
+<meta property="og:image" content="https://i.imgur.com/4l4sMDg.jpg">
+<meta property="og:image" content="https://i.imgur.com/GcGMfvx.jpg">
+<meta property="og:updated_time" content="2018-12-13T02:14:20.612Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RDD的设计与运行原理">
+<meta name="twitter:description" content="Spark的核心是建立在统一的抽象RDD之上，使得Spark的各个组件可以无缝进行集成，在同一个应用程序中完成大数据计算任务 。 1. RDD设计背景在实际应用中，存在许多迭代式算法（比如机器学习、图算法等）和交互式数据挖掘工具，这些应用场景的共同之处是，不同计算阶段之间会重用中间结果，即一个阶段的输出结果会作为下一个阶段的输入。但是，目前的MapReduce框架都是把中间结果写入到HDFS中，带">
+<meta name="twitter:image" content="https://i.imgur.com/jztn48J.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://blog.rickiyang.cn/posts/d422b66e.html">
+
+
+
+
+
+  <title>RDD的设计与运行原理 | Rickiyang's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Rickiyang's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/d422b66e.html">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Rickiyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/adele.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rickiyang's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">RDD的设计与运行原理</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-16T18:31:11+08:00">
+                2018-07-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/大数据学习/" itemprop="url" rel="index">
+                    <span itemprop="name">大数据学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/大数据学习/spark/" itemprop="url" rel="index">
+                    <span itemprop="name">spark</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  15
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Spark的核心是建立在统一的抽象RDD之上，使得Spark的各个组件可以无缝进行集成，在同一个应用程序中完成大数据计算任务 。</p>
+<h4 id="1-RDD设计背景"><a href="#1-RDD设计背景" class="headerlink" title="1. RDD设计背景"></a>1. RDD设计背景</h4><p>在实际应用中，存在许多迭代式算法（比如机器学习、图算法等）和交互式数据挖掘工具，这些应用场景的共同之处是，不同计算阶段之间会重用中间结果，即一个阶段的输出结果会作为下一个阶段的输入。但是，目前的MapReduce框架都是把中间结果写入到HDFS中，带来了大量的数据复制、磁盘IO和序列化开销。虽然，类似Pregel等图计算框架也是将结果保存在内存当中，但是，这些框架只能支持一些特定的计算模式，并没有提供一种通用的数据抽象。RDD就是为了满足这种需求而出现的，它提供了一个抽象的数据架构，我们不必担心底层数据的分布式特性，只需将具体的应用逻辑表达为一系列转换处理，不同RDD之间的转换操作形成依赖关系，可以实现管道化，从而避免了中间结果的存储，大大降低了数据复制、磁盘IO和序列化开销。 </p>
+<h4 id="2-RDD概念"><a href="#2-RDD概念" class="headerlink" title="2.RDD概念"></a>2.RDD概念</h4><p>一个RDD就是一个分布式对象集合，本质上是一个只读的分区记录集合，每个RDD可以分成多个分区，每个分区就是一个数据集片段，并且一个RDD的不同分区可以被保存到集群中不同的节点上，从而可以在集群中的不同节点上进行并行计算。</p>
+<p>RDD提供了一种高度受限的共享内存模型，即RDD是只读的记录分区的集合，不能直接修改，只能基于稳定的物理存储中的数据集来创建RDD，或者通过在其他RDD上执行确定的转换操作（如map、join和groupBy）而创建得到新的RDD。</p>
+<p>RDD提供了一组丰富的操作以支持常见的数据运算，分为“行动”（Action）和“转换”（Transformation）两种类型，前者用于执行计算并指定输出的形式，后者指定RDD之间的相互依赖关系。两类操作的主要区别是：</p>
+<ul>
+<li>转换操作（比如map、filter、groupBy、join等）接受RDD并返回RDD</li>
+<li>行动操作（比如count、collect等）接受RDD但是返回非RDD（即输出一个值或结果）。</li>
+</ul>
+<p>RDD提供的转换接口都非常简单，都是类似map、filter、groupBy、join等粗粒度的数据转换操作，而不是针对某个数据项的细粒度修改。因此，RDD比较适合对于数据集中元素执行相同操作的批处理式应用，而不适合用于需要异步、细粒度状态的应用，比如Web应用系统、增量式的网页爬虫等。正因为这样，这种粗粒度转换接口设计，会使人直觉上认为RDD的功能很受限、不够强大。但是，实际上RDD已经被实践证明可以很好地应用于许多并行计算应用中，可以具备很多现有计算框架（比如MapReduce、SQL、Pregel等）的表达能力，并且可以应用于这些框架处理不了的交互式数据挖掘应用。 </p>
+<p>RDD典型的执行过程如下： </p>
+<ol>
+<li>RDD读入外部数据源（或者内存中的集合）进行创建；</li>
+<li>RDD经过一系列的“转换”操作，每一次都会产生不同的RDD，供给下一个“转换”使用；</li>
+<li>最后一个RDD经“行动”操作进行处理，并输出到外部数据源（或者变成Scala集合或标量）。 需要说明的是，RDD采用了惰性调用，即在RDD的执行过程中（如下图1所示），真正的计算发生在RDD的“行动”操作，对于“行动”之前的所有“转换”操作，Spark只是记录下“转换”操作应用的一些基础数据集以及RDD生成的轨迹，即相互之间的依赖关系，而不会触发真正的计算。 </li>
+</ol>
+<p><img src="https://i.imgur.com/jztn48J.jpg" alt=""></p>
+<p>例如，在图2中，从输入中逻辑上生成A和C两个RDD，经过一系列“转换”操作，逻辑上生成了F（也是一个RDD），之所以说是逻辑上，是因为这时候计算并没有发生，Spark只是记录了RDD之间的生成和依赖关系。当F要进行输出时，也就是当F进行“行动”操作的时候，Spark才会根据RDD的依赖关系生成DAG，并从起点开始真正的计算。 </p>
+<p><img src="https://i.imgur.com/ep5VDRn.jpg" alt=""></p>
+<p>上述这一系列处理称为一个“血缘关系（Lineage）”，即DAG拓扑排序的结果。采用惰性调用，通过血缘关系连接起来的一系列RDD操作就可以实现管道化（pipeline），避免了多次转换操作之间数据同步的等待，而且不用担心有过多的中间数据，因为这些具有血缘关系的操作都管道化了，一个操作得到的结果不需要保存为中间数据，而是直接管道式地流入到下一个操作进行处理。同时，这种通过血缘关系把一系列操作进行管道化连接的设计方式，也使得管道中每次操作的计算变得相对简单，保证了每个操作在处理逻辑上的单一性；相反，在MapReduce的设计中，为了尽可能地减少MapReduce过程，在单个MapReduce中会写入过多复杂的逻辑。 </p>
+<h4 id="3-RDD之间的依赖关系"><a href="#3-RDD之间的依赖关系" class="headerlink" title="3.RDD之间的依赖关系"></a>3.RDD之间的依赖关系</h4><p>RDD中不同的操作会使得不同RDD中的分区会产生不同的依赖。RDD中的依赖关系分为窄依赖（Narrow Dependency）与宽依赖（Wide Dependency）：</p>
+<p><strong>宽依赖：</strong>父RDD的分区被子RDD的多个分区使用 , 例如 groupByKey、reduceByKey、sortByKey等操作会产生宽依赖，会产生shuffle；</p>
+<p><strong>窄依赖：</strong>父RDD的每个分区都只被子RDD的一个分区使用  例如map、filter、union等操作会产生窄依赖；</p>
+<p><img src="https://i.imgur.com/kB8zCwT.jpg" alt=""></p>
+<h4 id="4-阶段的划分"><a href="#4-阶段的划分" class="headerlink" title="4.阶段的划分"></a>4.阶段的划分</h4><p>Spark通过分析各个RDD的依赖关系生成了DAG，再通过分析各个RDD中的分区之间的依赖关系来决定如何划分阶段，具体划分方法是：在DAG中进行反向解析，遇到宽依赖就断开，遇到窄依赖就把当前的RDD加入到当前的阶段中；将窄依赖尽量划分在同一个阶段中，可以实现流水线计算 。例如，如图4所示，假设从HDFS中读入数据生成3个不同的RDD（即A、C和E），通过一系列转换操作后再将计算结果保存回HDFS。对DAG进行解析时，在依赖图中进行反向解析，由于从RDD A到RDD B的转换以及从RDD B和F到RDD G的转换，都属于宽依赖，因此，在宽依赖处断开后可以得到三个阶段，即阶段1、阶段2和阶段3。可以看出，在阶段2中，从map到union都是窄依赖，这两步操作可以形成一个流水线操作，比如，分区7通过map操作生成的分区9，可以不用等待分区8到分区9这个转换操作的计算结束，而是继续进行union操作，转换得到分区13，这样流水线执行大大提高了计算的效率。 </p>
+<p><img src="https://i.imgur.com/4l4sMDg.jpg" alt=""></p>
+<p>由上述论述可知，把一个DAG图划分成多个“阶段”以后，每个阶段都代表了一组关联的、相互之间没有Shuffle依赖关系的任务组成的任务集合。每个任务集合会被提交给任务调度器（TaskScheduler）进行处理，由任务调度器将任务分发给Executor运行。 </p>
+<h4 id="5-RDD运行过程"><a href="#5-RDD运行过程" class="headerlink" title="5.RDD运行过程"></a>5.RDD运行过程</h4><p>通过上述对RDD概念、依赖关系和阶段划分的介绍，结合之前介绍的Spark运行基本流程，这里再总结一下RDD在Spark架构中的运行过程：</p>
+<p>（1）创建RDD对象； </p>
+<p>（2）SparkContext负责计算RDD之间的依赖关系，构建DAG； </p>
+<p>（3）DAGScheduler负责把DAG图分解成多个阶段，每个阶段中包含了多个任务，每个任务会被任务调度器分发给各个工作节点（Worker Node）上的Executor去执行。 </p>
+<p><img src="https://i.imgur.com/GcGMfvx.jpg" alt=""></p>
+<h4 id="6-RDD转换操作"><a href="#6-RDD转换操作" class="headerlink" title="6.RDD转换操作"></a>6.RDD转换操作</h4><p>转换（Transformation）操作是由一个RDD转换到另一个新的RDD，例如，map操作在RDD中是一个转换操作，map转换会让RDD中的每一个数据都通过一个指定函数得到一个新的RDD。</p>
+<p>RDD内部可以封装任意类型的数据，但某些操作只能应用在封装键值对类型数据的RDD之上，例如转换操作reduceByKey、groupByKey和countByKey等下表提供了所有转换操作：</p>
+<p align="center">表1：RDD提供的转换操作</p>
+
+
+
+<table border="1" cellspacing="0" cellpadding="0" width="686">
+<tr>
+<td>
+    <p>Transformation</p>
+</td>
+<td>
+    <p>算子作用</p>
+</td>
+</tr>
+<tr>
+<td>
+    <p>map(func)</p>
+</td>
+<td>
+    <p>新RDD中的数据由原RDD中的每个数据通过函数func得到</p>
+</td>
+</tr>
+<tr>
+<td>
+    <p>filter(func)</p>
+</td>
+<td>
+    <p>新RDD种的数据由原RDD中每个能使函数func返回true&#20540;的数据组成</p>
+</td>
+</tr>
+<tr>
+<td>
+    <p>flatMap(func)</p>
+</td>
+<td>
+    <p>类&#20284;于map转换，但func的返回&#20540;是一个Seq对象，Seq中的元素个数可以是0或者多个</p>
+</td>
+</tr>
+<tr>
+<td>
+    <p>mapPartitions(func)</p>
+</td>
+<td>
+    <p>类&#20284;于map转换，但func的输入不是一个数据项，则是一个分区，若RDD内数据类型为T，则func必须是Iterator&lt;T&gt; =&gt; Iterator&lt;U&gt;类型</p>
+</td>
+</tr>
+<tr>
+<td>
+    <p>mapPartitionsWithIndex(func)</p>
+</td>
+<td>
+    <p>类&#20284;于mapPartitions转换，但func的数据还多了一个分区索引，即func类型是(Int, Iterator&lt;T&gt; =&gt; Iterator&lt;U&gt;)</p>
+</td>
+</tr>
+<tr>
+<td>
+    <p>sample(withReplacement, fraction, seed)</p>
+</td>
+<td>
+    <p>对fraction中的数据进行采样，可以选择是否要进行替换，需要提供一个随机数种子</p>
+</td>
+</tr>
+<tr>
+<td>
+    <p>union(otherDataset)</p>
+</td>
+<td>
+    <p>新RDD中数据是原RDD与RDD otherDataset中数据的并集</p>
+</td>
+</tr>
+<tr>
+<td>
+    <p>Intersection(otherDataset)</p>
+</td>
+<td>
+    <p>新RDD中数据是原RDD与RDD otherDataset中数据的交集</p>
+</td>
+</tr>
+<tr>
+<td>
+    <p>distinct([numTasks])</p>
+</td>
+<td>
+    <p>新RDD中数据是原RDD中数据去重的结果</p>
+</td>
+</tr>
+<tr>
+<td>
+    <p>groupByKey([numTasks])</p>
+</td>
+<td>
+    <p>原RDD中数据类型为(K, V)对，新RDD中数据类型为(K, Iterator(V))对，即将相同K的所有V放到一个迭代器中</p>
+</td>
+</tr>
+<tr>
+<td>
+    <p>reduceByKey(func, [numTasks])</p>
+</td>
+<td>
+    <p>原RDD和新RDD数据的类型都为(K, V)对，让原RDD相同K的所有V依次经过函数func，得到的最终&#20540;作为K的V</p>
+</td>
+</tr>
+<tr>
+<td>
+    <p>aggregateByKey(zeroValue)(seqOp, combOp, [numTasks])</p>
+</td>
+<td>
+    <p>原RDD数据的类型为(K, V)，新RDD数据的类型为(K, U)，类&#20284;于groupbyKey函数，但聚合函数由用户指定。键&#20540;对的&#20540;的类型可以与原RDD不同</p>
+</td>
+</tr>
+<tr>
+<td>
+    <p>sortByKey([ascending], [numTasks])</p>
+</td>
+<td>
+    <p>原RDD和新RDD数据的类型为(K, V)键&#20540;对，新RDD的数据根据ascending的指定顺序或者逆序排序</p>
+</td>
+</tr>
+<tr>
+<td>
+    <p>join(otherDataset, [numTasks])</p>
+</td>
+<td>
+    <p>原RDD数据的类型为(K, V)，otherDataset数据的类型为(K, W)，对于相同的K，返回所有的(K, (V, W))</p>
+</td>
+</tr>
+<tr>
+<td>
+    <p>cogroup(otherDataset, [numTasks])</p>
+</td>
+<td>
+    <p>原RDD数据的类型为(K, V)，otherDataset数据的类型为(K, W)，对于相同的K，返回所有的(K, Iterator&lt;V&gt;, Iterator&lt;W&gt;)</p>
+</td>
+</tr>
+<tr>
+<td>
+    <p>catesian(otherDataset)</p>
+</td>
+<td>
+    <p>原RDD数据的类型为为T，otherDataset数据的类型为U，返回所有的(T, U)</p>
+</td>
+</tr>
+<tr>
+<td>
+    <p>pipe(command, [envValue])</p>
+</td>
+<td>
+    <p>令原RDD中的每个数据以管道的方式依次通过命令command，返回得到的标准输出</p>
+</td>
+</tr>
+<tr>
+<td>
+    <p>coalesce(numPartitions)</p>
+</td>
+<td>
+    <p>减少原RDD中分区的数目至指定&#20540;numPartitions</p>
+</td>
+</tr>
+<tr>
+<td>
+    repartition(numPartitions)
+</td>
+<td>
+    修改原RDD中分区的数目至指定&#20540;numPartitions
+</td>
+</tr>
+</table>
+
+<h4 id="7-RDD动作操作"><a href="#7-RDD动作操作" class="headerlink" title="7.RDD动作操作"></a>7.RDD动作操作</h4><p>相对于转换，动作（Action）操作用于向驱动（Driver）程序返回值或者将值写入到文件当中。例如reduce动作会使用同一个指定函数让RDD中的所有数据做一次聚合，把运算的结果返回。</p>
+<p align="center">表2 RDD动作操作</p>
+
+
+<table border="1" cellspacing="0" cellpadding="0" width="746">
+<tbody>
+<tr>
+<td valign="top">
+<p align="center">Action</p>
+</td>
+<td valign="top">
+<p align="center">算子作用</p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="center">reduce(func)</p>
+</td>
+<td valign="top">
+<p align="left">令原RDD中的每个&#20540;依次经过函数func，func的类型为(T, T) =&gt; T，返回最终结果</p>
+</td>
+</tr>
+<tr>
+<td valign="top">
+<p align="center">collect()</p>
+</td>
+<td valign="top">
+<p align="left">将原RDD中的数据打包成数组并返回</p>
+</td>
+</tr>
+<tr>
+<td valign="top">
+<p align="center">count()</p>
+</td>
+<td valign="top">
+<p align="left">返回原RDD中数据的个数</p>
+</td>
+</tr>
+<tr>
+<td valign="top">
+<p align="center">first()</p>
+</td>
+<td valign="top">
+<p align="left">返回原RDD中的第一个数据项</p>
+</td>
+</tr>
+<tr>
+<td valign="top">
+<p align="center">take(n)</p>
+</td>
+<td valign="top">
+<p align="left">返回原RDD中前n个数据项，返回结果为数组</p>
+</td>
+</tr>
+<tr>
+<td valign="top">
+<p align="center">takeSample(withReplacement, num, [seed])</p>
+</td>
+<td valign="top">
+<p align="left">对原RDD中的数据进行采样，返回num个数据项</p>
+</td>
+</tr>
+<tr>
+<td valign="top">
+<p align="center">saveAsTextFile(path)</p>
+</td>
+<td valign="top">
+<p align="left">将原RDD中的数据写入到文本文件当中</p>
+</td>
+</tr>
+<tr>
+<td valign="top">
+<p align="center">saveAsSequenceFile(path)(Java and Scala)</p>
+</td>
+<td valign="top">
+<p align="left">将原RDD中的数据写入到序列文件当中</p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="center">savaAsObjectFile(path)(Java and Scala)</p>
+</td>
+<td valign="top">
+<p align="left">将原RDD中的数据序列化并写入到文件当中。可以通过SparkContext.objectFile()方法加载</p>
+</td>
+</tr>
+<tr>
+<td valign="top">
+<p align="center">countByKey()</p>
+</td>
+<td valign="top">
+<p align="left">原RDD数据的类型为(K, V)，返回hashMap(K, Int)，用于统计K出现的次数</p>
+</td>
+</tr>
+<tr>
+<td valign="top">
+<p align="center">foreach(func)</p>
+</td>
+<td valign="top">
+<p align="left">对于原RDD中的每个数据执行函数func，返回数组</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+<h4 id="8-惰性计算"><a href="#8-惰性计算" class="headerlink" title="8.惰性计算"></a>8.惰性计算</h4><p>需要注意的是，一个RDD执行转换操作之后，数据的计算是延迟的，新生成的RDD会记录转换的相关信息，包括父RDD的编号、用户指定函数等等，但并不会立即执行计算操作，真正的计算操作过程得等到遇到一个动作操作（Action）才会执行，此外，除非用户指定持久化操作，否则转换过程中产生的中间数据在计算完毕后会被丢弃，即数据是非持久化。即使对同一个RDD执行相同的转换操作，数据同样会被重新计算。</p>
+<p>Spark采取惰性计算机制有其道理所在。例如可以实现通过map方法创建的一个新数据集，然后使用reduce方法，最终只返回 reduce 的结果给driver，而不是整个大的新数据集。</p>
+<h4 id="9-RDD持久化"><a href="#9-RDD持久化" class="headerlink" title="9.RDD持久化"></a>9.RDD持久化</h4><p>惰性计算的缺陷也是明显的：中间数据默认不会保存，每次动作操作都会对数据重复计算，某些计算量比较大的操作可能会影响到系统的运算效率，因此Spark允许将转换过程中手动将某些会被频繁使用的RDD执行持久化操作，持久化后的数据可以被存储在内存、磁盘或者Tachyon当中，这将使得后续的动作(Actions)变得更加迅速（通常快10倍）。</p>
+<p>通过调用RDD提供的cache或persist函数即可实现数据的持久化，persist函数需要指定存储级别（StorageLevel），cache等价于采用默认存储级别的persist函数，Spark提供的存储级别及其含义如表3所示：</p>
+<p align="center">表3 RDD的存储级别</p>
+
+
+<table border="1" cellspacing="0" cellpadding="0" width="710">
+<tbody>
+<tr>
+<td valign="top">
+<p align="center">存储级别</p>
+</td>
+<td valign="top">
+<p align="center">含义</p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="center">MEMORY_ONLY</p>
+</td>
+<td valign="top">
+<p align="left">把RDD以非序列化状态存储在内存中，如果内存空间不够，则有些分区数据会在需要的时候进行计算得到</p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="center">MEMORY_AND_DISK</p>
+</td>
+<td valign="top">
+<p align="left">把RDD以非序列化存储在内存中，如果内存空间不够，则存储在硬盘中</p>
+</td>
+</tr>
+<tr>
+<td valign="top">
+<p align="center">&nbsp;</p>
+<p align="center">MEMORY_ONLY_SER</p>
+</td>
+<td valign="top">
+<p align="left">把RDD以Java对象序列化储存在内存中，序列化后占用空间更小，尤其当使用快速序列化库（如Kyro<a target="_blank" href="file:///C:/Users/admin/Desktop/%E5%86%99%E4%B9%A6/Spark%E4%B9%A6%E7%B1%8D%E7%AC%AC%E4%BA%8C%E6%AC%A1%E4%BF%AE%E6%94%B9%EF%BC%88%E6%9C%80%E7%BB%88%E7%A8%BF%EF%BC%892015-11-20.docx#_ftn1" rel="nofollow" name="_ftnref1" title="">[1]</a>）时效果更好。缺点是读数据要反序列化，会消耗CPU计算资源</p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="center">MEMORY_AND_DISK_SER</p>
+</td>
+<td valign="top">
+<p align="left">类&#20284;MEMORY_ONLY_SER，区别是当内存不够的时候会把RDD持久化到磁盘中，而不是在需要它们的时候实时计算</p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="center">DISK_ONLY</p>
+</td>
+<td valign="top">
+<p align="left">只把RDD存储到磁盘中</p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="center">MEMORY_ONLY_2,</p>
+</td>
+<td valign="top">
+<p align="left">类&#20284;MEMORY_ONLY，不同的是会复制一个副本到另一个集群节点</p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="center">MEMORY_AND_DISK_2, etc.</p>
+</td>
+<td valign="top">
+<p align="left">类&#20284;MEMORY_AND_DISK，不同的是会复制一个副本到另一个集群节点</p>
+</td>
+</tr>
+<tr>
+<td valign="top">
+<p align="center">&nbsp;</p>
+<p align="center">OFF_HEAP</p>
+</td>
+<td valign="top">
+<p align="left">把RDD以序列化形式存储在Tachyon中，与MEMORY_ONLY_SER不同的是，使用OFF-HEAP模式会减少垃圾回收的开销，此外还能让执行器共享内存，这种模式更适应于多并发和对内存要求高的环境</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+<h4 id="10-RDD检查点"><a href="#10-RDD检查点" class="headerlink" title="10.RDD检查点"></a>10.RDD检查点</h4><p>因为DAG中血统（lineage）如果太长，当重计算的时候开销会很大，故使用检查点机制，将计算过程持久化到磁盘，这样如果出现计算故障的时候就可以在检查点开始重计算，而不需要从头开始。RDD的检查点（Checkpoint）机制类似持久化机制中的persist(StorageLevel.DISK_ONLY)，数据会被存储在磁盘当中，两者最大的区别在于：持久化机制所存储的数据，在驱动程序运行结束之后会被自动清除；检查点机制则会将数据永久存储在磁盘当中，如果不手动删除，数据会一直存在。换句话说，检查点机制存储的数据能够被下一次运行的应用程序所使用。</p>
+<p>检查点的使用与持久化类似，调用RDD的checkpoint方法即可。</p>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/posts/d422b66e.html">RDD的设计与运行原理</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Rickiyang 的个人博客">Rickiyang</a></p>
+  <p><span>发布时间:</span>2018年07月16日 - 18:31</p>
+  <p><span>最后更新:</span>2018年12月13日 - 10:14</p>
+  <p><span>原始链接:</span><a href="/posts/d422b66e.html" title="RDD的设计与运行原理">https://blog.rickiyang.cn/posts/d422b66e.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.rickiyang.cn/posts/d422b66e.html" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
+</div>
+<script>
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({
+          title: "",
+          text: '复制成功',
+          icon: "success",
+          showConfirmButton: true
+          });
+    });
+    });
+</script>
+
+
+      
+    </div>
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #636363;font-size:14px;letter-spacing: 10px">本文结束啦<i class="fa fa-bell"></i>感谢您的阅读</div>
+    
+</div>
+
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/spark学习/" rel="tag"> <i class="”fa" fa-tag”=""></i> spark学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/9d4156ed.html" rel="next" title="spark集群环境搭建">
+                <i class="fa fa-chevron-left"></i> spark集群环境搭建
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/e7493326.html" rel="prev" title="spark核心API开发">
+                spark核心API开发 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/adele.png" alt="Rickiyang">
+            
+              <p class="site-author-name" itemprop="name">Rickiyang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">82</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/rickiyang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:medee1320@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/a953713428" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-google"></i>CSDN</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="953713428" target="_blank" title="QQ">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>QQ</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-RDD设计背景"><span class="nav-number">1.</span> <span class="nav-text">1. RDD设计背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-RDD概念"><span class="nav-number">2.</span> <span class="nav-text">2.RDD概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-RDD之间的依赖关系"><span class="nav-number">3.</span> <span class="nav-text">3.RDD之间的依赖关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-阶段的划分"><span class="nav-number">4.</span> <span class="nav-text">4.阶段的划分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-RDD运行过程"><span class="nav-number">5.</span> <span class="nav-text">5.RDD运行过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-RDD转换操作"><span class="nav-number">6.</span> <span class="nav-text">6.RDD转换操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-RDD动作操作"><span class="nav-number">7.</span> <span class="nav-text">7.RDD动作操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-惰性计算"><span class="nav-number">8.</span> <span class="nav-text">8.惰性计算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-RDD持久化"><span class="nav-number">9.</span> <span class="nav-text">9.RDD持久化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-RDD检查点"><span class="nav-number">10.</span> <span class="nav-text">10.RDD检查点</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Rickiyang</span>
+
+  
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+-->
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共207.7k字</span>
+</div>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https'){
+   bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else{
+  bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <!-- 页面点击小红心 -->
+  <script type="text/javascript" src="/js/src/love.js"></script>
+  <!---->
+</body>
+</html>

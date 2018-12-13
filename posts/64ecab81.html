@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|FZSongKeBenXiuKai:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|Optima:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/adele.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/adele.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/adele.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/adele.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="分布式,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Rickiyang's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="1.从ACID到CAP我们知道传统集中式系统中实现ACID是很简单的，在分布式环境中，涉及到不同的节点，节点内的ACID可以控制，那么节点间的ACID如何控制呢？构建一个可用性和一致性的分布系统成为难题，于是出现了CAP和BASE这样的理论。 CAP定理： CAP告诉我们一个分布式系统不可能同时满足一致性(Consistency)、可用性(Availability)、分区容错性(Partition">
+<meta name="keywords" content="分布式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Paxos算法原理">
+<meta property="og:url" content="https://blog.rickiyang.cn/posts/64ecab81.html">
+<meta property="og:site_name" content="Rickiyang&#39;s blog">
+<meta property="og:description" content="1.从ACID到CAP我们知道传统集中式系统中实现ACID是很简单的，在分布式环境中，涉及到不同的节点，节点内的ACID可以控制，那么节点间的ACID如何控制呢？构建一个可用性和一致性的分布系统成为难题，于是出现了CAP和BASE这样的理论。 CAP定理： CAP告诉我们一个分布式系统不可能同时满足一致性(Consistency)、可用性(Availability)、分区容错性(Partition">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.imgur.com/w160kvh.png">
+<meta property="og:image" content="https://i.imgur.com/kK477ld.png">
+<meta property="og:image" content="https://i.imgur.com/GlPwiFk.png">
+<meta property="og:image" content="https://i.imgur.com/gKbR7xF.png">
+<meta property="og:updated_time" content="2018-12-13T02:14:20.616Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Paxos算法原理">
+<meta name="twitter:description" content="1.从ACID到CAP我们知道传统集中式系统中实现ACID是很简单的，在分布式环境中，涉及到不同的节点，节点内的ACID可以控制，那么节点间的ACID如何控制呢？构建一个可用性和一致性的分布系统成为难题，于是出现了CAP和BASE这样的理论。 CAP定理： CAP告诉我们一个分布式系统不可能同时满足一致性(Consistency)、可用性(Availability)、分区容错性(Partition">
+<meta name="twitter:image" content="https://i.imgur.com/w160kvh.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://blog.rickiyang.cn/posts/64ecab81.html">
+
+
+
+
+
+  <title>Paxos算法原理 | Rickiyang's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Rickiyang's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/64ecab81.html">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Rickiyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/adele.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rickiyang's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Paxos算法原理</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-11T10:20:21+08:00">
+                2018-08-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/分布式组件/" itemprop="url" rel="index">
+                    <span itemprop="name">分布式组件</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/分布式组件/zookeeper/" itemprop="url" rel="index">
+                    <span itemprop="name">zookeeper</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  6k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  21
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="1-从ACID到CAP"><a href="#1-从ACID到CAP" class="headerlink" title="1.从ACID到CAP"></a>1.从ACID到CAP</h4><p>我们知道传统集中式系统中实现ACID是很简单的，在分布式环境中，涉及到不同的节点，节点内的ACID可以控制，那么节点间的ACID如何控制呢？构建一个可用性和一致性的分布系统成为难题，于是出现了CAP和BASE这样的理论。</p>
+<p>CAP定理：</p>
+<p>CAP告诉我们一个分布式系统不可能同时满足一致性(Consistency)、可用性(Availability)、分区容错性(Partition tolerance)。最多只能同时满足其中两项。</p>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:center">放弃CAP定理</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">放弃P</td>
+<td style="text-align:left">放弃分区容错性意味着你把所有的数据都放在同一个节点上，这可能会导致出错时系统不可用。同时也放弃了系统的可扩展性。</td>
+</tr>
+<tr>
+<td style="text-align:center">放弃A</td>
+<td style="text-align:left">放弃可用性带来的影响就更大了，出现故障系统直接停止提供服务。</td>
+</tr>
+<tr>
+<td style="text-align:center">放弃C</td>
+<td style="text-align:left">放弃一致性指的是需要系统保持强一致还是保持最终一致。</td>
+</tr>
+</tbody>
+</table>
+
+<p>为解决分布式一致性问题，涌现出来一大批经典的一致性算法和协议，其中最著名的是二阶段提交协议，三阶段提交协议和Paxos算法。</p>
+<p>2PC：</p>
+<p>two-Phase-Commit。通常二阶段提交协议也被认为是一种一致性协议，用来保证分布式系统的数据一致性。目前绝大部分关系型数据库都是采用二阶段提交来完成分布式事务处理的。</p>
+<p>协议说明：</p>
+<ol>
+<li>提交事务请求;</li>
+<li>执行事务提交；</li>
+</ol>
+<p>优缺点：</p>
+<ol>
+<li>二阶段提交协议的优点：原理简单，实现方便。</li>
+<li>二阶段提交协议的缺点：同步阻塞、单点问题、脑裂、太过保守。</li>
+</ol>
+<p>3PC：</p>
+<p>将二阶段提交协议的“提交事务请求”过程一分为二，形成了由CanCommit，PreCommit和doCommit三个阶段组成的事务处理协议，协议设计如下图：</p>
+<p><img src="https://i.imgur.com/w160kvh.png" alt=""></p>
+<ol>
+<li>阶段1，canCommit<ol>
+<li>事务查询；</li>
+<li>各参与者向协调者反馈事务询问的响应。</li>
+</ol>
+</li>
+<li>阶段2,preCommit<ol>
+<li>假如协调者从所有的参与者获得的反馈都是Yes 响应，那么就会执行事务预提交。</li>
+<li>假如任何一个参与者向协调者反馈了No 响应，或者在等待超时之后，协调者尚无能接收到所有参与者的反馈响应，那么就会中断事务。</li>
+</ol>
+</li>
+<li>阶段3，doCommit<ol>
+<li>执行提交；</li>
+<li>进入这一阶段，假设协调者处于正常工作状态，井且有任意一个参与者向协调者反馈了No 响应，或者在等待超时之后，协调者尚无告接收到所有参与者的反馈响应，那么就会中断事务。</li>
+</ol>
+</li>
+</ol>
+<p>优缺点：</p>
+<p>三阶段提交协议的优点：相较于二阶段提交协议，三阶段提交协议最大的优点就是降低了参与者的阻塞范围，并且能够在出现单点故障后继续达成一致。</p>
+<p>三阶段提交协议的缺点：三阶段提交协议在去除阻塞的同时也引入了新的问题，那就是在参与者接收到preCommit消息后，如果网络出现分区，此时协调者所在的节点和参与者无能进行正常的网络通信，在这种情况下， 该参与者依然会进行事务的提交，这必然出现数据的不一致性。</p>
+<h4 id="2-Paxos算法"><a href="#2-Paxos算法" class="headerlink" title="2. Paxos算法"></a>2. Paxos算法</h4><p>Paxos算法的核心是一个一致性算法，也就是论文The Part-time Parliament中提到的”synid”算法，我们将从对一致性问题的描述开始来讲解该算法需要解决的实际需求。</p>
+<p>问题描述：</p>
+<p>假设有一组可以提出提案的进程集合，那么对于一个一致性算越来说需要保证以下几点：</p>
+<ul>
+<li>在这些被提出的提案中，只有一个会被选定</li>
+<li>如果没有提案被提出，那么就不会有被选定的提案</li>
+<li>当一个提案被迫定后，进程应该可以获取被选定的提案信息</li>
+</ul>
+<p>对于一致性来说，安全性（ Safety ）的需求如下：</p>
+<ul>
+<li>只有被提出的提案才能被选定（ Chosen ）</li>
+<li>只能有一个值被选定。</li>
+<li>如果某个进程认为某个提案被选定了，那么这个提案必须是真的被选定的那个</li>
+</ul>
+<p>从整体上来说，Paxos算法的目标就是要保证最终有一个提案会被选定， 当提案被选定后，进程最终也能获取到被选定的提案。</p>
+<p>要选定一个唯一提案的最简单方式莫过于只允许一个Accpetor存在，这样的话，Proposer只能发送提案给该Accpetor, Acceptor 会选择接收到的第一个提案作为被选定的提案。这种解决方式尽管实现起来非常简单，但是却很难让人满意，因为一旦这个Accpetor出现问题，那么整个系统就无能工作了。</p>
+<p>因此，应该寻找一种更好的解决方式，例如可以使用多个Accpetor 来避免Accpetor 的单点问题。现在我们就来看看在存在多个Acceptor 的情况下如何进行提案的选取：</p>
+<p>Proposer向一个Acceptor集合发送提案，同样，集合中的每个Acceptor 都可能会批准(Accept）该提案，当有足够多的Acceptor批准这个提案的时候，我们就可以认为该提案被选定了。那么，什么是足够多呢？我们假定足够多的Acceptor是整个Acceptor集合的一个子集，井且让这个集合大得可以包含Acceptor集合中的大多数成员，因为任意两个包含大多数Acceptor的子集至少有一个公共成员。另外我们再规定，每一个Acceptor最多只能批准一个提案，那么就能保证只有一个提案被选定了。</p>
+<p>在没有失败和消息丢失的情况下，如果我们希望即使在只有一个提案被提出的情况下，仍然可以选出一个提案，这就暗示了如下的需求：</p>
+<p><strong>条件1： 一个Acceptor 必须批准它收到的第一个提案。</strong></p>
+<p>上面这个需求就引出了另外一个问题：如果有多个提案被不同的Proposer 同时提出，这可能会导致虽然每个Acceptor都批准了它收到的第一个提案，但是没有一个提案是由多数人都批准的。</p>
+<p><img src="https://i.imgur.com/kK477ld.png" alt=""></p>
+<p>不同的Proposer 分别提出每个提案。</p>
+<p>另外，即使只有两个提案被提出，如果每个提案都被差不多一半的<br>Acceptor 批准了，此时即使只有一个Acceptor出错，都有可能导致无法确定该选定哪个提案。</p>
+<p><img src="https://i.imgur.com/GlPwiFk.png" alt=""></p>
+<p>任意一个Acceptor 出现问题。</p>
+<p>因此在需求1的基础上，再加上一个提案被选定需要由半数以上的Acceptor批准的需求暗示着一个Acceptor必须能够批准不止一个提案。</p>
+<p>在这里，我们使用一个全局的编号（这种全局唯一编号的生成并不是Paxos算法需要关注的地方，就算法本身而言，其假设当前已经具备这样的外部组件能够生成一个全局唯一的编号）来唯一标识每一个被Acceptor 批准的提案，当一个具有某Value值的提案被半数以上的Acceptor批准后，我们就认为该Value被选定了，此时我们也认为该提案被选定了。需要注意的是，此处讲到的提案已经和Value不是同一个概念了，提案变成了一个由编号和Value组成的组合体，因此我们以“［编号，Value］＂来表示一个提案。</p>
+<p>根据上面讲到的内容，我们虽然允许多个提案被选定，但同时必须要保证所有被选定的提案都具有相同的Value值这是一个关于提案Value的约定， 结合提案的编号，该约定可以定义如下：</p>
+<p><strong>条件2：</strong></p>
+<p><strong>如果编号为Mo, Value值为V0的提案(即[Mo, Vo])被选定了，那么所<br>有比编号Mo更高的，且被选定的提案，其Value值必须也是Vo。</strong></p>
+<p>因为提案的编号是全序的，条件2就保证了只有一个Value值被选定这一关键安全性属性。同时，一个提案要被选定，其首先必须被至少一个Acceptor 批准，因此我们可以通过满足如下条件来满足条件2：</p>
+<p><strong>条件2.1：</strong></p>
+<p><strong>如果编号为Mo，Value值为Vo的提案(即［Mo, Vo])被选定了，那么所<br>有比编号Mo更高的，且被Acceptor批准的提案，其Valu值必须也是Vo。</strong></p>
+<p>因此，我们在条件1的前提下来发起提案，但是因为通信是异步的，一个提案可能会在某个Acceptor还未收到任何提案时就被选定了。</p>
+<p><img src="https://i.imgur.com/gKbR7xF.png" alt=""></p>
+<p>在Acceptorl没有收到任何提案的情况下，其他4个Acceptor已经批准<br>了来自Proposer2的提案［Mo,V1],而此时,Proposerl产生了一个具有其他Value值的、编号更高的提案［M1,V2］，并发送给了Acceptor1。根据条件1就需要Acceptorl批准该提案，但是这与条件2矛盾，因此如果要同时满足条件1和1，需要对条件2进行如下强化：</p>
+<p><strong>条件2.2：</strong></p>
+<p><strong>如果一个提案[Mo,Vo]被选定后，那么之后任何Proposer产生的编号是<br>高的提案，其Value值都为Vo。</strong></p>
+<p>因为一个提案必须在被Proposer提出后才能被Acceptor批准，因此2.2 包含了2.1，进而包含了2。于是，接下去的重点就是论证2.2成立即可：</p>
+<p><strong>假设某个提案[Mo,Vo]已经被选定了，证明任何编号Mn&gt; Mo的提案，其Value值都是Vo。</strong></p>
+<h5 id="2-1-证明"><a href="#2-1-证明" class="headerlink" title="2.1 证明"></a>2.1 证明</h5><p>我们可以将上述结论转化为如下：</p>
+<p><strong>假设编号在Mo到Mn-1之间的提案，其Value值都是Vo，证明编号为Mn的提案的Value值也为Vo。</strong></p>
+<p>因为编号为Mo的提案已经被选定了，这就意味着肯定存在一个由半数以上的Acceptor组成的集合c, c中的每个Acceptor都批准了该提案。再结合归纳假设，”编号为Mo的提案被选定”意味着：</p>
+<p><strong>C中的每个Acceptor都批准了一个编号在Mo到Mn-范围内的提案，并且每个编号在Mo到Mn-1范围内的被Acceptor批准的提案，其Value值都为Vo。</strong></p>
+<p>因为任何包含半数以上Acceptor的集合S都至少包含C中的一个成员，因此我们可以认为如果保持了下面条件2.3的不变性，那么编号为Mn的提案的Value也为Vo。</p>
+<p><strong>条件2.3：</strong></p>
+<p><strong>对于任意的Mn和Vn，如果提[Mn,Yn]被提出，那么肯定存在一个由半数以上的Acceptor组成的集合S ，满足以下两个条件中的任意一个。</strong></p>
+<ul>
+<li>S中不存在任何批准过编号小于Mn的提案的Acceptor。</li>
+<li>选取S中所有Acceptor批准的编号小于Mn的提案，其中编号最大的那个提案其Value值是Vn。</li>
+</ul>
+<p>至此，只需要通过保持条件2.3我们就能够满足条件2.2了。</p>
+<p>实际上2.3规定了每个Proposer如何产生一个提案：对于产生的每个提案[Mn,Yn]，需要满足如下条件：</p>
+<p>存在一个由超过半数的Acceptor 组成的集合S :</p>
+<ul>
+<li>要么S中没有Acceptor批准过编号小干Mn的任何提案。</li>
+<li>要么S中的所有Acceptor批准的所有编号小于Mn的提案中，编号最大的那个提案的Value值为Vn。</li>
+</ul>
+<p>当每个Proposer都按照这个规则来产生提案时，就可以保证满足2.2了。我们继续来证明2.3。</p>
+<p>首先假设提案[Mo,Vo]被选定了,设比该提案编号大的提案为[Mn,Vn]，我们需要证明的就是在2.3的前提下，对于所有的[Mn,Vn]，存在Vn=Vo。</p>
+<ol>
+<li><p>当Mn= Mo+1时，如果有这样一个编号为Mn的提案，首先我们知道[Mo,Vo]已经被选定了，那么就一定存在－个Acceptor的子集S，且S中的Acceptor已经批准了小于M的提案，于是，Vn只能是多数集S中编号小于M但为最大编号的那个提案的值。而此时因为Mn= Mo+1，因此理论上编号小于Mn但为最大编号的那个提案肯定是[Mo,Vo]同时由于S和通过[Mo,Vo]的Acceptor集合都是多数集,也就是说二者肯定有交集—这样Proposer在确定Vn取值的时候，就一定会选择Vo。</p>
+<p> 值得注意的一点是，Paxos算法的证明过程使用的是第二数学归纳法，上面实际上就是数学归纳陆的第一步，验证了某个初始值成立。接下去，就需要假设编号在Mo + 1到Mn-l 区间内时成立，并在此基础上推导出当编号为Mn时也成立。</p>
+</li>
+<li><p>根据假设，编号在Mo+1到Mn-1区间内的所有提案的Value值为Vo,需要证明的是编号为Mn的提案的Value值也为Vo。根据2.3，首先同样一定存在一个Acceptor的子集S，且S中的Acceptor已经批准了小子Mn的提案，那么编号为Mn的提案的Value值只能是这个多数集S中编号小于Mn但为最大编号的那个提案的值。如果这个最大编号落在Mo+1到Mn-1区间内，那么Value值肯定是Vo，如果不落在Mo+1到Mn-1区间内，那么它的编号不可能比Mo再小了,肯定就是Mo,因为S也肯定会与批准[Mo,Vo]这个提案的Acceptor集合S有交集，而如果编号是Mo,那么它的Value值也是Vo,由此得证。</p>
+</li>
+</ol>
+<p><strong>proposer生成提案</strong></p>
+<p>对于一个Proposer来说，获取那些已经被通过的提案远比预恻未来可能会被通过的提案来得简单。因此，Proposer 在产生一个编号为Mn的提案时，必须要知道当前某一个将要或已经被半数以上Acceptor批准的编号小于Mn但为最大编号的提案。并且，Proposer会要求所有的Acceptor都不<br>要再批准任何编号小于Mn的提案—这就引出了如下的提案生成算法。</p>
+<ol>
+<li><p>Proposer选择一个新的提案编号Mn，然后向某个Acceptor集合的成员发送请求，要求该集合中的Acceptor做出如下回应：</p>
+<ol>
+<li>向Proposer承诺，保证不再批准任何编号小于Mn 的提案。</li>
+<li>如果Acceptor已经批准过任何提案，那么其就向Proposer反馈当前该Acceptor已经批准的编号小于Mn但为最大编号的那个提案的值。</li>
+<li>我们将该请求称为编号为Mn的提案的Prepare请求。</li>
+</ol>
+</li>
+<li><p>如果Proposer收到了来自半数以上的Acceptor的晌应结果，那么它就可以产生编号为Mn，Value值为Vn的提案，这里的Vn是所有响应中编号最大的提案的Value值。当然还存在另一种情况，就是半数以上的Acceptor 都没有批准过任何提案，即响应中不包含任何的提案，那么此时Vn值就可以由Proposer任意选择。</p>
+</li>
+</ol>
+<p><strong>Acceptor批准提案：</strong></p>
+<p>一个Acceptor可能会收到来自Proposer的两种请求，分别是Prepare<br>请求和Accept请求，对这两类请求做出响应的条件分别如下：</p>
+<ol>
+<li>Prepare请求：Acceptor可以在任何时候响应一个Prepare请求。</li>
+<li>Accept请求：在不违背Accept现有承诺的前提下，可以任意响应Accept请求。</li>
+</ol>
+<p>因此对Acceptor逻辑处理的约束条件大体如下：</p>
+<p><strong>一个Acceptor只要尚未响应过任何编号大于Mn的Prepare请求，那么它<br>就可以接受这个编号为Mn的提案。</strong></p>
+<h5 id="2-2-算法优化"><a href="#2-2-算法优化" class="headerlink" title="2.2 算法优化"></a>2.2 算法优化</h5><p>在上面的内容中，我们分别从Proposer和Acceptor对提案的生成和批准两方面来讲解了Paxos算法在提案选定过程中的算也细节，同时也在提案的编号全局唯一的前提下，获得了一个满足安全性需求的提案选定算法，接下来我们再对这个初步算法做一个小优化，尽可能地忽略Prepare请求：</p>
+<p><strong>假设一个Acceptor收到了一个编号为Mn的Prepare请求，但此时该Acceptor已经对编号大于Mn的Prepare请求做出了响应，因此它肯定不会再批准任何新的编号为Mn的提案，那么很显然，Acceptor就没有必要对这个Prepare请求做出响应，于是Acceptor可以选择忽略这样的Prepare 请求。同时，Acceptor也可以忽略掉那些它已经批准过的提案的Prepare 请求。</strong></p>
+<p>通过这个优化，每个Acceptor只需要记住它已经批准的提案的最大编号以及它已经做出Prepare请求响应的提案的最大编号，以便在出现故障或节点重启的情况下，也能保证条件2.3的不变性。而对干Proposer来说，只要它可以保证不会产生具有相同编号的提案，那么就可以丢弃任意的提案以及它所有的运行时状态信息。</p>
+<p>根据我们的优化，结合Proposer和Acceptor对提案的处理逻辑，就可以得到如下类似于两阶段提交的算能执行过程：</p>
+<p><strong>阶段1：</strong></p>
+<ol>
+<li>Proposer选择一个提案编号Mn，然后向Acceptor的某个超过半数的子集成员发送编号为Mn的Prepare请求。</li>
+<li>如果一个Acceptor收到一个编号为Mn的Prepare请求，且编号Mn大于该Acceptor已经响应的所有Prepare请求的编号，那么它就会将它已经批准过的最大编号的提案作为响应反馈给Proposer，同时该Acceptor会承诺不会再批准任何编号小于Mn的提案。</li>
+</ol>
+<p>举个例子来说，假定一个Acceptor已经响应过的所有Prepare请求对应的提案编号分别为l，2, …，5 和7，那么该Acceptor在接收到一个编号为8的Prepare请求后，就会将编号为7的提案作为响应反馈给Proposer。</p>
+<p><strong>阶段2：</strong></p>
+<ol>
+<li>如果Proposer收到来自半数以上的Acceptor对于其发出的编号为Mn 的Prepare请求的晌应，那么它就会发送一个针对［Mn,Vn］提案的Accept请求给Acceptor。注意，Vn的值就是收到的响应中编号最大的提案的值，如果响应中不包含任何提案，那么它就是任意值。</li>
+<li>如果Acceptor收到这个针对[Mn,Vn]提案的Accept请求，只要该Acceptor尚未对编号大于Mn的Prepare请求做出响应，它就可以通过这个提案。</li>
+</ol>
+<p>当然，在实际运行过程中，每一个Proposer都有可能会产生多个提案，但只要每个Proposer都遵循如上所述的算陆运行，就一定能够保证算怯执行的正确性。值得一提的是，每个Proposer都可以在任意时刻丢弃一个提案，哪怕针对该提案的请求和响应在提案被丢弃后会到达，但根据Paxos 算法的一系列规约，依然可以保证其在提案选定上的正确性。事实上，如果某个Proposer已经在试图生成编号更大的提案，那么丢弃一些旧的提案未尝不是一个好的选择。因此，如果一个Acceptor因为已经收到过更大编号的Prepare请求而忽略某个编号更小的Prepare或者Accept请求，那么它也应当通知其对应的Proposer，以便该Proposer也能够将该提案进行丢弃—这和上面“算法优化”部分中提到的提案丢弃是一致的。</p>
+<p><strong>Learner获取提案：</strong></p>
+<p>Learner获取提案大致有以下几种方案：</p>
+<p>方案一：</p>
+<p>Learner获取一个已经被选定的提案的前提是，该提案已经被半数以上的Acceptor批准。因此，最简单的做怯就是一旦Acceptor批准了一个提案，就将该提案发送给所有的Learner。</p>
+<p>很显然，这种做法虽然可以让Learner尽快地获取被选定的提案，但是却需要让每个Acceptor与所有的Learner逐个进行一次通信，通信的次数至少为二者个数的乘积。</p>
+<p>方案二：</p>
+<p>另一种可行的方案是，我们可以让所有的Acceptor将它们对提案的批准情况，统一发送给一个特定的Learner(下文中我们将这样的Learner称为”主Learner”），在不考虑拜占庭将军问题的前提下，我们假定Learner之间可以通过消息通信来互相感知提案的选定情况。基于这样的前提，当主Learner被通知一个提案已经被选定时，它会负责通知其他的Learner。</p>
+<p>在这种方案中，Acceptor首先会将得到批准的提案发送给圭Learner，再由其同步给其他Learner，因此较方案一而言，方案二虽然需要多一个步骤才能将提案通知到所有的Learner，但其通信次数却大大减少了，通常只是Acceptor和Learner的个数总和。但同时，该方案引入了一个新的不稳定因素：主Learner随时可能出现故障。</p>
+<p>方案三：</p>
+<p>在讲解方案二的时候，我们提到，方案二最大的问题在于主Learner存在单点问题，即主Learner随时可能出现故障。因此，对方案二进行改进，可以将主Learner的范围扩大，即Acceptor可以将批准的提案发送给一个特定的Learner集合，该集合中的每个Learner都可以在一个提案被选定后通知所有其他的Learner。这个Learner集合中的Learner个数越多，可靠性就越好，但同时网络通信的复杂度也就越高。</p>
+<h5 id="2-3-通过选举出主Proposer保证算法的活性"><a href="#2-3-通过选举出主Proposer保证算法的活性" class="headerlink" title="2.3 通过选举出主Proposer保证算法的活性"></a>2.3 通过选举出主Proposer保证算法的活性</h5><p>根据前面的内容讲解，我们已经基本上了解了Paxos算法的核心逻辑，下面我们再来看看Paxos算法在实际运作过程中的一些细节。假设存在这样一种极端情况，有两个Proposer依次提出了一系列编号递增的议案，但是最终都无法被选定，具体流程如下：</p>
+<p>Proposer P1提出了一个编号为M1的提案，并完成了上述阶段一的流程。但与此同时，另外一个Proposer P2提出了一个编号为M2(M2&gt;M1)的提案，同样也完成了阶段一的流程，于是Acceptor已经承诺不再批准编号小于M2 的提案了。因此，当P1进入阶段二的时候，其发出的Acceptor请求将被Acceptor忽略，于是P1再次进入阶段一并提出了一个编号为M3(M3 &gt; M2)的提案，而这又导致P2在第二阶段的Accept请求被忽略，以此类格，提案的选定过程将陷入死循环。</p>
+<p>为了保证Paxos算法流程的可持续性，以避免陷入上述提到的“死循环”，就必须选择一个主Proposer，并规定只有主Proposer才能提出议案。这样一来，只要主Proposer和过半的Acceptor能够正常进行网络通信，那么但凡主Proposer提出一个编号更高的提案，该提案终将会被批准。当然，如果Proposer发现当前算法流程中已经有一个编号更大的提案被提出或正在接受批准，那么它会丢弃当前这个编号较小的提案，并最终能够选出一个编号足够大的提案。因此，如果系统中有足够多的组件（包括Proposer，Acceptor和其他网络通信组件）能够正常工作，那么通过选择一个主Proposer，整套Paxos算住流程就能够保持活性。</p>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/posts/64ecab81.html">Paxos算法原理</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Rickiyang 的个人博客">Rickiyang</a></p>
+  <p><span>发布时间:</span>2018年08月11日 - 10:20</p>
+  <p><span>最后更新:</span>2018年12月13日 - 10:14</p>
+  <p><span>原始链接:</span><a href="/posts/64ecab81.html" title="Paxos算法原理">https://blog.rickiyang.cn/posts/64ecab81.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.rickiyang.cn/posts/64ecab81.html" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
+</div>
+<script>
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({
+          title: "",
+          text: '复制成功',
+          icon: "success",
+          showConfirmButton: true
+          });
+    });
+    });
+</script>
+
+
+      
+    </div>
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #636363;font-size:14px;letter-spacing: 10px">本文结束啦<i class="fa fa-bell"></i>感谢您的阅读</div>
+    
+</div>
+
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/分布式/" rel="tag"> <i class="”fa" fa-tag”=""></i> 分布式</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/e7493326.html" rel="next" title="spark核心API开发">
+                <i class="fa fa-chevron-left"></i> spark核心API开发
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/e3052d18.html" rel="prev" title="zookeeper中的分布式一致性协议">
+                zookeeper中的分布式一致性协议 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/adele.png" alt="Rickiyang">
+            
+              <p class="site-author-name" itemprop="name">Rickiyang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">82</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/rickiyang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:medee1320@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/a953713428" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-google"></i>CSDN</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="953713428" target="_blank" title="QQ">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>QQ</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-从ACID到CAP"><span class="nav-number">1.</span> <span class="nav-text">1.从ACID到CAP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Paxos算法"><span class="nav-number">2.</span> <span class="nav-text">2. Paxos算法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-证明"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 证明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-算法优化"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 算法优化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-通过选举出主Proposer保证算法的活性"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 通过选举出主Proposer保证算法的活性</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Rickiyang</span>
+
+  
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+-->
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共207.7k字</span>
+</div>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https'){
+   bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else{
+  bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <!-- 页面点击小红心 -->
+  <script type="text/javascript" src="/js/src/love.js"></script>
+  <!---->
+</body>
+</html>

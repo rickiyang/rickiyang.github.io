@@ -1,0 +1,1712 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|FZSongKeBenXiuKai:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|Optima:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/adele.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/adele.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/adele.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/adele.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="分布式,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Rickiyang's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="开源zk客户端-Curator创建会话： RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000,3); CuratorFramework client = CuratorFrameworkFactory.newClient(&amp;quot;192.168.131.128:2181&amp;quot;,retryPolicy); 使用Curator">
+<meta name="keywords" content="分布式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Zookeeeper开源客户端Curator5">
+<meta property="og:url" content="https://blog.rickiyang.cn/posts/c934629c.html">
+<meta property="og:site_name" content="Rickiyang&#39;s blog">
+<meta property="og:description" content="开源zk客户端-Curator创建会话： RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000,3); CuratorFramework client = CuratorFrameworkFactory.newClient(&amp;quot;192.168.131.128:2181&amp;quot;,retryPolicy); 使用Curator">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-13T02:14:20.615Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Zookeeeper开源客户端Curator5">
+<meta name="twitter:description" content="开源zk客户端-Curator创建会话： RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000,3); CuratorFramework client = CuratorFrameworkFactory.newClient(&amp;quot;192.168.131.128:2181&amp;quot;,retryPolicy); 使用Curator">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://blog.rickiyang.cn/posts/c934629c.html">
+
+
+
+
+
+  <title>Zookeeeper开源客户端Curator5 | Rickiyang's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Rickiyang's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/c934629c.html">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Rickiyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/adele.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rickiyang's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Zookeeeper开源客户端Curator5</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-17T22:41:17+08:00">
+                2018-06-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/分布式组件/" itemprop="url" rel="index">
+                    <span itemprop="name">分布式组件</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/分布式组件/zookeeper/" itemprop="url" rel="index">
+                    <span itemprop="name">zookeeper</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  15
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="开源zk客户端-Curator"><a href="#开源zk客户端-Curator" class="headerlink" title="开源zk客户端-Curator"></a>开源zk客户端-Curator</h4><p>创建会话：</p>
+<pre><code>RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000,3);
+CuratorFramework client = CuratorFrameworkFactory.newClient(&quot;192.168.131.128:2181&quot;,retryPolicy);
+</code></pre><p>使用CuratorFrameworkFactory工厂类的静态方法newClient来创建会话。</p>
+<p>在重试策略上， Curator通过一个接口RetryPolicy来让用户实现自定义的重试策略。在RetryPolicy接口中只定义了一个方法：</p>
+<pre><code>boolean allowRetry(int var1, long var2, RetrySleeper var4);
+</code></pre><p>三个参数分别为：</p>
+<ul>
+<li>baseSleepTimeMs：初始sleep时间</li>
+<li>maxRetries：最大重试次数</li>
+<li>maxSleepMs：最大sleep时间</li>
+</ul>
+<p>ExponentialBackoffRetry的重试策略设计如下：</p>
+<p>给定一个初始sleep时间baseSleepTimeMs，在这个基础上结合重试次数，通过以下公式计算出当前需要sleep的时间：</p>
+<pre><code>当前sleep时间 = baseSleepTimeMs  * Math.max(1,random.nextInt(1 &lt;&lt; (retryCount = 1)))
+</code></pre><p>可以看出，随着重试次数的增加，计算出的sleep时间会越来越大。如果该sleep时间在maxSleepMs的范围之内，那么就使用该sleep时间，否则使用maxSleepMs。另外，maxRetries参数控制了最大重试次数，以避免无限制的重试。</p>
+<p>另外，newClient方法并没有完成创建客户端的工作，你需要主动调用CuratorFramework的start()方法来完成创建客户端。</p>
+<p>一个完整的创建客户端的例子：</p>
+<pre><code>import org.apache.curator.RetryPolicy;
+import org.apache.curator.framework.CuratorFramework;
+import org.apache.curator.framework.CuratorFrameworkFactory;
+import org.apache.curator.framework.api.CreateBuilder;
+import org.apache.curator.retry.ExponentialBackoffRetry;
+import org.apache.zookeeper.CreateMode;
+
+public class Demo1 {
+    public static void main(String[] args) {
+        RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000,3);
+        CuratorFramework client = CuratorFrameworkFactory.newClient(&quot;192.168.131.128:2181&quot;,retryPolicy);
+        client.start();
+        CreateBuilder builder = client.create();
+        try {
+            builder.withMode(CreateMode.EPHEMERAL).forPath(&quot;/test&quot;,&quot;ceshi&quot;.getBytes());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre><p>创建一个节点，初始内容为空：</p>
+<p>builder.forPath(“/test”,”ceshi”.getBytes());</p>
+<p>注意，如果没有设置节点属性，那么Curator默认创建的是持久节点，内容默认是空。</p>
+<p>创建一个临时节点，初始内容为空：</p>
+<pre><code>builder.withMode(CreateMode.EPHEMERAL).forPath(&quot;/test&quot;);
+</code></pre><p>创建一个临时节点，并自动逆归创建父节点：</p>
+<pre><code>builder.creatingParentsIfNeeded().withMode(CreateMode.EPHEMERAL).forPath(&quot;/test&quot;,&quot;ceshi&quot;.getBytes());
+</code></pre><p>这个接口非常有用，在使用ZooKeeper 的过程中，开发人员经常会碰到<br>NoNodeException异常，其中一个可能的原因就是试图对一个不存在的父节点创建子节点。因此，开发人员不得不在每次创建节点之前，都判断－下该父节点是否存在。在使用Curator之后，通过调用creatingParentsIfNeeded接口，Curator就能够自动地递归创建所有需要的父节点。</p>
+<p><strong>同时要注意的一点是，由于在ZooKeeper中规定了所有非叶子节点必须为持久节点，调用上面这个API之后，只有path参数对应的数据节点是临时节点，其父节点均为持久节点。</strong></p>
+<p>删除节点：</p>
+<p>同样创建和删除操作都是由CuratorFramework接口发出来的。</p>
+<pre><code>client.delete().forPath(&quot;/test/test1&quot;);
+</code></pre><p>使用上面的方法只能删除叶子节点。</p>
+<p>删除一个节点，并递归删除其所有子节点：</p>
+<pre><code>client.delete().deletingChildrenIfNeeded().forPath(&quot;/test/test1&quot;);
+</code></pre><p>删除一个节点，强制指定版本进行删除：</p>
+<pre><code>client.delete().withVersion(1).forPath(&quot;/test/test1&quot;);
+</code></pre><p>删除一个节点，强制保证删除：</p>
+<pre><code>client.delete().guaranteed().forPath(&quot;/test/test1&quot;);
+</code></pre><p>一个完整的创建节点删除节点的例子：</p>
+<pre><code>import org.apache.curator.RetryPolicy;
+import org.apache.curator.framework.CuratorFramework;
+import org.apache.curator.framework.CuratorFrameworkFactory;
+import org.apache.curator.framework.api.CreateBuilder;
+import org.apache.curator.retry.ExponentialBackoffRetry;
+import org.apache.zookeeper.CreateMode;
+
+public class Demo1 {
+    public static void main(String[] args) {
+        RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000,3);
+        CuratorFramework client = CuratorFrameworkFactory.newClient(&quot;192.168.131.128:2181&quot;,retryPolicy);
+        client.start();
+        CreateBuilder builder = client.create();
+        try {
+            builder.creatingParentsIfNeeded().withMode(CreateMode.PERSISTENT).forPath(&quot;/test/test1&quot;,&quot;ceshi&quot;.getBytes());
+            client.delete().guaranteed().forPath(&quot;/test/test1&quot;);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre><p><strong>异步接口：</strong></p>
+<p>Curator中引入了BackgroundCallback接口，用来处理异步接口调用。CreateBuilder提供了一个inBackground()方法可供使用，此接口就是Curator提供的异步调用入口。对应的异步处理接口为BackgroundCallback。此接口指提供了一个processResult的方法，用来处理回调结果。其中processResult的参数event中的getType()包含了各种事件类型，getResultCode()包含了各种响应码。</p>
+<pre><code>import org.apache.curator.RetryPolicy;
+import org.apache.curator.framework.CuratorFramework;
+import org.apache.curator.framework.CuratorFrameworkFactory;
+import org.apache.curator.framework.api.BackgroundCallback;
+import org.apache.curator.framework.api.CreateBuilder;
+import org.apache.curator.framework.api.CuratorEvent;
+import org.apache.curator.retry.ExponentialBackoffRetry;
+import org.apache.zookeeper.CreateMode;
+
+import java.util.concurrent.Executors;
+
+public class Demo2 {
+    public static void main(String[] args) {
+        RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000,3);
+        CuratorFramework client = CuratorFrameworkFactory.newClient(&quot;192.168.131.128:2181&quot;,retryPolicy);
+        client.start();
+        CreateBuilder builder = client.create();
+        try {
+            builder.withMode(CreateMode.PERSISTENT).inBackground(new BackgroundCallback() {
+                public void processResult(CuratorFramework client, CuratorEvent event) throws Exception {
+                    System.out.println(&quot;当前线程：&quot; + Thread.currentThread().getName() + &quot;,code:&quot;
+                            + event.getResultCode() + &quot;,type:&quot; + event.getType());
+                }
+            }, Executors.newFixedThreadPool(10)).forPath(&quot;/test&quot;);
+</code></pre><p>​<br>                builder.withMode(CreateMode.EPHEMERAL).inBackground(new BackgroundCallback() {<br>                    public void processResult(CuratorFramework client, CuratorEvent event) throws Exception {<br>                        System.out.println(“当前线程：” + Thread.currentThread().getName() + “,code:”</p>
+<pre><code>                + event.getResultCode() + &quot;,type:&quot; + event.getType());
+    }
+}).forPath(&quot;/test1&quot;);
+</code></pre><p>​<br>            } catch (Exception e) {<br>                e.printStackTrace();<br>            }<br>        }<br>    }</p>
+<p><strong>注意:如果自己指定了线程池,那么相应的操作就会在线程池中执行,如果没有指定,那么就会使用Zookeeper的EventThread线程对事件进行串行处理。</strong></p>
+<p><strong>事件监听：</strong></p>
+<p>ZooKeeper原生支持通过注册Watcher来进行事件监听，但是其使用并不是特别方便，需要开发人员自己反复注册Watcher，比较繁琐。Curator 引入了Cache来实现对ZooKeeper服务端事件的监听。Cache是Curator 中对事件监听的包装，其对事件的监听其实可以近似看作是一个本地缓存视图和远程ZooKeeper视图的对比过程。同时Curator能够自动为开发人员处理反复注册监听，从而大大简化了原生API开发的繁琐过程。Cache分为两类监听类型：节点监听和子节点监听。</p>
+<p>NodeCache：</p>
+<p>NodeCache不仅可以用于监听数据节点的内容变更，也能监听指定节点是否存在。如果原本节点不存在，那么Cache 就会在节点被创建后触发NodeCachelistener。但是，如果该数据节点被删除，那么Curator就无法触发NodeCachelistener了。</p>
+<pre><code>import org.apache.curator.RetryPolicy;
+import org.apache.curator.framework.CuratorFramework;
+import org.apache.curator.framework.CuratorFrameworkFactory;
+import org.apache.curator.framework.api.BackgroundCallback;
+import org.apache.curator.framework.api.CreateBuilder;
+import org.apache.curator.framework.api.CuratorEvent;
+import org.apache.curator.framework.recipes.cache.NodeCache;
+import org.apache.curator.framework.recipes.cache.NodeCacheListener;
+import org.apache.curator.retry.ExponentialBackoffRetry;
+import org.apache.zookeeper.CreateMode;
+
+import java.util.concurrent.Executors;
+
+public class Demo2 {
+    public static void main(String[] args) {
+        RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000,3);
+        CuratorFramework client = CuratorFrameworkFactory.newClient(&quot;192.168.131.128:2181&quot;,retryPolicy);
+        client.start();
+        CreateBuilder builder = client.create();
+        try {
+            final NodeCache cache = new NodeCache(client,&quot;/test/test1&quot;,false);
+            cache.start();
+            cache.getListenable().addListener(new NodeCacheListener() {
+                @Override
+                public void nodeChanged() throws Exception {
+                    System.out.println(&quot;cache: &quot;+cache.getCurrentData().getData());
+                }
+            });
+            builder.creatingParentsIfNeeded().withMode(CreateMode.PERSISTENT).forPath(&quot;/test/test1&quot;,&quot;ceshi&quot;.getBytes());
+            client.setData().forPath(&quot;/test/test1&quot;,&quot;haha&quot;.getBytes());
+            client.delete().deletingChildrenIfNeeded().forPath(&quot;/test/test1&quot;);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre><p>PathChildrenCache:</p>
+<p>PathChildrenCache用于监听指定ZooKeeper数据节点的子节点变化情况。</p>
+<p>当指定节点的子节点发生变化时，就会回调该方法。PathChildrenCacheEvent类中定义了所有的事件类型，主要包括新增子节点(CHILD_ADDED)、子节点数据变更(CHILD_UPDATED)和子节点删除(CHILD_RE问OVED)三类。</p>
+<pre><code>import org.apache.curator.RetryPolicy;
+import org.apache.curator.framework.CuratorFramework;
+import org.apache.curator.framework.CuratorFrameworkFactory;
+import org.apache.curator.framework.api.BackgroundCallback;
+import org.apache.curator.framework.api.CreateBuilder;
+import org.apache.curator.framework.api.CuratorEvent;
+import org.apache.curator.framework.recipes.cache.*;
+import org.apache.curator.retry.ExponentialBackoffRetry;
+import org.apache.zookeeper.CreateMode;
+
+import java.util.concurrent.Executors;
+
+public class Demo2 {
+    public static void main(String[] args) {
+        RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000,3);
+        CuratorFramework client = CuratorFrameworkFactory.newClient(&quot;192.168.131.128:2181&quot;,retryPolicy);
+        client.start();
+        CreateBuilder builder = client.create();
+        try {
+            final PathChildrenCache cache = new PathChildrenCache(client,&quot;/test&quot;,true);
+            cache.start(PathChildrenCache.StartMode.POST_INITIALIZED_EVENT);
+            cache.getListenable().addListener(new PathChildrenCacheListener() {
+                @Override
+                public void childEvent(CuratorFramework curatorFramework, PathChildrenCacheEvent pathChildrenCacheEvent) throws Exception {
+                    switch (pathChildrenCacheEvent.getType()){
+                        case CHILD_ADDED:
+                            System.out.println(&quot;CHILD_ADDED: &quot;+pathChildrenCacheEvent.getData().getPath());
+                            break;
+                        case CHILD_UPDATED:
+                            System.out.println(&quot;CHILD_UPDATED: &quot;+pathChildrenCacheEvent.getData().getPath());
+                            break;
+                        case CONNECTION_SUSPENDED:
+                            System.out.println(&quot;CONNECTION_SUSPENDED: &quot;+pathChildrenCacheEvent.getData().getPath());
+                            break;
+                        case INITIALIZED:
+                            System.out.println(&quot;INITIALIZED: &quot;+pathChildrenCacheEvent.getData().getPath());
+                            break;
+                        case CONNECTION_RECONNECTED:
+                            System.out.println(&quot;CONNECTION_RECONNECTED: &quot;+pathChildrenCacheEvent.getData().getPath());
+                            break;
+                        case CHILD_REMOVED:
+                            System.out.println(&quot;CHILD_REMOVED: &quot;+pathChildrenCacheEvent.getData().getPath());
+                            break;
+                        case CONNECTION_LOST:
+                            System.out.println(&quot;CONNECTION_LOST: &quot;+pathChildrenCacheEvent.getData().getPath());
+                            break;
+                    }
+                }
+            });
+            builder.withMode(CreateMode.PERSISTENT).forPath(&quot;/test&quot;,&quot;ceshi&quot;.getBytes());
+            builder.withMode(CreateMode.PERSISTENT).forPath(&quot;/test/test1&quot;,&quot;ceshi&quot;.getBytes());
+            client.setData().forPath(&quot;/test/test1&quot;,&quot;haha&quot;.getBytes());
+            client.delete().deletingChildrenIfNeeded().forPath(&quot;/test/test1&quot;);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre><h4 id="4-Curator应用"><a href="#4-Curator应用" class="headerlink" title="4. Curator应用"></a>4. Curator应用</h4><h5 id="4-1-master选举"><a href="#4-1-master选举" class="headerlink" title="4.1 master选举"></a>4.1 master选举</h5><p>有这样的场景：在分布式系统中，我们需要从集群中选举出一台机器作为master来分发任务。借助zk我们可以很方便的实现master选举功能。大体思路如下：</p>
+<p>选择一个根节点，例如/master，多台机器同时向该节点创建一个子节点<br>力naster/lock ,利用ZooKeeper的特性，最终只有一台机器能够创建成功，成功的那台机器就作为Master。</p>
+<p>Curator也是基于这个思路，但是它将节点创建、事件监听和自动选举过程进行了封装，开发人员只需要调用简单的API 即可实现Master选举。</p>
+<pre><code>import org.apache.curator.RetryPolicy;
+import org.apache.curator.framework.CuratorFramework;
+import org.apache.curator.framework.CuratorFrameworkFactory;
+import org.apache.curator.framework.api.BackgroundCallback;
+import org.apache.curator.framework.api.CreateBuilder;
+import org.apache.curator.framework.api.CuratorEvent;
+import org.apache.curator.framework.recipes.cache.*;
+import org.apache.curator.framework.recipes.leader.LeaderSelector;
+import org.apache.curator.framework.recipes.leader.LeaderSelectorListener;
+import org.apache.curator.framework.state.ConnectionState;
+import org.apache.curator.retry.ExponentialBackoffRetry;
+import org.apache.zookeeper.CreateMode;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class Demo2 {
+    public static void main(String[] args) {
+        RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000,3);
+        CuratorFramework client = CuratorFrameworkFactory.newClient(&quot;192.168.131.128:2181&quot;,retryPolicy);
+        client.start();
+        ExecutorService excutor = Executors.newFixedThreadPool(20);
+        for(int i = 0;i&lt;4;i++){
+            excutor.submit(new LeaderSelect(client));
+        }
+    }
+}
+
+class LeaderSelect implements Runnable{
+
+    private CuratorFramework client;
+
+    public LeaderSelect(CuratorFramework client) {
+        this.client = client;
+    }
+
+    @Override
+    public void run() {
+        createLeader();
+    }
+
+    private void createLeader (){
+        LeaderSelector selector = new LeaderSelector(client, &quot;/test&quot;, new LeaderSelectorListener() {
+            @Override
+            public void takeLeadership(CuratorFramework curatorFramework) throws Exception {
+                System.out.println(Thread.currentThread().getName()+&quot; 成为leader&quot;);
+            }
+
+            @Override
+            public void stateChanged(CuratorFramework curatorFramework, ConnectionState connectionState) {
+
+            }
+        });
+        selector.autoRequeue();
+        selector.start();
+    }
+}
+</code></pre><p>输出结果：</p>
+<pre><code>Curator-LeaderSelector-2 成为leader
+Curator-LeaderSelector-3 成为leader
+Curator-LeaderSelector-1 成为leader
+Curator-LeaderSelector-0 成为leader
+Curator-LeaderSelector-2 成为leader
+Curator-LeaderSelector-3 成为leader
+Curator-LeaderSelector-1 成为leader
+Curator-LeaderSelector-0 成为leader
+Curator-LeaderSelector-2 成为leader
+Curator-LeaderSelector-3 成为leader
+Curator-LeaderSelector-1 成为leader
+Curator-LeaderSelector-0 成为leader
+Curator-LeaderSelector-2 成为leader
+...
+</code></pre><h5 id="4-2-分布式锁"><a href="#4-2-分布式锁" class="headerlink" title="4.2 分布式锁"></a>4.2 分布式锁</h5><p>锁的问题经常会遇到，在分布式环境中更甚。zk实现分布式锁的逻辑是：各个节点同时在某个根节点”Lock”下创建临时顺序子节点：</p>
+<pre><code>/Lock/instance1_00001
+/Lock/instance2_00002
+/Lock/instance3_00003
+...
+</code></pre><p>然后对比谁的序号最小即谁获得锁。<br>那么Curator也是同理做了封装：InterProcessMutex类提供了分布式锁支持。</p>
+<pre><code>import org.apache.curator.RetryPolicy;
+import org.apache.curator.framework.CuratorFramework;
+import org.apache.curator.framework.CuratorFrameworkFactory;
+import org.apache.curator.framework.recipes.locks.InterProcessMutex;
+import org.apache.curator.retry.ExponentialBackoffRetry;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class Demo5 {
+    public static void main(String[] args) {
+        RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000,3);
+        CuratorFramework client = CuratorFrameworkFactory.newClient(&quot;192.168.131.128:2181&quot;,retryPolicy);
+        client.start();
+
+        final InterProcessMutex lock = new InterProcessMutex(client,&quot;/test/test1&quot;);
+        for(int i = 0;i&lt;30;i++){
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        lock.acquire();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    SimpleDateFormat format = new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss|SSS&quot;);
+                    String date = format.format(new Date());
+                    System.out.println(&quot;date is : &quot;+date);
+                    try {
+                        lock.release();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }).start();
+        }
+    }
+}
+</code></pre><p>结果：</p>
+<pre><code>date is : 2018-05-05 21:40:55|129
+date is : 2018-05-05 21:40:55|175
+date is : 2018-05-05 21:40:55|193
+date is : 2018-05-05 21:40:55|249
+date is : 2018-05-05 21:40:55|266
+date is : 2018-05-05 21:40:55|291
+date is : 2018-05-05 21:40:55|301
+date is : 2018-05-05 21:40:55|314
+date is : 2018-05-05 21:40:55|335
+date is : 2018-05-05 21:40:55|357
+date is : 2018-05-05 21:40:55|377
+date is : 2018-05-05 21:40:55|383
+date is : 2018-05-05 21:40:55|393
+date is : 2018-05-05 21:40:55|404
+date is : 2018-05-05 21:40:55|411
+date is : 2018-05-05 21:40:55|422
+date is : 2018-05-05 21:40:55|426
+date is : 2018-05-05 21:40:55|431
+date is : 2018-05-05 21:40:55|439
+date is : 2018-05-05 21:40:55|446
+date is : 2018-05-05 21:40:55|456
+date is : 2018-05-05 21:40:55|465
+date is : 2018-05-05 21:40:55|472
+date is : 2018-05-05 21:40:55|480
+date is : 2018-05-05 21:40:55|488
+date is : 2018-05-05 21:40:55|492
+date is : 2018-05-05 21:40:55|502
+date is : 2018-05-05 21:40:55|519
+date is : 2018-05-05 21:40:55|535
+date is : 2018-05-05 21:40:55|541
+
+Process finished with exit code 0
+</code></pre><h5 id="4-3-分布式计数器"><a href="#4-3-分布式计数器" class="headerlink" title="4.3 分布式计数器"></a>4.3 分布式计数器</h5><p>如果有需求是在分布式环境中统计系统访问人数，那么这个时候分布式计数器可以发挥作用。基于zk的分布式计数器实现思路也很简单：</p>
+<p><em>指定一个zk数据节点作为计数器，多个应用实例在分布式锁的控制下，通<br>过更新该数据节点的内容来实现计数功能。</em></p>
+<p>Curator同样将这一系列逻辑封装在了DistributedAtomic开头的类中，从其类名我们可以看出这是一个可以在分布式环境中使用的原子整型。具体使用与java中的Atomic类一样：</p>
+<pre><code>RetryPolicy policy = new RetryNTimes(3,1000);
+DistributedAtomicLo
+ng atomicLong = new DistributedAtomicLong(client,&quot;/test&quot;,policy);
+try {
+    atomicLong.increment();
+} catch (Exception e) {
+    e.printStackTrace();
+}
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/posts/c934629c.html">Zookeeeper开源客户端Curator5</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Rickiyang 的个人博客">Rickiyang</a></p>
+  <p><span>发布时间:</span>2018年06月17日 - 22:41</p>
+  <p><span>最后更新:</span>2018年12月13日 - 10:14</p>
+  <p><span>原始链接:</span><a href="/posts/c934629c.html" title="Zookeeeper开源客户端Curator5">https://blog.rickiyang.cn/posts/c934629c.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.rickiyang.cn/posts/c934629c.html" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
+</div>
+<script>
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({
+          title: "",
+          text: '复制成功',
+          icon: "success",
+          showConfirmButton: true
+          });
+    });
+    });
+</script>
+
+
+      
+    </div>
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #636363;font-size:14px;letter-spacing: 10px">本文结束啦<i class="fa fa-bell"></i>感谢您的阅读</div>
+    
+</div>
+
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/分布式/" rel="tag"> <i class="”fa" fa-tag”=""></i> 分布式</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/4bbefda4.html" rel="next" title="Zookeeeper应用实践4">
+                <i class="fa fa-chevron-left"></i> Zookeeeper应用实践4
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/b8ffaf86.html" rel="prev" title="hadoop学习(七)----mapReduce原理以及操作过程">
+                hadoop学习(七)----mapReduce原理以及操作过程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/adele.png" alt="Rickiyang">
+            
+              <p class="site-author-name" itemprop="name">Rickiyang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">82</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/rickiyang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:medee1320@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/a953713428" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-google"></i>CSDN</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="953713428" target="_blank" title="QQ">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>QQ</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#开源zk客户端-Curator"><span class="nav-number">1.</span> <span class="nav-text">开源zk客户端-Curator</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Curator应用"><span class="nav-number">2.</span> <span class="nav-text">4. Curator应用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-1-master选举"><span class="nav-number">2.1.</span> <span class="nav-text">4.1 master选举</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-2-分布式锁"><span class="nav-number">2.2.</span> <span class="nav-text">4.2 分布式锁</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-3-分布式计数器"><span class="nav-number">2.3.</span> <span class="nav-text">4.3 分布式计数器</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Rickiyang</span>
+
+  
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+-->
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共207.7k字</span>
+</div>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https'){
+   bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else{
+  bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <!-- 页面点击小红心 -->
+  <script type="text/javascript" src="/js/src/love.js"></script>
+  <!---->
+</body>
+</html>

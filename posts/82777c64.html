@@ -1,0 +1,1654 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|FZSongKeBenXiuKai:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|Optima:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/adele.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/adele.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/adele.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/adele.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="hadoop学习,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Rickiyang's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="今天我们来完成hadoop2.x的完全分布式环境搭建，话说学习本来是一件很快乐的事情，可是一到了搭环境就怎么都让人快乐不起来啊，搭环境的时间比学习的时间还多。都是泪。话不多说，走起。 1 准备工作开工之前先说一下我们的机器环境：一共是4台主机，主机1,2,3都是从master克隆过来的：                         主机名            IP            用户">
+<meta name="keywords" content="hadoop学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hadoop学习(三)----hadoop2.x完全分布式环境搭建">
+<meta property="og:url" content="https://blog.rickiyang.cn/posts/82777c64.html">
+<meta property="og:site_name" content="Rickiyang&#39;s blog">
+<meta property="og:description" content="今天我们来完成hadoop2.x的完全分布式环境搭建，话说学习本来是一件很快乐的事情，可是一到了搭环境就怎么都让人快乐不起来啊，搭环境的时间比学习的时间还多。都是泪。话不多说，走起。 1 准备工作开工之前先说一下我们的机器环境：一共是4台主机，主机1,2,3都是从master克隆过来的：                         主机名            IP            用户">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.imgur.com/OByRFXi.jpg">
+<meta property="og:image" content="https://i.imgur.com/YJGl439.jpg">
+<meta property="og:image" content="https://i.imgur.com/Hh2QdO7.jpg">
+<meta property="og:image" content="https://i.imgur.com/ilOXIgw.jpg">
+<meta property="og:image" content="https://i.imgur.com/ryx9uUi.jpg">
+<meta property="og:updated_time" content="2018-12-13T02:14:20.609Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hadoop学习(三)----hadoop2.x完全分布式环境搭建">
+<meta name="twitter:description" content="今天我们来完成hadoop2.x的完全分布式环境搭建，话说学习本来是一件很快乐的事情，可是一到了搭环境就怎么都让人快乐不起来啊，搭环境的时间比学习的时间还多。都是泪。话不多说，走起。 1 准备工作开工之前先说一下我们的机器环境：一共是4台主机，主机1,2,3都是从master克隆过来的：                         主机名            IP            用户">
+<meta name="twitter:image" content="https://i.imgur.com/OByRFXi.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://blog.rickiyang.cn/posts/82777c64.html">
+
+
+
+
+
+  <title>hadoop学习(三)----hadoop2.x完全分布式环境搭建 | Rickiyang's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Rickiyang's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/82777c64.html">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Rickiyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/adele.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rickiyang's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">hadoop学习(三)----hadoop2.x完全分布式环境搭建</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-12T22:30:11+08:00">
+                2018-06-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/大数据学习/" itemprop="url" rel="index">
+                    <span itemprop="name">大数据学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/大数据学习/hadoop/" itemprop="url" rel="index">
+                    <span itemprop="name">hadoop</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  13
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>今天我们来完成hadoop2.x的完全分布式环境搭建，话说学习本来是一件很快乐的事情，可是一到了搭环境就怎么都让人快乐不起来啊，搭环境的时间比学习的时间还多。都是泪。话不多说，走起。</p>
+<h3 id="1-准备工作"><a href="#1-准备工作" class="headerlink" title="1 准备工作"></a>1 准备工作</h3><p>开工之前先说一下我们的机器环境：<br>一共是4台主机，主机1,2,3都是从master克隆过来的：</p>
+<table><br>    <thead><br>        <tr><br>            <th>主机名</th><br>            <th>IP</th><br>            <th>用户</th><br>        </tr><br>    </thead><br>    <tbody><br>        <tr><br>        <td>hadoopmaster</td><br>        <td>192.168.131.128</td><br>        <td>hadoop</td><br>    </tr><br>    <tr><br>        <td>hadoopslaver1</td><br>        <td>192.168.131.130</td><br>        <td>hadoop</td><br>    </tr><br>    <tr><br>        <td>hadoopslaver2</td><br>        <td>192.168.131.131</td><br>        <td>hadoop</td><br>    </tr><br>    <tr><br>        <td>hadoopslaver3</td><br>        <td>192.168.131.132</td><br>        <td>hadoop</td><br>    </tr><br>    </tbody><br></table>
+
+
+<p>集群组成：</p>
+<ol>
+<li>Namenode：2台</li>
+<li>Datanode：  3台</li>
+<li>Journalnode：3台</li>
+<li>Zookeeper： 3台</li>
+<li>ZKFC：2台</li>
+<li>ResourceManager：2台</li>
+<li>NodeManager：3台</li>
+</ol>
+<p>​                        </p>
+<table><br>    <thead><br>        <tr><br>            <th></th><br>            <th>Namenode</th><br>            <th>Datanode</th><br>            <th>Journalnode</th><br>            <th>Zookeeper</th><br>            <th>ZKFC</th><br>            <th>ResourceManager</th><br>            <th>NodeManager</th><br>        </tr><br>    </thead><br>    <tbody><br>        <tr><br>        <td>hadoopmaster</td><br>        <td>1</td><br>        <td></td><br>        <td>1</td><br>        <td>1</td><br>        <td>1</td><br>        <td></td><br>        <td></td><br>    </tr><br>    <tr><br>        <td>hadoopslaver1</td><br>        <td>1</td><br>        <td>1</td><br>        <td>1</td><br>        <td>1</td><br>        <td>1</td><br>        <td></td><br>        <td>1</td><br>    </tr><br>    <tr><br>        <td>hadoopslaver2</td><br>        <td></td><br>        <td>1</td><br>        <td>1</td><br>        <td>1</td><br>        <td></td><br>        <td>1</td><br>        <td>1</td><br>    </tr><br>    <tr><br>        <td>hadoopslaver3</td><br>        <td></td><br>        <td>1</td><br>        <td></td><br>        <td></td><br>        <td></td><br>        <td>1</td><br>        <td>1</td><br>    </tr><br>    </tbody><br></table>
+
+<p>首先我们保证做好了如下工作：</p>
+<ul>
+<li>关闭防火墙</li>
+<li>安装jdk</li>
+<li>配置好了环境变量</li>
+</ul>
+<p>本次安装的hadoop版本为2.7.3。</p>
+<h4 id="1-1-关闭防火墙，修改主机名、配置host文件、设置时间同步"><a href="#1-1-关闭防火墙，修改主机名、配置host文件、设置时间同步" class="headerlink" title="1.1 关闭防火墙，修改主机名、配置host文件、设置时间同步"></a>1.1 关闭防火墙，修改主机名、配置host文件、设置时间同步</h4><h5 id="1-1-1-防火墙状态"><a href="#1-1-1-防火墙状态" class="headerlink" title="1.1.1 防火墙状态"></a>1.1.1 防火墙状态</h5><pre><code>查看防火墙是否开启
+# service iptables status
+
+如果开启则使用如下命令关闭
+# service iptables stop
+</code></pre><h5 id="1-1-2-修改主机名："><a href="#1-1-2-修改主机名：" class="headerlink" title="1.1.2 修改主机名："></a>1.1.2 修改主机名：</h5><p>修改master主机的 /etc/sysconfig/network文件，将HOSTNAME改为master,其余三台主机分别改为对应的主机名。</p>
+<pre><code># vim /etc/sysconfig/network
+</code></pre><p>​<br>    NETWORKING=yes<br>    HOSTNAME=hadoopmaster</p>
+<p>其余三台分别改为相应的主机名，现在四台主机的主机名分别是：</p>
+<pre><code>192.168.131.128    hadoopmaster
+192.168.131.130    hadoopslaver1
+192.168.131.131    hadoopslaver2
+192.168.131.132    hadoopslaver3
+</code></pre><h5 id="1-1-3-修改host文件"><a href="#1-1-3-修改host文件" class="headerlink" title="1.1.3 修改host文件"></a>1.1.3 修改host文件</h5><pre><code># vim /etc/hosts
+
+添加如下配置：
+
+192.168.131.128    hadoopmaster
+192.168.131.130    hadoopslaver1
+192.168.131.131    hadoopslaver2
+192.168.131.132    hadoopslaver3
+</code></pre><h5 id="1-1-4-删除持久化文件-etc-udev-rules-d-70-persistent-net-rules-重启虚拟主机，使配置生效。"><a href="#1-1-4-删除持久化文件-etc-udev-rules-d-70-persistent-net-rules-重启虚拟主机，使配置生效。" class="headerlink" title="1.1.4 删除持久化文件/etc/udev/rules.d/70-persistent-net.rules  ,重启虚拟主机，使配置生效。"></a>1.1.4 删除持久化文件/etc/udev/rules.d/70-persistent-net.rules  ,重启虚拟主机，使配置生效。</h5><pre><code># rm /etc/udev/rules.d/70-persistent-net.rules
+</code></pre><table><tr><td bgcolor="#ADFF2F"><font color="#FF00FF" size="4">TIPS：</font><br>该文件记录的是当前主机的MAC地址与IP地址的映射关系，因为我们后面三台主机都是通过克隆来的，所以四台主机的MAC地址是一样的。后面我们四台主机通信的时候你却会发现有问题，我们需要删除这个持久化文件，然后重启一下机器，系统会检测该文件，发现不存在会重新生成该文件。</td></tr></table>
+
+<h5 id="1-1-5-4台主机做时间同步"><a href="#1-1-5-4台主机做时间同步" class="headerlink" title="1.1.5 4台主机做时间同步"></a>1.1.5 4台主机做时间同步</h5><pre><code># yum install ntp
+</code></pre><p>使用ntp工具来同步时间，这里使用的时间服务器的ip是上海交通大学学的NTP服务器地址，其他的地址自行百度：</p>
+<pre><code># ntpdate 202.120.2.101
+</code></pre><p>需要注意的是，如果执行上面的命令出现如下提示：</p>
+<pre><code>ntpdate[2747]: no server suitable for synchronization found
+</code></pre><p>首先检查你的防火墙是否关闭，没有的话先关闭，如果关闭了还是不行可以试一下如下方法：</p>
+<p>使用rdate命令来更新服务器时间，</p>
+<pre><code>查看时间服务器的时间:
+# rdate time-b.nist.gov
+
+如果命令不生效请安装rdate，
+yum install -y rdate
+
+设置时间和时间服务器同步:
+# rdate -s time-b.nist.gov
+</code></pre><table><tr><td bgcolor="orange"><font color="#FF00FF" size="4">TIPS：</font><br>以上所有操作需要在4台机器上同步执行！！！</td></tr></table>
+
+<h3 id="2-配置ssh免密"><a href="#2-配置ssh免密" class="headerlink" title="2 配置ssh免密"></a>2 配置ssh免密</h3><p>如果设置主机master到主机slaver1的免密钥登录，可按如下方式进行：</p>
+<pre><code>在A主机执行  
+1、# ssh-keygen -t rsa -P &apos;&apos; -f ~/.ssh/id_rsa                                
+
+-t 密钥类型（rsa 或 dsa）   
+-P 旧密码 &apos;&apos;代表为空  
+-f 密钥文件生成后，保存的位置  
+
+2、# ssh-copy-id 192.168.131.130 
+IP是主机slaver1的IP地址，将主机master生成的密钥，拷贝到远程主机对应的账户下  
+执行过程中，会提示让输入主机slaver1的登录密码 
+
+我们可以使用上面的命令设置4台机器互相免密。
+</code></pre><h3 id="3-安装jdk，hadoop，zookeeper，配置环境变量"><a href="#3-安装jdk，hadoop，zookeeper，配置环境变量" class="headerlink" title="3 安装jdk，hadoop，zookeeper，配置环境变量"></a>3 安装jdk，hadoop，zookeeper，配置环境变量</h3><h4 id="3-1-配置环境变量"><a href="#3-1-配置环境变量" class="headerlink" title="3.1 配置环境变量"></a>3.1 配置环境变量</h4><p>这里我用的jdk是1.8，hadoop是2.7，zookeeper是3.4.11.配置环境变量：</p>
+<pre><code># vim /etc/profile
+环境信息如下：
+
+JAVA_HOME=/usr/java/jdk
+JRE_HOME=/usr/java/jdk/jre
+PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin
+CLASSPATH=.:$JAVA_HOME/lib/jt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib
+export JAVA_HOME JRE_HOME PATH CLASSPATH
+export HADOOP_HOME=/usr/local/hadoop
+export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
+export ZOOKEEPER_HOME=/usr/local/zookeeper
+export PATH=$PATH:$ZOOKEEPER_HOME/bin
+</code></pre><p>配置完成以后执行：</p>
+<pre><code># source /etc/profile
+</code></pre><p>使配置生效。</p>
+<h4 id="3-2-安装zookeeper"><a href="#3-2-安装zookeeper" class="headerlink" title="3.2 安装zookeeper"></a>3.2 安装zookeeper</h4><table><tr><td bgcolor="orange"><font color="#FF00FF" size="4">注意：</font><br><br>环境配置中后面有关zookeeper这两行只用在master、slaver1和slaver2中配置，即只在这三台机器中安装zookeeper。</td></tr></table>
+
+<p>zookeeper解压到/usr/local/zookeeper目录，我们进入目录/usr/local/zookeeper/conf修改文件模板文件：</p>
+<pre><code>mv zoo_sample.cfg zoo.cfg
+
+1.首先修改文件中的dataDir，路径是zookeeper的快照存储路径,不要使用默认的路径，重启的话会清空/tmp目录导致数据丢失：
+dataDir=/usr/local/zookeeper/tmp
+</code></pre><table><tr><td bgcolor="orange">✔此处注意：tmp目录是我新建的。</td></tr></table>
+
+<pre><code>2.在文件的最后加入zookeeper节点的配置：
+server.1=hadoopmaster:2888:3888
+server.2=hadoopslaver1:2888:3888
+server.3=hadoopslaver2:2888:3888
+</code></pre><p>然后我们需要注意的是：上面指定的配置节点server1.2.3是需要我们手动指定，需要在快照目录新建一个文件：myid。</p>
+<pre><code># vim myid
+</code></pre><p>然后内容为该服务器对应的节点id，本次试验：hadoopmaster对应的是1，hadoopslaver1对应的是2，hadoopslaver2对应的是3.</p>
+<p>上面我们在master中配置完之后需要分别在另外两台也要配置，我们直接复制过去得了：</p>
+<pre><code>scp -r zookeeper hadoopslaver1:/usr/local/zookeeper
+scp -r zookeeper hadoopslaver2:/usr/local/zookeeper
+</code></pre><p>然后记得改一下myid，hadoopslaver1的改为2，hadoopslaver2的改为3。</p>
+<p>好了，配置完成，接下来到了激动人心的启动时刻，启动脚本在bin目录下的zkServer.sh文件:</p>
+<pre><code>zkServer.sh start
+</code></pre><table><tr><td bgcolor="orange"><font color="#FF00FF" size="4">TIPS：</font><br>✔✔注意：三台机器都需要启动啊！！！</td></tr></table>
+
+<p>查看zookeeper的状态：</p>
+<pre><code>zkServer.sh status
+</code></pre><p>如果出现如下提示表明启动成功：</p>
+<p><img src="https://i.imgur.com/OByRFXi.jpg" alt=""></p>
+<p>关闭命令：</p>
+<pre><code>zkServer.sh stop
+</code></pre><h4 id="3-3-安装hadoop"><a href="#3-3-安装hadoop" class="headerlink" title="3.3 安装hadoop"></a>3.3 安装hadoop</h4><p> hadoop集群的配置文件主要涉及到以下这几个：</p>
+<pre><code>hadoop-env.sh
+
+core-site.xml
+
+hdfs-site.xml
+
+slaves
+
+mapred-site.xml
+
+yarn-site.xml
+</code></pre><p>下面以此对上面的文件进行配置：</p>
+<p>hadoop-env.sh文件，设置jdk的路径：</p>
+<pre><code>export JAVA_HOME=/usr/java/jdk
+</code></pre><p>core-site.xml文件，在configuration里面添加如下配置：</p>
+<pre><code>&lt;configuration&gt;
+     &lt;property&gt;  
+         &lt;name&gt;fs.defaultFS&lt;/name&gt; 
+        &lt;!--此处名称需要和hdfs-site.xml中的dfs.nameservice保持一致--&gt; 
+         &lt;value&gt;hdfs://rickiyang&lt;/value&gt;
+    &lt;/property&gt;  
+    &lt;property&gt;  
+        &lt;!--配置路径--&gt;
+         &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;                                                                                   
+         &lt;value&gt;/usr/local/hadoop/tmp&lt;/value&gt;
+    &lt;/property&gt;  
+    &lt;property&gt;  
+        &lt;name&gt;ha.zookeeper.quorum&lt;/name&gt;    
+        &lt;value&gt;hadoopmaster:2181,hadoopslaver1:2181,hadoopslaver2:2181&lt;/value&gt; 
+      &lt;/property&gt; 
+&lt;/configuration&gt;
+</code></pre><p>hdfs-site.xml文件：</p>
+<pre><code>&lt;configuration&gt;
+  &lt;property&gt;  
+    &lt;name&gt;dfs.nameservices&lt;/name&gt; 
+    &lt;!--此处名称需与core-site.xml中fs.defaultFS的值保持一致--&gt; 
+    &lt;value&gt;rickiyang&lt;/value&gt; 
+  &lt;/property&gt;  
+    &lt;!--配置namenode的组成 --&gt;
+  &lt;property&gt;  
+    &lt;name&gt;dfs.ha.namenodes.rickiyang&lt;/name&gt; 
+    &lt;value&gt;nn1,nn2&lt;/value&gt;  
+  &lt;/property&gt;  
+  &lt;property&gt;  
+    &lt;!--配置namenode1的rpc端口   --&gt;
+    &lt;name&gt;dfs.namenode.rpc-address.rickiyang.nn1&lt;/name&gt; 
+    &lt;value&gt;hadoopmaster:8020&lt;/value&gt;  
+  &lt;/property&gt;  
+  &lt;property&gt;  
+    &lt;!--配置namenode2的rpc端口   --&gt;
+    &lt;name&gt;dfs.namenode.rpc-address.rickiyang.nn2&lt;/name&gt; 
+    &lt;value&gt;hadoopslaver1:8020&lt;/value&gt;  
+  &lt;/property&gt;  
+  &lt;property&gt;  
+     &lt;!--配置namenode1的http端口  --&gt;
+    &lt;name&gt;dfs.namenode.http-address.rickiyang.nn1&lt;/name&gt;   
+    &lt;value&gt;hadoopmaster:50070&lt;/value&gt;  
+  &lt;/property&gt;  
+  &lt;property&gt;  
+     &lt;!--配置namenode2的http端口  --&gt;
+    &lt;name&gt;dfs.namenode.http-address.rickiyang.nn2&lt;/name&gt;  
+    &lt;value&gt;hadoopslaver1:50070&lt;/value&gt;  
+  &lt;/property&gt;  
+  &lt;property&gt;  
+    &lt;!--配置journalnode集群  --&gt;
+    &lt;name&gt;dfs.namenode.shared.edits.dir&lt;/name&gt;  
+    &lt;value&gt;qjournal://hadoopmaster:8485;hadoopslaver1:8485;hadoopslaver2:8485/rickiyang&lt;/value&gt;  
+  &lt;/property&gt;  
+  &lt;property&gt;  
+     &lt;!--配置后台类。作用：HDFS Client用此类联系处于active状态的namenode  --&gt;
+    &lt;name&gt;dfs.client.failover.proxy.provider.rickiyang&lt;/name&gt;  
+    &lt;value&gt;org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider&lt;/value&gt;  
+  &lt;/property&gt;  
+  &lt;property&gt;  
+     &lt;!--用于主备节点切换时实现隔离机制的 --&gt;
+    &lt;name&gt;dfs.ha.fencing.methods&lt;/name&gt;  
+    &lt;value&gt;sshfence&lt;/value&gt;  
+  &lt;/property&gt;  
+  &lt;property&gt;  
+    &lt;!--配置密钥的路径 需与前面免密钥设置的路径保持一致--&gt;
+    &lt;name&gt;dfs.ha.fencing.ssh.private-key-files&lt;/name&gt; 
+    &lt;value&gt;/hadoop/.ssh/id_rsa&lt;/value&gt;  
+  &lt;/property&gt;  
+  &lt;property&gt;  
+     &lt;!--journalnode的持久化文件保存路径 --&gt;
+    &lt;name&gt;dfs.journalnode.edits.dir&lt;/name&gt;   
+    &lt;value&gt;/usr/local/hadoop/journal/data&lt;/value&gt;  
+  &lt;/property&gt;  
+  &lt;property&gt;  
+     &lt;!--设置故障自动切换功能可用 --&gt;
+    &lt;name&gt;dfs.ha.automatic-failover.enabled&lt;/name&gt; 
+    &lt;value&gt;true&lt;/value&gt;  
+  &lt;/property&gt; 
+&lt;/configuration&gt;
+</code></pre><p>复制配置文件的时候把注释删除，注释是给你看的，不用放进去。</p>
+<p>slaves文件：  配置datanode的主机名称：</p>
+<pre><code>hadoopslaver1
+hadoopslaver2
+hadoopslaver3
+</code></pre><p>mapred-site.xml文件，配置yarn：</p>
+<pre><code>使用自带的模板文件
+# mv mapred-site.xml.template mapred-site.xml
+
+&lt;configuration&gt;  
+    &lt;property&gt;  
+        &lt;name&gt;mapreduce.framework.name&lt;/name&gt;  
+        &lt;value&gt;yarn&lt;/value&gt;  
+    &lt;/property&gt;  
+&lt;/configuration&gt; 
+</code></pre><p>yarn-site.xml文件：</p>
+<pre><code>&lt;configuration&gt;
+    &lt;property&gt;  
+        &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;  
+        &lt;value&gt;mapreduce_shuffle&lt;/value&gt;  
+    &lt;/property&gt;  
+    &lt;property&gt;  
+       &lt;name&gt;yarn.resourcemanager.ha.enabled&lt;/name&gt;  
+       &lt;value&gt;true&lt;/value&gt;  
+    &lt;/property&gt;  
+    &lt;property&gt;  
+       &lt;name&gt;yarn.resourcemanager.cluster-id&lt;/name&gt;  
+       &lt;value&gt;myyarncluster&lt;/value&gt;  
+    &lt;/property&gt;  
+    &lt;property&gt;  
+       &lt;name&gt;yarn.resourcemanager.ha.rm-ids&lt;/name&gt;  
+       &lt;value&gt;rm1,rm2&lt;/value&gt;  
+    &lt;/property&gt;  
+    &lt;property&gt;  
+       &lt;name&gt;yarn.resourcemanager.hostname.rm1&lt;/name&gt;  
+       &lt;value&gt;hadoopslaver2&lt;/value&gt;  
+    &lt;/property&gt;  
+    &lt;property&gt;  
+       &lt;name&gt;yarn.resourcemanager.hostname.rm2&lt;/name&gt;  
+       &lt;value&gt;hadoopslaver3&lt;/value&gt;  
+    &lt;/property&gt;  
+    &lt;property&gt;  
+       &lt;name&gt;yarn.resourcemanager.zk-address&lt;/name&gt;  
+       &lt;value&gt;hadoopmaster:2181,hadoopslaver1:2181,hadoopslaver2:2181&lt;/value&gt;  
+    &lt;/property&gt;  
+&lt;/configuration&gt;
+</code></pre><p>以上6个文件配置完毕，同步至其他3台主机：</p>
+<pre><code>进入路径：/usr/local/hadoop/etc/hadoop/下：
+
+scp * hadoopslaver1:`pwd`
+scp * hadoopslaver2:`pwd`
+scp * hadoopslaver3:`pwd`
+</code></pre><p>启动journalnode集群。（之所以将journalnode集群放在namenode之前启动，是因为namenode启动时，会往journalnode写入edits日志文件）</p>
+<pre><code>在三台journalnode主机分别启动：
+
+hadoop-daemon.sh start journalnode
+</code></pre><p>NN的格式化 与  同步</p>
+<p>在其中一台NN上，执行文件系统的格式化操作。注意：此处的格式化并非真正的格式化，而是一些准备和清除操作（比如清空fsimage和edits文件的存储目录下已有的文件）</p>
+<pre><code>hdfs namenode -format    
+</code></pre><p>此时，这一台NN已经完成了格式化操作，接下来，需要将格式化之后的文件系统同步到另一台NN。同步时，第二台NN会从第一台NN读取数据，故需要先将第一台NN启动起来。</p>
+<pre><code>hadoop-daemon.sh start namenode
+</code></pre><p>第一台NN启动后，在第二台NN上执行以下命令（此时NN尚未启动），即可完成同步操作：</p>
+<pre><code>hdfs namenode -bootstrapStandby
+</code></pre><p>zookeeper集群的格式化</p>
+<p>在上面已经启动了zookeeper集群，故此处在其中一台NN上执行以下命令，完成zookeeper的格式化：</p>
+<pre><code>集群的一些高可用信息读到zookeeper中
+
+hdfs zkfc -formatZK  
+</code></pre><p>至此，Hadoop完全分布式集群的配置工作都已经完成！</p>
+<p>接下来，启动集群，在其中一台主机上执行以下命令（最好是在NN上执行，因为NN-&gt;DN设置了免密钥）：</p>
+<pre><code>start-all.sh
+</code></pre><p>然后分别在RS主机上启动resourcemanager：</p>
+<pre><code>yarn-daemon.sh start resourcemanager
+</code></pre><p>在start-all.sh的时候会有如下信息输出：</p>
+<p><img src="https://i.imgur.com/YJGl439.jpg" alt=""></p>
+<p>在上面截图的信息中我们可以看到，集群的启动顺序是：</p>
+<table><tr><td bgcolor="orange"><font color="#FF00FF" size="4">NN –&gt; DN –&gt; JN  –&gt;ZKFC  –&gt; NM</font></td></tr></table>
+
+<p>jps  查看进程</p>
+<p>hadoop集群的启动顺序：</p>
+<p>1、启动zk集群</p>
+<pre><code>zkServer.sh  start | status
+</code></pre><p>2、start-all.sh</p>
+<p>3、手动启动两台RS</p>
+<pre><code>yarn-daemon.sh start resourcemanager
+</code></pre><p>停止顺序：</p>
+<p>1、stop-all.sh</p>
+<p>2、手动停止两台rs</p>
+<pre><code>yarn-daemon.sh stop resourcemanager
+</code></pre><p>3、停止zk集群</p>
+<p>启动完成，浏览器访问：</p>
+<p><img src="https://i.imgur.com/Hh2QdO7.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/ilOXIgw.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/ryx9uUi.jpg" alt=""></p>
+<p>至此，我们的高可用环境就搭建完毕了。大家动手尝试吧！<br>​                                                                                                                   </p>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/posts/82777c64.html">hadoop学习(三)----hadoop2.x完全分布式环境搭建</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Rickiyang 的个人博客">Rickiyang</a></p>
+  <p><span>发布时间:</span>2018年06月12日 - 22:30</p>
+  <p><span>最后更新:</span>2018年12月13日 - 10:14</p>
+  <p><span>原始链接:</span><a href="/posts/82777c64.html" title="hadoop学习(三)----hadoop2.x完全分布式环境搭建">https://blog.rickiyang.cn/posts/82777c64.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.rickiyang.cn/posts/82777c64.html" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
+</div>
+<script>
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({
+          title: "",
+          text: '复制成功',
+          icon: "success",
+          showConfirmButton: true
+          });
+    });
+    });
+</script>
+
+
+      
+    </div>
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #636363;font-size:14px;letter-spacing: 10px">本文结束啦<i class="fa fa-bell"></i>感谢您的阅读</div>
+    
+</div>
+
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/hadoop学习/" rel="tag"> <i class="”fa" fa-tag”=""></i> hadoop学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/bfffb12b.html" rel="next" title="Zookeeeper环境搭建">
+                <i class="fa fa-chevron-left"></i> Zookeeeper环境搭建
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/c689ad69.html" rel="prev" title="hadoop学习(六)----HDFS的shell操作">
+                hadoop学习(六)----HDFS的shell操作 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/adele.png" alt="Rickiyang">
+            
+              <p class="site-author-name" itemprop="name">Rickiyang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">82</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/rickiyang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:medee1320@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/a953713428" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-google"></i>CSDN</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="953713428" target="_blank" title="QQ">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>QQ</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-准备工作"><span class="nav-number">1.</span> <span class="nav-text">1 准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-关闭防火墙，修改主机名、配置host文件、设置时间同步"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 关闭防火墙，修改主机名、配置host文件、设置时间同步</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-1-防火墙状态"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1.1 防火墙状态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-2-修改主机名："><span class="nav-number">1.1.2.</span> <span class="nav-text">1.1.2 修改主机名：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-3-修改host文件"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.1.3 修改host文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-4-删除持久化文件-etc-udev-rules-d-70-persistent-net-rules-重启虚拟主机，使配置生效。"><span class="nav-number">1.1.4.</span> <span class="nav-text">1.1.4 删除持久化文件/etc/udev/rules.d/70-persistent-net.rules  ,重启虚拟主机，使配置生效。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-5-4台主机做时间同步"><span class="nav-number">1.1.5.</span> <span class="nav-text">1.1.5 4台主机做时间同步</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-配置ssh免密"><span class="nav-number">2.</span> <span class="nav-text">2 配置ssh免密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-安装jdk，hadoop，zookeeper，配置环境变量"><span class="nav-number">3.</span> <span class="nav-text">3 安装jdk，hadoop，zookeeper，配置环境变量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-配置环境变量"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 配置环境变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-安装zookeeper"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 安装zookeeper</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-安装hadoop"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 安装hadoop</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Rickiyang</span>
+
+  
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+-->
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共207.7k字</span>
+</div>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https'){
+   bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else{
+  bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <!-- 页面点击小红心 -->
+  <script type="text/javascript" src="/js/src/love.js"></script>
+  <!---->
+</body>
+</html>
