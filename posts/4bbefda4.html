@@ -134,15 +134,15 @@
 <meta name="description" content="zk的应用还是非常广泛的。 1. 分布式锁单机环境下的锁还是很容易去实现的，但是在分布式环境下一切都变得不是那么简单。zk实现分布式锁的原理还简单，因为在分布式环境中的zk节点的变化会被每一台机器watch，有任何变化都会被通知，所以我们可以利用这个机制：  我们创建一个根节点Lock，在获取锁的时候在该节点下创建临时顺序节点，释放锁的时候删除该临时节点。客户端调用createNode方法在Loc">
 <meta name="keywords" content="分布式">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Zookeeeper应用实践4">
+<meta property="og:title" content="Zookeeeper应用实践">
 <meta property="og:url" content="https://blog.rickiyang.cn/posts/4bbefda4.html">
 <meta property="og:site_name" content="Rickiyang&#39;s blog">
 <meta property="og:description" content="zk的应用还是非常广泛的。 1. 分布式锁单机环境下的锁还是很容易去实现的，但是在分布式环境下一切都变得不是那么简单。zk实现分布式锁的原理还简单，因为在分布式环境中的zk节点的变化会被每一台机器watch，有任何变化都会被通知，所以我们可以利用这个机制：  我们创建一个根节点Lock，在获取锁的时候在该节点下创建临时顺序节点，释放锁的时候删除该临时节点。客户端调用createNode方法在Loc">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.imgur.com/wCQVsKI.jpg">
-<meta property="og:updated_time" content="2018-12-13T02:14:20.615Z">
+<meta property="og:updated_time" content="2018-12-13T02:18:39.788Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Zookeeeper应用实践4">
+<meta name="twitter:title" content="Zookeeeper应用实践">
 <meta name="twitter:description" content="zk的应用还是非常广泛的。 1. 分布式锁单机环境下的锁还是很容易去实现的，但是在分布式环境下一切都变得不是那么简单。zk实现分布式锁的原理还简单，因为在分布式环境中的zk节点的变化会被每一台机器watch，有任何变化都会被通知，所以我们可以利用这个机制：  我们创建一个根节点Lock，在获取锁的时候在该节点下创建临时顺序节点，释放锁的时候删除该临时节点。客户端调用createNode方法在Loc">
 <meta name="twitter:image" content="https://i.imgur.com/wCQVsKI.jpg">
 
@@ -180,7 +180,7 @@
 
 
 
-  <title>Zookeeeper应用实践4 | Rickiyang's blog</title>
+  <title>Zookeeeper应用实践 | Rickiyang's blog</title>
   
 
 
@@ -356,7 +356,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Zookeeeper应用实践4</h2>
+          <h2 class="post-title" itemprop="name headline">Zookeeeper应用实践</h2>
         
 
         <div class="post-meta">
@@ -859,11 +859,11 @@ Process finished with exit code 0
   <!-- JS库 sweetalert 可修改路径 -->
   <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <p><span>本文标题:</span><a href="/posts/4bbefda4.html">Zookeeeper应用实践4</a></p>
+  <p><span>本文标题:</span><a href="/posts/4bbefda4.html">Zookeeeper应用实践</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Rickiyang 的个人博客">Rickiyang</a></p>
   <p><span>发布时间:</span>2018年06月14日 - 20:08</p>
-  <p><span>最后更新:</span>2018年12月13日 - 10:14</p>
-  <p><span>原始链接:</span><a href="/posts/4bbefda4.html" title="Zookeeeper应用实践4">https://blog.rickiyang.cn/posts/4bbefda4.html</a>
+  <p><span>最后更新:</span>2018年12月13日 - 10:18</p>
+  <p><span>原始链接:</span><a href="/posts/4bbefda4.html" title="Zookeeeper应用实践">https://blog.rickiyang.cn/posts/4bbefda4.html</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.rickiyang.cn/posts/4bbefda4.html" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
@@ -930,8 +930,8 @@ Process finished with exit code 0
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/posts/c934629c.html" rel="prev" title="Zookeeeper开源客户端Curator5">
-                Zookeeeper开源客户端Curator5 <i class="fa fa-chevron-right"></i>
+              <a href="/posts/c934629c.html" rel="prev" title="Zookeeeper开源客户端Curator">
+                Zookeeeper开源客户端Curator <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -1037,7 +1037,7 @@ var jiathis_config={
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">82</span>
+                  <span class="site-state-item-count">83</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1048,7 +1048,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1179,7 +1179,7 @@ var jiathis_config={
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共207.7k字</span>
+  <span class="post-count">博客全站共207.9k字</span>
 </div>
 
 <script>
