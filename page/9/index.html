@@ -335,7 +335,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/e87423e8.html">
+    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/7ab746e7.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
@@ -354,7 +354,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/posts/e87423e8.html" itemprop="url">java学习-NIO(四)Selector</a></h2>
+                <a class="post-title-link" href="/posts/7ab746e7.html" itemprop="url">Netty学习(二）-Helloworld Netty</a></h2>
         
 
         <div class="post-meta">
@@ -422,7 +422,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  878
+                  1.5k
                 </span>
               
 
@@ -438,7 +438,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3
+                  6
                 </span>
               
             </div>
@@ -461,11 +461,17 @@
       
         
           
-          这一节我们将探索选择器(selectors)。选择器提供选择执行已经就绪的任务的能力，这使得多元 I/O 成为可能。就像在第一章中描述的那样，就绪选择和多元执行使得单线程能够有效率地同时管理多个 I/O 通道(channels)。C/C++代码的工具箱中，许多年前就已经有 select()和 pol
+          这一节我们来讲解Netty，使用Netty之前我们先了解一下Netty能做什么，无为而学，岂不是白费力气！
+1.使用Netty能够做什么
+开发异步、非阻塞的TCP网络应用程序；
+开发异步、非阻塞的UDP网络应用程序；
+开发异步文件传输应用程序；
+开发异步HTTP服务端和客户端应用程序；
+提供对多种编
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/posts/e87423e8.html#more" rel="contents">
+            <a class="btn" href="/posts/7ab746e7.html#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -524,7 +530,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/413284da.html">
+    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/f693139f.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
@@ -543,7 +549,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/posts/413284da.html" itemprop="url">消息中间件-activemq安全机制</a></h2>
+                <a class="post-title-link" href="/posts/f693139f.html" itemprop="url">Netty学习(七)-Netty编解码技术以及ProtoBuf和Thrift的介绍</a></h2>
         
 
         <div class="post-meta">
@@ -578,8 +584,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/activeMQ/" itemprop="url" rel="index">
-                    <span itemprop="name">activeMQ</span>
+                  <a href="/categories/Netty/" itemprop="url" rel="index">
+                    <span itemprop="name">Netty</span>
                   </a>
                 </span>
 
@@ -611,7 +617,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.4k
+                  2.6k
                 </span>
               
 
@@ -627,7 +633,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  5
+                  11
                 </span>
               
             </div>
@@ -650,11 +656,12 @@
       
         
           
-          activemq作为消息中间件这样一个独立的个体存在，连通用户和服务器。如果没有一套完备的安全机制去设置用户权限设置消息分发机制可想后果是非常严重。ActiveMQ如果不加入安全机制的话，任何人只要知道消息服务的具体地址(包括ip，端口，消息地址[队列或者主题地址，)，都可以肆无忌惮的发送、接收消息
+          在前几节我们学习过处理粘包和拆包的问题，用到了Netty提供的几个解码器对不同情况的问题进行处理。功能很是强大。我们有没有去想这么强大的功能是如何实现的呢？背后又用到了什么技术？这一节我们就来处理这个问题。了解一下编码解码到底是如何处理的。
+通常说的编码(Encoder)也就是发生在发送消息的时候需
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/posts/413284da.html#more" rel="contents">
+            <a class="btn" href="/posts/f693139f.html#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
