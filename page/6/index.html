@@ -335,6 +335,195 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/db147845.html">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Rickiyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/adele.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rickiyang's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/posts/db147845.html" itemprop="url">java并发编程（十）----JUC原子类介绍</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-24T01:02:00+08:00">
+                2017-03-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/多线程与并发编程/" itemprop="url" rel="index">
+                    <span itemprop="name">多线程与并发编程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  208
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          今天我们来看一下JUC包中的原子类，所谓原子操作是指不会被线程调度机制打断的操作；这种操作一旦开始，就一直运行到结束，中间不会有任何 context switch （切换到另一个线程），原子操作可以是一个步骤，也可以是多个操作步骤，但是其顺序不可以被打乱，也不可以被切割而只执行其中的一部分。将整个操
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/posts/db147845.html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+    </div>
+
+    
+
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/f5e73779.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -611,7 +800,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2.2k
+                  939
                 </span>
               
 
@@ -627,7 +816,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  8
+                  3
                 </span>
               
             </div>
@@ -650,7 +839,7 @@
       
         
           
-          前面我们已经分析过JUC包里面的Lock锁，ReentrantLock锁和semaphore信号量机制。Lock锁实现了比synchronized更灵活的锁机制，Reentrantlock是Lock的实现类，是一种可重入锁，都是每次只有一次线程对资源进行处理；semaphore实现了多个线程同时对一
+          CountDownLatch 是一个非常实用的多线程控制工具类。” Count Down “ 在英文中意为倒计数， Latch 为门问的意思。如果翻译成为倒计数门阀， 我想大家都会觉得不知所云吧! 因此，这里简单地称之为倒计数器。在这里， 门问的含义是:把门锁起来，不让里面的线程跑出来。因此，这个工
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -800,7 +989,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  939
+                  2.2k
                 </span>
               
 
@@ -816,7 +1005,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3
+                  8
                 </span>
               
             </div>
@@ -839,7 +1028,7 @@
       
         
           
-          CountDownLatch 是一个非常实用的多线程控制工具类。” Count Down “ 在英文中意为倒计数， Latch 为门问的意思。如果翻译成为倒计数门阀， 我想大家都会觉得不知所云吧! 因此，这里简单地称之为倒计数器。在这里， 门问的含义是:把门锁起来，不让里面的线程跑出来。因此，这个工
+          前面我们已经分析过JUC包里面的Lock锁，ReentrantLock锁和semaphore信号量机制。Lock锁实现了比synchronized更灵活的锁机制，Reentrantlock是Lock的实现类，是一种可重入锁，都是每次只有一次线程对资源进行处理；semaphore实现了多个线程同时对一
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1471,7 +1660,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/af8467f6.html">
+    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/704e9e4d.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
@@ -1490,7 +1679,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/posts/af8467f6.html" itemprop="url">消息中间件-activemq实战之消息持久化(六)</a></h2>
+                <a class="post-title-link" href="/posts/704e9e4d.html" itemprop="url">Netty学习(一)-为什么选择Netty</a></h2>
         
 
         <div class="post-meta">
@@ -1525,8 +1714,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/activeMQ/" itemprop="url" rel="index">
-                    <span itemprop="name">activeMQ</span>
+                  <a href="/categories/Netty/" itemprop="url" rel="index">
+                    <span itemprop="name">Netty</span>
                   </a>
                 </span>
 
@@ -1558,7 +1747,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2.8k
+                  2.9k
                 </span>
               
 
@@ -1574,7 +1763,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  11
+                  10
                 </span>
               
             </div>
@@ -1597,12 +1786,12 @@
       
         
           
-          对于activemq消息的持久化我们在第二节的时候就简单介绍过，今天我们详细的来分析一下activemq的持久化过程以及持久化插件。在生产环境中为确保消息的可靠性，我们肯定的面临持久化消息的问题，今天就一起来攻克他吧。
-1. 持久化方式介绍前面我们也简单提到了activemq提供的插件式的消息存储，
+          前面我们简单学习了NIO。我们知道java的I/O模型一共有四种，分别是：传统的BIO，伪异步I/O，NIO和AIO。为了澄清概念和分清区别，我们还是先简单的介绍一下他们的概念，然后再去比较优劣。以及探讨我们为什么使用netty。
+1.概念澄清1.1 BIOBIO，即Blocking I/O。网络编
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/posts/af8467f6.html#more" rel="contents">
+            <a class="btn" href="/posts/704e9e4d.html#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1792,195 +1981,6 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/posts/2b5f20ba.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    <div>
-      
-    </div>
-
-    
-
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/278c909d.html">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Rickiyang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/adele.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Rickiyang's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/posts/278c909d.html" itemprop="url">Netty学习(四)-TCP粘包和拆包</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-17T01:02:00+08:00">
-                2017-03-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Netty/" itemprop="url" rel="index">
-                    <span itemprop="name">Netty</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                  <span class="post-meta-divider">|</span>
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2.9k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  12
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          我们都知道TCP是基于字节流的传输协议。那么数据在通信层传播其实就像河水一样并没有明显的分界线，而数据具体表示什么意思什么地方有句号什么地方有分号这个对于TCP底层来说并不清楚。应用层向TCP层发送用于网间传输的、用8位字节表示的数据流，然后TCP把数据流分区成适当长度的报文段，之后TCP把结果包传
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/posts/278c909d.html#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2267,7 +2267,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">83</span>
+                  <span class="site-state-item-count">84</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2393,7 +2393,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共207.9k字</span>
+  <span class="post-count">博客全站共208.5k字</span>
 </div>
 
 <script>
