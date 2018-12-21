@@ -613,7 +613,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  234
+                  292
                 </span>
               
 
@@ -652,8 +652,11 @@
       
         
           
-          tomcat重启脚本：
-123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960#!/bin/sh#检查服务状态，判断是否可以挂到ng
+          写了一个tomcat服务重启的脚本，因为挂载nginx，所有需要摘除healthCheck.html,服务重启完毕之后挂上ng。另外在重启过程中去检查服务是否启动成功，如果不成功则不挂载ng。tomcat重启脚本：
+#!/bin/sh
+
+#检查服务状态，判断是否可以挂到ng
+dudgeMountHe
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -2361,7 +2364,7 @@ Spark为开发人员提供了两类抽象接口。
               
               
               <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
+                <a href="/tags/index.html">
                   <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
@@ -2477,7 +2480,7 @@ Spark为开发人员提供了两类抽象接口。
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共208.5k字</span>
+  <span class="post-count">博客全站共208.6k字</span>
 </div>
 
 <script>
