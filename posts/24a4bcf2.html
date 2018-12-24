@@ -118,7 +118,7 @@
 
 
 
-  <meta name="keywords" content="hadoop学习,">
+  <meta name="keywords" content="linux编程,">
 
 
 
@@ -131,24 +131,18 @@
 
 
 
-<meta name="description" content="前面简单介绍了hadoop生态圈，大致了解hadoop是什么、能做什么。带着这些目的我们深入的去学习他。今天一起看一下hadoop的基石—-文件存储。因为hadoop是运行与集群之上，处于分布式环境之中，所以他的文件存储也不同与普通的本地存储，而是分布式存储系统，HDFS（The Hadoop Distributed File System）。 因为数据量越来越大，一台机器管理的磁盘数量是有限的，">
-<meta name="keywords" content="hadoop学习">
+<meta name="description" content="du查看目录大小，df查看磁盘使用情况。 du（1）基本功能递归查看文件夹下所有文件的大小（2）常用参数：-h, –human-readable 以可读性较好的方式显示尺寸(例如：1K 234M 2G)-s, –summarize 只分别计算命令列中每个参数所占的总用量（3）其它参数说明：-a, –all 输出所有文件的磁盘用量，不仅仅是目录–apparent-size 显示表面用量，而并非是磁盘">
+<meta name="keywords" content="linux编程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hadoop学习(二)----HDFS简介及原理">
-<meta property="og:url" content="https://blog.rickiyang.cn/posts/84e37d27.html">
+<meta property="og:title" content="Linux 查看文件夹大小，磁盘剩余空间（du&#x2F;df）">
+<meta property="og:url" content="https://blog.rickiyang.cn/posts/24a4bcf2.html">
 <meta property="og:site_name" content="Rickiyang&#39;s blog">
-<meta property="og:description" content="前面简单介绍了hadoop生态圈，大致了解hadoop是什么、能做什么。带着这些目的我们深入的去学习他。今天一起看一下hadoop的基石—-文件存储。因为hadoop是运行与集群之上，处于分布式环境之中，所以他的文件存储也不同与普通的本地存储，而是分布式存储系统，HDFS（The Hadoop Distributed File System）。 因为数据量越来越大，一台机器管理的磁盘数量是有限的，">
+<meta property="og:description" content="du查看目录大小，df查看磁盘使用情况。 du（1）基本功能递归查看文件夹下所有文件的大小（2）常用参数：-h, –human-readable 以可读性较好的方式显示尺寸(例如：1K 234M 2G)-s, –summarize 只分别计算命令列中每个参数所占的总用量（3）其它参数说明：-a, –all 输出所有文件的磁盘用量，不仅仅是目录–apparent-size 显示表面用量，而并非是磁盘">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://i.imgur.com/fS7P4pS.gif">
-<meta property="og:image" content="http://i.imgur.com/WsdXU7K.jpg">
-<meta property="og:image" content="https://i.imgur.com/gHCfUHg.png">
-<meta property="og:image" content="http://i.imgur.com/kJxs64J.jpg">
-<meta property="og:image" content="https://i.imgur.com/fReOrLo.png">
-<meta property="og:updated_time" content="2018-12-13T02:14:20.608Z">
+<meta property="og:updated_time" content="2018-12-24T03:06:09.192Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="hadoop学习(二)----HDFS简介及原理">
-<meta name="twitter:description" content="前面简单介绍了hadoop生态圈，大致了解hadoop是什么、能做什么。带着这些目的我们深入的去学习他。今天一起看一下hadoop的基石—-文件存储。因为hadoop是运行与集群之上，处于分布式环境之中，所以他的文件存储也不同与普通的本地存储，而是分布式存储系统，HDFS（The Hadoop Distributed File System）。 因为数据量越来越大，一台机器管理的磁盘数量是有限的，">
-<meta name="twitter:image" content="https://i.imgur.com/fS7P4pS.gif">
+<meta name="twitter:title" content="Linux 查看文件夹大小，磁盘剩余空间（du&#x2F;df）">
+<meta name="twitter:description" content="du查看目录大小，df查看磁盘使用情况。 du（1）基本功能递归查看文件夹下所有文件的大小（2）常用参数：-h, –human-readable 以可读性较好的方式显示尺寸(例如：1K 234M 2G)-s, –summarize 只分别计算命令列中每个参数所占的总用量（3）其它参数说明：-a, –all 输出所有文件的磁盘用量，不仅仅是目录–apparent-size 显示表面用量，而并非是磁盘">
 
 
 
@@ -178,13 +172,13 @@
 
 
 
-  <link rel="canonical" href="https://blog.rickiyang.cn/posts/84e37d27.html">
+  <link rel="canonical" href="https://blog.rickiyang.cn/posts/24a4bcf2.html">
 
 
 
 
 
-  <title>hadoop学习(二)----HDFS简介及原理 | Rickiyang's blog</title>
+  <title>Linux 查看文件夹大小，磁盘剩余空间（du/df） | Rickiyang's blog</title>
   
 
 
@@ -343,7 +337,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/84e37d27.html">
+    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/24a4bcf2.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
@@ -360,7 +354,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">hadoop学习(二)----HDFS简介及原理</h2>
+          <h2 class="post-title" itemprop="name headline">Linux 查看文件夹大小，磁盘剩余空间（du/df）</h2>
         
 
         <div class="post-meta">
@@ -372,8 +366,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-03T21:16:24+08:00">
-                2018-06-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-23T10:11:22+08:00">
+                2018-12-23
               </time>
             
 
@@ -395,19 +389,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/大数据学习/" itemprop="url" rel="index">
-                    <span itemprop="name">大数据学习</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/大数据学习/hadoop/" itemprop="url" rel="index">
-                    <span itemprop="name">hadoop</span>
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
                   </a>
                 </span>
 
@@ -439,7 +422,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2.4k
+                  783
                 </span>
               
 
@@ -455,7 +438,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  8
+                  2
                 </span>
               
             </div>
@@ -476,65 +459,10 @@
       
 
       
-        <p>前面简单介绍了hadoop生态圈，大致了解hadoop是什么、能做什么。带着这些目的我们深入的去学习他。今天一起看一下hadoop的基石—-文件存储。因为hadoop是运行与集群之上，处于分布式环境之中，所以他的文件存储也不同与普通的本地存储，而是分布式存储系统，HDFS（The Hadoop Distributed File System）。</p>
-<p>因为数据量越来越大，一台机器管理的磁盘数量是有限的，所有的数据由很多台机器管理。那么对于这么多台机器管理的数据如何进行协调处理呢？这个时候分布式文件管理系统就出现了。分布式文件系统是一种允许文件通过网络在多台主机上分享的 文件的系统，可让多机器上的多用户分享文件和存储空间。现有的分布式文件系统种类很多：CEPH,glusterfs,moosefs,mogilefs ,fastDFS(国人在mogileds基础上改写的)，Lustre等等。我们今天要学的HDFS只是分布式文件管理系统的一种，触类旁通，学会了一种其余的都好解除。HDFS的使用场景：<strong>适用于一次写入、多次查询的情况，不支持并发写情况，小文件不合适</strong>。因为小文件也占用一个块，小文件越多（1000个1k文件）块越 多，NameNode压力越大。</p>
-<p>我们借用官方的HDFS结构图：</p>
-<p><img src="https://i.imgur.com/fS7P4pS.gif" alt=""></p>
-<blockquote>
-<p>（解释一下图中的一些词：<br>Rack 是指机柜的意思，一个block的三个副本通常会保存到两个或者两个以上的机柜中（当然是机柜中的服务器），这样做的目的是做防灾容错，因为发生一个机柜掉电或者一个机柜的交换机挂了的概率还是蛮高的。<br>数据块(block):HDFS(Hadoop Distributed File System)默认的最基本的存储单位是64M的数据块。HDFS中，如果一个文件小于一个数据块的大小，并不占用整个数据块存储空间。从上图中看，一个文件被分成一个或多个Block，存储在一组Datanode上）</p>
-</blockquote>
-<p>HDFS主要由三个部分组成：namenode,datanode,secondaryNamenode.</p>
-<p>这三者的关系简单理解就是：<br>namenode是主人，颐指气使；<br>datanode是丫鬟们，为主子服务；<br>secondarynamenode就是那个天天跟着主人后面的太监为主子发号命令的；</p>
-<p>下面我们分别介绍三者。</p>
-<h4 id="1-namenode"><a href="#1-namenode" class="headerlink" title="1 namenode"></a>1 namenode</h4><p>NameNode的作用是 管理文件目录结构，接受用户的操作请求,是管理数据节点的。名字节点维护两套数据：<br>一套 是文件 目录与数据块之间的关系<br> 另一套 是 数据块与节点之间的关系 。<br>前一套 数据是 静态的 ，是存放在磁盘上的， 通过fsimage和edits文件来维护 ；<br> 后一套 数据是 动态的 ，不持久放到到磁盘的，每当集群启动的时候，会自动建立这些信息，所以一般都放在内存中。</p>
-<p>内存的数据主要是一些元数据信息，元数据信息就像是一个索引信息，通过索引可以轻松的找到需求的数据的位置包括副本位置；元数据的存在主要是为了便于读取hdfs中的数据。</p>
-<p>硬盘中的数据比较多，最新格式化的namenode会生成以下文件目录结构：</p>
-<p><img src="http://i.imgur.com/WsdXU7K.jpg" alt=""></p>
-<p>VERSION 记载了一些namenode的基础信息，其中有一个namespaceID，这是这个namenode的唯一标示。edits是hdfs的日志文件，这里记录着namenode上的一些读写操作,这是namenode储存的第一个重要的信息，它记录了近期的所有操作记录以及操作状态和操作内容.fsimage是namenode的存在内存中的元数据在硬盘上的镜像文件，但镜像文件并不是与matadata（元数据）同步的，在达到一定条件fsimage会执行更新操作来保持和内存中的元数据信息保持一致，而执行这个镜像同步操作的凭据就是edits。stime，镜像生成或者修改时间.</p>
-<p>namenode主要涉及到的就是读和写操作，其中都比较简单（相对），写则会有一个过程，我们先看读：</p>
-<p><img src="https://i.imgur.com/gHCfUHg.png" alt=""></p>
-<p>读文件过程：</p>
-<p>1.客户端（Client）用FileSystem的open（）函数打开文件。</p>
-<p>2.DistributedFileSystem用RPC调用元数据节点，得到文件的数据块信息。<br>对于每一个数据块，元数据节点返回保存数据块的数据节点的地址。</p>
-<p>3.DistributedFileSystem返回FSDataInputStream给客户端，用来读取数据。</p>
-<p>4.客户端调用stream的read()函数开始读取数据。</p>
-<p>5.DFSInputStream连接保存此文件第一个数据块的最近的数据节点。</p>
-<p>6.Data从数据节点读到客户端(client)</p>
-<p>7.当此数据块读取完毕时，DFSInputStream关闭和此数据节点的连接，然后连接此文件下一个数据块的最近的数据节点。</p>
-<p>8.当客户端读取完毕数据的时候，调用FSDataInputStream的close函数。</p>
-<p>在读取数据的过程中，如果客户端在与数据节点通信出现错误，则尝试连接包含此数据块的下一个数据节点。</p>
-<p>失败的数据节点将被记录，以后不再连接。</p>
-<p>看来看写文件：</p>
-<p><img src="http://i.imgur.com/kJxs64J.jpg" alt=""></p>
-<p>1.客户端调用create()来创建文件</p>
-<p>2.DistributedFileSystem用RPC调用元数据节点，在文件系统的命名空间中创建一个新的文件。</p>
-<p>3.元数据节点首先确定文件原来不存在，并且客户端有创建文件的权限，然后创建新文件。</p>
-<p>4.DistributedFileSystem返回DFSOutputStream，客户端用于写数据。</p>
-<p>5.客户端开始写入数据，DFSOutputStream将数据分成块，写入data queue。</p>
-<p>6.Data queue由Data Streamer读取，并通知元数据节点分配数据节点，用来存储数据块(每块默认复制3块)。分配的数据节点放在一个pipeline里。</p>
-<p>7.Data Streamer将数据块写入pipeline中的第一个数据节点。第一个数据节点将数据块发送给第二个数据节点。第二个数据节点将数据发送给第三个数据节点。</p>
-<p>8.DFSOutputStream为发出去的数据块保存了ack queue，等待pipeline中的数据节点告知数据已经写入成功。</p>
-<p><strong>如果数据节点在写入的过程中失败：</strong></p>
-<p>1.关闭pipeline，将ack queue中的数据块放入data queue的开始。</p>
-<p>2.当前的数据块在已经写入的数据节点中被元数据节点赋予新的标示，则错误节点重启后能够察觉其数据块是过时的，会被删除。</p>
-<p>3.失败的数据节点从pipeline中移除，另外的数据块则写入pipeline中的另外两个数据节点。</p>
-<p>4.元数据节点则被通知此数据块是复制块数不足，将来会再创建第三份备份。</p>
-<p>5.当客户端结束写入数据，则调用stream的close函数。此操作将所有的数据块写入pipeline中的数据节点，并等待ack queue返回成功。最后通知元数据节点写入完毕。</p>
-<h4 id="2-DataNode"><a href="#2-DataNode" class="headerlink" title="2 DataNode"></a>2 DataNode</h4><p>Datanode 将 HDFS 数据以文件的形式存储在本地的文件系统中，它并不知道有 关 HDFS 文件的信息。它把每个 HDFS 数据块存储在本地文件系统的一个单独的文件 中。 Datanode 并不在同一个目录创建所有的文件，实际上，它用试探的方法来确定 每个目录的最佳文件数目，并且在适当的时候创建子目录。在同一个目录中创建所 有的本地文件并不是最优的选择，这是因为本地文件系统可能无法高效地在单个目 录中支持大量的文件。</p>
-<p>当一个 Datanode 启动时，它会扫描本地文件系统，产生一个这些本地文件对应 的所有 HDFS 数据块的列表，然后作为报告发送到 Namenode ，这个报告就是块状态 报告。</p>
-<h4 id="3-Secondary-NameNode"><a href="#3-Secondary-NameNode" class="headerlink" title="3 Secondary NameNode"></a>3 Secondary NameNode</h4><p>SecondaryNameNode不是说NameNode挂了的备用节点<br>。他的主要功能只是定期合并日志, 防止日志文件变得过大<br>。合并过后的镜像文件在NameNode上也会保存一份。</p>
-<p>secondaryname作为一个附庸，其实它也一直在工作，他的工作就是解决matadata和fsimage之间的不和谐（不一致），这里为神马会使用到secondarynamenode来帮助namenode来管理namenode，原因是因为namenode不断的写，会产生大量的日志，若namenode重启，那么加载这些日志文件就会消耗大量的时间，而采用secondarynamenode处理过edits和faimage后，edits的大小始终保持一个比较小的水平，那么naemnode就算重启也可以快速启动而且保持前面的状态。</p>
-<p>我们来看一下secondaryNameNode是如何工作的：</p>
-<p><img src="https://i.imgur.com/fReOrLo.png" alt=""></p>
-<ol>
-<li>namenode 响应 Secondary namenode 请求，将 edit log 推送给 Secondary namenode ， 开始重新写一个新的 edit log</li>
-<li>Secondary namenode 收到来自 namenode 的 fsimage 文件和 edit log</li>
-<li>Secondary namenode 将 fsimage 加载到内存，应用 edit log ， 并生成一 个新的 fsimage 文件</li>
-<li>Secondary namenode 将新的 fsimage 推送给 Namenode</li>
-<li>Namenode 用新的 fsimage 取代旧的 fsimage ， 在 fstime 文件中记下检查 点发生的时</li>
-</ol>
-<p>关于hdfs的机制我们先简单介绍这么多，用多少先学多少等到后面接触的时候我们继续深入学习。</p>
-<p>​                                                                                                                   </p>
+        <p>du查看目录大小，df查看磁盘使用情况。</p>
+<h4 id="du"><a href="#du" class="headerlink" title="du"></a>du</h4><p>（1）基本功能<br>递归查看文件夹下所有文件的大小<br>（2）常用参数：<br>-h, –human-readable 以可读性较好的方式显示尺寸(例如：1K 234M 2G)<br>-s, –summarize 只分别计算命令列中每个参数所占的总用量<br>（3）其它参数说明：<br>-a, –all 输出所有文件的磁盘用量，不仅仅是目录<br>–apparent-size 显示表面用量，而并非是磁盘用量；虽然表面用量通常会小一些，但有时它会因为稀疏文件间的”洞”、内部碎片、非直接引用的块等原因而变大。<br>-B, –block-size=大小 使用指定字节数的块<br>-b, –bytes 等于–apparent-size –block-size=1<br>-c, –total 显示总计信息<br>-D, –dereference-args 解除命令行中列出的符号连接<br>–files0-from=F 计算文件F 中以NUL 结尾的文件名对应占用的磁盘空间如果F 的值是”-“，则从标准输入读入文件名<br>-H 等于–dereference-args (-D)<br>-h, –human-readable 以可读性较好的方式显示尺寸(例如：1K 234M 2G)<br>–si 类似-h，但在计算时使用1000 为基底而非1024<br>-k 等于–block-size=1K<br>-l, –count-links 如果是硬连接，就多次计算其尺寸<br>-m 等于–block-size=1M<br>-L, –dereference 找出任何符号链接指示的真正目的地<br>-P, –no-dereference 不跟随任何符号链接(默认)<br>-0, –null 将每个空行视作0 字节而非换行符<br>-S, –separate-dirs 不包括子目录的占用量<br>-s, –summarize 只分别计算命令列中每个参数所占的总用量<br>-x, –one-file-system 跳过处于不同文件系统之上的目录<br>-X, –exclude-from=文件 排除与指定文件中描述的模式相符的文件<br>–exclude=PATTERN 排除与PATTERN 中描述的模式相符的文件<br>–max-depth=N 显示目录总计(与–all 一起使用计算文件)<br>当N 为指定数值时计算深度为N；<br>–max-depth=0 等于–summarize<br>–time 显示目录或该目录子目录下所有文件的最后修改时间<br>–time=WORD 显示WORD 时间，而非修改时间：atime，access，use，ctime 或status<br>–time-style=样式 按照指定样式显示时间(样式解释规则同”date”命令)：<br>full-iso，long-iso，iso，+FORMAT<br>–help 显示此帮助信息并退出<br>–version 显示版本信息并退出</p>
+<h4 id="df"><a href="#df" class="headerlink" title="df"></a>df</h4><p>df -hl 查看磁盘剩余空间<br>df -h 查看每个根路径的分区大小<br>du -sh [目录名] 返回该目录的大小<br>du -sm [文件夹] 返回该文件夹总M数</p>
+<h4 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h4><p>du是面向文件的命令，只计算被文件占用的空间，不计算文件系统 metadata 占用的空间。<br>df则是基于文件系统总体来计算，通过文件系统中未分配空间来确定系统中已经分配空间的大小。df命令可以获取硬盘占用了多少空间，还剩下多少空间，它也可以显示所有文件系统对i节点和磁盘块的使用情况。</p>
 
       
     </div>
@@ -551,12 +479,12 @@
   <!-- JS库 sweetalert 可修改路径 -->
   <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <p><span>本文标题:</span><a href="/posts/84e37d27.html">hadoop学习(二)----HDFS简介及原理</a></p>
+  <p><span>本文标题:</span><a href="/posts/24a4bcf2.html">Linux 查看文件夹大小，磁盘剩余空间（du/df）</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Rickiyang 的个人博客">Rickiyang</a></p>
-  <p><span>发布时间:</span>2018年06月03日 - 21:16</p>
-  <p><span>最后更新:</span>2018年12月13日 - 10:14</p>
-  <p><span>原始链接:</span><a href="/posts/84e37d27.html" title="hadoop学习(二)----HDFS简介及原理">https://blog.rickiyang.cn/posts/84e37d27.html</a>
-    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.rickiyang.cn/posts/84e37d27.html" aria-label="复制成功！"></i></span>
+  <p><span>发布时间:</span>2018年12月23日 - 10:11</p>
+  <p><span>最后更新:</span>2018年12月24日 - 11:06</p>
+  <p><span>原始链接:</span><a href="/posts/24a4bcf2.html" title="Linux 查看文件夹大小，磁盘剩余空间（du/df）">https://blog.rickiyang.cn/posts/24a4bcf2.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.rickiyang.cn/posts/24a4bcf2.html" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
 </div>
@@ -599,7 +527,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/hadoop学习/" rel="tag"> <i class="”fa" fa-tag”=""></i> hadoop学习</a>
+            <a href="/tags/linux编程/" rel="tag"> <i class="”fa" fa-tag”=""></i> linux编程</a>
           
         </div>
       
@@ -612,8 +540,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/88686410.html" rel="next" title="hive基础知识">
-                <i class="fa fa-chevron-left"></i> hive基础知识
+              <a href="/posts/a996d8cf.html" rel="next" title="tomcat部署和日志维护">
+                <i class="fa fa-chevron-left"></i> tomcat部署和日志维护
               </a>
             
           </div>
@@ -621,10 +549,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/posts/a713f481.html" rel="prev" title="hadoop学习(四)----windows环境下安装hadoop">
-                hadoop学习(四)----windows环境下安装hadoop <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -819,7 +743,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-namenode"><span class="nav-number">1.</span> <span class="nav-text">1 namenode</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-DataNode"><span class="nav-number">2.</span> <span class="nav-text">2 DataNode</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Secondary-NameNode"><span class="nav-number">3.</span> <span class="nav-text">3 Secondary NameNode</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#du"><span class="nav-number">1.</span> <span class="nav-text">du</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#df"><span class="nav-number">2.</span> <span class="nav-text">df</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#区别"><span class="nav-number">3.</span> <span class="nav-text">区别</span></a></li></ol></div>
             
 
           </div>
