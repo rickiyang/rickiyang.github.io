@@ -118,7 +118,7 @@
 
 
 
-  <meta name="keywords" content="java,">
+  <meta name="keywords" content="大数据,">
 
 
 
@@ -131,20 +131,23 @@
 
 
 
-<meta name="description" content="好的软件设计不建议手动创建和销毁线程。线程的创建和销毁是非常耗 CPU 和内存的，因为这需要 JVM 和操作系统的参与。64位 JVM 默认线程栈是大小1 MB。这就是为什么说在请求频繁时为每个小的请求创建线程是一种资源的浪费。线程池可以根据创建时选择的策略自动处理线程的生命周期。重点在于：在资源（如内存、CPU）充足的情况下，线程池没有明显的优势，否则没有线程池将导致服务器崩溃。有很多的理由可以">
-<meta name="keywords" content="java">
+<meta name="description" content="我们知道hive的数据是存储在HDFS上的，hive只是充当一个客户端，实际上是去HDFS执行mapReduce命令。在我们第一次安装hive的时候，介绍过使用bin目录下的”hive”命令去启动hive客户端程序：  那么生产环境下我们肯定不能在服务器上使用命令行的方式去操作hive，在hive的bin目录下提供了hiveserver2命令，HiveServer2(HS2)是一种能使客户端执行H">
+<meta name="keywords" content="大数据">
 <meta property="og:type" content="article">
-<meta property="og:title" content="（十五）----(线程池)java线程池简介">
-<meta property="og:url" content="https://blog.rickiyang.cn/posts/d72ca9c5.html">
+<meta property="og:title" content="hiveserver2使用以及java连接方式">
+<meta property="og:url" content="https://blog.rickiyang.cn/posts/d946acf8.html">
 <meta property="og:site_name" content="Rickiyang&#39;s blog">
-<meta property="og:description" content="好的软件设计不建议手动创建和销毁线程。线程的创建和销毁是非常耗 CPU 和内存的，因为这需要 JVM 和操作系统的参与。64位 JVM 默认线程栈是大小1 MB。这就是为什么说在请求频繁时为每个小的请求创建线程是一种资源的浪费。线程池可以根据创建时选择的策略自动处理线程的生命周期。重点在于：在资源（如内存、CPU）充足的情况下，线程池没有明显的优势，否则没有线程池将导致服务器崩溃。有很多的理由可以">
+<meta property="og:description" content="我们知道hive的数据是存储在HDFS上的，hive只是充当一个客户端，实际上是去HDFS执行mapReduce命令。在我们第一次安装hive的时候，介绍过使用bin目录下的”hive”命令去启动hive客户端程序：  那么生产环境下我们肯定不能在服务器上使用命令行的方式去操作hive，在hive的bin目录下提供了hiveserver2命令，HiveServer2(HS2)是一种能使客户端执行H">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://i.imgur.com/CIzy36s.png">
-<meta property="og:updated_time" content="2018-12-04T09:28:26.160Z">
+<meta property="og:image" content="https://i.imgur.com/35wBVQ1.png">
+<meta property="og:image" content="https://i.imgur.com/roScdjR.png">
+<meta property="og:image" content="https://i.imgur.com/GlYevQi.png">
+<meta property="og:image" content="https://i.imgur.com/wWO94c9.png">
+<meta property="og:updated_time" content="2019-01-02T11:42:40.843Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="（十五）----(线程池)java线程池简介">
-<meta name="twitter:description" content="好的软件设计不建议手动创建和销毁线程。线程的创建和销毁是非常耗 CPU 和内存的，因为这需要 JVM 和操作系统的参与。64位 JVM 默认线程栈是大小1 MB。这就是为什么说在请求频繁时为每个小的请求创建线程是一种资源的浪费。线程池可以根据创建时选择的策略自动处理线程的生命周期。重点在于：在资源（如内存、CPU）充足的情况下，线程池没有明显的优势，否则没有线程池将导致服务器崩溃。有很多的理由可以">
-<meta name="twitter:image" content="http://i.imgur.com/CIzy36s.png">
+<meta name="twitter:title" content="hiveserver2使用以及java连接方式">
+<meta name="twitter:description" content="我们知道hive的数据是存储在HDFS上的，hive只是充当一个客户端，实际上是去HDFS执行mapReduce命令。在我们第一次安装hive的时候，介绍过使用bin目录下的”hive”命令去启动hive客户端程序：  那么生产环境下我们肯定不能在服务器上使用命令行的方式去操作hive，在hive的bin目录下提供了hiveserver2命令，HiveServer2(HS2)是一种能使客户端执行H">
+<meta name="twitter:image" content="https://i.imgur.com/35wBVQ1.png">
 
 
 
@@ -174,13 +177,13 @@
 
 
 
-  <link rel="canonical" href="https://blog.rickiyang.cn/posts/d72ca9c5.html">
+  <link rel="canonical" href="https://blog.rickiyang.cn/posts/d946acf8.html">
 
 
 
 
 
-  <title>（十五）----(线程池)java线程池简介 | Rickiyang's blog</title>
+  <title>hiveserver2使用以及java连接方式 | Rickiyang's blog</title>
   
 
 
@@ -339,7 +342,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/d72ca9c5.html">
+    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/d946acf8.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
@@ -356,7 +359,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">（十五）----(线程池)java线程池简介</h2>
+          <h2 class="post-title" itemprop="name headline">hiveserver2使用以及java连接方式</h2>
         
 
         <div class="post-meta">
@@ -368,8 +371,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-28T01:02:00+08:00">
-                2017-03-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-22T23:12:33+08:00">
+                2018-11-22
               </time>
             
 
@@ -391,8 +394,19 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/多线程与并发编程/" itemprop="url" rel="index">
-                    <span itemprop="name">多线程与并发编程</span>
+                  <a href="/categories/大数据学习/" itemprop="url" rel="index">
+                    <span itemprop="name">大数据学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/大数据学习/hive/" itemprop="url" rel="index">
+                    <span itemprop="name">hive</span>
                   </a>
                 </span>
 
@@ -424,7 +438,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2.2k
+                  1.6k
                 </span>
               
 
@@ -461,50 +475,39 @@
       
 
       
-        <p>好的软件设计不建议手动创建和销毁线程。线程的创建和销毁是非常耗 CPU 和内存的，因为这需要 JVM 和操作系统的参与。64位 JVM 默认线程栈是大小1 MB。这就是为什么说在请求频繁时为每个小的请求创建线程是一种资源的浪费。线程池可以根据创建时选择的策略自动处理线程的生命周期。重点在于：在资源（如内存、CPU）充足的情况下，线程池没有明显的优势，否则没有线程池将导致服务器崩溃。有很多的理由可以解释为什么没有更多的资源。例如，在拒绝服务（denial-of-service）攻击时会引起的许多线程并行执行，从而导致线程饥饿（thread starvation）。除此之外，手动执行线程时，可能会因为异常导致线程死亡，程序员必须记得处理这种异常情况。这时我们需要一个管理线程的工具—-线程池应运而生。</p>
-<p>在 Java 5 之后，并发编程引入了一堆新的启动、调度和管理线程的API。Executor 框架便是 Java 5 中引入的，其内部使用了线程池机制，它在 java.util.cocurrent 包下，通过该框架来控制线程的启动、执行和关闭，可以简化并发编程的操作。因此，在 Java 5之后，通过 Executor 来启动线程比使用 Thread 的 start 方法更好，除了更易管理，效率更好（用线程池实现，节约开销）外，还有关键的一点：有助于避免 this 逃逸问题——如果我们在构造器中启动一个线程，因为另一个任务可能会在构造器结束之前开始执行，此时可能会访问到初始化了一半的对象用 Executor 在构造器中。</p>
-<h4 id="1-Executor简介"><a href="#1-Executor简介" class="headerlink" title="1 Executor简介"></a>1 Executor简介</h4><p>我们先看一下Execotor框架的体系：</p>
-<p><img src="http://i.imgur.com/CIzy36s.png" alt=""></p>
-<p>Executor: 所有线程池的接口,只有一个方法。</p>
-<pre><code>void execute(Runnable command);
-</code></pre><p><strong>ExecutorService</strong>: 增加Executor的行为，是Executor实现类的最直接接口。</p>
-<p><strong>AbstractExecutorService</strong>：AbstractExecutorService是一个抽象类，它实现了ExecutorService接口。AbstractExecutorService存在的目的是为ExecutorService中的函数接口提供了默认实现。</p>
-<p><strong>ScheduledExecutorService</strong>：ScheduledExecutorService是一个接口，它继承于ExecutorService。它相当于提供了”延时”和”周期执行”功能的ExecutorService。ScheduledExecutorService提供了相应的函数接口，可以安排任务在给定的延迟后执行，也可以让任务周期的执行。</p>
-<p><strong>ForkJoinPool</strong> ：ForkJoinPool 是 Java SE 7 新功能“分叉/结合框架”的核心类，专用于需要将一个任务不断分解成子任务（分叉），再不断进行汇总得到最终结果（结合）的计算过程。比起传统的线程池类ThreadPoolExecutor，ForkJoinPool 实现了工作窃取算法，使得空闲线程能够主动分担从别的线程分解出来的子任务，从而让所有的线程都尽可能处于饱满的工作状态，提高执行效率。</p>
-<p><strong>ScheduledThreadPoolExecutor</strong>：ScheduledThreadPoolExecutor继承于ThreadPoolExecutor，并且实现了ScheduledExecutorService接口。它相当于提供了”延时”和”周期执行”功能的ScheduledExecutorService。ScheduledThreadPoolExecutor类似于Timer，但是在高并发程序中，ScheduledThreadPoolExecutor的性能要优于Timer。</p>
-<p><strong>Executors</strong>：Executors是个静态工厂类。它通过静态工厂方法返回ExecutorService、ScheduledExecutorService、ThreadFactory 和 Callable 等类的对象。</p>
-<p><strong>ThreadPoolExecutor</strong>：线程池的具体实现类,一般用的各种线程池都是基于这个类实现的。</p>
-<p>构造方法如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                          <span class="keyword">int</span> maximumPoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                          <span class="keyword">long</span> keepAliveTime,</span></span></span><br><span class="line"><span class="function"><span class="params">                          TimeUnit unit,</span></span></span><br><span class="line"><span class="function"><span class="params">                          BlockingQueue&lt;Runnable&gt; workQueue)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue,</span><br><span class="line">         Executors.defaultThreadFactory(), defaultHandler);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>参数：</p>
-<p>corePoolSize - 池中所保存的线程数，包括空闲线程。</p>
-<p>maximumPoolSize - 池中允许的最大线程数。</p>
-<p>keepAliveTime - 当线程数大于核心时，此为终止前多余的空闲线程等待新任务的最长时间。</p>
-<p>unit - keepAliveTime 参数的时间单位。</p>
-<p>workQueue - 执行前用于保持任务的队列。此队列仅保持由 execute 方法提交的 Runnable 任务。 </p>
-<p>该方法作用为：用给定的初始参数和默认的线程工厂及被拒绝的执行处理程序创建新的 ThreadPoolExecutor。但是使用 Executors 工厂方法比使用此通用构造方法方便得多。（所以一般不用这个方法）</p>
-<p><strong>由该方法我们可以看出一般线程池的工作方式为：</strong></p>
-<p>①线程池刚创建时，里面没有一个线程。任务队列是作为参数传进来的。不过，就算队列里面有任务，线程池也不会马上执行它们。</p>
-<p>②当调用 execute() 方法添加一个任务时，线程池会做如下判断：</p>
-<p>⒈如果正在运行的线程数量小于 corePoolSize，那么马上创建线程运行这个任务；</p>
-<p>⒉如果正在运行的线程数量大于或等于 corePoolSize，那么将这个任务放入队列；</p>
-<p>⒊如果这时候队列满了，而且正在运行的线程数量小于 maximumPoolSize，那么还是要创建非核心线程立刻运行这个任务；</p>
-<p>⒋如果队列满了，而且正在运行的线程数量大于或等于 maximumPoolSize，那么线程池会抛出异常RejectExecutionException。</p>
-<p>⒌当一个线程完成任务时，它会从队列中取下一个任务来执行。</p>
-<p>⒍当一个线程无事可做，超过一定的时间（keepAliveTime）时，线程池会判断，如果当前运行的线程数大于 corePoolSize，那么这个线程就被停掉。所以线程池的所有任务完成后，它最终会收缩到 corePoolSize 的大小。</p>
-<h4 id="2-线程池"><a href="#2-线程池" class="headerlink" title="2 线程池"></a>2 线程池</h4><h5 id="2-1-线程池的作用："><a href="#2-1-线程池的作用：" class="headerlink" title="2.1 线程池的作用："></a>2.1 线程池的作用：</h5><p>线程池作用就是限制系统中执行线程的数量。</p>
-<p> 根据系统的环境情况，可以自动或手动设置线程数量，达到运行的最佳效果；少了浪费了系统资源，多了造成系统拥挤效率不高。用线程池控制线程数量，其他线程排队等候。一个任务执行完毕，再从队列的中取最前面的任务开始执行。若队列中没有等待进程，线程池的这一资源处于等待。当一个新任务需要运行时，如果线程池中有等待的工作线程，就可以开始运行了；否则进入等待队列。</p>
-<h5 id="2-2-为什么要用线程池"><a href="#2-2-为什么要用线程池" class="headerlink" title="2.2 为什么要用线程池:"></a>2.2 为什么要用线程池:</h5><p>1.减少了创建和销毁线程的次数，每个工作线程都可以被重复利用，可执行多个任务。</p>
-<p>2.可以根据系统的承受能力，调整线程池中工作线线程的数目，防止因为消耗过多的内存，而把服务器累趴下(每个线程需要大约1MB内存，线程开的越多，消耗的内存也就越大，最后死机)。<br><strong>Java里面线程池的顶级接口是Executor，但是严格意义上讲Executor并不是一个线程池，而只是一个执行线程的工具。真正的线程池接口是ExecutorService</strong>。</p>
-<p>要配置一个线程池是比较复杂的，尤其是对于线程池的原理不是很清楚的情况下，很有可能配置的线程池不是较优的，因此在Executors类里面提供了一些静态工厂，生成一些常用的线程池。</p>
-<p>1.<strong>newSingleThreadExecutor</strong></p>
-<p>创建一个单线程的线程池。这个线程池只有一个线程在工作，也就是相当于单线程串行执行所有任务。如果这个唯一的线程因为异常结束，那么会有一个新的线程来替代它。此线程池保证所有任务的执行顺序按照任务的提交顺序执行。</p>
-<p>2.<strong>newFixedThreadPool</strong></p>
-<p>创建固定大小的线程池。每次提交一个任务就创建一个线程，直到线程达到线程池的最大大小。线程池的大小一旦达到最大值就会保持不变，如果某个线程因为执行异常而结束，那么线程池会补充一个新线程。</p>
-<p>3.<strong>newCachedThreadPool</strong></p>
-<p>创建一个可缓存的线程池。如果线程池的大小超过了处理任务所需要的线程，<br>那么就会回收部分空闲（60秒不执行任务）的线程，当任务数增加时，此线程池又可以智能的添加新线程来处理任务。此线程池不会对线程池大小做限制，线程池大小完全依赖于操作系统（或者说JVM）能够创建的最大线程大小。</p>
-<p>4.<strong>newScheduledThreadPool</strong><br>创建一个大小无限的线程池。此线程池支持定时以及周期性执行任务的需求。</p>
-<p>下节我们分别介绍这些工厂类。</p>
+        <p>我们知道hive的数据是存储在HDFS上的，hive只是充当一个客户端，实际上是去HDFS执行mapReduce命令。在我们第一次安装hive的时候，介绍过使用bin目录下的”hive”命令去启动hive客户端程序：</p>
+<p><img src="https://i.imgur.com/35wBVQ1.png" alt=""></p>
+<p>那么生产环境下我们肯定不能在服务器上使用命令行的方式去操作hive，在hive的bin目录下提供了hiveserver2命令，HiveServer2(HS2)是一种能使客户端执行Hive查询的服务。 HiveServer2是HiveServer1的改进版，HiveServer1已经被废弃。HiveServer2可以支持多客户端并发和身份认证。旨在为开放API客户端（如JDBC和ODBC）提供更好的支持。 HiveServer2单进程运行，提供组合服务，包括基于Thrift的Hive服务（TCP或HTTP）和用于Web UI的Jetty Web服务器。 </p>
+<p>Hiveserver2提供了客户端连接hive的服务，用户并不是直接连接的，bin目录下还有另外一个命令，beeline。它是基于SQLLine CLI的JDBC客户端 。</p>
+<p>Beeline支持嵌入模式(embedded mode)和远程模式(remote mode)。在嵌入式模式下，运行嵌入式的Hive(类似Hive CLI)，而远程模式可以通过Thrift连接到独立的HiveServer2进程上。从Hive 0.14版本开始，Beeline使用HiveServer2工作时，它也会从HiveServer2输出日志信息到STDERR。</p>
+<h4 id="1-hiveserver2服务配置"><a href="#1-hiveserver2服务配置" class="headerlink" title="1.hiveserver2服务配置"></a>1.hiveserver2服务配置</h4><p>下面我们来配置通过beeline连接hiveserver2服务，在远程连接hive服务。</p>
+<h5 id="1-1-修改hadoop的hdfs-site-xml文件："><a href="#1-1-修改hadoop的hdfs-site-xml文件：" class="headerlink" title="1.1 修改hadoop的hdfs-site.xml文件："></a>1.1 修改hadoop的hdfs-site.xml文件：</h5><p>加入一条配置信息，启用webhdfs,因为我们需要远程访问HDFS：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.webhdfs.enabled<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="1-2-修改hadoop的core-site-xml文件："><a href="#1-2-修改hadoop的core-site-xml文件：" class="headerlink" title="1.2 修改hadoop的core-site.xml文件："></a>1.2 修改hadoop的core-site.xml文件：</h5><p>需要允许hadoop集群可以被任一代理用户访问：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.proxyuser.hadoop.hosts<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">value</span>&gt;</span>*<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.proxyuser.hadoop.groups<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">value</span>&gt;</span>*<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>修改完成之后同步两个文件至集群所有机器，然后重启集群。</p>
+<h5 id="1-3-hadoop重启完成之后，我们可以开始启动hiveserver2服务，输入命令：hvieserver2-然后jps一下会多出一个进程："><a href="#1-3-hadoop重启完成之后，我们可以开始启动hiveserver2服务，输入命令：hvieserver2-然后jps一下会多出一个进程：" class="headerlink" title="1.3 hadoop重启完成之后，我们可以开始启动hiveserver2服务，输入命令：hvieserver2,然后jps一下会多出一个进程："></a>1.3 hadoop重启完成之后，我们可以开始启动hiveserver2服务，输入命令：hvieserver2,然后jps一下会多出一个进程：</h5><p><img src="https://i.imgur.com/roScdjR.png" alt=""></p>
+<p>当然这种方式启动hiveserver2服务，你关闭窗口服务就挂了，我们可以使用后台的方式来启动：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">nohup hiveserver2 1&gt;/usr/local/hive/log/hiveserver.log 2&gt;/usr/local/hive/log/hiveserver.err &amp;</span><br><span class="line">或者：</span><br><span class="line">nohup hiveserver2 1&gt;/dev/null 2&gt;/dev/null &amp;</span><br><span class="line">或者：</span><br><span class="line">nohup hiveserver2 &gt;/dev/null 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+<p>以上3个命令是等价的，第一个表示记录日志，第二个和第三个不记录日志。</p>
+<p>其中第一个命令中的1 和 2 的含义分别是：</p>
+<p>1：表示标准输出日志</p>
+<p>2：表示错误日志输出，如果你没有配置错误输出目录，则会在当前工作目录下生成目录，默认日志名叫做：nohup.xxx</p>
+<p><strong>命令学习：nohup 命令：如果你正在运行一个进程，而且你觉得在退出帐户时该进程还不会结束， 那么可以使用 nohup 命令。该命令可以在你退出帐户/关闭终端之后继续运行相应的进程。 nohup 就是不挂起的意思(no hang up)。 该命令的一般形式为：nohup command &amp;</strong> </p>
+<h5 id="1-4-启动完毕hiveserver2服务之后，我们可以开始启用beeline客户端去连接："><a href="#1-4-启动完毕hiveserver2服务之后，我们可以开始启用beeline客户端去连接：" class="headerlink" title="1.4 启动完毕hiveserver2服务之后，我们可以开始启用beeline客户端去连接："></a>1.4 启动完毕hiveserver2服务之后，我们可以开始启用beeline客户端去连接：</h5><p><img src="https://i.imgur.com/GlYevQi.png" alt=""></p>
+<p>输入beeline命令之后需要你手动的输入连接串：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!connect jdbc:hive2://hadoopmaster:10000 -n root</span><br></pre></td></tr></table></figure>
+<p>当然我们也直接将连接串拼接在beeline命令后面：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">beeline -u jdbc:hive2://hadoopmaster:10000 -n root --color=true --silent=false</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/wWO94c9.png" alt=""></p>
+<h5 id="1-5-以下为beeline常用的参数解释："><a href="#1-5-以下为beeline常用的参数解释：" class="headerlink" title="1.5 以下为beeline常用的参数解释："></a>1.5 以下为beeline常用的参数解释：</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">The Beeline CLI 支持以下命令行参数:    </span><br><span class="line">Option    </span><br><span class="line">Description    </span><br><span class="line">--autoCommit=[true/false] ---进入一个自动提交模式：beeline --autoCommit=true    </span><br><span class="line">--autosave=[true/false]   ---进入一个自动保存模式：beeline --autosave=true    </span><br><span class="line">--color=[true/false]    ---显示用到的颜色：beeline --color=true    </span><br><span class="line">--delimiterForDSV= DELIMITER ---分隔值输出格式的分隔符。默认是“|”字符。    </span><br><span class="line">--fastConnect=[true/false]  ---在连接时，跳过组建表等对象：beeline --fastConnect=false    </span><br><span class="line">--force=[true/false]    ---是否强制运行脚本：beeline--force=true    </span><br><span class="line">--headerInterval=ROWS   ---输出的表间隔格式，默认是100: beeline --headerInterval=50    </span><br><span class="line">--help ---帮助  beeline --help    </span><br><span class="line">--hiveconf property=value  ---设置属性值，以防被hive.conf.restricted.list重置：beeline --hiveconf prop1=value1     </span><br><span class="line">--hivevar name=value   ---设置变量名：beeline --hivevar var1=value1    </span><br><span class="line">--incremental=[true/false]  ---输出增量  </span><br><span class="line">--isolation=LEVEL  ---设置事务隔离级别：beeline --isolation=TRANSACTION_SERIALIZABLE    </span><br><span class="line">--maxColumnWidth=MAXCOLWIDTH ---设置字符串列的最大宽度：beeline --maxColumnWidth=25    </span><br><span class="line">--maxWidth=MAXWIDTH ---设置截断数据的最大宽度：beeline --maxWidth=150    </span><br><span class="line">--nullemptystring=[true/false]  ---打印空字符串：beeline --nullemptystring=false    </span><br><span class="line">--numberFormat=[pattern]     ---数字使用DecimalFormat：beeline --numberFormat="#,###,##0.00"    </span><br><span class="line">--outputformat=[table/vertical/csv/tsv/dsv/csv2/tsv2] ---输出格式：beeline --outputformat=tsv     </span><br><span class="line">--showHeader=[true/false]   ---显示查询结果的列名：beeline --showHeader=false    </span><br><span class="line">--showNestedErrs=[true/false] ---显示嵌套错误：beeline --showNestedErrs=true    </span><br><span class="line">--showWarnings=[true/false] ---显示警告：beeline --showWarnings=true    </span><br><span class="line">--silent=[true/false]  ---减少显示的信息量：beeline --silent=true    </span><br><span class="line">--truncateTable=[true/false] ---是否在客户端截断表的列       </span><br><span class="line">--verbose=[true/false]  ---显示详细错误信息和调试信息：beeline --verbose=true    </span><br><span class="line">-d &lt;driver class&gt;  ---使用一个驱动类：beeline -d driver_class    </span><br><span class="line">-e &lt;query&gt;  ---使用一个查询语句：beeline -e "query_string"    </span><br><span class="line">-f &lt;file&gt;  ---加载一个文件：beeline -f filepath  多个文件用-e file1 -e file2  </span><br><span class="line">-n &lt;username&gt;  ---加载一个用户名：beeline -n valid_user    </span><br><span class="line">-p &lt;password&gt;  ---加载一个密码：beeline -p valid_password</span><br></pre></td></tr></table></figure>
+<p>使用java连接hiveserver2服务</p>
+<p>既然hiveserver2就是为了提供远程连接hive服务的功能，我们直接使用java来操作一下，首先必须的启动hiveserver2服务。</p>
+<h4 id="2-基于java的hive访问"><a href="#2-基于java的hive访问" class="headerlink" title="2. 基于java的hive访问"></a>2. 基于java的hive访问</h4><p>如下所示工程基于maven搭建，需要引入如下jar包：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org.apache.hive&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;hive-jdbc&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;2.3.2&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.edu.hust.demo1.hive;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.sql.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HiveClient</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> String driverName = <span class="string">"org.apache.hive.jdbc.HiveDriver"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> args</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> SQLException</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Class.forName(driverName);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            System.exit(<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        Connection con = DriverManager.getConnection(<span class="string">"jdbc:hive2://hadoopmaster:10000/default"</span>, <span class="string">"hadoop"</span>, <span class="string">"123456"</span>);</span><br><span class="line">        Statement stmt = con.createStatement();</span><br><span class="line">        String sql = <span class="string">"select * from t2"</span>;</span><br><span class="line">        System.out.println(<span class="string">"Running: "</span> + sql);</span><br><span class="line">        ResultSet res = stmt.executeQuery(sql);</span><br><span class="line">        <span class="keyword">while</span> (res.next()) &#123;</span><br><span class="line">            System.out.println(res.getString(<span class="number">1</span>)+ <span class="string">" "</span> +res.getString(<span class="number">2</span>) + <span class="string">" "</span> + res.getString(<span class="number">3</span>));</span><br><span class="line">        &#125;</span><br><span class="line">        String insertSql = <span class="string">"insert into t2 (id,name,age) values(4,\"xiaocun\",13)"</span>;</span><br><span class="line">        stmt.execute(insertSql);</span><br><span class="line">        System.out.println(<span class="string">"-----------------------"</span>);</span><br><span class="line">        System.out.println(<span class="string">"Running: "</span> + sql);</span><br><span class="line">        ResultSet res1 = stmt.executeQuery(sql);</span><br><span class="line">        <span class="keyword">while</span> (res1.next()) &#123;</span><br><span class="line">            System.out.println(res1.getString(<span class="number">1</span>)+ <span class="string">" "</span> +res1.getString(<span class="number">2</span>) + <span class="string">" "</span> + res1.getString(<span class="number">3</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上程序执行完毕结果如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Running: select * from t2</span><br><span class="line"><span class="number">1</span> xiaoming <span class="number">12</span></span><br><span class="line"><span class="number">2</span> xiaohong <span class="number">13</span></span><br><span class="line"><span class="number">3</span> xiaohei <span class="number">15</span></span><br><span class="line">-----------------------</span><br><span class="line">Running: select * from t2</span><br><span class="line"><span class="number">1</span> xiaoming <span class="number">12</span></span><br><span class="line"><span class="number">2</span> xiaohong <span class="number">13</span></span><br><span class="line"><span class="number">3</span> xiaohei <span class="number">15</span></span><br><span class="line"><span class="number">4</span> xiaocun <span class="number">13</span></span><br><span class="line"></span><br><span class="line">Process finished with exit code <span class="number">0</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -521,12 +524,12 @@
   <!-- JS库 sweetalert 可修改路径 -->
   <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <p><span>本文标题:</span><a href="/posts/d72ca9c5.html">（十五）----(线程池)java线程池简介</a></p>
+  <p><span>本文标题:</span><a href="/posts/d946acf8.html">hiveserver2使用以及java连接方式</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Rickiyang 的个人博客">Rickiyang</a></p>
-  <p><span>发布时间:</span>2017年03月28日 - 01:02</p>
-  <p><span>最后更新:</span>2018年12月04日 - 17:28</p>
-  <p><span>原始链接:</span><a href="/posts/d72ca9c5.html" title="（十五）----(线程池)java线程池简介">https://blog.rickiyang.cn/posts/d72ca9c5.html</a>
-    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.rickiyang.cn/posts/d72ca9c5.html" aria-label="复制成功！"></i></span>
+  <p><span>发布时间:</span>2018年11月22日 - 23:12</p>
+  <p><span>最后更新:</span>2019年01月02日 - 19:42</p>
+  <p><span>原始链接:</span><a href="/posts/d946acf8.html" title="hiveserver2使用以及java连接方式">https://blog.rickiyang.cn/posts/d946acf8.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.rickiyang.cn/posts/d946acf8.html" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
 </div>
@@ -569,7 +572,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/java/" rel="tag"> <i class="”fa" fa-tag”=""></i> java</a>
+            <a href="/tags/大数据/" rel="tag"> <i class="”fa" fa-tag”=""></i> 大数据</a>
           
         </div>
       
@@ -582,8 +585,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/58721c94.html" rel="next" title="java并发编程（十四）----(JUC原子类)对象的属性修改类型介绍">
-                <i class="fa fa-chevron-left"></i> java并发编程（十四）----(JUC原子类)对象的属性修改类型介绍
+              <a href="/posts/dfd44a4f.html" rel="next" title="hive元数据存储-MYSQL数据库表">
+                <i class="fa fa-chevron-left"></i> hive元数据存储-MYSQL数据库表
               </a>
             
           </div>
@@ -592,8 +595,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/posts/e7e539b9.html" rel="prev" title="java并发编程（十六）----(线程池)java线程池的使用">
-                java并发编程（十六）----(线程池)java线程池的使用 <i class="fa fa-chevron-right"></i>
+              <a href="/posts/73e3dbd9.html" rel="prev" title="java重试工具类:spring-retry和guava-retryer">
+                java重试工具类:spring-retry和guava-retryer <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -789,7 +792,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Executor简介"><span class="nav-number">1.</span> <span class="nav-text">1 Executor简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-线程池"><span class="nav-number">2.</span> <span class="nav-text">2 线程池</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-线程池的作用："><span class="nav-number">2.1.</span> <span class="nav-text">2.1 线程池的作用：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-为什么要用线程池"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 为什么要用线程池:</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-hiveserver2服务配置"><span class="nav-number">1.</span> <span class="nav-text">1.hiveserver2服务配置</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-修改hadoop的hdfs-site-xml文件："><span class="nav-number">1.1.</span> <span class="nav-text">1.1 修改hadoop的hdfs-site.xml文件：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-修改hadoop的core-site-xml文件："><span class="nav-number">1.2.</span> <span class="nav-text">1.2 修改hadoop的core-site.xml文件：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-hadoop重启完成之后，我们可以开始启动hiveserver2服务，输入命令：hvieserver2-然后jps一下会多出一个进程："><span class="nav-number">1.3.</span> <span class="nav-text">1.3 hadoop重启完成之后，我们可以开始启动hiveserver2服务，输入命令：hvieserver2,然后jps一下会多出一个进程：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4-启动完毕hiveserver2服务之后，我们可以开始启用beeline客户端去连接："><span class="nav-number">1.4.</span> <span class="nav-text">1.4 启动完毕hiveserver2服务之后，我们可以开始启用beeline客户端去连接：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-5-以下为beeline常用的参数解释："><span class="nav-number">1.5.</span> <span class="nav-text">1.5 以下为beeline常用的参数解释：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-基于java的hive访问"><span class="nav-number">2.</span> <span class="nav-text">2. 基于java的hive访问</span></a></li></ol></div>
             
 
           </div>

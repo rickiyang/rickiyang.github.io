@@ -118,7 +118,7 @@
 
 
 
-  <meta name="keywords" content="java,">
+  <meta name="keywords" content="大数据,">
 
 
 
@@ -131,20 +131,20 @@
 
 
 
-<meta name="description" content="好的软件设计不建议手动创建和销毁线程。线程的创建和销毁是非常耗 CPU 和内存的，因为这需要 JVM 和操作系统的参与。64位 JVM 默认线程栈是大小1 MB。这就是为什么说在请求频繁时为每个小的请求创建线程是一种资源的浪费。线程池可以根据创建时选择的策略自动处理线程的生命周期。重点在于：在资源（如内存、CPU）充足的情况下，线程池没有明显的优势，否则没有线程池将导致服务器崩溃。有很多的理由可以">
-<meta name="keywords" content="java">
+<meta name="description" content="hive默认本地存储是将元数据存储在内嵌的Derby数据库中，但是生产环境中没有人会用本地模式，一般remote模式使用MYSQL数据库，我们在hive-site.xml中也是配置的MYSQL数据库来存储元数据，下面就来看一下在MYSQL中是如何存储这些元数据信息的。 在本地我们连接MYSQL可以看到hive元数据存储创建的表还真的不少：  1.hive表和视图相关的元数据表主要有TBLS、TAB">
+<meta name="keywords" content="大数据">
 <meta property="og:type" content="article">
-<meta property="og:title" content="（十五）----(线程池)java线程池简介">
-<meta property="og:url" content="https://blog.rickiyang.cn/posts/d72ca9c5.html">
+<meta property="og:title" content="hive元数据存储-MYSQL数据库表">
+<meta property="og:url" content="https://blog.rickiyang.cn/posts/dfd44a4f.html">
 <meta property="og:site_name" content="Rickiyang&#39;s blog">
-<meta property="og:description" content="好的软件设计不建议手动创建和销毁线程。线程的创建和销毁是非常耗 CPU 和内存的，因为这需要 JVM 和操作系统的参与。64位 JVM 默认线程栈是大小1 MB。这就是为什么说在请求频繁时为每个小的请求创建线程是一种资源的浪费。线程池可以根据创建时选择的策略自动处理线程的生命周期。重点在于：在资源（如内存、CPU）充足的情况下，线程池没有明显的优势，否则没有线程池将导致服务器崩溃。有很多的理由可以">
+<meta property="og:description" content="hive默认本地存储是将元数据存储在内嵌的Derby数据库中，但是生产环境中没有人会用本地模式，一般remote模式使用MYSQL数据库，我们在hive-site.xml中也是配置的MYSQL数据库来存储元数据，下面就来看一下在MYSQL中是如何存储这些元数据信息的。 在本地我们连接MYSQL可以看到hive元数据存储创建的表还真的不少：  1.hive表和视图相关的元数据表主要有TBLS、TAB">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://i.imgur.com/CIzy36s.png">
-<meta property="og:updated_time" content="2018-12-04T09:28:26.160Z">
+<meta property="og:image" content="https://i.imgur.com/n08NQD4.jpg">
+<meta property="og:updated_time" content="2019-01-02T11:42:40.842Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="（十五）----(线程池)java线程池简介">
-<meta name="twitter:description" content="好的软件设计不建议手动创建和销毁线程。线程的创建和销毁是非常耗 CPU 和内存的，因为这需要 JVM 和操作系统的参与。64位 JVM 默认线程栈是大小1 MB。这就是为什么说在请求频繁时为每个小的请求创建线程是一种资源的浪费。线程池可以根据创建时选择的策略自动处理线程的生命周期。重点在于：在资源（如内存、CPU）充足的情况下，线程池没有明显的优势，否则没有线程池将导致服务器崩溃。有很多的理由可以">
-<meta name="twitter:image" content="http://i.imgur.com/CIzy36s.png">
+<meta name="twitter:title" content="hive元数据存储-MYSQL数据库表">
+<meta name="twitter:description" content="hive默认本地存储是将元数据存储在内嵌的Derby数据库中，但是生产环境中没有人会用本地模式，一般remote模式使用MYSQL数据库，我们在hive-site.xml中也是配置的MYSQL数据库来存储元数据，下面就来看一下在MYSQL中是如何存储这些元数据信息的。 在本地我们连接MYSQL可以看到hive元数据存储创建的表还真的不少：  1.hive表和视图相关的元数据表主要有TBLS、TAB">
+<meta name="twitter:image" content="https://i.imgur.com/n08NQD4.jpg">
 
 
 
@@ -174,13 +174,13 @@
 
 
 
-  <link rel="canonical" href="https://blog.rickiyang.cn/posts/d72ca9c5.html">
+  <link rel="canonical" href="https://blog.rickiyang.cn/posts/dfd44a4f.html">
 
 
 
 
 
-  <title>（十五）----(线程池)java线程池简介 | Rickiyang's blog</title>
+  <title>hive元数据存储-MYSQL数据库表 | Rickiyang's blog</title>
   
 
 
@@ -339,7 +339,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/d72ca9c5.html">
+    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/dfd44a4f.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
@@ -356,7 +356,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">（十五）----(线程池)java线程池简介</h2>
+          <h2 class="post-title" itemprop="name headline">hive元数据存储-MYSQL数据库表</h2>
         
 
         <div class="post-meta">
@@ -368,8 +368,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-28T01:02:00+08:00">
-                2017-03-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-22T17:15:55+08:00">
+                2018-11-22
               </time>
             
 
@@ -391,8 +391,19 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/多线程与并发编程/" itemprop="url" rel="index">
-                    <span itemprop="name">多线程与并发编程</span>
+                  <a href="/categories/大数据学习/" itemprop="url" rel="index">
+                    <span itemprop="name">大数据学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/大数据学习/hive/" itemprop="url" rel="index">
+                    <span itemprop="name">hive</span>
                   </a>
                 </span>
 
@@ -424,7 +435,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2.2k
+                  1.3k
                 </span>
               
 
@@ -440,7 +451,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  7
+                  5
                 </span>
               
             </div>
@@ -461,50 +472,610 @@
       
 
       
-        <p>好的软件设计不建议手动创建和销毁线程。线程的创建和销毁是非常耗 CPU 和内存的，因为这需要 JVM 和操作系统的参与。64位 JVM 默认线程栈是大小1 MB。这就是为什么说在请求频繁时为每个小的请求创建线程是一种资源的浪费。线程池可以根据创建时选择的策略自动处理线程的生命周期。重点在于：在资源（如内存、CPU）充足的情况下，线程池没有明显的优势，否则没有线程池将导致服务器崩溃。有很多的理由可以解释为什么没有更多的资源。例如，在拒绝服务（denial-of-service）攻击时会引起的许多线程并行执行，从而导致线程饥饿（thread starvation）。除此之外，手动执行线程时，可能会因为异常导致线程死亡，程序员必须记得处理这种异常情况。这时我们需要一个管理线程的工具—-线程池应运而生。</p>
-<p>在 Java 5 之后，并发编程引入了一堆新的启动、调度和管理线程的API。Executor 框架便是 Java 5 中引入的，其内部使用了线程池机制，它在 java.util.cocurrent 包下，通过该框架来控制线程的启动、执行和关闭，可以简化并发编程的操作。因此，在 Java 5之后，通过 Executor 来启动线程比使用 Thread 的 start 方法更好，除了更易管理，效率更好（用线程池实现，节约开销）外，还有关键的一点：有助于避免 this 逃逸问题——如果我们在构造器中启动一个线程，因为另一个任务可能会在构造器结束之前开始执行，此时可能会访问到初始化了一半的对象用 Executor 在构造器中。</p>
-<h4 id="1-Executor简介"><a href="#1-Executor简介" class="headerlink" title="1 Executor简介"></a>1 Executor简介</h4><p>我们先看一下Execotor框架的体系：</p>
-<p><img src="http://i.imgur.com/CIzy36s.png" alt=""></p>
-<p>Executor: 所有线程池的接口,只有一个方法。</p>
-<pre><code>void execute(Runnable command);
-</code></pre><p><strong>ExecutorService</strong>: 增加Executor的行为，是Executor实现类的最直接接口。</p>
-<p><strong>AbstractExecutorService</strong>：AbstractExecutorService是一个抽象类，它实现了ExecutorService接口。AbstractExecutorService存在的目的是为ExecutorService中的函数接口提供了默认实现。</p>
-<p><strong>ScheduledExecutorService</strong>：ScheduledExecutorService是一个接口，它继承于ExecutorService。它相当于提供了”延时”和”周期执行”功能的ExecutorService。ScheduledExecutorService提供了相应的函数接口，可以安排任务在给定的延迟后执行，也可以让任务周期的执行。</p>
-<p><strong>ForkJoinPool</strong> ：ForkJoinPool 是 Java SE 7 新功能“分叉/结合框架”的核心类，专用于需要将一个任务不断分解成子任务（分叉），再不断进行汇总得到最终结果（结合）的计算过程。比起传统的线程池类ThreadPoolExecutor，ForkJoinPool 实现了工作窃取算法，使得空闲线程能够主动分担从别的线程分解出来的子任务，从而让所有的线程都尽可能处于饱满的工作状态，提高执行效率。</p>
-<p><strong>ScheduledThreadPoolExecutor</strong>：ScheduledThreadPoolExecutor继承于ThreadPoolExecutor，并且实现了ScheduledExecutorService接口。它相当于提供了”延时”和”周期执行”功能的ScheduledExecutorService。ScheduledThreadPoolExecutor类似于Timer，但是在高并发程序中，ScheduledThreadPoolExecutor的性能要优于Timer。</p>
-<p><strong>Executors</strong>：Executors是个静态工厂类。它通过静态工厂方法返回ExecutorService、ScheduledExecutorService、ThreadFactory 和 Callable 等类的对象。</p>
-<p><strong>ThreadPoolExecutor</strong>：线程池的具体实现类,一般用的各种线程池都是基于这个类实现的。</p>
-<p>构造方法如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                          <span class="keyword">int</span> maximumPoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                          <span class="keyword">long</span> keepAliveTime,</span></span></span><br><span class="line"><span class="function"><span class="params">                          TimeUnit unit,</span></span></span><br><span class="line"><span class="function"><span class="params">                          BlockingQueue&lt;Runnable&gt; workQueue)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue,</span><br><span class="line">         Executors.defaultThreadFactory(), defaultHandler);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>参数：</p>
-<p>corePoolSize - 池中所保存的线程数，包括空闲线程。</p>
-<p>maximumPoolSize - 池中允许的最大线程数。</p>
-<p>keepAliveTime - 当线程数大于核心时，此为终止前多余的空闲线程等待新任务的最长时间。</p>
-<p>unit - keepAliveTime 参数的时间单位。</p>
-<p>workQueue - 执行前用于保持任务的队列。此队列仅保持由 execute 方法提交的 Runnable 任务。 </p>
-<p>该方法作用为：用给定的初始参数和默认的线程工厂及被拒绝的执行处理程序创建新的 ThreadPoolExecutor。但是使用 Executors 工厂方法比使用此通用构造方法方便得多。（所以一般不用这个方法）</p>
-<p><strong>由该方法我们可以看出一般线程池的工作方式为：</strong></p>
-<p>①线程池刚创建时，里面没有一个线程。任务队列是作为参数传进来的。不过，就算队列里面有任务，线程池也不会马上执行它们。</p>
-<p>②当调用 execute() 方法添加一个任务时，线程池会做如下判断：</p>
-<p>⒈如果正在运行的线程数量小于 corePoolSize，那么马上创建线程运行这个任务；</p>
-<p>⒉如果正在运行的线程数量大于或等于 corePoolSize，那么将这个任务放入队列；</p>
-<p>⒊如果这时候队列满了，而且正在运行的线程数量小于 maximumPoolSize，那么还是要创建非核心线程立刻运行这个任务；</p>
-<p>⒋如果队列满了，而且正在运行的线程数量大于或等于 maximumPoolSize，那么线程池会抛出异常RejectExecutionException。</p>
-<p>⒌当一个线程完成任务时，它会从队列中取下一个任务来执行。</p>
-<p>⒍当一个线程无事可做，超过一定的时间（keepAliveTime）时，线程池会判断，如果当前运行的线程数大于 corePoolSize，那么这个线程就被停掉。所以线程池的所有任务完成后，它最终会收缩到 corePoolSize 的大小。</p>
-<h4 id="2-线程池"><a href="#2-线程池" class="headerlink" title="2 线程池"></a>2 线程池</h4><h5 id="2-1-线程池的作用："><a href="#2-1-线程池的作用：" class="headerlink" title="2.1 线程池的作用："></a>2.1 线程池的作用：</h5><p>线程池作用就是限制系统中执行线程的数量。</p>
-<p> 根据系统的环境情况，可以自动或手动设置线程数量，达到运行的最佳效果；少了浪费了系统资源，多了造成系统拥挤效率不高。用线程池控制线程数量，其他线程排队等候。一个任务执行完毕，再从队列的中取最前面的任务开始执行。若队列中没有等待进程，线程池的这一资源处于等待。当一个新任务需要运行时，如果线程池中有等待的工作线程，就可以开始运行了；否则进入等待队列。</p>
-<h5 id="2-2-为什么要用线程池"><a href="#2-2-为什么要用线程池" class="headerlink" title="2.2 为什么要用线程池:"></a>2.2 为什么要用线程池:</h5><p>1.减少了创建和销毁线程的次数，每个工作线程都可以被重复利用，可执行多个任务。</p>
-<p>2.可以根据系统的承受能力，调整线程池中工作线线程的数目，防止因为消耗过多的内存，而把服务器累趴下(每个线程需要大约1MB内存，线程开的越多，消耗的内存也就越大，最后死机)。<br><strong>Java里面线程池的顶级接口是Executor，但是严格意义上讲Executor并不是一个线程池，而只是一个执行线程的工具。真正的线程池接口是ExecutorService</strong>。</p>
-<p>要配置一个线程池是比较复杂的，尤其是对于线程池的原理不是很清楚的情况下，很有可能配置的线程池不是较优的，因此在Executors类里面提供了一些静态工厂，生成一些常用的线程池。</p>
-<p>1.<strong>newSingleThreadExecutor</strong></p>
-<p>创建一个单线程的线程池。这个线程池只有一个线程在工作，也就是相当于单线程串行执行所有任务。如果这个唯一的线程因为异常结束，那么会有一个新的线程来替代它。此线程池保证所有任务的执行顺序按照任务的提交顺序执行。</p>
-<p>2.<strong>newFixedThreadPool</strong></p>
-<p>创建固定大小的线程池。每次提交一个任务就创建一个线程，直到线程达到线程池的最大大小。线程池的大小一旦达到最大值就会保持不变，如果某个线程因为执行异常而结束，那么线程池会补充一个新线程。</p>
-<p>3.<strong>newCachedThreadPool</strong></p>
-<p>创建一个可缓存的线程池。如果线程池的大小超过了处理任务所需要的线程，<br>那么就会回收部分空闲（60秒不执行任务）的线程，当任务数增加时，此线程池又可以智能的添加新线程来处理任务。此线程池不会对线程池大小做限制，线程池大小完全依赖于操作系统（或者说JVM）能够创建的最大线程大小。</p>
-<p>4.<strong>newScheduledThreadPool</strong><br>创建一个大小无限的线程池。此线程池支持定时以及周期性执行任务的需求。</p>
-<p>下节我们分别介绍这些工厂类。</p>
+        <p>hive默认本地存储是将元数据存储在内嵌的Derby数据库中，但是生产环境中没有人会用本地模式，一般remote模式使用MYSQL数据库，我们在hive-site.xml中也是配置的MYSQL数据库来存储元数据，下面就来看一下在MYSQL中是如何存储这些元数据信息的。</p>
+<p>在本地我们连接MYSQL可以看到hive元数据存储创建的表还真的不少：</p>
+<p><img src="https://i.imgur.com/n08NQD4.jpg" alt=""></p>
+<h4 id="1-hive表和视图相关的元数据表"><a href="#1-hive表和视图相关的元数据表" class="headerlink" title="1.hive表和视图相关的元数据表"></a>1.hive表和视图相关的元数据表</h4><p><strong>主要有TBLS、TABLE_PARAMS、TBL_PRIVS，这三张表通过TBL_ID关联。</strong> </p>
+<ul>
+<li>TBLS：存储Hive表、视图、索引表的基本信息 </li>
+<li>TABLE_PARAMS：该表存储表/视图的属性信息 </li>
+<li>TBL_PRIVS： 该表存储表/视图的授权信息 </li>
+</ul>
+<p>TBLS表：</p>
+<table>
+<thead>
+<tr>
+<th><strong>表字段</strong></th>
+<th><strong>说明</strong></th>
+<th><strong>示例数据</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>TBL_ID</strong></td>
+<td>表ID</td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>CREATE_TIME</strong></td>
+<td>创建时间</td>
+<td>1546336624</td>
+</tr>
+<tr>
+<td><strong>DB_ID</strong></td>
+<td>数据库ID</td>
+<td>2，对应DBS中的DB_ID</td>
+</tr>
+<tr>
+<td><strong>LAST_ACCESS_TIME</strong></td>
+<td>上次访问时间</td>
+<td>1546336624</td>
+</tr>
+<tr>
+<td><strong>OWNER</strong></td>
+<td>所有者</td>
+<td>hadoop</td>
+</tr>
+<tr>
+<td><strong>RETENTION</strong></td>
+<td>保留字段</td>
+<td>0</td>
+</tr>
+<tr>
+<td><strong>SD_ID</strong></td>
+<td>序列化配置信息</td>
+<td>12，对应SDS表中的SD_ID</td>
+</tr>
+<tr>
+<td><strong>TBL_NAME</strong></td>
+<td>表名</td>
+<td>t2</td>
+</tr>
+<tr>
+<td><strong>TBL_TYPE</strong></td>
+<td>表类型</td>
+<td>MANAGED_TABLE、EXTERNAL_TABLE、INDEX_TABLE、VIRTUAL_VIEW</td>
+</tr>
+<tr>
+<td><strong>VIEW_EXPANDED_TEXT</strong></td>
+<td>视图的详细HQL语句</td>
+<td>select  name,age from t2</td>
+</tr>
+<tr>
+<td><strong>VIEW_ORIGINAL_TEXT</strong></td>
+<td>视图的原始HQL语句</td>
+<td>select * from t2</td>
+</tr>
+</tbody>
+</table>
+<p>TABLE_PARAMS表：</p>
+<table>
+<thead>
+<tr>
+<th><strong>表字段</strong></th>
+<th><strong>说明</strong></th>
+<th><strong>示例数据</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>TBL_ID</strong></td>
+<td>表ID</td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>PARAM_KEY</strong></td>
+<td>属性名</td>
+<td>totalSize、numFiles、EXTERNAL</td>
+</tr>
+<tr>
+<td><strong>PARAM_VALUE</strong></td>
+<td>属性值</td>
+<td>1536169128、1536170730、TRUE</td>
+</tr>
+</tbody>
+</table>
+<p>TBL_PRIVS表：</p>
+<table>
+<thead>
+<tr>
+<th><strong>表字段</strong></th>
+<th><strong>说明</strong></th>
+<th><strong>示例数据</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>TBL_GRANT_ID</strong></td>
+<td>授权ID</td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>CREATE_TIME</strong></td>
+<td>授权时间</td>
+<td>1536169128</td>
+</tr>
+<tr>
+<td><strong>GRANT_OPTION</strong></td>
+<td>描述信息</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>GRANTOR</strong></td>
+<td>授权执行用户</td>
+<td>hadoop</td>
+</tr>
+<tr>
+<td><strong>GRANTOR_TYPE</strong></td>
+<td>授权者类型</td>
+<td>USER</td>
+</tr>
+<tr>
+<td><strong>PRINCIPAL_NAME</strong></td>
+<td>被授权用户</td>
+<td>root</td>
+</tr>
+<tr>
+<td><strong>PRINCIPAL_TYPE</strong></td>
+<td>被授权用户类型</td>
+<td>USER</td>
+</tr>
+<tr>
+<td><strong>TBL_PRIV</strong></td>
+<td>权限</td>
+<td>Select、Alter</td>
+</tr>
+<tr>
+<td><strong>TBL_ID</strong></td>
+<td>表ID</td>
+<td>1，对应TBLS表中的TBL_ID</td>
+</tr>
+</tbody>
+</table>
+<h4 id="2-hive表字段相关的表："><a href="#2-hive表字段相关的表：" class="headerlink" title="2.hive表字段相关的表："></a>2.hive表字段相关的表：</h4><p>hive会将所有表的字段信息都维护到这张表中：COLUMNS_V2 。</p>
+<table>
+<thead>
+<tr>
+<th><strong>表字段</strong></th>
+<th><strong>说明</strong></th>
+<th><strong>示例数据</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CD_ID</strong></td>
+<td>字段信息ID</td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>COMMENT</strong></td>
+<td>字段注释</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>COLUMN_NAME</strong></td>
+<td>字段名</td>
+<td>name</td>
+</tr>
+<tr>
+<td><strong>TYPE_NAME</strong></td>
+<td>字段类型</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>INTEGER_IDX</strong></td>
+<td>字段顺序</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<h4 id="3-hive表分区相关的表："><a href="#3-hive表分区相关的表：" class="headerlink" title="3.hive表分区相关的表："></a>3.hive表分区相关的表：</h4><p>主要有PARTITIONS、PARTITION_KEYS、PARTITION_KEY_VALS、PARTITION_PARAMS ：</p>
+<ul>
+<li>PARTITIONS： 该表存储表分区的基本信息 ；</li>
+<li>PARTITION_KEYS：该表存储分区的字段信息；</li>
+<li>PARTITION_KEY_VALS：该表存储分区字段值；</li>
+<li>PARTITION_PARAMS ：该表存储分区的属性信息 。</li>
+</ul>
+<p>PARTITIONS表：</p>
+<table>
+<thead>
+<tr>
+<th><strong>表字段</strong></th>
+<th><strong>说明</strong></th>
+<th><strong>示例数据</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PART_ID</strong></td>
+<td>分区ID</td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>CREATE_TIME</strong></td>
+<td>分区创建时间</td>
+<td>1536169128</td>
+</tr>
+<tr>
+<td><strong>LAST_ACCESS_TIME</strong></td>
+<td>最后一次访问时间</td>
+<td>1636163126</td>
+</tr>
+<tr>
+<td><strong>PART_NAME</strong></td>
+<td>分区名</td>
+<td>pt=2018-04-15</td>
+</tr>
+<tr>
+<td><strong>SD_ID</strong></td>
+<td>分区存储ID</td>
+<td>33</td>
+</tr>
+<tr>
+<td><strong>TBL_ID</strong></td>
+<td>表ID</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>PARTITION_KEYS表：</p>
+<table>
+<thead>
+<tr>
+<th><strong>表字段</strong></th>
+<th><strong>说明</strong></th>
+<th><strong>示例数据</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>TBL_ID</strong></td>
+<td>表ID</td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>PKEY_COMMENT</strong></td>
+<td>分区字段说明</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>PKEY_NAME</strong></td>
+<td>分区字段名</td>
+<td>area_id</td>
+</tr>
+<tr>
+<td><strong>PKEY_TYPE</strong></td>
+<td>分区字段类型</td>
+<td>int</td>
+</tr>
+<tr>
+<td><strong>INTEGER_IDX</strong></td>
+<td>分区字段顺序</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>PARTITION_KEY_VALS表：</p>
+<table>
+<thead>
+<tr>
+<th><strong>表字段</strong></th>
+<th><strong>说明</strong></th>
+<th><strong>示例数据</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PART_ID</strong></td>
+<td>分区ID</td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>PART_KEY_VAL</strong></td>
+<td>分区字段值</td>
+<td>2018-04-20</td>
+</tr>
+<tr>
+<td><strong>INTEGER_IDX</strong></td>
+<td>分区字段值顺序</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>PARTITION_PARAMS 表：</p>
+<table>
+<thead>
+<tr>
+<th><strong>表字段</strong></th>
+<th><strong>说明</strong></th>
+<th><strong>示例数据</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PART_ID</strong></td>
+<td>分区ID</td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>PARAM_KEY</strong></td>
+<td>分区属性名</td>
+<td>numFiles、numRows</td>
+</tr>
+<tr>
+<td><strong>PARAM_VALUE</strong></td>
+<td>分区属性值</td>
+<td>33、554222112</td>
+</tr>
+</tbody>
+</table>
+<h4 id="4-hive文件存储相关的表："><a href="#4-hive文件存储相关的表：" class="headerlink" title="4.  hive文件存储相关的表："></a>4.  hive文件存储相关的表：</h4><p>主要有SDS、SD_PARAMS、SERDES、SERDE_PARAMS 。</p>
+<ul>
+<li>SDS:该表保存文件存储的基本信息，如INPUT_FORMAT、OUTPUT_FORMAT、是否压缩等 ;</li>
+<li>SD_PARAMS:该表存储Hive存储的属性信息，在创建表时候使用 ;</li>
+<li>SERDES: 该表存储序列化使用的类信息 ;</li>
+<li>SERDE_PARAMS : 该表存储序列化的一些属性、格式信息,比如：行、列分隔符 。</li>
+</ul>
+<p>SDS表：</p>
+<table>
+<thead>
+<tr>
+<th>表字段</th>
+<th><strong>说明</strong></th>
+<th><strong>示例数据</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SD_ID</strong></td>
+<td>存储信息ID</td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>CD_ID</strong></td>
+<td>字段信息ID</td>
+<td>1，对应CDS表</td>
+</tr>
+<tr>
+<td><strong>INPUT_FORMAT</strong></td>
+<td>文件输入格式</td>
+<td>org.apache.hadoop.mapred.TextInputFormat</td>
+</tr>
+<tr>
+<td><strong>IS_COMPRESSED</strong></td>
+<td>是否压缩</td>
+<td>0</td>
+</tr>
+<tr>
+<td><strong>IS_STOREDASSUBDIRECTORIES</strong></td>
+<td>是否以子目录存储</td>
+<td>0</td>
+</tr>
+<tr>
+<td><strong>LOCATION</strong></td>
+<td>HDFS路径</td>
+<td>hdfs://hadoopmaster:9000/user/hive/warehouse/t2</td>
+</tr>
+<tr>
+<td><strong>NUM_BUCKETS</strong></td>
+<td>分桶数量</td>
+<td>3</td>
+</tr>
+<tr>
+<td><strong>OUTPUT_FORMAT</strong></td>
+<td>文件输出格式</td>
+<td>org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat</td>
+</tr>
+<tr>
+<td><strong>SERDE_ID</strong></td>
+<td>序列化类ID</td>
+<td>3，对应SERDES表</td>
+</tr>
+</tbody>
+</table>
+<p>SD_PARAMS表：</p>
+<table>
+<thead>
+<tr>
+<th><strong>表字段</strong></th>
+<th>说明</th>
+<th>示例数据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SD_ID</strong></td>
+<td>存储配置ID</td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>PARAM_KEY</strong></td>
+<td>存储属性名</td>
+<td>serialization.format</td>
+</tr>
+<tr>
+<td><strong>PARAM_VALUE</strong></td>
+<td>存储属性值</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>SERDES表：</p>
+<table>
+<thead>
+<tr>
+<th><strong>表字段</strong></th>
+<th><strong>说明</strong></th>
+<th><strong>示例数据</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SERDE_ID</strong></td>
+<td>序列化类配置ID</td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>PARAM_KEY</strong></td>
+<td>属性名</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>PARAM_VALUE</strong></td>
+<td>属性值</td>
+<td>org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe</td>
+</tr>
+</tbody>
+</table>
+<p>SERDE_PARAMS 表：</p>
+<table>
+<thead>
+<tr>
+<th><strong>表字段</strong></th>
+<th><strong>说明</strong></th>
+<th><strong>示例数据</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SERDE_ID</strong></td>
+<td>序列化类配置ID</td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>PARAM_KEY</strong></td>
+<td>属性名</td>
+<td>serialization.format</td>
+</tr>
+<tr>
+<td><strong>PARAM_VALUE</strong></td>
+<td>属性值</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<h4 id="5-hive数据库相关基本信息"><a href="#5-hive数据库相关基本信息" class="headerlink" title="5.hive数据库相关基本信息"></a>5.hive数据库相关基本信息</h4><p>VERSION,DBS,DATABASE_PARAMS,主要描述hive版本以及hive用户相关信息。</p>
+<ul>
+<li>VERSION ：查询版本信息 ；</li>
+<li>DBS：存储Hive中所有数据库的基本信息； </li>
+<li>DATABASE_PARAMS：存储数据库的相关参数，在CREATE DATABASE时候用 。</li>
+</ul>
+<p>VERSION 表：</p>
+<table>
+<thead>
+<tr>
+<th><strong>表字段</strong></th>
+<th><strong>说明</strong></th>
+<th><strong>示例数据</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>VER_ID</strong></td>
+<td>ID主键</td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>SCHEMA_VERSION</strong></td>
+<td>Hive版本</td>
+<td>2.3.0</td>
+</tr>
+<tr>
+<td><strong>VERSION_COMMENT</strong></td>
+<td>版本说明</td>
+<td>Hive release version 2.3.0</td>
+</tr>
+</tbody>
+</table>
+<p>DBS表：</p>
+<table>
+<thead>
+<tr>
+<th><strong>表字段</strong></th>
+<th><strong>说明</strong></th>
+<th><strong>示例数据</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>DB_ID</strong></td>
+<td>数据库ID</td>
+<td>2</td>
+</tr>
+<tr>
+<td><strong>DESC</strong></td>
+<td>数据库描述</td>
+<td>测试库</td>
+</tr>
+<tr>
+<td><strong>DB_LOCATION_URI</strong></td>
+<td>数据库HDFS路径</td>
+<td>hdfs://hadoopmaster:9000/user/hive/warehouse</td>
+</tr>
+<tr>
+<td><strong>NAME</strong></td>
+<td>数据库名</td>
+<td>default</td>
+</tr>
+<tr>
+<td><strong>OWNER_NAME</strong></td>
+<td>数据库所有者用户名</td>
+<td>public</td>
+</tr>
+<tr>
+<td><strong>OWNER_TYPE</strong></td>
+<td>所有者角色</td>
+<td>ROLE</td>
+</tr>
+</tbody>
+</table>
+<p>DATABASE_PARAMS表：</p>
+<table>
+<thead>
+<tr>
+<th><strong>表字段</strong></th>
+<th><strong>说明</strong></th>
+<th><strong>示例数据</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>DB_ID</strong></td>
+<td>数据库ID</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>PARAM_KEY</strong></td>
+<td>参数名</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>PARAM_VALUE</strong></td>
+<td>参数值</td>
+</tr>
+</tbody>
+</table>
+<h4 id="6-其他一些不常用的表："><a href="#6-其他一些不常用的表：" class="headerlink" title="6.其他一些不常用的表："></a>6.其他一些不常用的表：</h4><ul>
+<li><strong>DB_PRIVS</strong>：数据库权限信息表。通过GRANT语句对数据库授权后，将会在这里存储;</li>
+<li><p><strong>FUNCS</strong>：用户注册的函数信息;</p>
+</li>
+<li><p><strong>FUNC_RU</strong>：用户注册函数的资源信息;</p>
+</li>
+<li><p><strong>IDXS</strong>：索引表，存储Hive索引相关的元数据;</p>
+</li>
+<li><p><strong>INDEX_PARAMS</strong>：索引相关的属性信息;</p>
+</li>
+<li><p><strong>PART_PRIVS</strong>：分区的授权信息;</p>
+</li>
+<li><p><strong>PART_COL_STATS</strong>：分区字段的统计信息;</p>
+</li>
+<li><p><strong>PART_COL_PRIVS</strong>：分区字段的权限信息;</p>
+</li>
+<li><p><strong>TAB_COL_STATS</strong>：表字段的统计信息,使用ANALYZE语句对表字段分析后记录在这里;</p>
+</li>
+<li><p><strong>TBL_COL_PRIVS</strong>：表字段的授权信息</p>
+</li>
+</ul>
 
       
     </div>
@@ -521,12 +1092,12 @@
   <!-- JS库 sweetalert 可修改路径 -->
   <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <p><span>本文标题:</span><a href="/posts/d72ca9c5.html">（十五）----(线程池)java线程池简介</a></p>
+  <p><span>本文标题:</span><a href="/posts/dfd44a4f.html">hive元数据存储-MYSQL数据库表</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Rickiyang 的个人博客">Rickiyang</a></p>
-  <p><span>发布时间:</span>2017年03月28日 - 01:02</p>
-  <p><span>最后更新:</span>2018年12月04日 - 17:28</p>
-  <p><span>原始链接:</span><a href="/posts/d72ca9c5.html" title="（十五）----(线程池)java线程池简介">https://blog.rickiyang.cn/posts/d72ca9c5.html</a>
-    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.rickiyang.cn/posts/d72ca9c5.html" aria-label="复制成功！"></i></span>
+  <p><span>发布时间:</span>2018年11月22日 - 17:15</p>
+  <p><span>最后更新:</span>2019年01月02日 - 19:42</p>
+  <p><span>原始链接:</span><a href="/posts/dfd44a4f.html" title="hive元数据存储-MYSQL数据库表">https://blog.rickiyang.cn/posts/dfd44a4f.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.rickiyang.cn/posts/dfd44a4f.html" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
 </div>
@@ -569,7 +1140,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/java/" rel="tag"> <i class="”fa" fa-tag”=""></i> java</a>
+            <a href="/tags/大数据/" rel="tag"> <i class="”fa" fa-tag”=""></i> 大数据</a>
           
         </div>
       
@@ -582,8 +1153,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/58721c94.html" rel="next" title="java并发编程（十四）----(JUC原子类)对象的属性修改类型介绍">
-                <i class="fa fa-chevron-left"></i> java并发编程（十四）----(JUC原子类)对象的属性修改类型介绍
+              <a href="/posts/ebc35787.html" rel="next" title="hbase基本shell命令">
+                <i class="fa fa-chevron-left"></i> hbase基本shell命令
               </a>
             
           </div>
@@ -592,8 +1163,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/posts/e7e539b9.html" rel="prev" title="java并发编程（十六）----(线程池)java线程池的使用">
-                java并发编程（十六）----(线程池)java线程池的使用 <i class="fa fa-chevron-right"></i>
+              <a href="/posts/d946acf8.html" rel="prev" title="hiveserver2使用以及java连接方式">
+                hiveserver2使用以及java连接方式 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -789,7 +1360,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Executor简介"><span class="nav-number">1.</span> <span class="nav-text">1 Executor简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-线程池"><span class="nav-number">2.</span> <span class="nav-text">2 线程池</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-线程池的作用："><span class="nav-number">2.1.</span> <span class="nav-text">2.1 线程池的作用：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-为什么要用线程池"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 为什么要用线程池:</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-hive表和视图相关的元数据表"><span class="nav-number">1.</span> <span class="nav-text">1.hive表和视图相关的元数据表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-hive表字段相关的表："><span class="nav-number">2.</span> <span class="nav-text">2.hive表字段相关的表：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-hive表分区相关的表："><span class="nav-number">3.</span> <span class="nav-text">3.hive表分区相关的表：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-hive文件存储相关的表："><span class="nav-number">4.</span> <span class="nav-text">4.  hive文件存储相关的表：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-hive数据库相关基本信息"><span class="nav-number">5.</span> <span class="nav-text">5.hive数据库相关基本信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-其他一些不常用的表："><span class="nav-number">6.</span> <span class="nav-text">6.其他一些不常用的表：</span></a></li></ol></div>
             
 
           </div>
