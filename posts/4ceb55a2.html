@@ -118,7 +118,7 @@
 
 
 
-  <meta name="keywords" content="学习,">
+  <meta name="keywords" content="工具类,">
 
 
 
@@ -131,20 +131,20 @@
 
 
 
-<meta name="description" content="首先我们来回忆一下上一节讲过的synchronized关键字，该关键字用于给代码段或方法加锁，使得某一时刻它修饰的方法或代码段只能被一个线程访问。那么试想，当我们遇到这样的情况：当synchronized修饰的方法或代码段因为某种原因（IO异常或是sleep方法）被阻塞了，但是锁有没有被释放，那么其他线程除了等待以外什么事都做不了。当我们遇到这种情况该怎么办呢？我们今天讲到的Lock锁将有机会为此">
-<meta name="keywords" content="学习">
+<meta name="description" content="目前java将html转为图片的可用方法不是很多，有如下工具可以使用： html2image: 坑太多，不会加载第三方的css样式； cssbox：使用起来相对会好一些，但是如果网页内样式比较多的情况下，部分样式会乱掉；其次，如果网页内包含图片，图片会损失很多细节； 1wkhtmltopdf：本来是设计用于html转pdf的，但是也可以转图片。这个使用起来各方面良好，唯一不好的地方就是他是一个软件">
+<meta name="keywords" content="工具类">
 <meta property="og:type" content="article">
-<meta property="og:title" content="java并发编程（四）----（JUC）Lock锁初探">
-<meta property="og:url" content="https://blog.rickiyang.cn/posts/f4331185.html">
+<meta property="og:title" content="html转图片-wkhtmltopdf使用">
+<meta property="og:url" content="https://blog.rickiyang.cn/posts/4ceb55a2.html">
 <meta property="og:site_name" content="Rickiyang&#39;s blog">
-<meta property="og:description" content="首先我们来回忆一下上一节讲过的synchronized关键字，该关键字用于给代码段或方法加锁，使得某一时刻它修饰的方法或代码段只能被一个线程访问。那么试想，当我们遇到这样的情况：当synchronized修饰的方法或代码段因为某种原因（IO异常或是sleep方法）被阻塞了，但是锁有没有被释放，那么其他线程除了等待以外什么事都做不了。当我们遇到这种情况该怎么办呢？我们今天讲到的Lock锁将有机会为此">
+<meta property="og:description" content="目前java将html转为图片的可用方法不是很多，有如下工具可以使用： html2image: 坑太多，不会加载第三方的css样式； cssbox：使用起来相对会好一些，但是如果网页内样式比较多的情况下，部分样式会乱掉；其次，如果网页内包含图片，图片会损失很多细节； 1wkhtmltopdf：本来是设计用于html转pdf的，但是也可以转图片。这个使用起来各方面良好，唯一不好的地方就是他是一个软件">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://i.imgur.com/FpFZGXS.png">
-<meta property="og:updated_time" content="2018-12-05T06:13:34.113Z">
+<meta property="og:image" content="https://i.imgur.com/ZWv1EvT.png">
+<meta property="og:updated_time" content="2019-01-04T01:52:36.434Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="java并发编程（四）----（JUC）Lock锁初探">
-<meta name="twitter:description" content="首先我们来回忆一下上一节讲过的synchronized关键字，该关键字用于给代码段或方法加锁，使得某一时刻它修饰的方法或代码段只能被一个线程访问。那么试想，当我们遇到这样的情况：当synchronized修饰的方法或代码段因为某种原因（IO异常或是sleep方法）被阻塞了，但是锁有没有被释放，那么其他线程除了等待以外什么事都做不了。当我们遇到这种情况该怎么办呢？我们今天讲到的Lock锁将有机会为此">
-<meta name="twitter:image" content="http://i.imgur.com/FpFZGXS.png">
+<meta name="twitter:title" content="html转图片-wkhtmltopdf使用">
+<meta name="twitter:description" content="目前java将html转为图片的可用方法不是很多，有如下工具可以使用： html2image: 坑太多，不会加载第三方的css样式； cssbox：使用起来相对会好一些，但是如果网页内样式比较多的情况下，部分样式会乱掉；其次，如果网页内包含图片，图片会损失很多细节； 1wkhtmltopdf：本来是设计用于html转pdf的，但是也可以转图片。这个使用起来各方面良好，唯一不好的地方就是他是一个软件">
+<meta name="twitter:image" content="https://i.imgur.com/ZWv1EvT.png">
 
 
 
@@ -174,13 +174,13 @@
 
 
 
-  <link rel="canonical" href="https://blog.rickiyang.cn/posts/f4331185.html">
+  <link rel="canonical" href="https://blog.rickiyang.cn/posts/4ceb55a2.html">
 
 
 
 
 
-  <title>java并发编程（四）----（JUC）Lock锁初探 | Rickiyang's blog</title>
+  <title>html转图片-wkhtmltopdf使用 | Rickiyang's blog</title>
   
 
 
@@ -339,7 +339,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/f4331185.html">
+    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/4ceb55a2.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
@@ -356,7 +356,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">java并发编程（四）----（JUC）Lock锁初探</h2>
+          <h2 class="post-title" itemprop="name headline">html转图片-wkhtmltopdf使用</h2>
         
 
         <div class="post-meta">
@@ -368,8 +368,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-18T01:02:00+08:00">
-                2017-03-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-02T16:19:22+08:00">
+                2019-01-02
               </time>
             
 
@@ -391,8 +391,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/多线程与并发编程/" itemprop="url" rel="index">
-                    <span itemprop="name">多线程与并发编程</span>
+                  <a href="/categories/java开发工具类/" itemprop="url" rel="index">
+                    <span itemprop="name">java开发工具类</span>
                   </a>
                 </span>
 
@@ -424,7 +424,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.1k
+                  1.8k
                 </span>
               
 
@@ -440,7 +440,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  4
+                  9
                 </span>
               
             </div>
@@ -461,36 +461,45 @@
       
 
       
-        <p>首先我们来回忆一下上一节讲过的synchronized关键字，该关键字用于给代码段或方法加锁，使得某一时刻它修饰的方法或代码段只能被一个线程访问。那么试想，当我们遇到这样的情况：当synchronized修饰的方法或代码段因为某种原因（IO异常或是sleep方法）被阻塞了，但是锁有没有被释放，那么其他线程除了等待以外什么事都做不了。当我们遇到这种情况该怎么办呢？我们今天讲到的Lock锁将有机会为此行使他的职责。</p>
-<h4 id="1-为什么需要Lock"><a href="#1-为什么需要Lock" class="headerlink" title="1 为什么需要Lock"></a>1 为什么需要Lock</h4><p>synchronized 是Java 语言层面的，是内置的关键字；Lock 则是JDK 5 的J.U.C(java/util/currrent)包中出现的一个类，在使用时，synchronized 同步的代码块可以由JVM自动释放；Lock 需要程序员在finally块中手工释放；synchronized是比较古老的实现机制，设计较早，有一些功能上的限制：</p>
-<pre><code>——它无法中断一个正在等候获得锁的线程
-
-——也无法通过投票得到锁，如果不想等下去，也就没法得到锁。
-
-——同步还要求锁的释放只能在与获得锁所在的堆栈帧相同的堆栈帧中进行
-</code></pre><p>而且对多线程环境中，使用synchronized后，线程要么获得锁，执行相应的代码，要么无法获得锁处于等待状态，对于锁的处理不灵活。而Lock提供了多种基于锁的处理机制，比如：</p>
-<ol>
-<li>void lock()，获取一个锁，如果锁当前被其他线程获得，当前的线程将被休眠。       </li>
-<li>boolean tryLock()，尝试获取一个锁，如果当前锁被其他线程持有，则返回false，不会使当前线程休眠。     </li>
-<li>boolean    tryLock(long timeout,TimeUnit  unit)，如果获取了锁定立即返回true，如果别的线程正持有锁，会等待参数给定的时间，在等待的过程中，如果获取了锁定，就返回true，如果等待超时，返回false。</li>
-<li>void lockInterruptibly()，如果获取了锁定立即返回，如果没有获取锁定，当前线程处于休眠状态，直到或者锁定，或者当前线程被别的线程中断。</li>
-</ol>
-<p>可见lock比synchronized提供了更细的粒度、更灵活的控制。</p>
-<h4 id="2-初探Lock"><a href="#2-初探Lock" class="headerlink" title="2 初探Lock"></a>2 初探Lock</h4><p>在jdk1.5之后，并发包中新增了Lock接口(以及相关实现类)用来实现锁功能，其实真正的实现Lock接口的类就三个，ReentrantLock和ReentrantReadWriteLock的两个内部类（ReadLock和WriteLock实现了Lock的接口），下面我们来看一下Lock的类图：</p>
-<p><img src="http://i.imgur.com/FpFZGXS.png" alt=""></p>
-<p>ReentrantLock：一个可重入的互斥锁，为lock接口的主要实现。</p>
-<p>ReentrantReadWriteLock：</p>
-<p>ReadWriteLock、ReadWriteLock 维护了一对相关的锁，一个用于只读操作，另一个用于写入操作。</p>
-<p>Semaphore：一个计数信号量。</p>
-<p>Condition:锁的关联条件，目的是允许线程获取锁并且查看等待的某一个条件是否满足。</p>
-<p>CyclicBarrier：一个同步辅助类，它允许一组线程互相等待，直到到达某个公共屏障点。</p>
-<p>①首先我们来看一下Lock的用法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Lock lock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line">lock.lock();</span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line"><span class="comment">//处理任务</span></span><br><span class="line">&#125;<span class="keyword">catch</span>(Exception ex)&#123;</span><br><span class="line"> </span><br><span class="line">&#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">lock.unlock();   <span class="comment">//释放锁</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>正常使用Lock的用法最多就是这样，ReentrantLock是Lock的实现类们也是最常使用的。如果采用Lock，必须主动去释放锁，并且在发生异常时，不会自动释放锁。因此一般来说，使用Lock必须在try{}catch{}块中进行，并在finally块释放锁，以保证锁一定被被释放，防止死锁的发生。</p>
-<p>②我们也可以这样使用Lock：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Lock lock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line"><span class="keyword">if</span>(lock.tryLock()) &#123;</span><br><span class="line">     <span class="keyword">try</span>&#123;</span><br><span class="line">         <span class="comment">//处理任务</span></span><br><span class="line">     &#125;<span class="keyword">catch</span>(Exception ex)&#123;</span><br><span class="line">         </span><br><span class="line">     &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">         lock.unlock();   <span class="comment">//释放锁</span></span><br><span class="line">     &#125; </span><br><span class="line">&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">//如果不能获取锁，则直接做其他事情    </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>tryLock()方法是有返回值的，它表示用来尝试获取锁，如果获取成功，则返回true，如果获取失败（即锁已被其他线程获取）则返回false，也就说这个方法无论如何都会立即返回。在拿不到锁时不会一直在那等待。</p>
-<p>这一节我们简单了解一下Lock接口，由于Lock锁的内容实在是太多，包括互斥锁，公平锁，非公平锁，共享锁以及相关的条件机制，信号量机制等等，我会一点点的把他们都啃下来，下面才是我们的重头戏。</p>
+        <p>目前java将html转为图片的可用方法不是很多，有如下工具可以使用：</p>
+<p>html2image: 坑太多，不会加载第三方的css样式；</p>
+<p>cssbox：使用起来相对会好一些，但是如果网页内样式比较多的情况下，部分样式会乱掉；其次，如果网页内包含图片，图片会损失很多细节；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wkhtmltopdf：本来是设计用于html转pdf的，但是也可以转图片。这个使用起来各方面良好，唯一不好的地方就是他是一个软件，必须的安装才能使用。</span><br></pre></td></tr></table></figure>
+<p>因为目前使用的是wkhtmltopdf这个方案，下面就介绍这个方案的使用方式吧。</p>
+<h4 id="1-安装"><a href="#1-安装" class="headerlink" title="1.安装"></a>1.安装</h4><p>官网地址如下：<br><a href="https://wkhtmltopdf.org/" target="_blank" rel="noopener">https://wkhtmltopdf.org/</a></p>
+<p><img src="https://i.imgur.com/ZWv1EvT.png" alt=""></p>
+<p>需要去其官网下载对应环境的软件，支持windows，linux，mac。</p>
+<p><strong>特别注意：</strong></p>
+<p><strong>linux一定要注意系统版本，是什么系统一定要安装对应系统的包，否则gg。centos一定注意区分是6还是7，安装对应的包。</strong></p>
+<p>查看系统版本：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop /data/service]# cat /etc/os-release</span><br><span class="line">NAME="CentOS Linux"</span><br><span class="line">VERSION="7 (Core)"</span><br><span class="line">ID="centos"</span><br><span class="line">ID_LIKE="rhel fedora"</span><br><span class="line">VERSION_ID="7"</span><br><span class="line">PRETTY_NAME="CentOS Linux 7 (Core)"</span><br><span class="line">ANSI_COLOR="0;31"</span><br><span class="line">CPE_NAME="cpe:/o:centos:centos:7"</span><br><span class="line">HOME_URL="https://www.centos.org/"</span><br><span class="line">BUG_REPORT_URL="https://bugs.centos.org/"</span><br><span class="line"> </span><br><span class="line">CENTOS_MANTISBT_PROJECT="CentOS-7"</span><br><span class="line">CENTOS_MANTISBT_PROJECT_VERSION="7"</span><br><span class="line">REDHAT_SUPPORT_PRODUCT="centos"</span><br><span class="line">REDHAT_SUPPORT_PRODUCT_VERSION="7"</span><br></pre></td></tr></table></figure>
+<h4 id="2-下载对应的包去安装"><a href="#2-下载对应的包去安装" class="headerlink" title="2. 下载对应的包去安装"></a>2. 下载对应的包去安装</h4><p>wkhtmltox-0.12.5-1.centos7.x86_64.rpm</p>
+<p>安装：</p>
+<p>rpm -ivh wkhtmltox-0.12.5-1.centos7.x86_64.rpm</p>
+<p>然后你会发现如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop ~]# rpm -ivh wkhtmltox-0.12.5-1.centos7.x86_64.rpm</span><br><span class="line">错误：依赖检测失败：</span><br><span class="line">    fontconfig 被 wkhtmltox-1:0.12.5-1.centos7.x86_64 需要</span><br><span class="line">    libX11 被 wkhtmltox-1:0.12.5-1.centos7.x86_64 需要</span><br><span class="line">    libXext 被 wkhtmltox-1:0.12.5-1.centos7.x86_64 需要</span><br><span class="line">    libXrender 被 wkhtmltox-1:0.12.5-1.centos7.x86_64 需要</span><br><span class="line">    libjpeg 被 wkhtmltox-1:0.12.5-1.centos7.x86_64 需要</span><br><span class="line">    libpng 被 wkhtmltox-1:0.12.5-1.centos7.x86_64 需要</span><br><span class="line">    xorg-x11-fonts-75dpi 被 wkhtmltox-1:0.12.5-1.centos7.x86_64 需要</span><br><span class="line">    xorg-x11-fonts-Type1 被 wkhtmltox-1:0.12.5-1.centos7.x86_64 需要</span><br><span class="line">[root@hadoop ~]#</span><br></pre></td></tr></table></figure>
+<p>缺少相关包，所以你需要将缺失的包补充完整。当然机器不同，包缺失的情况也不一样，随机应变。</p>
+<p>安装包使用如下命令：yum install packageName</p>
+<p>所有的依赖安装完成以后，接着执行rpm命令应该是可以的，安装完毕你可以检测是否可用，使用如下命令看是否存在：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop ]# wkhtmltoimage</span><br><span class="line">You need to specify at least one input file, and exactly one output file</span><br><span class="line">Use - for stdin or stdout</span><br><span class="line"> </span><br><span class="line">Name:</span><br><span class="line">  wkhtmltoimage 0.12.5 (with patched qt)</span><br><span class="line"> </span><br><span class="line">Synopsis:</span><br><span class="line">  wkhtmltoimage [OPTIONS]... &lt;input file&gt; &lt;output file&gt;</span><br><span class="line"> </span><br><span class="line">Description:</span><br><span class="line">  Converts an HTML page into an image,</span><br><span class="line"> </span><br><span class="line">General Options:</span><br><span class="line">      --crop-h &lt;int&gt;                  Set height for cropping</span><br><span class="line">      --crop-w &lt;int&gt;                  Set width for cropping</span><br><span class="line">      --crop-x &lt;int&gt;                  Set x coordinate for cropping</span><br><span class="line">      --crop-y &lt;int&gt;                  Set y coordinate for cropping</span><br><span class="line">  -H, --extended-help                 Display more extensive help, detailing</span><br><span class="line">                                      less common command switches</span><br><span class="line">  -f, --format &lt;format&gt;               Output file format</span><br><span class="line">      --height &lt;int&gt;                  Set screen height (default is calculated</span><br><span class="line">                                      from page content) (default 0)</span><br><span class="line">  -h, --help                          Display help</span><br><span class="line">      --license                       Output license information and exit</span><br><span class="line">      --log-level &lt;level&gt;             Set log level to: none, error, warn or</span><br><span class="line">                                      info (default info)</span><br><span class="line">      --quality &lt;int&gt;                 Output image quality (between 0 and 100)</span><br><span class="line">                                      (default 94)</span><br><span class="line">  -q, --quiet                         Be less verbose, maintained for backwards</span><br><span class="line">                                      compatibility; Same as using --log-level</span><br><span class="line">                                      none</span><br><span class="line">  -V, --version                       Output version information and exit</span><br><span class="line">      --width &lt;int&gt;                   Set screen width, note that this is used</span><br><span class="line">                                      only as a guide line. Use</span><br><span class="line">                                      --disable-smart-width to make it strict.</span><br><span class="line">                                      (default 1024)</span><br><span class="line"> </span><br><span class="line">Contact:</span><br><span class="line">  If you experience bugs or want to request new features please visit</span><br><span class="line">  &lt;https://github.com/wkhtmltopdf/wkhtmltopdf/issues&gt;</span><br></pre></td></tr></table></figure>
+<p>这样说明已经 安装成功了。该命令是将网页生成图片的命令。</p>
+<p>你可以直接测试一下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wkhtmltoimage https://guagua-workplatform.guazi.com/jobEmail.html /data/www/account/aaa.jpg</span><br></pre></td></tr></table></figure>
+<p>去/data/www/目录下看是否生成照片。</p>
+<h4 id="3-使用java调用"><a href="#3-使用java调用" class="headerlink" title="3.使用java调用"></a>3.使用java调用</h4><p>接下来我们写java代码吧。其实java代码也只是使用exec去调用linux命令，所以代码很简单：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.commons.lang3.StringUtils;</span><br><span class="line"><span class="keyword">import</span> org.jsoup.Jsoup;</span><br><span class="line"><span class="keyword">import</span> org.jsoup.nodes.Document;</span><br><span class="line"><span class="keyword">import</span> org.jsoup.nodes.Element;</span><br><span class="line"><span class="keyword">import</span> org.jsoup.select.Elements;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Files;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Paths;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"><span class="keyword">import</span> java.util.Random;</span><br><span class="line"> </span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> yangyue</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> Created in 上午8:28 2018/12/31</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Modified</span> by:</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: 使用wkhtmltopdf将html生成图片</span></span><br><span class="line"><span class="comment"> * ------------------------------</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * api请参见：https://wkhtmltopdf.org/</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * *******使用之前需要安装该软件*******</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * ------------------------------</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomwkhtmltopdfmlToPicUtil</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String OS_NAME = <span class="string">"os.name"</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String LINUX = <span class="string">"Linux"</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String MAC = <span class="string">"Mac OS X"</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String EXEC_SUFFIX = <span class="string">"wkhtmltoimage --width 851 --quality 95 "</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String EMAIL_TEMPLATE_URL = <span class="string">"http://www.baidu.com"</span>;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 生成照片</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> fileName</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">generatePic</span><span class="params">(String fileName)</span></span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            String picPath = Constant.PIC_ADDRESS + fileName + Constant.PIC_SUFFIX;</span><br><span class="line">            String command = getCommand(EMAIL_TEMPLATE_URL, picPath);</span><br><span class="line">            Process process = Runtime.getRuntime().exec(command);</span><br><span class="line">            process.waitFor();  <span class="comment">//这个调用比较关键，就是等当前命令执行完成后再往下执行</span></span><br><span class="line">            LoggerUtils.info(<span class="string">"---执行完成-----"</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">            LoggerUtils.error(<span class="string">"生成照片出错，&#123;&#125;"</span>,e);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 拼装系统命令字符串</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> sourceFilePath</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> targetFilePath</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> String <span class="title">getCommand</span><span class="params">(String sourceFilePath, String targetFilePath)</span> </span>&#123;</span><br><span class="line">        String system = System.getProperty(OS_NAME);</span><br><span class="line">        <span class="keyword">if</span> (system.contains(LINUX) || system.contains(MAC)) &#123;</span><br><span class="line">            <span class="keyword">return</span> EXEC_SUFFIX + sourceFilePath + <span class="string">" "</span> + targetFilePath;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(system.contains(<span class="string">"Windows"</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> WINDOWS_PATH + sourceFilePath + <span class="string">" "</span> + targetFilePath;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> StringUtils.EMPTY;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>你可以执行这段java代码，会在你指定的目录生成网页对应的图片。</p>
+<h4 id="4-使用参数来做更多"><a href="#4-使用参数来做更多" class="headerlink" title="4.使用参数来做更多"></a>4.使用参数来做更多</h4><p>我们注意到上面其实是在执行命令：“wkhtmltoimage –width 851 –quality 95 ”</p>
+<p>上面的”–width”是表示截图的宽，“–quality”表示图片的质量，默认是94%。</p>
+<p>如果你还需要指定别的参数，那么你可以参看官方给的wiki：</p>
+<p><a href="https://wkhtmltopdf.org/usage/wkhtmltopdf.txt" target="_blank" rel="noopener">https://wkhtmltopdf.org/usage/wkhtmltopdf.txt</a></p>
+<h4 id="5-遇到乱码怎么办"><a href="#5-遇到乱码怎么办" class="headerlink" title="5.遇到乱码怎么办"></a>5.遇到乱码怎么办</h4><p>以上就是wkhtmltopdf的使用，当然可能你还会遇到别的问题，比如部署在服务器上的时候生成的照片是乱码。生成的图片中所有的中文全部都显示为 方块  这种乱码，一般会有两种可能：</p>
+<p>1.查看你需要转图的网页字体： <meta charset="utf-8">。如果不是utf-8你可以将其改为utf-8;</p>
+<p>2.服务器没有安装中文字体,这个也好确认，执行命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">fc-list</span><br><span class="line">[root@hadoop /data/service]# fc-list</span><br><span class="line">/usr/share/fonts/dejavu/DejaVuSansCondensed-Oblique.ttf: DejaVu Sans,DejaVu Sans Condensed:style=Condensed Oblique,Oblique</span><br><span class="line">/usr/share/fonts/dejavu/DejaVuSansCondensed-Bold.ttf: DejaVu Sans,DejaVu Sans Condensed:style=Condensed Bold,Bold</span><br><span class="line">/usr/share/fonts/zh_CN/MSYH.TTF: Microsoft YaHei:style=Regular,Normal</span><br><span class="line">/usr/share/X11/fonts/Type1/c0611bt_.pfb: Courier 10 Pitch:style=Bold Italic</span><br><span class="line">/usr/share/X11/fonts/Type1/UTBI____.pfa: Utopia:style=Bold Italic</span><br><span class="line">/usr/share/X11/fonts/Type1/c0419bt_.pfb: Courier 10 Pitch:style=Regular</span><br><span class="line">/usr/share/fonts/dejavu/DejaVuSans.ttf: DejaVu Sans:style=Book</span><br><span class="line">/usr/share/X11/fonts/Type1/c0648bt_.pfb: Bitstream Charter:style=Regular</span><br><span class="line">/usr/share/fonts/dejavu/DejaVuSans-Bold.ttf: DejaVu Sans:style=Bold</span><br><span class="line">/usr/share/X11/fonts/Type1/cursor.pfa: Cursor:style=Regular</span><br><span class="line">/usr/share/X11/fonts/Type1/UTB_____.pfa: Utopia:style=Bold</span><br><span class="line">/usr/share/X11/fonts/Type1/c0583bt_.pfb: Courier 10 Pitch:style=Bold</span><br><span class="line">/usr/share/X11/fonts/Type1/UTI_____.pfa: Utopia:style=Italic</span><br><span class="line">/usr/share/X11/fonts/Type1/c0582bt_.pfb: Courier 10 Pitch:style=Italic</span><br><span class="line">/usr/share/fonts/dejavu/DejaVuSansCondensed.ttf: DejaVu Sans,DejaVu Sans Condensed:style=Condensed,Book</span><br><span class="line">/usr/share/fonts/dejavu/DejaVuSans-ExtraLight.ttf: DejaVu Sans,DejaVu Sans Light:style=ExtraLight</span><br><span class="line">/usr/share/fonts/dejavu/DejaVuSansCondensed-BoldOblique.ttf: DejaVu Sans,DejaVu Sans Condensed:style=Condensed Bold Oblique,Bold Oblique</span><br><span class="line">/usr/share/X11/fonts/Type1/c0633bt_.pfb: Bitstream Charter:style=Bold Italic</span><br><span class="line">/usr/share/X11/fonts/Type1/c0649bt_.pfb: Bitstream Charter:style=Italic</span><br><span class="line">/usr/share/fonts/dejavu/DejaVuSans-Oblique.ttf: DejaVu Sans:style=Oblique</span><br><span class="line">/usr/share/X11/fonts/Type1/c0632bt_.pfb: Bitstream Charter:style=Bold</span><br><span class="line">/usr/share/fonts/dejavu/DejaVuSans-BoldOblique.ttf: DejaVu Sans:style=Bold Oblique</span><br><span class="line">/usr/share/X11/fonts/Type1/UTRG____.pfa: Utopia:style=Regular</span><br></pre></td></tr></table></figure>
+<p>会显示你已经安装的字体，如果网页没有问题，你可以尝试安装中文字体，以微软雅黑字体为例：msyh.ttf 。自行下载，将该字体文件上传至服务器。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">安装中文字体：</span><br><span class="line">    0、查看目前安装字体：fc-list</span><br><span class="line">    1、下载所需字体,例如msyh.ttf</span><br><span class="line">    2、mkdir /usr/share/fonts/zh_CN</span><br><span class="line">    3、mv msyh.ttf /usr/share/fonts/zh_CN</span><br><span class="line">    4、执行fc-cache -fv</span><br><span class="line">    5、查看是否安装成功：fc-list，查看是已安装</span><br></pre></td></tr></table></figure>
+<p>稍后你再执行java程序，应该就正常。</p>
 
       
     </div>
@@ -507,12 +516,12 @@
   <!-- JS库 sweetalert 可修改路径 -->
   <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <p><span>本文标题:</span><a href="/posts/f4331185.html">java并发编程（四）----（JUC）Lock锁初探</a></p>
+  <p><span>本文标题:</span><a href="/posts/4ceb55a2.html">html转图片-wkhtmltopdf使用</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Rickiyang 的个人博客">Rickiyang</a></p>
-  <p><span>发布时间:</span>2017年03月18日 - 01:02</p>
-  <p><span>最后更新:</span>2018年12月05日 - 14:13</p>
-  <p><span>原始链接:</span><a href="/posts/f4331185.html" title="java并发编程（四）----（JUC）Lock锁初探">https://blog.rickiyang.cn/posts/f4331185.html</a>
-    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.rickiyang.cn/posts/f4331185.html" aria-label="复制成功！"></i></span>
+  <p><span>发布时间:</span>2019年01月02日 - 16:19</p>
+  <p><span>最后更新:</span>2019年01月04日 - 09:52</p>
+  <p><span>原始链接:</span><a href="/posts/4ceb55a2.html" title="html转图片-wkhtmltopdf使用">https://blog.rickiyang.cn/posts/4ceb55a2.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.rickiyang.cn/posts/4ceb55a2.html" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
 </div>
@@ -555,7 +564,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/学习/" rel="tag"> <i class="”fa" fa-tag”=""></i> 学习</a>
+            <a href="/tags/工具类/" rel="tag"> <i class="”fa" fa-tag”=""></i> 工具类</a>
           
         </div>
       
@@ -568,8 +577,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/704e9e4d.html" rel="next" title="Netty学习(一)-为什么选择Netty">
-                <i class="fa fa-chevron-left"></i> Netty学习(一)-为什么选择Netty
+              <a href="/posts/24a4bcf2.html" rel="next" title="Linux 查看文件夹大小，磁盘剩余空间（du/df）">
+                <i class="fa fa-chevron-left"></i> Linux 查看文件夹大小，磁盘剩余空间（du/df）
               </a>
             
           </div>
@@ -577,10 +586,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/posts/d68e6b33.html" rel="prev" title="java并发编程（五）----（JUC）ReentrantLock">
-                java并发编程（五）----（JUC）ReentrantLock <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -775,7 +780,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-为什么需要Lock"><span class="nav-number">1.</span> <span class="nav-text">1 为什么需要Lock</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-初探Lock"><span class="nav-number">2.</span> <span class="nav-text">2 初探Lock</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-安装"><span class="nav-number">1.</span> <span class="nav-text">1.安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-下载对应的包去安装"><span class="nav-number">2.</span> <span class="nav-text">2. 下载对应的包去安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-使用java调用"><span class="nav-number">3.</span> <span class="nav-text">3.使用java调用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-使用参数来做更多"><span class="nav-number">4.</span> <span class="nav-text">4.使用参数来做更多</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-遇到乱码怎么办"><span class="nav-number">5.</span> <span class="nav-text">5.遇到乱码怎么办</span></a></li></ol></div>
             
 
           </div>

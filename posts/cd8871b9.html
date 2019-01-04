@@ -118,7 +118,7 @@
 
 
 
-  <meta name="keywords" content="学习,">
+  <meta name="keywords" content="大数据,">
 
 
 
@@ -131,20 +131,18 @@
 
 
 
-<meta name="description" content="首先我们来回忆一下上一节讲过的synchronized关键字，该关键字用于给代码段或方法加锁，使得某一时刻它修饰的方法或代码段只能被一个线程访问。那么试想，当我们遇到这样的情况：当synchronized修饰的方法或代码段因为某种原因（IO异常或是sleep方法）被阻塞了，但是锁有没有被释放，那么其他线程除了等待以外什么事都做不了。当我们遇到这种情况该怎么办呢？我们今天讲到的Lock锁将有机会为此">
-<meta name="keywords" content="学习">
+<meta name="description" content="1.库操作相关语法：  CREATE (DATABASE|SCHEMA) [IF NOT EXISTS] database_name 　　[COMMENT database_comment]　　　　　　//关于数据块的描述 　　[LOCATION hdfs_path]　　　　　　　　　　//指定数据库在HDFS上的存储位置 　　[WITH DBPROPERTIES (property_name=p">
+<meta name="keywords" content="大数据">
 <meta property="og:type" content="article">
-<meta property="og:title" content="java并发编程（四）----（JUC）Lock锁初探">
-<meta property="og:url" content="https://blog.rickiyang.cn/posts/f4331185.html">
+<meta property="og:title" content="hive SQL练习">
+<meta property="og:url" content="https://blog.rickiyang.cn/posts/cd8871b9.html">
 <meta property="og:site_name" content="Rickiyang&#39;s blog">
-<meta property="og:description" content="首先我们来回忆一下上一节讲过的synchronized关键字，该关键字用于给代码段或方法加锁，使得某一时刻它修饰的方法或代码段只能被一个线程访问。那么试想，当我们遇到这样的情况：当synchronized修饰的方法或代码段因为某种原因（IO异常或是sleep方法）被阻塞了，但是锁有没有被释放，那么其他线程除了等待以外什么事都做不了。当我们遇到这种情况该怎么办呢？我们今天讲到的Lock锁将有机会为此">
+<meta property="og:description" content="1.库操作相关语法：  CREATE (DATABASE|SCHEMA) [IF NOT EXISTS] database_name 　　[COMMENT database_comment]　　　　　　//关于数据块的描述 　　[LOCATION hdfs_path]　　　　　　　　　　//指定数据库在HDFS上的存储位置 　　[WITH DBPROPERTIES (property_name=p">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://i.imgur.com/FpFZGXS.png">
-<meta property="og:updated_time" content="2018-12-05T06:13:34.113Z">
+<meta property="og:updated_time" content="2019-01-04T01:52:36.433Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="java并发编程（四）----（JUC）Lock锁初探">
-<meta name="twitter:description" content="首先我们来回忆一下上一节讲过的synchronized关键字，该关键字用于给代码段或方法加锁，使得某一时刻它修饰的方法或代码段只能被一个线程访问。那么试想，当我们遇到这样的情况：当synchronized修饰的方法或代码段因为某种原因（IO异常或是sleep方法）被阻塞了，但是锁有没有被释放，那么其他线程除了等待以外什么事都做不了。当我们遇到这种情况该怎么办呢？我们今天讲到的Lock锁将有机会为此">
-<meta name="twitter:image" content="http://i.imgur.com/FpFZGXS.png">
+<meta name="twitter:title" content="hive SQL练习">
+<meta name="twitter:description" content="1.库操作相关语法：  CREATE (DATABASE|SCHEMA) [IF NOT EXISTS] database_name 　　[COMMENT database_comment]　　　　　　//关于数据块的描述 　　[LOCATION hdfs_path]　　　　　　　　　　//指定数据库在HDFS上的存储位置 　　[WITH DBPROPERTIES (property_name=p">
 
 
 
@@ -174,13 +172,13 @@
 
 
 
-  <link rel="canonical" href="https://blog.rickiyang.cn/posts/f4331185.html">
+  <link rel="canonical" href="https://blog.rickiyang.cn/posts/cd8871b9.html">
 
 
 
 
 
-  <title>java并发编程（四）----（JUC）Lock锁初探 | Rickiyang's blog</title>
+  <title>hive SQL练习 | Rickiyang's blog</title>
   
 
 
@@ -339,7 +337,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/f4331185.html">
+    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/cd8871b9.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
@@ -356,7 +354,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">java并发编程（四）----（JUC）Lock锁初探</h2>
+          <h2 class="post-title" itemprop="name headline">hive SQL练习</h2>
         
 
         <div class="post-meta">
@@ -368,8 +366,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-18T01:02:00+08:00">
-                2017-03-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-24T11:30:01+08:00">
+                2018-11-24
               </time>
             
 
@@ -391,8 +389,19 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/多线程与并发编程/" itemprop="url" rel="index">
-                    <span itemprop="name">多线程与并发编程</span>
+                  <a href="/categories/大数据学习/" itemprop="url" rel="index">
+                    <span itemprop="name">大数据学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/大数据学习/hive/" itemprop="url" rel="index">
+                    <span itemprop="name">hive</span>
                   </a>
                 </span>
 
@@ -424,7 +433,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.1k
+                  1.4k
                 </span>
               
 
@@ -440,7 +449,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  4
+                  7
                 </span>
               
             </div>
@@ -461,36 +470,83 @@
       
 
       
-        <p>首先我们来回忆一下上一节讲过的synchronized关键字，该关键字用于给代码段或方法加锁，使得某一时刻它修饰的方法或代码段只能被一个线程访问。那么试想，当我们遇到这样的情况：当synchronized修饰的方法或代码段因为某种原因（IO异常或是sleep方法）被阻塞了，但是锁有没有被释放，那么其他线程除了等待以外什么事都做不了。当我们遇到这种情况该怎么办呢？我们今天讲到的Lock锁将有机会为此行使他的职责。</p>
-<h4 id="1-为什么需要Lock"><a href="#1-为什么需要Lock" class="headerlink" title="1 为什么需要Lock"></a>1 为什么需要Lock</h4><p>synchronized 是Java 语言层面的，是内置的关键字；Lock 则是JDK 5 的J.U.C(java/util/currrent)包中出现的一个类，在使用时，synchronized 同步的代码块可以由JVM自动释放；Lock 需要程序员在finally块中手工释放；synchronized是比较古老的实现机制，设计较早，有一些功能上的限制：</p>
-<pre><code>——它无法中断一个正在等候获得锁的线程
-
-——也无法通过投票得到锁，如果不想等下去，也就没法得到锁。
-
-——同步还要求锁的释放只能在与获得锁所在的堆栈帧相同的堆栈帧中进行
-</code></pre><p>而且对多线程环境中，使用synchronized后，线程要么获得锁，执行相应的代码，要么无法获得锁处于等待状态，对于锁的处理不灵活。而Lock提供了多种基于锁的处理机制，比如：</p>
-<ol>
-<li>void lock()，获取一个锁，如果锁当前被其他线程获得，当前的线程将被休眠。       </li>
-<li>boolean tryLock()，尝试获取一个锁，如果当前锁被其他线程持有，则返回false，不会使当前线程休眠。     </li>
-<li>boolean    tryLock(long timeout,TimeUnit  unit)，如果获取了锁定立即返回true，如果别的线程正持有锁，会等待参数给定的时间，在等待的过程中，如果获取了锁定，就返回true，如果等待超时，返回false。</li>
-<li>void lockInterruptibly()，如果获取了锁定立即返回，如果没有获取锁定，当前线程处于休眠状态，直到或者锁定，或者当前线程被别的线程中断。</li>
-</ol>
-<p>可见lock比synchronized提供了更细的粒度、更灵活的控制。</p>
-<h4 id="2-初探Lock"><a href="#2-初探Lock" class="headerlink" title="2 初探Lock"></a>2 初探Lock</h4><p>在jdk1.5之后，并发包中新增了Lock接口(以及相关实现类)用来实现锁功能，其实真正的实现Lock接口的类就三个，ReentrantLock和ReentrantReadWriteLock的两个内部类（ReadLock和WriteLock实现了Lock的接口），下面我们来看一下Lock的类图：</p>
-<p><img src="http://i.imgur.com/FpFZGXS.png" alt=""></p>
-<p>ReentrantLock：一个可重入的互斥锁，为lock接口的主要实现。</p>
-<p>ReentrantReadWriteLock：</p>
-<p>ReadWriteLock、ReadWriteLock 维护了一对相关的锁，一个用于只读操作，另一个用于写入操作。</p>
-<p>Semaphore：一个计数信号量。</p>
-<p>Condition:锁的关联条件，目的是允许线程获取锁并且查看等待的某一个条件是否满足。</p>
-<p>CyclicBarrier：一个同步辅助类，它允许一组线程互相等待，直到到达某个公共屏障点。</p>
-<p>①首先我们来看一下Lock的用法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Lock lock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line">lock.lock();</span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line"><span class="comment">//处理任务</span></span><br><span class="line">&#125;<span class="keyword">catch</span>(Exception ex)&#123;</span><br><span class="line"> </span><br><span class="line">&#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">lock.unlock();   <span class="comment">//释放锁</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>正常使用Lock的用法最多就是这样，ReentrantLock是Lock的实现类们也是最常使用的。如果采用Lock，必须主动去释放锁，并且在发生异常时，不会自动释放锁。因此一般来说，使用Lock必须在try{}catch{}块中进行，并在finally块释放锁，以保证锁一定被被释放，防止死锁的发生。</p>
-<p>②我们也可以这样使用Lock：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Lock lock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line"><span class="keyword">if</span>(lock.tryLock()) &#123;</span><br><span class="line">     <span class="keyword">try</span>&#123;</span><br><span class="line">         <span class="comment">//处理任务</span></span><br><span class="line">     &#125;<span class="keyword">catch</span>(Exception ex)&#123;</span><br><span class="line">         </span><br><span class="line">     &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">         lock.unlock();   <span class="comment">//释放锁</span></span><br><span class="line">     &#125; </span><br><span class="line">&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">//如果不能获取锁，则直接做其他事情    </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>tryLock()方法是有返回值的，它表示用来尝试获取锁，如果获取成功，则返回true，如果获取失败（即锁已被其他线程获取）则返回false，也就说这个方法无论如何都会立即返回。在拿不到锁时不会一直在那等待。</p>
-<p>这一节我们简单了解一下Lock接口，由于Lock锁的内容实在是太多，包括互斥锁，公平锁，非公平锁，共享锁以及相关的条件机制，信号量机制等等，我会一点点的把他们都啃下来，下面才是我们的重头戏。</p>
+        <h4 id="1-库操作相关"><a href="#1-库操作相关" class="headerlink" title="1.库操作相关"></a>1.库操作相关</h4><p>语法：</p>
+<blockquote>
+<p>CREATE (DATABASE|SCHEMA) [IF NOT EXISTS] database_name</p>
+<p>　　[COMMENT database_comment]　　　　　　//关于数据块的描述</p>
+<p>　　[LOCATION hdfs_path]　　　　　　　　　　//指定数据库在HDFS上的存储位置</p>
+<p>　　[WITH DBPROPERTIES (property_name=property_value, …)];　　　　//指定数据块属性</p>
+</blockquote>
+<h5 id="1-1-创建库相关"><a href="#1-1-创建库相关" class="headerlink" title="1.1 创建库相关"></a>1.1 创建库相关</h5><p>创建库语句：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">hive&gt;</span> create database t1;</span><br><span class="line">OK</span><br><span class="line">Time taken: 16.029 seconds</span><br><span class="line"><span class="meta">hive&gt;</span> show databases;</span><br><span class="line">OK</span><br><span class="line">default</span><br><span class="line">mydb2</span><br><span class="line">t1</span><br><span class="line">Time taken: 0.743 seconds, Fetched: 3 row(s)</span><br><span class="line"><span class="meta">hive&gt;</span></span><br></pre></td></tr></table></figure>
+<p>创建库的时候检查库是否存在：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">hive&gt;</span>  create database if not exists t1;</span><br><span class="line">OK</span><br><span class="line">Time taken: 0.16 seconds</span><br></pre></td></tr></table></figure>
+<p>创建库带注释：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">hive&gt;</span> create database if not exists t2 comment 'hive is ok';</span><br><span class="line">OK</span><br><span class="line">Time taken: 0.636 seconds</span><br><span class="line"><span class="meta">hive&gt;</span> desc database t2;</span><br><span class="line">OK</span><br><span class="line">t2	hive is ok	hdfs://ns1/user/hive/warehouse/t2.db	hadoop	USER</span><br><span class="line">Time taken: 3.94 seconds, Fetched: 1 row(s)</span><br></pre></td></tr></table></figure>
+<h5 id="1-2-查看库相关"><a href="#1-2-查看库相关" class="headerlink" title="1.2 查看库相关"></a>1.2 查看库相关</h5><p>展示所有库：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">hive&gt;</span> show databases;</span><br><span class="line">OK</span><br><span class="line">default</span><br><span class="line">mydb2</span><br><span class="line">t1</span><br><span class="line">t2</span><br><span class="line">Time taken: 0.049 seconds, Fetched: 4 row(s)</span><br></pre></td></tr></table></figure>
+<p>展示库详细信息：</p>
+<blockquote>
+<p>desc database [extended] dbname; </p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">hive&gt;</span> desc database extended t2;</span><br><span class="line">OK</span><br><span class="line">t2	hive is ok	hdfs://ns1/user/hive/warehouse/t2.db	hadoop	USER</span><br><span class="line">Time taken: 0.421 seconds, Fetched: 1 row(s)</span><br></pre></td></tr></table></figure>
+<p>查看当前正在使用的库：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">hive&gt;</span> select current_database();</span><br><span class="line">OK</span><br><span class="line">default</span><br><span class="line">Time taken: 31.444 seconds, Fetched: 1 row(s)</span><br></pre></td></tr></table></figure>
+<p>查看创建库的详细语句：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">hive&gt;</span> show create database t2;</span><br><span class="line">OK</span><br><span class="line">CREATE DATABASE `t2`</span><br><span class="line">COMMENT</span><br><span class="line">  'hive is ok'</span><br><span class="line">LOCATION</span><br><span class="line">  'hdfs://ns1/user/hive/warehouse/t2.db'</span><br><span class="line">Time taken: 0.926 seconds, Fetched: 5 row(s)</span><br></pre></td></tr></table></figure>
+<h5 id="1-3-删除库相关"><a href="#1-3-删除库相关" class="headerlink" title="1.3 删除库相关"></a>1.3 删除库相关</h5><p>默认情况下hive不允许删除包含表的数据库，有两种办法解决这个问题：</p>
+<p>1.手动删除数据库下所有的表，然后删除库；</p>
+<p>2.使用cascade关键字。</p>
+<p><strong>drop database if exists dbname cascade;</strong> </p>
+<p>删除不含表的数据库：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">hive&gt;</span> show tables in t2;</span><br><span class="line">OK</span><br><span class="line">Time taken: 27.882 seconds</span><br><span class="line"><span class="meta">hive&gt;</span> drop database t2;</span><br><span class="line">OK</span><br><span class="line">Time taken: 78.301 seconds</span><br><span class="line"><span class="meta">hive&gt;</span></span><br><span class="line">    &gt; show databases;</span><br><span class="line">OK</span><br><span class="line">default</span><br><span class="line">mydb2</span><br><span class="line">t1</span><br><span class="line">Time taken: 0.799 seconds, Fetched: 3 row(s)</span><br></pre></td></tr></table></figure>
+<p>删除含表的数据库：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">hive&gt;</span> show databases;</span><br><span class="line">OK</span><br><span class="line">default</span><br><span class="line">mydb2</span><br><span class="line">t1</span><br><span class="line">Time taken: 1.435 seconds, Fetched: 3 row(s)</span><br><span class="line"><span class="meta">hive&gt;</span> show tables in t1;</span><br><span class="line">OK</span><br><span class="line">users</span><br><span class="line">Time taken: 0.209 seconds, Fetched: 1 row(s)</span><br><span class="line"><span class="meta">hive&gt;</span> drop database if exists t1 cascade;</span><br><span class="line">OK</span><br><span class="line">Time taken: 40.105 seconds</span><br><span class="line"><span class="meta">hive&gt;</span> show databases;</span><br><span class="line">OK</span><br><span class="line">default</span><br><span class="line">mydb2</span><br><span class="line">Time taken: 0.066 seconds, Fetched: 2 row(s)</span><br></pre></td></tr></table></figure>
+<h5 id="1-4-切换库"><a href="#1-4-切换库" class="headerlink" title="1.4 切换库"></a>1.4 切换库</h5><p> use database_name;</p>
+<h4 id="2-表操作"><a href="#2-表操作" class="headerlink" title="2.表操作"></a>2.表操作</h4><h5 id="2-1-创建表"><a href="#2-1-创建表" class="headerlink" title="2.1 创建表"></a>2.1 创建表</h5><blockquote>
+<p><strong>CREATE</strong> [EXTERNAL] <strong>TABLE</strong> [IF NOT EXISTS] table_name</p>
+<p>　　[(col_name data_type [COMMENT col_comment], …)]</p>
+<p>　　[<strong>COMMENT</strong> table_comment]</p>
+<p>　　[<strong>PARTITIONED BY</strong> (col_name data_type [COMMENT col_comment], …)]</p>
+<p>　　[<strong>CLUSTERED BY</strong> (col_name, col_name, …)</p>
+<p>　　　　[<strong>SORTED BY</strong> (col_name [ASC|DESC], …)] <strong>INTO</strong> num_buckets <strong>BUCKETS</strong>]</p>
+<p>　　[<strong>ROW FORMAT</strong> row_format]</p>
+<p>　　[<strong>STORED AS</strong> file_format]</p>
+<p>　　[<strong>LOCATION</strong> hdfs_path]</p>
+</blockquote>
+<p>关键字说明：</p>
+<hr>
+<p><strong>EXTERNAL</strong> ：关键字可以让用户创建一个外部表，在建表的同时指定一个指向实际数据的路径（LOCATION）</p>
+<p><strong>LIKE</strong>: 允许用户复制现有的表结构，但是不复制数据</p>
+<p><strong>COMMENT</strong>: 可以为表与字段增加描述</p>
+<p><strong>PARTITIONED BY</strong> :  指定分区</p>
+<p><strong>ROW FORMAT</strong> : DELIMITED [FIELDS TERMINATED BY char][COLLECTION ITEMS TERMINATED BY char]<br>　　　　MAP KEYS TERMINATED BY char] [LINES TERMINATED BY char]<br>　　　　| SERDE serde_name [WITH SERDEPROPERTIES<br>　　　　(property_name=property_value, property_name=property_value, …)] </p>
+<p>用户在建表的时候可以自定义 SerDe 或者使用自带的 SerDe。如果没有指定 ROW FORMAT 或者 ROW FORMAT DELIMITED，将会使用自带的 SerDe。在建表的时候，用户还需要为表指定列，用户在指定表的列的同时也会指定自定义的 SerDe，Hive 通过 SerDe 确定表的具体的列的数据。 </p>
+<p><strong>STORED AS</strong> : SEQUENCEFILE //序列化文件<br>　　| TEXTFILE //普通的文本文件格式<br>　　| RCFILE　　//行列存储相结合的文件<br>　　| INPUTFORMAT input_format_classname OUTPUTFORMAT output_format_classname //自定义文件格式<br>　　如果文件数据是纯文本，可以使用 STORED AS TEXTFILE。如果数据需要压缩，使用 STORED AS SEQUENCE 。</p>
+<p><strong>LOCATION</strong>  : 指定表在HDFS的存储路径</p>
+<hr>
+<p>如果一份数据已经存储在HDFS上，并且要被多个用户或者客户端使用，最好创建外部表;反之，最好创建内部表。</p>
+<p>如果不指定，就按照默认的规则存储在默认的仓库路径中。</p>
+<p>1.创建一张默认的内部表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">hive&gt; create table users (name string, age int, sex int) row format delimited fields terminated by &quot;,&quot;;</span><br><span class="line">OK</span><br><span class="line">Time taken: 13.577 seconds</span><br><span class="line">hive&gt; desc users;</span><br><span class="line">OK</span><br><span class="line">name                	string</span><br><span class="line">age                 	int</span><br><span class="line">sex                 	int</span><br><span class="line">Time taken: 1.12 seconds, Fetched: 3 row(s)</span><br></pre></td></tr></table></figure>
+<p>2.外部表:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">hive&gt;</span> create external table user_bank_info_ext(id int,bank_no string,bank_name string) row format delimited fields terminated by "," location "/usr/local/hive/data/user_bank";</span><br><span class="line">OK</span><br><span class="line">Time taken: 1.049 seconds</span><br><span class="line"><span class="meta">hive&gt;</span> show tables;</span><br><span class="line">OK</span><br><span class="line">user_bank_info_ext</span><br><span class="line">users</span><br><span class="line">Time taken: 0.397 seconds, Fetched: 2 row(s)</span><br></pre></td></tr></table></figure>
+<p>3.分区表：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">hive&gt;</span> create external table goods_sale_book(id int,goods_id int,purchaser_id int) partitioned by (city_id string) row format delimited fields terminated by "," location "/usr/local/hive/data/goods_book";</span><br><span class="line">OK</span><br><span class="line">Time taken: 0.639 seconds</span><br><span class="line"><span class="meta">hive&gt;</span> show tables;</span><br><span class="line">OK</span><br><span class="line">goods_sale_book</span><br><span class="line">user_bank_info_ext</span><br><span class="line">users</span><br><span class="line">Time taken: 0.118 seconds, Fetched: 3 row(s)</span><br></pre></td></tr></table></figure>
+<p>添加分区：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alter table goods_sale_book add partition(city_id=111);</span><br></pre></td></tr></table></figure>
+<p>4.桶表：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">hive&gt; create external table books (id int,name string,isbn string,author string,warehouse_id int) clustered by (id) sorted by (warehouse_id,id) into 4 buckets row format delimited fields terminated by &quot;,&quot; location &quot;/usr/local/hive/data/books&quot;;</span><br><span class="line">OK</span><br><span class="line">Time taken: 78.249 seconds</span><br><span class="line">hive&gt; show tables;</span><br><span class="line">OK</span><br><span class="line">books</span><br><span class="line">goods_sale_book</span><br><span class="line">user_bank_info_ext</span><br><span class="line">users</span><br><span class="line">Time taken: 4.183 seconds, Fetched: 4 row(s)</span><br></pre></td></tr></table></figure>
+<p>5.查询另一个表的结果作为一张新表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">hive&gt; load data local inpath &quot;/usr/local/hive/user.txt&quot; into table users;</span><br><span class="line">Loading data to table t1.users</span><br><span class="line">OK</span><br><span class="line">Time taken: 5.979 seconds</span><br><span class="line">hive&gt; select * from users;</span><br><span class="line">OK</span><br><span class="line">小明	12	1</span><br><span class="line">小红	14	0</span><br><span class="line">小紫	11	0</span><br><span class="line">小李	15	1</span><br><span class="line">小豆	13	0</span><br><span class="line">&apos;李隆基&apos;	12	1</span><br><span class="line">&apos;王阳明&apos;	23	1</span><br><span class="line">&apos;李逵&apos;	33	1</span><br><span class="line">&apos;欧阳拉拉&apos;	12	1</span><br><span class="line">&apos;杨过&apos;	54	1</span><br><span class="line">&apos;小龙女&apos;	12	0</span><br><span class="line">&apos;周芷若&apos;	32	0</span><br><span class="line">&apos;李小龙&apos;	32	1</span><br><span class="line">&apos;陈龙&apos;	62	1</span><br><span class="line">&apos;范冰冰&apos;	42	0</span><br><span class="line">Time taken: 6.565 seconds, Fetched: 15 row(s)</span><br><span class="line">hive&gt; create table users_bak as select * from users where sex=0;</span><br><span class="line">hive&gt; select * from users_bak;</span><br><span class="line">OK</span><br><span class="line">小红	14	0</span><br><span class="line">小紫	11	0</span><br><span class="line">小豆	13	0</span><br><span class="line">&apos;小龙女&apos;	12	0</span><br><span class="line">&apos;周芷若&apos;	32	0</span><br><span class="line">&apos;范冰冰&apos;	42	0</span><br><span class="line">Time taken: 2.185 seconds, Fetched: 6 row(s)</span><br></pre></td></tr></table></figure>
+<p>6.复制表结构</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">hive&gt;</span> create table users_copy like users;</span><br><span class="line">OK</span><br><span class="line">Time taken: 3.016 seconds</span><br></pre></td></tr></table></figure>
+<p><strong>注意：</strong></p>
+<p><strong>如果在table的前面没有加external关键字，那么复制出来的新表。无论如何都是内部表</strong><br><strong>如果在table的前面有加external关键字，那么复制出来的新表。无论如何都是外部表</strong></p>
+<h5 id="2-2-修改表"><a href="#2-2-修改表" class="headerlink" title="2.2 修改表"></a>2.2 修改表</h5><p>1.修改表名</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">hive&gt;</span> alter table user_copy rename to new_user_copy;</span><br><span class="line">FAILED: SemanticException [Error 10001]: Table not found t1.user_copy</span><br></pre></td></tr></table></figure>
+<p>2.新增字段</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">hive&gt;</span> alter table users_copy add columns(mobile_phone string);</span><br><span class="line">OK</span><br><span class="line">Time taken: 2.344 seconds</span><br><span class="line"><span class="meta">hive&gt;</span> desc users_copy;</span><br><span class="line">OK</span><br><span class="line">name                	string</span><br><span class="line">age                 	int</span><br><span class="line">sex                 	int</span><br><span class="line">mobile_phone        	string</span><br><span class="line">Time taken: 1.515 seconds, Fetched: 4 row(s)</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -507,12 +563,12 @@
   <!-- JS库 sweetalert 可修改路径 -->
   <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <p><span>本文标题:</span><a href="/posts/f4331185.html">java并发编程（四）----（JUC）Lock锁初探</a></p>
+  <p><span>本文标题:</span><a href="/posts/cd8871b9.html">hive SQL练习</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Rickiyang 的个人博客">Rickiyang</a></p>
-  <p><span>发布时间:</span>2017年03月18日 - 01:02</p>
-  <p><span>最后更新:</span>2018年12月05日 - 14:13</p>
-  <p><span>原始链接:</span><a href="/posts/f4331185.html" title="java并发编程（四）----（JUC）Lock锁初探">https://blog.rickiyang.cn/posts/f4331185.html</a>
-    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.rickiyang.cn/posts/f4331185.html" aria-label="复制成功！"></i></span>
+  <p><span>发布时间:</span>2018年11月24日 - 11:30</p>
+  <p><span>最后更新:</span>2019年01月04日 - 09:52</p>
+  <p><span>原始链接:</span><a href="/posts/cd8871b9.html" title="hive SQL练习">https://blog.rickiyang.cn/posts/cd8871b9.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.rickiyang.cn/posts/cd8871b9.html" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
 </div>
@@ -555,7 +611,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/学习/" rel="tag"> <i class="”fa" fa-tag”=""></i> 学习</a>
+            <a href="/tags/大数据/" rel="tag"> <i class="”fa" fa-tag”=""></i> 大数据</a>
           
         </div>
       
@@ -568,8 +624,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/704e9e4d.html" rel="next" title="Netty学习(一)-为什么选择Netty">
-                <i class="fa fa-chevron-left"></i> Netty学习(一)-为什么选择Netty
+              <a href="/posts/d946acf8.html" rel="next" title="hiveserver2使用以及java连接方式">
+                <i class="fa fa-chevron-left"></i> hiveserver2使用以及java连接方式
               </a>
             
           </div>
@@ -578,8 +634,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/posts/d68e6b33.html" rel="prev" title="java并发编程（五）----（JUC）ReentrantLock">
-                java并发编程（五）----（JUC）ReentrantLock <i class="fa fa-chevron-right"></i>
+              <a href="/posts/73e3dbd9.html" rel="prev" title="java重试工具类:spring-retry和guava-retryer">
+                java重试工具类:spring-retry和guava-retryer <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -775,7 +831,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-为什么需要Lock"><span class="nav-number">1.</span> <span class="nav-text">1 为什么需要Lock</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-初探Lock"><span class="nav-number">2.</span> <span class="nav-text">2 初探Lock</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-库操作相关"><span class="nav-number">1.</span> <span class="nav-text">1.库操作相关</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-创建库相关"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 创建库相关</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-查看库相关"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 查看库相关</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-删除库相关"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 删除库相关</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4-切换库"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 切换库</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-表操作"><span class="nav-number">2.</span> <span class="nav-text">2.表操作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-创建表"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 创建表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-修改表"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 修改表</span></a></li></ol></li></ol></div>
             
 
           </div>

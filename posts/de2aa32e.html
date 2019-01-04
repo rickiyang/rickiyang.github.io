@@ -131,18 +131,18 @@
 
 
 
-<meta name="description" content="CountDownLatch 是一个非常实用的多线程控制工具类。” Count Down “ 在英文中意为倒计数， Latch 为门问的意思。如果翻译成为倒计数门阀， 我想大家都会觉得不知所云吧! 因此，这里简单地称之为倒计数器。在这里， 门问的含义是:把门锁起来，不让里面的线程跑出来。因此，这个工具通常用来控制线程等待，它可以让某一个线程等待直到倒计时结束， 再开始执行。 CountDown L">
+<meta name="description" content="前面我们已经分析过JUC包里面的Lock锁，ReentrantLock锁和semaphore信号量机制。Lock锁实现了比synchronized更灵活的锁机制，Reentrantlock是Lock的实现类，是一种可重入锁，都是每次只有一次线程对资源进行处理；semaphore实现了多个线程同时对一个资源的访问；今天我们要讲的ReadWriteLock锁将实现另外一种很重要的功能：读写分离锁。 假">
 <meta name="keywords" content="java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java并发编程（七）----（JUC）ReadWriteLock">
 <meta property="og:url" content="https://blog.rickiyang.cn/posts/de2aa32e.html">
 <meta property="og:site_name" content="Rickiyang&#39;s blog">
-<meta property="og:description" content="CountDownLatch 是一个非常实用的多线程控制工具类。” Count Down “ 在英文中意为倒计数， Latch 为门问的意思。如果翻译成为倒计数门阀， 我想大家都会觉得不知所云吧! 因此，这里简单地称之为倒计数器。在这里， 门问的含义是:把门锁起来，不让里面的线程跑出来。因此，这个工具通常用来控制线程等待，它可以让某一个线程等待直到倒计时结束， 再开始执行。 CountDown L">
+<meta property="og:description" content="前面我们已经分析过JUC包里面的Lock锁，ReentrantLock锁和semaphore信号量机制。Lock锁实现了比synchronized更灵活的锁机制，Reentrantlock是Lock的实现类，是一种可重入锁，都是每次只有一次线程对资源进行处理；semaphore实现了多个线程同时对一个资源的访问；今天我们要讲的ReadWriteLock锁将实现另外一种很重要的功能：读写分离锁。 假">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-04T09:28:26.142Z">
+<meta property="og:updated_time" content="2018-12-04T09:28:26.162Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java并发编程（七）----（JUC）ReadWriteLock">
-<meta name="twitter:description" content="CountDownLatch 是一个非常实用的多线程控制工具类。” Count Down “ 在英文中意为倒计数， Latch 为门问的意思。如果翻译成为倒计数门阀， 我想大家都会觉得不知所云吧! 因此，这里简单地称之为倒计数器。在这里， 门问的含义是:把门锁起来，不让里面的线程跑出来。因此，这个工具通常用来控制线程等待，它可以让某一个线程等待直到倒计时结束， 再开始执行。 CountDown L">
+<meta name="twitter:description" content="前面我们已经分析过JUC包里面的Lock锁，ReentrantLock锁和semaphore信号量机制。Lock锁实现了比synchronized更灵活的锁机制，Reentrantlock是Lock的实现类，是一种可重入锁，都是每次只有一次线程对资源进行处理；semaphore实现了多个线程同时对一个资源的访问；今天我们要讲的ReadWriteLock锁将实现另外一种很重要的功能：读写分离锁。 假">
 
 
 
@@ -422,7 +422,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  939
+                  2.2k
                 </span>
               
 
@@ -438,7 +438,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3
+                  8
                 </span>
               
             </div>
@@ -459,41 +459,63 @@
       
 
       
-        <p>CountDownLatch 是一个非常实用的多线程控制工具类。” Count Down “ 在英文中意为倒计数， Latch 为门问的意思。如果翻译成为倒计数门阀， 我想大家都会觉得不知所云吧! 因此，这里简单地称之为倒计数器。在这里， 门问的含义是:把门锁起来，不让里面的线程跑出来。因此，这个工具通常用来控制线程等待，它可以让某一个线程等待直到倒计时结束， 再开始执行。</p>
-<p>CountDown Latch 的构造函数接收一个整数作为参数，即当前这个计数器的计数个数。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">CountDownLatch</span><span class="params">(<span class="keyword">int</span> count)</span></span></span><br></pre></td></tr></table></figure>
-<p>CountDownLatch是一个同步辅助类，在完成一组正在其他线程中执行的操作之前，它允许一个或多个线程一直等待。一个CountDownLatch初始化为给定的计数 。 调用await方法阻塞，直到当前计数为零，在调用countDown()方法之后，所有等待的线程被释放，任何后续调用await立即返回。 这是一次性的现象 - 计数不能重置。 如果需要重置计数，考虑使用CyclicBarrier ，CyclicBarrier的计数器可以被重置后使用，因此它被称为是循环的barrier。</p>
-<p>主要方法：</p>
-<pre><code>// 使当前线程在锁存器倒计数至零之前一直等待，除非线程被中断。
-void await()
-// 使当前线程在锁存器倒计数至零之前一直等待，除非线程被中断或超出了指定的等待时间。
-boolean await(long timeout, TimeUnit unit)
-// 递减锁存器的计数，如果计数到达零，则释放所有等待的线程。
-void countDown()
-// 返回当前计数。
-long getCount()
-</code></pre><p>我们来看一个例子：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestCountDownLatch</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> RUNNER_NUMBER = <span class="number">5</span>; <span class="comment">// 运动员个数</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Random RANDOM = <span class="keyword">new</span> Random();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 用于判断发令之前运动员是否已经完全进入准备状态，需要等待5个运动员，所以参数为5</span></span><br><span class="line">        CountDownLatch readyLatch = <span class="keyword">new</span> CountDownLatch(RUNNER_NUMBER);</span><br><span class="line">        <span class="comment">// 用于判断裁判是否已经发令，只需要等待一个裁判，所以参数为1</span></span><br><span class="line">        CountDownLatch startLatch = <span class="keyword">new</span> CountDownLatch(<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; RUNNER_NUMBER; i++) &#123;</span><br><span class="line">            Thread t = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runner((i + <span class="number">1</span>) + <span class="string">"号运动员"</span>, readyLatch, startLatch));</span><br><span class="line">            t.start();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            readyLatch.await();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        startLatch.countDown();</span><br><span class="line">        System.out.println(<span class="string">"裁判：所有运动员准备完毕，开始..."</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Runner</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> CountDownLatch readyLatch;</span><br><span class="line">        <span class="keyword">private</span> CountDownLatch startLatch;</span><br><span class="line">        <span class="keyword">private</span> String name;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Runner</span><span class="params">(String name, CountDownLatch readyLatch, CountDownLatch startLatch)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.name = name;</span><br><span class="line">            <span class="keyword">this</span>.readyLatch = readyLatch;</span><br><span class="line">            <span class="keyword">this</span>.startLatch = startLatch;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">int</span> readyTime = RANDOM.nextInt(<span class="number">1000</span>);</span><br><span class="line">            System.out.println(name + <span class="string">"：我需要"</span> + readyTime + <span class="string">"秒时间准备."</span>);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(readyTime);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(name + <span class="string">"：我已经准备完毕."</span>);</span><br><span class="line">            readyLatch.countDown();</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                startLatch.await();  <span class="comment">// 等待裁判发开始命令</span></span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(name + <span class="string">"：开跑..."</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>前面我们已经分析过JUC包里面的Lock锁，ReentrantLock锁和semaphore信号量机制。Lock锁实现了比synchronized更灵活的锁机制，Reentrantlock是Lock的实现类，是一种可重入锁，都是每次只有一次线程对资源进行处理；semaphore实现了多个线程同时对一个资源的访问；今天我们要讲的ReadWriteLock锁将实现另外一种很重要的功能：读写分离锁。</p>
+<p>假设你的程序中涉及到对一些共享资源的读和写操作，且写操作没有读操作那么频繁。在没有写操作的时候，两个线程同时读一个资源没有任何问题，所以应该允许多个线程能在同时读取共享资源。但是如果有一个线程想去写这些共享资源，就不应该再有其它线程对该资源进行读或写，也就是说：<strong>读-读能共存，读-写不能共存，写-写不能共存</strong>。这就需要一个读/写锁来解决这个问题。</p>
+<h4 id="1-ReadWriteLock简介"><a href="#1-ReadWriteLock简介" class="headerlink" title="1 ReadWriteLock简介"></a>1 ReadWriteLock简介</h4><p>我们在JUC包可以看到ReadWriteLock是一个接口，他有一个实现类：ReentrantReadWriteLock，先让我们对读写访问资源的条件做个概述：</p>
+<pre><code>- 读取： 没有线程正在做写操作，且没有线程在请求写操作。
+- 写入： 没有线程正在做读写操作。
+</code></pre><p>如果某个线程想要读取资源，只要没有线程正在对该资源进行写操作且没有线程请求对该资源的写操作即可。同样当有线程想要写资源，但是此刻有线程正在读取资源，那么此刻写资源的操作是不能继续下去的。<br>我们来看一个例子:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReadWriteLockTest2</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">final</span> <span class="keyword">int</span> threadCount = <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">final</span> ExecutorService exService = Executors.newFixedThreadPool(threadCount);</span><br><span class="line">            <span class="keyword">final</span> ScoreBoard scoreBoard = <span class="keyword">new</span> ScoreBoard();</span><br><span class="line">            exService.execute(<span class="keyword">new</span> ScoreUpdateThread(scoreBoard));</span><br><span class="line">            exService.execute(<span class="keyword">new</span> ScoreHealthThread(scoreBoard));</span><br><span class="line">            exService.shutdown();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ScoreBoard</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> scoreUpdated = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> score = <span class="number">0</span>;</span><br><span class="line">    String health = <span class="string">"不可用"</span>;</span><br><span class="line">    <span class="keyword">final</span> ReentrantReadWriteLock rrwl = <span class="keyword">new</span> ReentrantReadWriteLock();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getMatchHealth</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        rrwl.readLock().lock();</span><br><span class="line">        <span class="keyword">if</span> (scoreUpdated) &#123;</span><br><span class="line">            rrwl.readLock().unlock();</span><br><span class="line">            rrwl.writeLock().lock();</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (scoreUpdated) &#123;</span><br><span class="line">                    score = fetchScore();</span><br><span class="line">                    scoreUpdated = <span class="keyword">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                rrwl.readLock().lock();</span><br><span class="line">            &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                rrwl.writeLock().unlock();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (score % <span class="number">2</span> == <span class="number">0</span>) &#123;</span><br><span class="line">                health = <span class="string">"Bad Score"</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                health = <span class="string">"Good Score"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            rrwl.readLock().unlock();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> health;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateScore</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            rrwl.writeLock().lock();</span><br><span class="line">            scoreUpdated = <span class="keyword">true</span>;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            rrwl.writeLock().unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">fetchScore</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Calendar calender = Calendar.getInstance();</span><br><span class="line">        <span class="keyword">return</span> calender.get(Calendar.MILLISECOND);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ScoreHealthThread</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> ScoreBoard scoreBoard;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ScoreHealthThread</span><span class="params">(ScoreBoard scoreTable)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.scoreBoard = scoreTable;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i= <span class="number">0</span>; i&lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">            System.out.println(<span class="string">"Match Health: "</span>+ scoreBoard.getMatchHealth());</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">2000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ScoreUpdateThread</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> ScoreBoard scoreBoard;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ScoreUpdateThread</span><span class="params">(ScoreBoard scoreTable)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.scoreBoard = scoreTable;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i= <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">            System.out.println(<span class="string">"Score Updated."</span>);</span><br><span class="line">            scoreBoard.updateScore();</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">2000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>打印结果：</p>
-<pre><code>1号运动员：我需要547秒时间准备.
-2号运动员：我需要281秒时间准备.
-4号运动员：我需要563秒时间准备.
-5号运动员：我需要916秒时间准备.
-3号运动员：我需要461秒时间准备.
-2号运动员：我已经准备完毕.
-3号运动员：我已经准备完毕.
-1号运动员：我已经准备完毕.
-4号运动员：我已经准备完毕.
-5号运动员：我已经准备完毕.
-裁判：所有运动员准备完毕，开始...
-3号运动员：开跑...
-2号运动员：开跑...
-1号运动员：开跑...
-4号运动员：开跑...
-5号运动员：开跑...
-
-Process finished with exit code 0
-</code></pre><p>注意：计数器必须大于等于0，只是等于0时候，计数器就是零，调用await方法时不会阻塞当前线程。</p>
+<pre><code>Score Updated.
+Match Health: Good Score
+Score Updated.
+Match Health: Good Score
+Score Updated.
+Match Health: Good Score
+Score Updated.
+Match Health: Good Score
+Score Updated.
+Match Health: Good Score
+</code></pre><p>基本用法见上例，读写分离锁很好的控制了多个线程对同一个资源的访问。</p>
+<h4 id="2-ReentrantReadWriteLock"><a href="#2-ReentrantReadWriteLock" class="headerlink" title="2 ReentrantReadWriteLock"></a>2 ReentrantReadWriteLock</h4><p>由名字我们可以看到读写锁也有可重入的实现类。ReentrantReadWriteLock具有关联的读取和写入锁定，可以重新获取锁定。它可表现为公平和不公平的模式两者。 默认行为是不公平的。 非公平锁的性能更好，虽然有可能读写器或写入器锁可以被推迟许多次，并且持续地尝试锁定。 在公平锁定的情况下，锁定请求按照最长等待的单个写入器锁或读取锁定组请求的顺序来完成，无论谁具有最长等待时间将获得对共享资源的锁定。 在重入ReentrantReadWriteLock可以写入<strong>锁定降级读锁</strong>。 这意味着如果线程已经获得写锁定，它可以将其锁从写降级到读锁。 顺序将是首先获得写锁定，执行写操作，然后获取读锁，然后解锁写锁，并且在读操作后最终解锁读锁。 </p>
+<p>ReentrantReadWriteLock 也是基于 AbstractQueuedSynchronizer 实现的，它具有下面这些属性：</p>
+<ul>
+<li>获取顺序</li>
+</ul>
+<p>此类不会将读取者优先或写入者优先强加给锁访问的排序。但是，它确实支持可选的公平 策略。</p>
+<p>1.非公平模式（默认）</p>
+<p>当非公平地（默认）构造时，未指定进入读写锁的顺序，受到 reentrancy 约束的限制。连续竞争的非公平锁可能无限期地推迟一个或多个 reader 或 writer 线程，但吞吐量通常要高于公平锁。</p>
+<p>2.公平模式</p>
+<p>当公平地构造线程时，线程利用一个近似到达顺序的策略来争夺进入。当释放当前保持的锁时，可以为等待时间最长的单个 writer 线程分配写入锁，如果有一组等待时间大于所有正在等待的 writer 线程 的 reader 线程，将为该组分配写入锁。</p>
+<p>如果保持写入锁，或者有一个等待的 writer 线程，则试图获得公平读取锁（非重入地）的线程将会阻塞。直到当前最旧的等待 writer 线程已获得并释放了写入锁之后，该线程才会获得读取锁。当然，如果等待 writer 放弃其等待，而保留一个或更多 reader 线程为队列中带有写入锁自由的时间最长的 waiter，则将为那些 reader 分配读取锁。</p>
+<p>试图获得公平写入锁的（非重入地）的线程将会阻塞，除非读取锁和写入锁都自由（这意味着没有等待线程）。（注意，非阻塞 ReentrantReadWriteLock.ReadLock.tryLock() 和 ReentrantReadWriteLock.WriteLock.tryLock() 方法不会遵守此公平设置，并将获得锁（如果可能），不考虑等待线程）。</p>
+<ul>
+<li>重入</li>
+</ul>
+<p>此锁允许 reader 和 writer 按照 ReentrantLock 的样式重新获取读取锁或写入锁。在写入线程保持的所有写入锁都已经释放后，才允许重入 reader 使用它们。</p>
+<p>此外，writer 可以获取读取锁，但反过来则不成立。在其他应用程序中，当在调用或回调那些在读取锁状态下执行读取操作的方法期间保持写入锁时，重入很有用。如果 reader 试图获取写入锁，那么将永远不会获得成功。</p>
+<ul>
+<li>锁降级</li>
+</ul>
+<p>重入还允许从写入锁降级为读取锁，其实现方式是：先获取写入锁，然后获取读取锁，最后释放写入锁。但是，从读取锁升级到写入锁是不可能的。</p>
+<ul>
+<li>锁获取的中断</li>
+</ul>
+<p>读取锁和写入锁都支持锁获取期间的中断。</p>
+<ul>
+<li>Condition 支持</li>
+</ul>
+<p>写入锁提供了一个 Condition 实现，对于写入锁来说，该实现的行为与 ReentrantLock.newCondition() 提供的 Condition 实现对 ReentrantLock 所做的行为相同。当然，此 Condition 只能用于写入锁。读取锁不支持 Condition，readLock().newCondition() 会抛出 UnsupportedOperationException。</p>
+<ul>
+<li>监测</li>
+</ul>
+<p>此类支持一些确定是保持锁还是争用锁的方法。这些方法设计用于监视系统状态，而不是同步控制。</p>
+<p>此类行为的序列化方式与内置锁的相同：反序列化的锁处于解除锁状态，无论序列化该锁时其状态如何。</p>
+<p>下面的代码展示了如何利用重入来执行升级缓存后的锁降级（为简单起见，省略了异常处理）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CachedData</span> </span>&#123;</span><br><span class="line">    Object data;</span><br><span class="line">    <span class="keyword">volatile</span> <span class="keyword">boolean</span> cacheValid;</span><br><span class="line">    ReentrantReadWriteLock rwl = <span class="keyword">new</span> ReentrantReadWriteLock();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">processCachedData</span><span class="params">()</span> </span>&#123;</span><br><span class="line">         rwl.readLock().lock();</span><br><span class="line">         <span class="keyword">if</span> (!cacheValid) &#123;</span><br><span class="line">            <span class="comment">// 在获得写锁之前必须释放读锁</span></span><br><span class="line">            rwl.readLock().unlock();</span><br><span class="line">            rwl.writeLock().lock();</span><br><span class="line">            <span class="comment">// Recheck state because another thread might have acquired</span></span><br><span class="line">            <span class="comment">//   write lock and changed state before we did.</span></span><br><span class="line">            <span class="keyword">if</span> (!cacheValid) &#123;</span><br><span class="line">              data = ...</span><br><span class="line">              cacheValid = <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//通过在释放写锁之前获得读锁来降级</span></span><br><span class="line">            rwl.readLock().lock();</span><br><span class="line">            rwl.writeLock().unlock(); <span class="comment">// 解锁写锁，但是任然持有读锁</span></span><br><span class="line">         &#125;</span><br><span class="line">    </span><br><span class="line">        use(data);</span><br><span class="line">        rwl.readLock().unlock();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="3-与互斥锁对比"><a href="#3-与互斥锁对比" class="headerlink" title="3 与互斥锁对比"></a>3 与互斥锁对比</h4><p>互斥锁一次只允许一个线程访问共享数据，哪怕进行的是只读操作；读写锁允许对共享数据进行更高级别的并发访问：对于写操作，一次只有一个线程（write线程）可以修改共享数据，对于读操作，允许任意数量的线程同时进行读取。</p>
+<p>与互斥锁相比，使用读写锁能否提升性能则取决于读写操作期间读取数据相对于修改数据的频率，以及数据的争用——即在同一时间试图对该数据执行读取或写入操作的线程数。</p>
 
       
     </div>
@@ -661,8 +683,17 @@ var jiathis_config={
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -679,7 +710,7 @@ var jiathis_config={
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">87</span>
+                  <span class="site-state-item-count">89</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -689,7 +720,7 @@ var jiathis_config={
               
               
               <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
+                <a href="/tags/index.html">
                   <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
@@ -760,6 +791,22 @@ var jiathis_config={
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-ReadWriteLock简介"><span class="nav-number">1.</span> <span class="nav-text">1 ReadWriteLock简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-ReentrantReadWriteLock"><span class="nav-number">2.</span> <span class="nav-text">2 ReentrantReadWriteLock</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-与互斥锁对比"><span class="nav-number">3.</span> <span class="nav-text">3 与互斥锁对比</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -805,7 +852,7 @@ var jiathis_config={
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共212.3k字</span>
+  <span class="post-count">博客全站共215.6k字</span>
 </div>
 
 <script>
