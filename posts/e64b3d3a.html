@@ -140,7 +140,7 @@
 <meta property="og:description" content="hbase基本知识学习数据在 HBase 中的排布（逻辑上）                 Row-Key         Value（CF、Qualifier、Version                   1         info{&apos;姓&apos;: &apos;张&apos;，&apos;名&apos;:&apos;三&apos;}              pwd{&apos;密码&apos;: &apos;111&apos;}                   2         I">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.loli.net/2019/01/07/5c32bff8c77b2.jpg">
-<meta property="og:updated_time" content="2019-01-07T02:57:08.665Z">
+<meta property="og:updated_time" content="2019-01-07T07:53:10.174Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hbase初识">
 <meta name="twitter:description" content="hbase基本知识学习数据在 HBase 中的排布（逻辑上）                 Row-Key         Value（CF、Qualifier、Version                   1         info{&apos;姓&apos;: &apos;张&apos;，&apos;名&apos;:&apos;三&apos;}              pwd{&apos;密码&apos;: &apos;111&apos;}                   2         I">
@@ -419,6 +419,18 @@
 
           
           
+             <span id="/posts/e64b3d3a.html" class="leancloud_visitors" data-flag-title="hbase初识">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>℃</span>
+             </span>
+          
 
           
             <span class="post-meta-divider">|</span>
@@ -491,7 +503,7 @@
     </tr>
     <tr>
         <th>2</th>
-        <th>Info{'姓': '李'，'}</th>
+        <th>Info{'姓': '李'}</th>
     </tr>
 </table>
 
@@ -533,13 +545,11 @@
 
 <p>如果要用很短的一句话总结 HBase，我们可以认为 HBase 就是一个有序的多维 Map，其中每一个 Row-key 映射了许多数据，这些数据存储在 CF 中的 Column。我们可以用下图来表示这句话。</p>
 <p>HBase是一个面向列的数据库，在表中它由行排序。 表模式定义只能列族，也就是键值对。 一个表有多个列族以及每一个列族可以有任意数量的列。 后续列的值连续地存储在磁盘上。 表中的每个单元格值都具有时间戳。在一个hbase中：</p>
-<ul>
-<li>表是行的集合。</li>
-<li>行是列族的集合。</li>
-<li>列族是列的集合。</li>
-<li>列是键值对的集合。</li>
-</ul>
-<p>Row key</p>
+<pre><code>表是行的集合。
+行是列族的集合。
+列族是列的集合。
+列是键值对的集合。
+</code></pre><p>Row key</p>
 <hr>
 <ol>
 <li>row key 是用来检索记录的主键；</li>
@@ -739,7 +749,7 @@
   <p><span>本文标题:</span><a href="/posts/e64b3d3a.html">hbase初识</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Rickiyang 的个人博客">Rickiyang</a></p>
   <p><span>发布时间:</span>2018年10月13日 - 15:12</p>
-  <p><span>最后更新:</span>2019年01月07日 - 10:57</p>
+  <p><span>最后更新:</span>2019年01月07日 - 15:53</p>
   <p><span>原始链接:</span><a href="/posts/e64b3d3a.html" title="hbase初识">https://blog.rickiyang.cn/posts/e64b3d3a.html</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.rickiyang.cn/posts/e64b3d3a.html" aria-label="复制成功！"></i></span>
   </p>
@@ -1581,6 +1591,113 @@ var jiathis_config={
 
 
   
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("X5fy0b9Gknu0SAse5areilGR-gzGzoHsz", "URk4cyPQ8Ttqtwhop5t26kok");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
 
   
 
