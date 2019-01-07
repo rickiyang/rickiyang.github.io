@@ -1,0 +1,1965 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|FZSongKeBenXiuKai:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|Optima:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/adele.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/adele.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/adele.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/adele.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="大数据,scala学习,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Rickiyang's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="1. 集合集合主要有三种：  Sequence Map Set  sequence是一种线性元素的集合，可能会是索引或者线性的（链表）。map是包含键值对的集合，就像Java的Map,set是包含无重复元素的集合。 除了这三个主要的集合类之外，还有其他有用的集合类型，如Stack, Queue和Range。还有其他一些用起来像集合的类，如元组、枚举、Option/Some/None以及Try/Su">
+<meta name="keywords" content="大数据,scala学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Scala集合（四）">
+<meta property="og:url" content="https://blog.rickiyang.cn/posts/c3007ea1.html">
+<meta property="og:site_name" content="Rickiyang&#39;s blog">
+<meta property="og:description" content="1. 集合集合主要有三种：  Sequence Map Set  sequence是一种线性元素的集合，可能会是索引或者线性的（链表）。map是包含键值对的集合，就像Java的Map,set是包含无重复元素的集合。 除了这三个主要的集合类之外，还有其他有用的集合类型，如Stack, Queue和Range。还有其他一些用起来像集合的类，如元组、枚举、Option/Some/None以及Try/Su">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-01-07T01:48:18.201Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Scala集合（四）">
+<meta name="twitter:description" content="1. 集合集合主要有三种：  Sequence Map Set  sequence是一种线性元素的集合，可能会是索引或者线性的（链表）。map是包含键值对的集合，就像Java的Map,set是包含无重复元素的集合。 除了这三个主要的集合类之外，还有其他有用的集合类型，如Stack, Queue和Range。还有其他一些用起来像集合的类，如元组、枚举、Option/Some/None以及Try/Su">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://blog.rickiyang.cn/posts/c3007ea1.html">
+
+
+
+
+
+  <title>Scala集合（四） | Rickiyang's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Rickiyang's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/c3007ea1.html">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Rickiyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/adele.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rickiyang's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Scala集合（四）</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-26T23:12:08+08:00">
+                2018-04-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/scala/" itemprop="url" rel="index">
+                    <span itemprop="name">scala</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  16
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="1-集合"><a href="#1-集合" class="headerlink" title="1. 集合"></a>1. 集合</h4><p>集合主要有三种：</p>
+<ol>
+<li>Sequence</li>
+<li>Map</li>
+<li>Set</li>
+</ol>
+<p>sequence是一种线性元素的集合，可能会是索引或者线性的（链表）。map是包含键值对的集合，就像Java的Map,set是包含无重复元素的集合。</p>
+<p>除了这三个主要的集合类之外，还有其他有用的集合类型，如Stack, Queue和Range。还有其他一些用起来像集合的类，如元组、枚举、Option/Some/None以及Try/Success/Failure类。</p>
+<p>Scala通用的序列集合：</p>
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg .tg-us36{border-color:inherit;vertical-align:top}
+</style>
+<table class="tg">
+  <tr>
+    <th class="tg-us36"></th>
+    <th class="tg-us36">不可变(Immutable)</th>
+    <th class="tg-us36">可变</th>
+  </tr>
+  <tr>
+    <td class="tg-us36">索引(Indexed)</td>
+    <td class="tg-us36">Vector</td>
+    <td class="tg-us36">ArrayBuffer</td>
+  </tr>
+  <tr>
+    <td class="tg-us36">线性链表(Linked lists)</td>
+    <td class="tg-us36">List</td>
+    <td class="tg-us36">ListBuffer</td>
+  </tr>
+</table>
+
+<p>主要不可变序列集合类：</p>
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg .tg-us36{border-color:inherit;vertical-align:top}
+.tg .tg-yw4l{vertical-align:top}
+</style>
+<table class="tg" style="undefined;table-layout: fixed; width: 690px">
+<colgroup>
+<col style="width: 147px">
+<col style="width: 67px">
+<col style="width: 82px">
+<col style="width: 394px">
+</colgroup>
+  <tr>
+    <th class="tg-us36"></th>
+    <th class="tg-us36">索引序列</th>
+    <th class="tg-us36">线性序列</th>
+    <th class="tg-yw4l">描述</th>
+  </tr>
+  <tr>
+    <td class="tg-us36">List</td>
+    <td class="tg-us36"></td>
+    <td class="tg-us36">√</td>
+    <td class="tg-yw4l">一个单链表。适于拆分头和剩余链表的递归算法</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">Queue</td>
+    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l">√</td>
+    <td class="tg-yw4l">先进先出数据结构</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">Range</td>
+    <td class="tg-yw4l">√</td>
+    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l">整数值范围</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">Stack</td>
+    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l">√</td>
+    <td class="tg-yw4l">后进先出</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">Stream</td>
+    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l">√</td>
+    <td class="tg-yw4l">与链表相似，但是延迟并且持久。适用于大型或无限序列，与<br>Haskell的链表类似</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">String</td>
+    <td class="tg-yw4l">√</td>
+    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l">可以被当作一个不可变的，索引的字符序列</td>
+  </tr>
+  <tr>
+    <td class="tg-us36">Vector</td>
+    <td class="tg-us36">√</td>
+    <td class="tg-us36"></td>
+    <td class="tg-yw4l">“定位”不可变，可索引的序列。Scaladoc这样描述它， “处<br>理split和join非常有效率的一组嵌套数组实现”</td>
+  </tr>
+</table>
+
+<p>主要的可变序列集合：</p>
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg .tg-us36{border-color:inherit;vertical-align:top}
+.tg .tg-yw4l{vertical-align:top}
+</style>
+<table class="tg" style="undefined;table-layout: fixed; width: 748px">
+<colgroup>
+<col style="width: 160px">
+<col style="width: 73px">
+<col style="width: 88px">
+<col style="width: 427px">
+</colgroup>
+  <tr>
+    <th class="tg-us36"></th>
+    <th class="tg-us36">索引序列</th>
+    <th class="tg-us36">线性序列</th>
+    <th class="tg-yw4l">描述</th>
+  </tr>
+  <tr>
+    <td class="tg-us36">Array</td>
+    <td class="tg-us36">√</td>
+    <td class="tg-us36"></td>
+    <td class="tg-yw4l">依靠于Java的数组，其中元素是可变的，但不能改变大小</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">ArrayBuffer</td>
+    <td class="tg-yw4l">√</td>
+    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l">一个可变的序列集合的“定位”类。成本是常数</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">ArrayStack</td>
+    <td class="tg-yw4l">√</td>
+    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l">后进先出数据结构。在性能比较重要时Stack更好</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">DoubleLinkedList</td>
+    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l">√</td>
+    <td class="tg-yw4l">像一个单链表，但有一个prev方法。文档说“额外的连<br>接让删除元素变得非常快。”</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">LinkedList</td>
+    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l">√</td>
+    <td class="tg-yw4l">一个可变的单链表</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">ListBuffer</td>
+    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l">√</td>
+    <td class="tg-yw4l">像ArrayBuffer，但依靠链表。文档说， 如果想把buffer<br>转成list，用ListBuffer而不是ArrayBuffer。前插后插开<br>销都是常数。其他的大部分操作都是线性的</td>
+  </tr>
+  <tr>
+    <td class="tg-us36">MutableList</td>
+    <td class="tg-us36"></td>
+    <td class="tg-us36">√</td>
+    <td class="tg-yw4l">一个可变的，单链表，后插开销是常数</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">Queue</td>
+    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l">√</td>
+    <td class="tg-yw4l">先进先出数据结构</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">Stack</td>
+    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l">√</td>
+    <td class="tg-yw4l">后进先出数据结构。（文档建议ArrayStack的效率稍微好<br>些。）</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">StringBuilder</td>
+    <td class="tg-yw4l">√</td>
+    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l">像在循环里构建字符串</td>
+  </tr>
+</table>
+
+<p>常用到的map：</p>
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg .tg-us36{border-color:inherit;vertical-align:top}
+.tg .tg-yw4l{vertical-align:top}
+</style>
+<table class="tg" style="undefined;table-layout: fixed; width: 796px">
+<colgroup>
+<col style="width: 168px">
+<col style="width: 61px">
+<col style="width: 94px">
+<col style="width: 473px">
+</colgroup>
+  <tr>
+    <th class="tg-us36"></th>
+    <th class="tg-us36">不可变</th>
+    <th class="tg-us36">可变</th>
+    <th class="tg-yw4l">描述</th>
+  </tr>
+  <tr>
+    <td class="tg-us36">HashMap</td>
+    <td class="tg-us36">√<br></td>
+    <td class="tg-us36">√<br></td>
+    <td class="tg-yw4l">不可变版本用“hash trie” （晗希线索）实现，可变版本用<br>“哈希表”实现</td>
+  </tr>
+  <tr>
+    <td class="tg-us36">LinkedHashMap</td>
+    <td class="tg-us36"></td>
+    <td class="tg-us36">√<br></td>
+    <td class="tg-yw4l">“用哈希表实现可变map”，元素按插入顺序返回</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">ListMap</td>
+    <td class="tg-yw4l">√<br></td>
+    <td class="tg-yw4l">√<br></td>
+    <td class="tg-yw4l">用链表数据结构实现的map。元素按插入的相反顺序返回，因<br>为每次插入的元素都放在head</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">Map</td>
+    <td class="tg-yw4l">√<br></td>
+    <td class="tg-yw4l">√<br></td>
+    <td class="tg-yw4l">基础的map，有可变的和不可变的实现</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">SortedMap</td>
+    <td class="tg-yw4l">√<br></td>
+    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l">接序存键的一个基本特质。（当前用5。rtedMap创建一个变量<br>返回TreeMap。）</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">TreeMap</td>
+    <td class="tg-yw4l">√<br></td>
+    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l">不可变的，排序的map，由红黑树实现</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">WeakHashMap</td>
+    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l">√<br></td>
+    <td class="tg-yw4l">一个java.util.WeakHashMap的包装，弱引用的hashmap</td>
+  </tr>
+</table>
+
+<p>选择Set：</p>
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg .tg-us36{border-color:inherit;vertical-align:top}
+.tg .tg-yw4l{vertical-align:top}
+</style>
+<table class="tg" style="undefined;table-layout: fixed; width: 796px">
+<colgroup>
+<col style="width: 168px">
+<col style="width: 61px">
+<col style="width: 94px">
+<col style="width: 473px">
+</colgroup>
+  <tr>
+    <th class="tg-us36"></th>
+    <th class="tg-us36">不可变</th>
+    <th class="tg-us36">可变</th>
+    <th class="tg-yw4l">描述</th>
+  </tr>
+  <tr>
+    <td class="tg-us36">BitSet</td>
+    <td class="tg-us36">√<br></td>
+    <td class="tg-us36">√<br></td>
+    <td class="tg-yw4l">非负整数表示为比特放入64位字节的可变尺寸数组。当有一组<br>整数时来节省内存空间</td>
+  </tr>
+  <tr>
+    <td class="tg-us36">HashSet</td>
+    <td class="tg-us36">√</td>
+    <td class="tg-us36">√<br></td>
+    <td class="tg-yw4l">不可变版本用“hash trie” （哈希线索），可变版本用“哈希<br>表” ( hashtable)</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">LinkedHashSet</td>
+    <td class="tg-yw4l"><br></td>
+    <td class="tg-yw4l">√<br></td>
+    <td class="tg-yw4l">一个由hashtable实现的可变Set，按照插入顺序返回元素</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">ListSet</td>
+    <td class="tg-yw4l">√<br></td>
+    <td class="tg-yw4l">√<br></td>
+    <td class="tg-yw4l">用链表实现的set</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">TreeSet</td>
+    <td class="tg-yw4l">√<br></td>
+    <td class="tg-yw4l">√</td>
+    <td class="tg-yw4l">不可变版本用树实现。可变版本基于不可变的AVL树作为数据结构的SortedSet</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">Set</td>
+    <td class="tg-yw4l">√<br></td>
+    <td class="tg-yw4l">√</td>
+    <td class="tg-yw4l">一般的基础特质</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">SortedSet</td>
+    <td class="tg-yw4l">√</td>
+    <td class="tg-yw4l">√<br></td>
+    <td class="tg-yw4l">一个基础特质</td>
+  </tr>
+</table>
+
+<p>表现的像集合的类型：</p>
+<p>Scala提供了很多其他的集合类型，还有一些表现的像集合的类型，尽管它们不是集合：</p>
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg .tg-us36{border-color:inherit;vertical-align:top}
+.tg .tg-yw4l{vertical-align:top}
+</style>
+<table class="tg" style="undefined;table-layout: fixed; width: 776px">
+<colgroup>
+<col style="width: 153px">
+<col style="width: 623px">
+</colgroup>
+  <tr>
+    <th class="tg-us36"></th>
+    <th class="tg-yw4l">描述</th>
+  </tr>
+  <tr>
+    <td class="tg-us36">Enumeration</td>
+    <td class="tg-yw4l">一个包含常数值的有限集合（比如，一周的天数或一年的周数）</td>
+  </tr>
+  <tr>
+    <td class="tg-us36">Iterator</td>
+    <td class="tg-yw4l">迭代器不是一个集合，它可以访问集合中的元素．它也是集合，然而，定义许多方法便会发现一个普通的集合类，包括foreach, map, flatMap等。也可以在需要时把迭代器转换为一个集合</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">Option</td>
+    <td class="tg-yw4l">包含一个或者零个元素的集合，Some和None继承自Option。</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">Tuple</td>
+    <td class="tg-yw4l">支持异构的集合元素。没有一个“元组”类，元组由Tuple1 到Tuple22组成， 支持从1至22个元素</td>
+  </tr>
+</table>
+
+<h4 id="2-List"><a href="#2-List" class="headerlink" title="2. List"></a>2. List</h4><p>创建List：</p>
+<pre><code>val list = List(1,2,3)
+val list1 = List[Number](1,2,3,4)
+val list2 = List.range(1,10)
+val list3 = List.range(1,20,2)
+val list4 = List.fill[String](3)(&quot;list&quot;)
+List[Char] list5 = &quot;list&quot;.toList
+</code></pre><p>创建可变列表：</p>
+<pre><code>var buffer = new ListBuffer[String]()
+buffer.+=(&quot;you&quot;,&quot;have&quot;,&quot;a&quot;,&quot;child&quot;)
+buffer += &quot;。&quot;
+println(buffer.toList)
+
+输出：
+List(you, have, a, child, 。)
+
+Process finished with exit code 0
+</code></pre><p>List基本方法的使用：</p>
+<p>1.合并两个list：</p>
+<pre><code>val l3 = list ::: list1
+val l7 = list ++ list1
+val l8 = List.concat(list,list1)
+println(l3,l7,l8)
+
+结果：
+(List(2, 3, 4, 5),
+List(2, 3, 4, 5),
+List(2, 3, 4, 5))
+</code></pre><p>2.+:和:+ 的用法区别-连接两个列表：</p>
+<pre><code>val list = List(2,3)
+val list1 = List(4,5)
+val l2 = list +: list1
+val l3 = list :+ list1
+println(l2,l3)
+输出：
+(List(List(2, 3), 4, 5),
+List(2, 3, List(4, 5)))
+</code></pre><p>由结果可以看出+:和:+是根据”:”的方法来解析数据的，”:”朝向那一边，这一边的数据就会作为基数据，另一方的数据会被添加到这个List中。</p>
+<p>3.使用Stream—-惰性计算元素周期</p>
+<p>List通过::构造， Stream可以用#::方法构建，表达式的结尾用Stream.empty代替Nil:</p>
+<pre><code>val stream = 1#::2#::3#::Stream.empty
+println(stream)
+val iterator = stream.iterator
+while (iterator.hasNext){
+  println(iterator.next())
+}
+输出：
+Stream(1, ?)
+1
+2
+3
+
+Process finished with exit code 0
+</code></pre><p>可以看到打印stream的时候只打出了1，后面的是?。这是因为流的结尾还没有执行,？表示惰性集合的结尾尚未被执行的表示方式。</p>
+<h4 id="2-数组"><a href="#2-数组" class="headerlink" title="2.数组"></a>2.数组</h4><p>2.1 创建数组：</p>
+<pre><code>val array = Array(1,2,3)
+val array1 = Array(&quot;I&quot;,&quot;am&quot;,&quot;a&quot;,&quot;boy&quot;)
+val array2 = Array[String](&quot;I&quot;,&quot;am&quot;,&quot;a&quot;,&quot;boy&quot;)
+val array3 = new Array[Number](3)
+array3(0) = 1
+array3(1) = 2
+array3(2) = 3
+
+println(array.toList,array1.toList,array2.toList,array3.toList)
+
+输出：
+(List(1, 2, 3),
+List(I, am, a, boy),
+List(I, am, a, boy),
+List(1, 2, 3))
+</code></pre><p>其他创建数组的方式：</p>
+<pre><code>val a1 = Array.range(1,10)
+val a2 = Array.range(1,20,2)
+val a3 = Array.apply(2,3,4,5,6)
+val a4 = Array.fill[String](3)(&quot;oo&quot;)
+val a5 = Array.tabulate(5)(n=&gt;n+5)
+
+println(a1.toList,a2.toList,a3.toList,a4.toList,a5.toList)
+
+输出：
+(List(1, 2, 3, 4, 5, 6, 7, 8, 9),
+List(1, 3, 5, 7, 9, 11, 13, 15, 17, 19),
+List(2, 3, 4, 5, 6),
+List(oo, oo, oo),
+List(5, 6, 7, 8, 9))
+</code></pre><p>创建可变数组：</p>
+<p>Array既是可变的又是不可变的，可变的是他的内容，不可变的是他的大小。要想创建一个大小可变的数组，可以使用ArrayBuffer。</p>
+<pre><code>val a1 = ArrayBuffer[Number](1)
+a1 += 2
+a1 += 3
+a1 += 4
+println(a1)
+
+val a2 = List[Number](5,6)
+a1 ++= a2
+println(a1)
+输出：
+ArrayBuffer(1, 2, 3, 4)
+ArrayBuffer(1, 2, 3, 4, 5, 6)
+
+Process finished with exit code 0
+</code></pre><p>删除操作：</p>
+<pre><code>val a1 = ArrayBuffer[Number](1,2,3,4,5)
+a1 -= 1
+println(a1)
+a1 -= (1,2)
+println(a1)
+a1 --= List(1,2,3)
+println(a1)
+val a2 = ArrayBuffer[Number](2,2,4,3,4,5)
+#删除第一个位置的数据
+a2.remove(1)
+println(a2)
+#从第三个位置开始，删除两个数据
+a2.remove(3,2)
+println(a2)
+
+输出：
+
+ArrayBuffer(2, 3, 4, 5)
+ArrayBuffer(3, 4, 5)
+ArrayBuffer(4, 5)
+ArrayBuffer(2, 4, 3, 4, 5)
+ArrayBuffer(2, 4, 3)
+
+Process finished with exit code 0
+</code></pre><h4 id="3-Map"><a href="#3-Map" class="headerlink" title="3. Map"></a>3. Map</h4><p>创建Map：</p>
+<pre><code>var a1 =  Map(&quot;name&quot;-&gt;&quot;xiaoming&quot;,&quot;age&quot;-&gt;12)
+val a2 = Map((&quot;name&quot;,&quot;xiaoming&quot;),(&quot;age&quot;,12))
+a1 += (&quot;address&quot;-&gt;&quot;xxxx&quot;)
+println(a1,a2)
+
+输出：
+(Map(name -&gt; xiaoming, age -&gt; 12, address -&gt; xxxx),
+Map(name -&gt; xiaoming, age -&gt; 12))
+
+Process finished with exit code 0
+</code></pre><p>修改Map：</p>
+<p>默认Map是immutable类型的，所以如果要修改Map，需要手动引入Mutable的Map。</p>
+<pre><code>var a1 =  mutable.Map(&quot;name&quot;-&gt;&quot;xiaoming&quot;,&quot;age&quot;-&gt;12)
+a1(&quot;name&quot;) = &quot;xiaohong&quot;
+println(a1)
+a1 ++= List(&quot;address&quot;-&gt;&quot;xxx&quot;,&quot;sex&quot;-&gt;1)
+println(a1)
+a1 -= &quot;name&quot;
+println(a1)
+a1 --= List(&quot;age&quot;,&quot;sex&quot;)
+println(a1)
+a1.put(&quot;idCard&quot;,&quot;111&quot;)
+a1.remove(&quot;address&quot;)
+println(a1)
+
+输出：
+Map(age -&gt; 12, name -&gt; xiaohong)
+Map(address -&gt; xxx, age -&gt; 12, name -&gt; xiaohong, sex -&gt; 1)
+Map(address -&gt; xxx, age -&gt; 12, sex -&gt; 1)
+Map(address -&gt; xxx)
+Map(idCard -&gt; 111)
+</code></pre><p>遍历映射：</p>
+<pre><code>var a1 =  mutable.Map(&quot;name&quot;-&gt;&quot;xiaoming&quot;,&quot;age&quot;-&gt;12,&quot;address&quot;-&gt;&quot;xxx&quot;,&quot;sex&quot;-&gt;1)
+for((k,v) &lt;- a1){
+  println(k,v)
+}
+a1.foreach(x=&gt;{
+  println(x._1,x._2)
+})
+</code></pre><p>常用方法：</p>
+<pre><code>var a1 =  mutable.Map(&quot;name&quot;-&gt;&quot;xiaoming&quot;,&quot;age&quot;-&gt;12,&quot;address&quot;-&gt;&quot;xxx&quot;,&quot;sex&quot;-&gt;1)
+//判断某个key是否存在
+if(a1.contains(&quot;name&quot;)){
+  println(a1(&quot;name&quot;))
+}
+//过滤元素,a1直接就被改变为过滤后的值
+a1 = a1.retain((k,v)=&gt;k.length == 3)
+println(a1)
+//改变元素的值
+a1.transform((k,v)=&gt;v + &quot;1&quot;)
+println(a1)
+a1 =  mutable.Map(&quot;name&quot;-&gt;&quot;xiaoming&quot;,&quot;age&quot;-&gt;12,&quot;address&quot;-&gt;&quot;xxx&quot;,&quot;sex&quot;-&gt;1)
+//保留指定的key,一定要将返回结果赋值给新的变量，返回类型为MapLike
+val a2  =a1.filterKeys(_.length &gt; 3)
+println(a2)
+//也可以使用Set集合传递你需要的key
+val a3 = a1.filterKeys(Set(&quot;name&quot;,&quot;age&quot;))
+println(a3)
+//使用filter方法可以任意指定过滤key还是value
+a1 = a1.filter(k=&gt;k._1.length &gt; 3)
+println(a1)
+//take方法可以提取map中的前n个元素，注意如果用Map因为是无序的，每次都不保证取出元素的顺序
+a1 =  mutable.LinkedHashMap(&quot;name&quot;-&gt;&quot;xiaoming&quot;,&quot;age&quot;-&gt;12,&quot;address&quot;-&gt;&quot;xxx&quot;,&quot;sex&quot;-&gt;1)
+a1 = a1.take(2)
+println(a1)
+
+输出：
+xiaoming
+Map(age -&gt; 12, sex -&gt; 1)
+Map(age -&gt; 121, sex -&gt; 11)
+Map(address -&gt; xxx, name -&gt; xiaoming)
+Map(age -&gt; 12, name -&gt; xiaoming)
+Map(address -&gt; xxx, name -&gt; xiaoming)
+Map(name -&gt; xiaoming, age -&gt; 12)
+</code></pre><h4 id="4-Set"><a href="#4-Set" class="headerlink" title="4.Set"></a>4.Set</h4><p>集合的基本操作：</p>
+<pre><code>val a1 = mutable.Set(1,2,3,4)
+a1 += 5
+//集合中的元素是无序的并且是唯一的
+a1 += 1
+println(a1)
+a1 += (6,7)
+println(a1)
+a1 ++= List(8,9)
+println(a1)
+a1.add(10)
+println(a1)
+a1 -= 1
+println(a1)
+a1 -= (2,3)
+println(a1)
+a1 --=Array(4,5)
+println(a1)
+//过滤元素
+a1.retain(_ &gt; 9)
+println(a1)
+
+输出：
+
+Set(1, 5, 2, 3, 4)
+Set(1, 5, 2, 6, 3, 7, 4)
+Set(9, 1, 5, 2, 6, 3, 7, 4, 8)
+Set(9, 1, 5, 2, 6, 3, 10, 7, 4, 8)
+Set(9, 5, 2, 6, 3, 10, 7, 4, 8)
+Set(9, 5, 6, 10, 7, 4, 8)
+Set(9, 6, 10, 7, 8)
+Set(10)
+</code></pre><p>创建有序集合：</p>
+<pre><code>var a1 = SortedSet(1,2,3,4)
+println(a1)
+a1 = a1.filter(v=&gt;v&gt;3)
+println(a1)
+var a2 = mutable.LinkedHashSet(1,2,3,4)
+a2 = a2.filter(v=&gt;v&gt;3)
+println(a2)
+
+输出：
+TreeSet(1, 2, 3, 4)
+TreeSet(4)
+Set(4)
+</code></pre><p>从输出类型上可以看到SortedSet被改变之后输出为TreeSet对象，这是因为SortedSet只有不可变的版本，如果想用可变的集合，可以使用TreeSet。</p>
+<h5 id="5-队列和堆栈"><a href="#5-队列和堆栈" class="headerlink" title="5.队列和堆栈"></a>5.队列和堆栈</h5><pre><code>var a1 = mutable.Queue(1,2,3)
+a1.enqueue(1)
+var a2 = a1.dequeueAll(x=&gt;x&gt;0)
+println(a2)
+println(a1)
+输出：
+ArrayBuffer(1, 2, 3, 1)
+Queue()
+
+
+var a1 = mutable.Stack(1,2,3,4)
+a1.pop()
+println(a1)
+a1.push(1)
+println(a1)
+a1.pop()
+println(a1)
+
+输出：
+Stack(2, 3, 4)
+Stack(1, 2, 3, 4)
+Stack(2, 3, 4)
+
+Process finished with exit code 0
+</code></pre><h4 id="6-强大的Range功能"><a href="#6-强大的Range功能" class="headerlink" title="6.强大的Range功能"></a>6.强大的Range功能</h4><pre><code>var a1 = (1 to 10).toList
+println(a1)
+var a2 =(1 until(10)).toList
+println(a2)
+var a3 = (1 to 10 by(2)).toList
+println(a3)
+var a4 = (&apos;a&apos; to &apos;m&apos;).toList
+println(a4)
+
+输出：
+List(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+List(1, 2, 3, 4, 5, 6, 7, 8, 9)
+List(1, 3, 5, 7, 9)
+List(a, b, c, d, e, f, g, h, i, j, k, l, m)
+
+Process finished with exit code 0
+</code></pre><p>上面这些功能在for循环中经常用到。</p>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/posts/c3007ea1.html">Scala集合（四）</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Rickiyang 的个人博客">Rickiyang</a></p>
+  <p><span>发布时间:</span>2018年04月26日 - 23:12</p>
+  <p><span>最后更新:</span>2019年01月07日 - 09:48</p>
+  <p><span>原始链接:</span><a href="/posts/c3007ea1.html" title="Scala集合（四）">https://blog.rickiyang.cn/posts/c3007ea1.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.rickiyang.cn/posts/c3007ea1.html" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
+</div>
+<script>
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({
+          title: "",
+          text: '复制成功',
+          icon: "success",
+          showConfirmButton: true
+          });
+    });
+    });
+</script>
+
+
+      
+    </div>
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #636363;font-size:14px;letter-spacing: 10px">本文结束啦<i class="fa fa-bell"></i>感谢您的阅读</div>
+    
+</div>
+
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/大数据/" rel="tag"> <i class="”fa" fa-tag”=""></i> 大数据</a>
+          
+            <a href="/tags/scala学习/" rel="tag"> <i class="”fa" fa-tag”=""></i> scala学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/64535299.html" rel="next" title="Scala函数式编程（三）">
+                <i class="fa fa-chevron-left"></i> Scala函数式编程（三）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/596588bb.html" rel="prev" title="Scala文件读写（五）">
+                Scala文件读写（五） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/adele.png" alt="Rickiyang">
+            
+              <p class="site-author-name" itemprop="name">Rickiyang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">97</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/rickiyang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:medee1320@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/a953713428" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-google"></i>CSDN</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="953713428" target="_blank" title="QQ">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>QQ</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-集合"><span class="nav-number">1.</span> <span class="nav-text">1. 集合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-List"><span class="nav-number">2.</span> <span class="nav-text">2. List</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-数组"><span class="nav-number">3.</span> <span class="nav-text">2.数组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Map"><span class="nav-number">4.</span> <span class="nav-text">3. Map</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Set"><span class="nav-number">5.</span> <span class="nav-text">4.Set</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#5-队列和堆栈"><span class="nav-number">5.1.</span> <span class="nav-text">5.队列和堆栈</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-强大的Range功能"><span class="nav-number">6.</span> <span class="nav-text">6.强大的Range功能</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Rickiyang</span>
+
+  
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+-->
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共230.2k字</span>
+</div>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https'){
+   bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else{
+  bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <!-- 页面点击小红心 -->
+  <script type="text/javascript" src="/js/src/love.js"></script>
+  <!---->
+</body>
+</html>

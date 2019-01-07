@@ -1,0 +1,1689 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|FZSongKeBenXiuKai:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|Optima:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/adele.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/adele.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/adele.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/adele.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="大数据,scala学习,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Rickiyang's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="1. val和var的区别val定义的是一个常量，无法改变其内容 scala&amp;gt; val s = 0 s: Int = 0  scala&amp;gt; s = 2 &amp;lt;console&amp;gt;:12: error: reassignment to val        s = 2          ^ 如果要声明其值可变的变量，可以使用var scala&amp;gt; var s = 0 s: Int">
+<meta name="keywords" content="大数据,scala学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Scala基础语法学习（一）">
+<meta property="og:url" content="https://blog.rickiyang.cn/posts/e8e22028.html">
+<meta property="og:site_name" content="Rickiyang&#39;s blog">
+<meta property="og:description" content="1. val和var的区别val定义的是一个常量，无法改变其内容 scala&amp;gt; val s = 0 s: Int = 0  scala&amp;gt; s = 2 &amp;lt;console&amp;gt;:12: error: reassignment to val        s = 2          ^ 如果要声明其值可变的变量，可以使用var scala&amp;gt; var s = 0 s: Int">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-01-07T01:48:18.200Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Scala基础语法学习（一）">
+<meta name="twitter:description" content="1. val和var的区别val定义的是一个常量，无法改变其内容 scala&amp;gt; val s = 0 s: Int = 0  scala&amp;gt; s = 2 &amp;lt;console&amp;gt;:12: error: reassignment to val        s = 2          ^ 如果要声明其值可变的变量，可以使用var scala&amp;gt; var s = 0 s: Int">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://blog.rickiyang.cn/posts/e8e22028.html">
+
+
+
+
+
+  <title>Scala基础语法学习（一） | Rickiyang's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Rickiyang's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/e8e22028.html">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Rickiyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/adele.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rickiyang's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Scala基础语法学习（一）</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-17T00:09:11+08:00">
+                2018-04-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/scala/" itemprop="url" rel="index">
+                    <span itemprop="name">scala</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="1-val和var的区别"><a href="#1-val和var的区别" class="headerlink" title="1. val和var的区别"></a>1. val和var的区别</h4><p>val定义的是一个常量，无法改变其内容</p>
+<pre><code>scala&gt; val s = 0
+s: Int = 0
+
+scala&gt; s = 2
+&lt;console&gt;:12: error: reassignment to val
+       s = 2
+         ^
+</code></pre><p>如果要声明其值可变的变量，可以使用var</p>
+<pre><code>scala&gt; var s = 0
+s: Int = 0
+
+scala&gt; s = 5
+s: Int = 5
+</code></pre><p>在scala中建议使用val，除非你真的想改变他的内容。</p>
+<h4 id="2-基本类型"><a href="#2-基本类型" class="headerlink" title="2. 基本类型"></a>2. 基本类型</h4><ul>
+<li>Byte</li>
+<li>Char</li>
+<li>Short</li>
+<li>Int</li>
+<li>Long</li>
+<li>Float</li>
+<li>Double</li>
+<li>Boolean</li>
+</ul>
+<h4 id="3-字符串"><a href="#3-字符串" class="headerlink" title="3.字符串"></a>3.字符串</h4><h5 id="3-1-测试字符串是否相等"><a href="#3-1-测试字符串是否相等" class="headerlink" title="3.1 测试字符串是否相等"></a>3.1 测试字符串是否相等</h5><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Demo</span></span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="keyword">val</span> s = <span class="string">"hello world"</span>;</span><br><span class="line">    println(s)</span><br><span class="line">    <span class="keyword">val</span> s1 = <span class="string">"Hello"</span>;</span><br><span class="line">    <span class="keyword">val</span> s2 = <span class="string">"Hello"</span>;</span><br><span class="line">    <span class="keyword">val</span> s3 = <span class="string">"H"</span>+<span class="string">"ello"</span>;</span><br><span class="line">    println(s1.equals(s2))</span><br><span class="line">    println(s1.eq(s3))</span><br><span class="line">    println(s1 == s2)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<pre><code>hello world
+true
+true
+true
+
+Process finished with exit code 0
+</code></pre><p>在Scala中，可以用＝＝方法测试对象的相等性。这与Java中用equals方法比较两个对象不同。</p>
+<h5 id="3-2-多行字符串"><a href="#3-2-多行字符串" class="headerlink" title="3.2 多行字符串"></a>3.2 多行字符串</h5><p>在Scala中可以使用三个引号创建多行字符串：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Demo</span></span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="keyword">val</span> s =</span><br><span class="line">      <span class="string">""</span><span class="string">"ohh</span></span><br><span class="line"><span class="string">        haha</span></span><br><span class="line"><span class="string">            nonono</span></span><br><span class="line"><span class="string">      "</span><span class="string">""</span>;</span><br><span class="line">    println(s)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<pre><code>ohh
+        haha
+            nonono
+</code></pre><p>​<br>    Process finished with exit code 0</p>
+<p>结果中可以看到每从第二行起每一行都是以空格开头的，要解决这个问题可以这样做：在多行字符串结尾添加stripMargin方法，并且在第一行后面的所有行以管道符”|”开头：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Demo</span></span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="keyword">val</span> s =</span><br><span class="line">      <span class="string">""</span><span class="string">"ohh</span></span><br><span class="line"><span class="string">        |haha</span></span><br><span class="line"><span class="string">            |nonono</span></span><br><span class="line"><span class="string">      "</span><span class="string">""</span>.stripMargin;</span><br><span class="line">    println(s)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<pre><code>ohh
+haha
+nonono
+</code></pre><p>​<br>    Process finished with exit code 0</p>
+<p>如果你不想用”|”,你也可以用任意字符：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> s =</span><br><span class="line">          <span class="string">""</span><span class="string">"ohh</span></span><br><span class="line"><span class="string">            /haha</span></span><br><span class="line"><span class="string">                /nonono</span></span><br><span class="line"><span class="string">          "</span><span class="string">""</span>.stripMargin(<span class="string">"/"</span>);</span><br></pre></td></tr></table></figure>
+<p>也会有同样的输出效果。</p>
+<h5 id="3-3-字符串中的变量替换"><a href="#3-3-字符串中的变量替换" class="headerlink" title="3.3 字符串中的变量替换"></a>3.3 字符串中的变量替换</h5><p>Scala支持在字符串中代换变量。</p>
+<p>如果某个字符串需要插入变量，需要在该字符串的前面加上字母”s”标志，然后再字符串中放入变量，每个变量都应该以”$”开头。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Demo</span></span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="keyword">val</span> name = <span class="string">"xiaoming"</span></span><br><span class="line">    <span class="keyword">val</span> age = <span class="number">12</span></span><br><span class="line">    <span class="keyword">var</span> s = <span class="string">s"<span class="subst">$name</span> is a man and he is <span class="subst">$age</span> years old"</span></span><br><span class="line">    println(s)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<pre><code>xiaoming is a man and he is 12 years old
+
+Process finished with exit code 0
+</code></pre><p>在字符串前面添加”s”，其实是在创建一个处理字符串字面量。</p>
+<p><strong>在字符串字面量中使用表达式</strong></p>
+<p>除了把变量放到字符串中外，还可以用花括号把表达式包起来再放到字符串中。根据官方文档，”${}”内可嵌入任何表达式。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> age = <span class="number">12</span></span><br><span class="line">println(<span class="string">s"are you kidding me,I always thought you were only <span class="subst">$&#123;age + 1&#125;</span> years old"</span>)</span><br></pre></td></tr></table></figure>
+<p><strong>字符串插值f</strong></p>
+<p>如果有一个需求是不改变原变量的前提下给该值添加两位小数，该如何实现呢？</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> weight = <span class="number">111</span></span><br><span class="line">println(<span class="string">f"ohh dear,I never realized that you have <span class="subst">$weight</span>%.2f kilograms"</span>)</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<pre><code>ohh dear,I never realized that you have 111.00 kilograms
+</code></pre><p>这个简单的需求繁盛了“f字符串插值”。一个可以通过printf个时候内部字符串的方法。</p>
+<p>用这种方法只需要如下两步即可：</p>
+<p>1.在字符串前面加上字母f。</p>
+<p>2.在变量之后使用printf的格式化操作符。</p>
+<p><strong>raw插入符</strong></p>
+<p>raw插入符“不会对字符串中的字符进行转义”。</p>
+<pre><code>scala&gt; s&quot;hello\nyou&quot;
+res0: String =
+hello
+you
+
+scala&gt; raw&quot;hello\nyou&quot;
+res1: String = hello\nyou
+</code></pre><p>printf格式化常用字符：</p>
+
+<table>
+    <tr>
+        <td>格式化符号</td>
+        <td>描述</td>
+    </tr>
+    <tr>
+        <td>%c</td>
+        <td>字符</td>
+    </tr>
+    <tr>
+        <td>%d</td>
+        <td>十进制数字</td>
+    </tr>
+    <tr>
+        <td>%e</td>
+        <td>指数浮点数</td>
+    </tr>
+    <tr>
+        <td>%f</td>
+        <td>浮点数</td>
+    </tr>
+    <tr>
+        <td>%i</td>
+        <td>整数</td>
+    </tr>
+    <tr>
+        <td>%o</td>
+        <td>八进制</td>
+    </tr>
+    <tr>
+        <td>%s</td>
+        <td>字符串</td>
+    </tr>
+    <tr>
+        <td>%u</td>
+        <td>无符号十进制</td>
+    </tr>
+    <tr>
+        <td>%x</td>
+        <td>十六进制</td>
+    </tr>
+    <tr>
+        <td>%%</td>
+        <td>打印一个百分号</td>
+    </tr>
+    <tr>
+        <td>\%</td>
+        <td>打印一个百分号</td>
+    </tr>
+</table>
+
+<h5 id="3-4-遍历字符串中的字符"><a href="#3-4-遍历字符串中的字符" class="headerlink" title="3.4 遍历字符串中的字符"></a>3.4 遍历字符串中的字符</h5><p>Scala提供了很多方式遍历字符串以及对字符串进行操作，常用的有map，foreach，for，filter。</p>
+<pre><code>scala&gt; val s = &quot;you are a kid&quot;.map(c =&gt; c.toUpper)
+s: String = YOU ARE A KID
+
+scala&gt; val s = &quot;you are a kid&quot;.map(_.toUpper)
+s: String = YOU ARE A KID
+
+scala&gt; val s = &quot;you are a kid&quot;.filter(_ != &quot;\n&quot;).map(v =&gt; v)                   ^
+s: String = you are a kid
+
+val name = &quot;542352354&quot;
+for(c &lt;- name){
+  println(c)
+}
+name.foreach(println)
+</code></pre><h4 id="4-数值"><a href="#4-数值" class="headerlink" title="4. 数值"></a>4. 数值</h4><p>Scala内建数值类型包括：</p>
+<ul>
+<li>Char</li>
+<li>Byte</li>
+<li>Short</li>
+<li>Int</li>
+<li>Long</li>
+<li>Float</li>
+<li>Double</li>
+</ul>
+<h5 id="4-1-从字符串到数字"><a href="#4-1-从字符串到数字" class="headerlink" title="4.1 从字符串到数字"></a>4.1 从字符串到数字</h5><p>使用String的to*方法。</p>
+<pre><code>scala&gt; &quot;200&quot;.toInt
+res0: Int = 200
+</code></pre><p>如果需要转换的字符串不确定是几进制的，可以通过参数的形式来判断：</p>
+<pre><code>val a = Integer.parseInt(&quot;01101&quot;,2)
+println(a)
+
+结果：
+13
+
+Process finished with exit code 0
+</code></pre><h5 id="4-2-和–"><a href="#4-2-和–" class="headerlink" title="4.2 ++和–"></a>4.2 ++和–</h5><p>Scala中没有++ 和 –这样的操作。所以要是想使用的话只能使用变形的方法：数值类型的可以使用 += 或者是 -= 来操作：</p>
+<pre><code>var a = 4
+a += 3
+println(a)
+a -= 5
+println(a)
+结果：
+7
+2
+</code></pre><h5 id="4-3-处理大数"><a href="#4-3-处理大数" class="headerlink" title="4.3 处理大数"></a>4.3 处理大数</h5><p>Scala提供了BigInt和BigDecimal类来创建一个大数：</p>
+<pre><code>var a = BigInt(987654321)
+var b = BigDecimal(987654321.543433)
+var c = a + a
+var d = a * a
+var e = b + b
+var f = b * b
+println(a,b,c,d,e,f)
+
+结果为：
+(987654321,987654321.543433,1975308642,975461057789971041,1975308643.086866,975461058863418942.543305425489)
+</code></pre><p><strong>我们看到和java中不一样的是：BigDecimal对象支持所有普通数值类型的操作符。</strong></p>
+<h5 id="4-4-生成随机数"><a href="#4-4-生成随机数" class="headerlink" title="4.4 生成随机数"></a>4.4 生成随机数</h5><p>Scala中也提供了Random类，用于随机数生成。</p>
+<pre><code>var a = Random.nextDouble()
+</code></pre><h5 id="4-5-创建一个数值区间、列表或者数组"><a href="#4-5-创建一个数值区间、列表或者数组" class="headerlink" title="4.5 创建一个数值区间、列表或者数组"></a>4.5 创建一个数值区间、列表或者数组</h5><p>使用Int的to方法创建数值区间：</p>
+<pre><code>for(i &lt;- 0 to 9){
+  println(i)
+}
+结果：
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+
+Process finished with exit code 0
+</code></pre><p>也可以使用by方法设置步长：</p>
+<pre><code>for(i &lt;- 0 to 9 by(2)){
+  println(i)
+}
+结果：
+0
+2
+4
+6
+8
+
+Process finished with exit code 0
+</code></pre><p>不得不说，跟java比是简洁太多了。</p>
+<h4 id="5-控制语句"><a href="#5-控制语句" class="headerlink" title="5. 控制语句"></a>5. 控制语句</h4><p>Scala中的if/else语句和java中的一样使用。</p>
+<h5 id="5-1-for循环"><a href="#5-1-for循环" class="headerlink" title="5.1 for循环"></a>5.1 for循环</h5><p>Scala中的for循环也很简单，使用”&lt;-“符号来获取循环指针。</p>
+<pre><code>var a = Array(&quot;liming&quot;,&quot;hanmeimei&quot;,&quot;xiaohong&quot;)
+for(user &lt;- a){
+  println(user)
+}
+
+结果：
+liming
+hanmeimei
+xiaohong
+
+Process finished with exit code 0
+</code></pre><p><strong>for循环计数器：</strong></p>
+<pre><code>for(i &lt;- 0 to 5){
+    println(i)
+}
+
+for(i &lt;- until a.length){
+    println(i)
+}
+</code></pre><p><strong>封装index和值：</strong></p>
+<pre><code>var a = Array(&quot;liming&quot;,&quot;hanmeimei&quot;,&quot;xiaohong&quot;)
+for((e,count) &lt;- a.zipWithIndex){
+  println(e,count)
+}
+
+结果：
+
+(liming,0)
+(hanmeimei,1)
+(xiaohong,2)
+
+Process finished with exit code 0
+</code></pre><p><strong>遍历Map：</strong></p>
+<pre><code>val map = Map(&quot;name&quot;-&gt;&quot;xiaoming&quot;,&quot;age&quot;-&gt;12,&quot;sex&quot;-&gt;1)
+for((k,v) &lt;- map){
+  println(k,v)
+}
+
+结果：
+(name,xiaoming)
+(age,12)
+(sex,1)
+</code></pre><p><strong>在for循环中使用多个计数器：</strong></p>
+<p>Scala允许在一个for循环中使用多个计数器，这个有点高端：</p>
+<pre><code>var i = 1
+var j = 1
+var k = 1
+for(i &lt;- 1 to 3;j &lt;- 1 to 4;k &lt;- 1 to 5){
+  println(i,j,k)
+}
+
+结果：
+
+(1,1,1)
+(1,1,2)
+(1,1,3)
+(1,1,4)
+(1,1,5)
+(1,2,1)
+...
+(3,4,2)
+(3,4,3)
+(3,4,4)
+(3,4,5)
+</code></pre><p>当我们创建二维数组或者三维数组，就再也不用像java中那样需要三个for循环了。</p>
+<p><strong>for循环中嵌入if：</strong></p>
+<pre><code>for(i &lt;- 1 to 10 if i % 2 == 0){
+    println(i)
+}
+</code></pre><p>过滤循环条件。</p>
+<p><strong>实现break和continue：</strong></p>
+<p>Scala中没有break和continue关键字。但是提供了另外的方式来实现该功能,scala.util.control.Breaks类提供了类似的方法：</p>
+<pre><code>import util.control.Breaks._
+
+object Demo{
+  def main(args: Array[String]): Unit = {
+    breakable{
+      for( i &lt;- 1 to 10){
+        println(i)
+        if(i == 5)
+          break
+      }
+    }
+  }
+
+}
+
+结果：
+
+1
+2
+3
+4
+5
+
+Process finished with exit code 0
+</code></pre><p>注意：break和breakable不是关键字而是util.control.Breaks类中的方法。</p>
+<p>再来看一下continue是如何执行的：</p>
+<pre><code>import util.control.Breaks._
+
+object Demo{
+  def main(args: Array[String]): Unit = {
+      for( i &lt;- 1 to 10){
+          breakable{
+            if(i == 5){
+              break
+            }else{
+              println(i)
+            }
+          }
+      }
+  }
+}
+
+结果：
+1
+2
+3
+4
+6
+7
+8
+9
+10
+
+Process finished with exit code 0
+</code></pre><p>其实就是换了一种方式使用breakable哈。</p>
+<p><strong>Scala中的switch/case：</strong></p>
+<pre><code>var i = 0
+i match {
+  case 1 =&gt; println(1)
+  case 2 =&gt; println(2)
+}
+</code></pre><p>在Scala中使用match函数来表示switch。</p>
+<p>在Scala中一个case语句可以匹配多个条件，你可以这样用：</p>
+<pre><code>var i = 0
+i match {
+  case 1 | 3 | 5 =&gt; println(1)
+  case 2 | 4 | 6=&gt; println(2)
+}
+</code></pre><p>使用”|”分割。对于字符串和其他类型使用的语法是一样的。</p>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/posts/e8e22028.html">Scala基础语法学习（一）</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Rickiyang 的个人博客">Rickiyang</a></p>
+  <p><span>发布时间:</span>2018年04月17日 - 00:09</p>
+  <p><span>最后更新:</span>2019年01月07日 - 09:48</p>
+  <p><span>原始链接:</span><a href="/posts/e8e22028.html" title="Scala基础语法学习（一）">https://blog.rickiyang.cn/posts/e8e22028.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.rickiyang.cn/posts/e8e22028.html" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
+</div>
+<script>
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({
+          title: "",
+          text: '复制成功',
+          icon: "success",
+          showConfirmButton: true
+          });
+    });
+    });
+</script>
+
+
+      
+    </div>
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #636363;font-size:14px;letter-spacing: 10px">本文结束啦<i class="fa fa-bell"></i>感谢您的阅读</div>
+    
+</div>
+
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/大数据/" rel="tag"> <i class="”fa" fa-tag”=""></i> 大数据</a>
+          
+            <a href="/tags/scala学习/" rel="tag"> <i class="”fa" fa-tag”=""></i> scala学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/9b912c1b.html" rel="next" title="kafka消息的处理机制（5）">
+                <i class="fa fa-chevron-left"></i> kafka消息的处理机制（5）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/a0c17a47.html" rel="prev" title="Scala类和对象（二）">
+                Scala类和对象（二） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/adele.png" alt="Rickiyang">
+            
+              <p class="site-author-name" itemprop="name">Rickiyang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">97</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/rickiyang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:medee1320@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/a953713428" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-google"></i>CSDN</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="953713428" target="_blank" title="QQ">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>QQ</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-val和var的区别"><span class="nav-number">1.</span> <span class="nav-text">1. val和var的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-基本类型"><span class="nav-number">2.</span> <span class="nav-text">2. 基本类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-字符串"><span class="nav-number">3.</span> <span class="nav-text">3.字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-测试字符串是否相等"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 测试字符串是否相等</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-多行字符串"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 多行字符串</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-3-字符串中的变量替换"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 字符串中的变量替换</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-4-遍历字符串中的字符"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 遍历字符串中的字符</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-数值"><span class="nav-number">4.</span> <span class="nav-text">4. 数值</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-1-从字符串到数字"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 从字符串到数字</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-2-和–"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 ++和–</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-3-处理大数"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 处理大数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-4-生成随机数"><span class="nav-number">4.4.</span> <span class="nav-text">4.4 生成随机数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-5-创建一个数值区间、列表或者数组"><span class="nav-number">4.5.</span> <span class="nav-text">4.5 创建一个数值区间、列表或者数组</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-控制语句"><span class="nav-number">5.</span> <span class="nav-text">5. 控制语句</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#5-1-for循环"><span class="nav-number">5.1.</span> <span class="nav-text">5.1 for循环</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Rickiyang</span>
+
+  
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+-->
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共230.2k字</span>
+</div>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https'){
+   bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else{
+  bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <!-- 页面点击小红心 -->
+  <script type="text/javascript" src="/js/src/love.js"></script>
+  <!---->
+</body>
+</html>
