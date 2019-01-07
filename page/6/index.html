@@ -1180,7 +1180,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.5k
+                  1.7k
                 </span>
               
 
@@ -1196,7 +1196,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  5
+                  7
                 </span>
               
             </div>
@@ -1219,7 +1219,8 @@
       
         
           
-          还记得我们在初始介绍线程池的时候提到了Executor框架的体系，到现在为止我们只有一个没有介绍，与ThreadPoolExecutor一样继承与AbstractExecutorService的ForkJoinPool.Fork/Join框架是Java7提供了的一个用于并行执行任务的框架， 是一个把
+          这一节开始我们正式来介绍JUC集合类。我们按照List、Set、Map、Queue的顺序来进行介绍。这一节我们来看一下CopyOnWriteArrayList。
+1 CopyOnWriteArrayList介绍CopyOnWriteArrayList是ArrayList 的一个线程安全的变体，其中所
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1369,7 +1370,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.7k
+                  1.5k
                 </span>
               
 
@@ -1385,7 +1386,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  7
+                  5
                 </span>
               
             </div>
@@ -1408,8 +1409,7 @@
       
         
           
-          这一节开始我们正式来介绍JUC集合类。我们按照List、Set、Map、Queue的顺序来进行介绍。这一节我们来看一下CopyOnWriteArrayList。
-1 CopyOnWriteArrayList介绍CopyOnWriteArrayList是ArrayList 的一个线程安全的变体，其中所
+          还记得我们在初始介绍线程池的时候提到了Executor框架的体系，到现在为止我们只有一个没有介绍，与ThreadPoolExecutor一样继承与AbstractExecutorService的ForkJoinPool.Fork/Join框架是Java7提供了的一个用于并行执行任务的框架， 是一个把
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -2041,7 +2041,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/579efe75.html">
+    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/58721c94.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
@@ -2060,7 +2060,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/posts/579efe75.html" itemprop="url">java并发编程（十三）----(JUC原子类)引用类型介绍（CAS和ABA的介绍）</a></h2>
+                <a class="post-title-link" href="/posts/58721c94.html" itemprop="url">java并发编程（十四）----(JUC原子类)对象的属性修改类型介绍</a></h2>
         
 
         <div class="post-meta">
@@ -2128,7 +2128,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  4.1k
+                  1.2k
                 </span>
               
 
@@ -2144,7 +2144,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  15
+                  5
                 </span>
               
             </div>
@@ -2167,11 +2167,12 @@
       
         
           
-          这一节我们将探讨引用类型原子类：AtomicReference, AtomicStampedRerence, AtomicMarkableReference。AtomicReference的使用非常简单，根据API我们就可以知道如何用，但是后两个从名字上看起来感觉是很难的样子，其实只是他的样子长得有
+          今天我们介绍原子类的最后一个类型—-对象的属性修改类型: AtomicIntegerFieldUpdater,AtomicLongFieldUpdater,AtomicReferenceFieldUpdater。有了这几个方法，普通的变量也能享受原子操作了。
+1 开胃菜由API我们知道AtomicI
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/posts/579efe75.html#more" rel="contents">
+            <a class="btn" href="/posts/58721c94.html#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2414,6 +2415,26 @@
 </script>
 
         
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
 
 
 
