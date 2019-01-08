@@ -118,7 +118,7 @@
 
 
 
-  <meta name="keywords" content="学习,">
+  <meta name="keywords" content="系统维护,">
 
 
 
@@ -131,21 +131,18 @@
 
 
 
-<meta name="description" content="1、 基础知识有关RabbitMQ,RocketMQ,kafka的区别这个网上很多，了解一下区别性能，分清什么场景使用。分布式环境下的消息中间件Kafka做的比较不错，在分布式环境下使用频繁，我也不免其俗钻研一下Kafka的使用。 任何消息队列都遵循AMQP协议，AMQP协议(Advanced Message Queuing Protocol,高级消息队列协议）AMQP是一个标准开放的应用层的消息">
-<meta name="keywords" content="学习">
+<meta name="description" content="在家里玩虚拟机，不时发现因为多台机器时间不同步问题导致Hbase无法使用，所以查询了一下linux配置同步互联网时间。 在系统中查看时间可以使用date命令： 12[hadoop@hadoopmaster conf]$ date2019年 01月 08日 星期二 00:12:52 CST date显示的是系统时间，那如何让硬件，比如CPU也去同步这个时间呢，linux提供了hwclock命令： 1">
+<meta name="keywords" content="系统维护">
 <meta property="og:type" content="article">
-<meta property="og:title" content="kafka基本知识入门（1）">
-<meta property="og:url" content="https://blog.rickiyang.cn/posts/2ea97000.html">
+<meta property="og:title" content="linux时间配置同步">
+<meta property="og:url" content="https://blog.rickiyang.cn/posts/f1a04f3f.html">
 <meta property="og:site_name" content="Rickiyang&#39;s blog">
-<meta property="og:description" content="1、 基础知识有关RabbitMQ,RocketMQ,kafka的区别这个网上很多，了解一下区别性能，分清什么场景使用。分布式环境下的消息中间件Kafka做的比较不错，在分布式环境下使用频繁，我也不免其俗钻研一下Kafka的使用。 任何消息队列都遵循AMQP协议，AMQP协议(Advanced Message Queuing Protocol,高级消息队列协议）AMQP是一个标准开放的应用层的消息">
+<meta property="og:description" content="在家里玩虚拟机，不时发现因为多台机器时间不同步问题导致Hbase无法使用，所以查询了一下linux配置同步互联网时间。 在系统中查看时间可以使用date命令： 12[hadoop@hadoopmaster conf]$ date2019年 01月 08日 星期二 00:12:52 CST date显示的是系统时间，那如何让硬件，比如CPU也去同步这个时间呢，linux提供了hwclock命令： 1">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://i.imgur.com/lFcOzFz.jpg">
-<meta property="og:image" content="https://i.imgur.com/2Eg7VQH.png">
-<meta property="og:updated_time" content="2018-12-06T02:53:23.041Z">
+<meta property="og:updated_time" content="2019-01-08T01:48:12.022Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="kafka基本知识入门（1）">
-<meta name="twitter:description" content="1、 基础知识有关RabbitMQ,RocketMQ,kafka的区别这个网上很多，了解一下区别性能，分清什么场景使用。分布式环境下的消息中间件Kafka做的比较不错，在分布式环境下使用频繁，我也不免其俗钻研一下Kafka的使用。 任何消息队列都遵循AMQP协议，AMQP协议(Advanced Message Queuing Protocol,高级消息队列协议）AMQP是一个标准开放的应用层的消息">
-<meta name="twitter:image" content="https://i.imgur.com/lFcOzFz.jpg">
+<meta name="twitter:title" content="linux时间配置同步">
+<meta name="twitter:description" content="在家里玩虚拟机，不时发现因为多台机器时间不同步问题导致Hbase无法使用，所以查询了一下linux配置同步互联网时间。 在系统中查看时间可以使用date命令： 12[hadoop@hadoopmaster conf]$ date2019年 01月 08日 星期二 00:12:52 CST date显示的是系统时间，那如何让硬件，比如CPU也去同步这个时间呢，linux提供了hwclock命令： 1">
 
 
 
@@ -175,13 +172,13 @@
 
 
 
-  <link rel="canonical" href="https://blog.rickiyang.cn/posts/2ea97000.html">
+  <link rel="canonical" href="https://blog.rickiyang.cn/posts/f1a04f3f.html">
 
 
 
 
 
-  <title>kafka基本知识入门（1） | Rickiyang's blog</title>
+  <title>linux时间配置同步 | Rickiyang's blog</title>
   
 
 
@@ -340,7 +337,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/2ea97000.html">
+    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/f1a04f3f.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
@@ -357,7 +354,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">kafka基本知识入门（1）</h2>
+          <h2 class="post-title" itemprop="name headline">linux时间配置同步</h2>
         
 
         <div class="post-meta">
@@ -369,8 +366,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-07T15:15:32+08:00">
-                2018-04-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-08T23:15:45+08:00">
+                2019-01-08
               </time>
             
 
@@ -392,8 +389,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/kafka/" itemprop="url" rel="index">
-                    <span itemprop="name">kafka</span>
+                  <a href="/categories/linux系统维护/" itemprop="url" rel="index">
+                    <span itemprop="name">linux系统维护</span>
                   </a>
                 </span>
 
@@ -409,7 +406,7 @@
 
           
           
-             <span id="/posts/2ea97000.html" class="leancloud_visitors" data-flag-title="kafka基本知识入门（1）">
+             <span id="/posts/f1a04f3f.html" class="leancloud_visitors" data-flag-title="linux时间配置同步">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -442,7 +439,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2.1k
+                  394
                 </span>
               
 
@@ -458,7 +455,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  7
+                  1
                 </span>
               
             </div>
@@ -479,70 +476,26 @@
       
 
       
-        <h4 id="1、-基础知识"><a href="#1、-基础知识" class="headerlink" title="1、 基础知识"></a>1、 基础知识</h4><p>有关RabbitMQ,RocketMQ,kafka的区别这个网上很多，了解一下区别性能，分清什么场景使用。分布式环境下的消息中间件Kafka做的比较不错，在分布式环境下使用频繁，我也不免其俗钻研一下Kafka的使用。</p>
-<p>任何消息队列都遵循AMQP协议，AMQP协议(Advanced Message Queuing Protocol,高级消息队列协议）<br>AMQP是一个标准开放的应用层的消息中间件（Message Oriented Middleware）协议。AMQP定义了通过网络发送的字节流的数据格式。因此兼容性非常好，任何实现AMQP协议的程序都可以和与AMQP协议兼容的其他程序交互，可以很容易做到跨语言，跨平台。</p>
-<p>Kafka是一个分布式的、可分区的、可复制的消息系统。它提供了普通消息系统的功能，但具有自己独特的设计。</p>
-<p>我们先看一些基本的概念：</p>
-<ol>
-<li>消费者：（Consumer）：从消息队列中请求消息的客户端应用程序</li>
-<li>生产者：（Producer） ：向broker发布消息的应用程序</li>
-<li>AMQP服务端（broker）：用来接收生产者发送的消息并将这些消息路由给服务器中的队列，便于fafka将生产者发送的消息，动态的添加到磁盘并给每一条消息一个偏移量，所以对于kafka一个broker就是一个应用程序的实例</li>
-<li>主题（Topic）：一个主题类似新闻中的体育、娱乐、教育等分类概念，在实际工程中通常一个业务一个主题。</li>
-<li>分区（Partition）：一个Topic中的消息数据按照多个分区组织，分区是kafka消息队列组织的最小单位，一个分区可以看作是一个FIFO（ First Input First Output的缩写，先入先出队列）的队列。</li>
-</ol>
-<p>kafka将消息以topic为单位进行归纳，每个broker其实就是一个应用服务器，一个broker中会有很多的topic，每个topic其实就是不同的服务需要消息的消息的聚集地。因为每个topic其实会很大，所以就出现了partition个概念，将每个topic的消息分区存储。</p>
-<p><img src="https://i.imgur.com/lFcOzFz.jpg" alt=""></p>
-<p>kafka中的消费者有一个分组的概念，<strong>每个consumer属于一个consumer group;反过来说,每个group中可以有多个consumer.发送到Topic的消息,只会被订阅此Topic的每个group中的一个consumer消费（而不是该group下的所有consumer，一定要注意这点）</strong></p>
-<ul>
-<li>如果所有的consumer都具有相同的group,这种情况和queue模式很像;消息将会在consumers之间负载均衡.</li>
-<li>如果所有的consumer都具有不同的group,那这就是”发布-订阅”;消息将会广播给所有的消费者.</li>
-</ul>
-<p>在kafka中,<strong>一个partition中的消息只会被group中的一个consumer消费</strong>;每个group中consumer消息消费互相独立;我们可以认为一个group是一个”订阅”者,一个Topic中的每个partions,只会被一个”订阅者”中的一个consumer消费,不过一个consumer可以消费多个partitions中的消息.</p>
-<p>分布式环境中，Kafka默认使用zookeeper作为注册中心，kafka集群几乎不维护任何consumer和producer的信息状态，这些信息都由zookeeper保存，所以consumer和producer非常的轻量级，随时注册和离开都不会对Kafka造成震荡。</p>
-<p><strong>producer和consumer通过zookeeper去发现topic，并且通过zookeeper来协调生产和消费的过程。</strong><br>producer、consumer和broker均采用TCP连接，通信基于NIO实现。Producer和consumer能自动检测broker的增加和减少。</p>
-<p>上面图中没有说明partition的组成，partition物理上由多个<strong>segment</strong>组成，每一个segment 数据文件都有一个索引文件对应。每个partition都由一系列有序的、不可变的消息组成，这些消息被连续的追加到partition中。partition中的每个消息都有一个连续的序列号叫做<strong>offset</strong>,用于partition唯一标识一条消息.</p>
-<p>相比传统的消息系统，Kafka可以很好的保证有序性。</p>
-<p>传统的队列在服务器上保存有序的消息，如果多个consumers同时从这个服务器消费消息，服务器就会以消息存储的顺序向consumer分发消息。虽然服务器按顺序发布消息，但是消息是被异步的分发到各consumer上，所以当消息到达时可能已经失去了原来的顺序，这意味着并发消费将导致顺序错乱。为了避免故障，这样的消息系统通常使用“专用consumer”的概念，其实就是只允许一个消费者消费消息，当然这就意味着失去了并发性。</p>
-<p>在这方面Kafka做的更好，通过分区的概念，Kafka可以在多个consumer组并发的情况下提供较好的有序性和负载均衡。将每个分区分只分发给一个consumer组，这样一个分区就只被这个组的一个consumer消费，就可以顺序的消费这个分区的消息。因为有多个分区，依然可以在多个consumer组之间进行负载均衡。注意consumer组的数量不能多于分区的数量，也就是有多少分区就允许多少并发消费。</p>
-<p>Kafka只能保证一个分区之内消息的有序性，在不同的分区之间是不可以的，这已经可以满足大部分应用的需求。如果需要topic中所有消息的有序性，那就只能让这个topic只有一个分区，当然也就只有一个consumer组消费它。</p>
-<h5 id="1-1、-message-被分配到-partition-的过程"><a href="#1-1、-message-被分配到-partition-的过程" class="headerlink" title="1.1、 message 被分配到 partition 的过程"></a>1.1、 message 被分配到 partition 的过程</h5><p>每一条消息被发送到broker时，会根据paritition规则（有两种基本的策略，一是采用Key Hash算法，一是采用Round Robin算法）选择被存储到哪一个partition。如果partition规则设置的合理，所有消息可以均匀分布到不同的partition里，这样就实现了水平扩展。（如果一个topic对应一个文件，那这个文件所在的机器I/O将会成为这个topic的性能瓶颈，而partition解决了这个问题）。</p>
-<p>在发送一条消息时，可以指定这条消息的key，producer根据这个key和partition机制来判断将这条消息发送到哪个parition。paritition机制可以通过指定producer的paritition.class这一参数来指定，该class必须实现kafka.producer.Partitioner接口。</p>
-<h5 id="1-2、-segment文件存储结构"><a href="#1-2、-segment文件存储结构" class="headerlink" title="1.2、 segment文件存储结构"></a>1.2、 segment文件存储结构</h5><p>segment file由2大部分组成，分别为index file和data file，这两个文件一一对应，成对出现，后缀”.index”和“.log”分别表示为segment索引文件、数据文件。</p>
-<p>segment文件命名规则：partion全局的第一个segment从0开始，后续每个segment文件名为上一个segment文件最后一条消息的offset值。数值最大为64位long大小，19位数字字符长度，没有数字用0填充。</p>
-<p>文件类似于下面这种形式：</p>
-<pre><code>0000000000000000001.index
-0000000000000000001.log
-0000000000000036581.index
-0000000000000036581.log
-0000000000000061905.index
-0000000000000061905.log
-</code></pre><p>index和data-file的对应关系如下：</p>
-<p><img src="https://i.imgur.com/2Eg7VQH.png" alt=""></p>
-<p>index file 存储索引文件，文件中的元数据指向对应数据文件中message的物理偏移地址。</p>
-<h4 id="2、-Kafka单机环境搭建"><a href="#2、-Kafka单机环境搭建" class="headerlink" title="2、 Kafka单机环境搭建"></a>2、 Kafka单机环境搭建</h4><p>下载kafka，解压缩</p>
-<p>配置环境变量：</p>
-<pre><code>export KAFKA_HOME=/usr/local/kafka                                                                                                                                                                        
-export PATH=$PATH:$KAFKA_HOME/bin 
-
-重启生效
-source /etc/profile
-</code></pre><p>Kafka用到了zeekeeper，所以需要先启动zookeeper，没有安装的需要先安装zk，安装好了以后我们可以启动，我们先来实现单机版的kafka，先启动一个单单例的zk服务，可以在命令的结尾加个&amp;符号，这样就可以启动后离开控制台。</p>
-<pre><code># bin/zookeeper-server-start.sh config/zookeeper.properties &amp;
-</code></pre><p>再启动kafka：</p>
-<pre><code># bin/kafka-server-start.sh config/server.properties
-</code></pre><p>创建topic：</p>
-<pre><code># bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test
-</code></pre><p>创建producer，可以在控制台手动输入消息：</p>
-<pre><code># bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test 
-
-this is a message
-</code></pre><p>ctrl+c 可以退出发送。</p>
-<p>创建consumer：</p>
-<pre><code># bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic test --from-beginning
-
-this is a message
-会收到刚才的发送的消息
-</code></pre><p>我们的一个简单的单机环境就搭建好了。</p>
+        <p>在家里玩虚拟机，不时发现因为多台机器时间不同步问题导致Hbase无法使用，所以查询了一下linux配置同步互联网时间。</p>
+<p>在系统中查看时间可以使用date命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[hadoop@hadoopmaster conf]$ date</span><br><span class="line">2019年 01月 08日 星期二 00:12:52 CST</span><br></pre></td></tr></table></figure>
+<p>date显示的是系统时间，那如何让硬件，比如CPU也去同步这个时间呢，linux提供了hwclock命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>显示硬件时间</span><br><span class="line">[root@hadoopmaster conf]# hwclock</span><br><span class="line">2019年01月08日 星期二 00时15分54秒  -0.756066 seconds</span><br><span class="line"><span class="meta">#</span>将系统时间写入到硬件中去</span><br><span class="line">[root@hadoopmaster conf]# hwclock -w</span><br></pre></td></tr></table></figure>
+<p>linux提供了同步互联网时间的工具：ntpdate。ntpdate是一个linux时间同步工具，安装ntpdate：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y ntpdate</span><br></pre></td></tr></table></figure>
+<p>使用虐ntpdate同时时间：</p>
+<p>输入:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoopmaster conf]# ntpdate ntp1.aliyun.com</span><br><span class="line"> 8 Jan 00:19:41 ntpdate[24074]: adjust time server 120.25.115.20 offset -0.014956 sec</span><br></pre></td></tr></table></figure>
+<p>这是阿里云提供的授时中心，还有一些可以用的：</p>
+<p>time.nuri.net  </p>
+<p>同步完成以后，将时间写入硬件中:</p>
+<p>hwclock -w</p>
+<p>执行以后你可以查看系统时间是否是当前最新时间：date。</p>
+<p>以上就是更新系统时间的方法，当然，如果我们想省事，可以写个定时任务去拉最新时间：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab -e</span><br></pre></td></tr></table></figure>
+<p>打开定时任务列表，添加我们的定时任务：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* */1 * * * root ntpdate ntp1.aliyun.com;hwclock -w</span><br></pre></td></tr></table></figure>
+<p>上面的定时任务表示：每一小时去阿里云授时中心同步一次，然后写入硬件。当然你也可以将频次调的更快一些。</p>
 
       
     </div>
@@ -559,12 +512,12 @@ this is a message
   <!-- JS库 sweetalert 可修改路径 -->
   <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <p><span>本文标题:</span><a href="/posts/2ea97000.html">kafka基本知识入门（1）</a></p>
+  <p><span>本文标题:</span><a href="/posts/f1a04f3f.html">linux时间配置同步</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Rickiyang 的个人博客">Rickiyang</a></p>
-  <p><span>发布时间:</span>2018年04月07日 - 15:15</p>
-  <p><span>最后更新:</span>2018年12月06日 - 10:53</p>
-  <p><span>原始链接:</span><a href="/posts/2ea97000.html" title="kafka基本知识入门（1）">https://blog.rickiyang.cn/posts/2ea97000.html</a>
-    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.rickiyang.cn/posts/2ea97000.html" aria-label="复制成功！"></i></span>
+  <p><span>发布时间:</span>2019年01月08日 - 23:15</p>
+  <p><span>最后更新:</span>2019年01月08日 - 09:48</p>
+  <p><span>原始链接:</span><a href="/posts/f1a04f3f.html" title="linux时间配置同步">https://blog.rickiyang.cn/posts/f1a04f3f.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.rickiyang.cn/posts/f1a04f3f.html" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
 </div>
@@ -607,7 +560,7 @@ this is a message
       
         <div class="post-tags">
           
-            <a href="/tags/学习/" rel="tag"> <i class="”fa" fa-tag”=""></i> 学习</a>
+            <a href="/tags/系统维护/" rel="tag"> <i class="”fa" fa-tag”=""></i> 系统维护</a>
           
         </div>
       
@@ -620,8 +573,8 @@ this is a message
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/c40dabb2.html" rel="next" title="hive安装">
-                <i class="fa fa-chevron-left"></i> hive安装
+              <a href="/posts/4ceb55a2.html" rel="next" title="html转图片-wkhtmltopdf使用">
+                <i class="fa fa-chevron-left"></i> html转图片-wkhtmltopdf使用
               </a>
             
           </div>
@@ -629,10 +582,6 @@ this is a message
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/posts/a74a883e.html" rel="prev" title="kafka集群模式安装（2）">
-                kafka集群模式安装（2） <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -710,17 +659,8 @@ var jiathis_config={
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -817,22 +757,6 @@ var jiathis_config={
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、-基础知识"><span class="nav-number">1.</span> <span class="nav-text">1、 基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1、-message-被分配到-partition-的过程"><span class="nav-number">1.1.</span> <span class="nav-text">1.1、 message 被分配到 partition 的过程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2、-segment文件存储结构"><span class="nav-number">1.2.</span> <span class="nav-text">1.2、 segment文件存储结构</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、-Kafka单机环境搭建"><span class="nav-number">2.</span> <span class="nav-text">2、 Kafka单机环境搭建</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
