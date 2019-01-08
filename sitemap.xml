@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.rickiyang.cn/tags/index.html</loc>
+    
+    <lastmod>2019-01-08T09:52:23.428Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.rickiyang.cn/categories/index.html</loc>
+    
+    <lastmod>2019-01-08T09:49:00.084Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.rickiyang.cn/posts/f8249caa.html</loc>
     
     <lastmod>2019-01-08T02:14:33.310Z</lastmod>
@@ -30,6 +44,13 @@
   </url>
   
   <url>
+    <loc>http://blog.rickiyang.cn/posts/64535299.html</loc>
+    
+    <lastmod>2019-01-07T01:48:18.201Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.rickiyang.cn/posts/596588bb.html</loc>
     
     <lastmod>2019-01-07T01:48:18.201Z</lastmod>
@@ -38,13 +59,6 @@
   
   <url>
     <loc>http://blog.rickiyang.cn/posts/c3007ea1.html</loc>
-    
-    <lastmod>2019-01-07T01:48:18.201Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.rickiyang.cn/posts/64535299.html</loc>
     
     <lastmod>2019-01-07T01:48:18.201Z</lastmod>
     
@@ -163,14 +177,14 @@
   </url>
   
   <url>
-    <loc>http://blog.rickiyang.cn/posts/d4452255.html</loc>
+    <loc>http://blog.rickiyang.cn/posts/5f43c4fb.html</loc>
     
     <lastmod>2018-12-13T02:14:20.614Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.rickiyang.cn/posts/5f43c4fb.html</loc>
+    <loc>http://blog.rickiyang.cn/posts/d4452255.html</loc>
     
     <lastmod>2018-12-13T02:14:20.614Z</lastmod>
     
@@ -191,14 +205,14 @@
   </url>
   
   <url>
-    <loc>http://blog.rickiyang.cn/posts/9d4156ed.html</loc>
+    <loc>http://blog.rickiyang.cn/posts/a5e8b95c.html</loc>
     
     <lastmod>2018-12-13T02:14:20.611Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.rickiyang.cn/posts/a5e8b95c.html</loc>
+    <loc>http://blog.rickiyang.cn/posts/9d4156ed.html</loc>
     
     <lastmod>2018-12-13T02:14:20.611Z</lastmod>
     
@@ -212,6 +226,13 @@
   </url>
   
   <url>
+    <loc>http://blog.rickiyang.cn/posts/b8ffaf86.html</loc>
+    
+    <lastmod>2018-12-13T02:14:20.610Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.rickiyang.cn/posts/c689ad69.html</loc>
     
     <lastmod>2018-12-13T02:14:20.610Z</lastmod>
@@ -219,9 +240,9 @@
   </url>
   
   <url>
-    <loc>http://blog.rickiyang.cn/posts/b8ffaf86.html</loc>
+    <loc>http://blog.rickiyang.cn/posts/a713f481.html</loc>
     
-    <lastmod>2018-12-13T02:14:20.610Z</lastmod>
+    <lastmod>2018-12-13T02:14:20.609Z</lastmod>
     
   </url>
   
@@ -240,21 +261,14 @@
   </url>
   
   <url>
-    <loc>http://blog.rickiyang.cn/posts/a713f481.html</loc>
-    
-    <lastmod>2018-12-13T02:14:20.609Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.rickiyang.cn/posts/84e37d27.html</loc>
+    <loc>http://blog.rickiyang.cn/posts/d538d95c.html</loc>
     
     <lastmod>2018-12-13T02:14:20.608Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.rickiyang.cn/posts/d538d95c.html</loc>
+    <loc>http://blog.rickiyang.cn/posts/84e37d27.html</loc>
     
     <lastmod>2018-12-13T02:14:20.608Z</lastmod>
     
@@ -282,6 +296,13 @@
   </url>
   
   <url>
+    <loc>http://blog.rickiyang.cn/posts/a74a883e.html</loc>
+    
+    <lastmod>2018-12-06T02:53:23.042Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.rickiyang.cn/posts/34bc78bf.html</loc>
     
     <lastmod>2018-12-06T02:53:23.042Z</lastmod>
@@ -290,13 +311,6 @@
   
   <url>
     <loc>http://blog.rickiyang.cn/posts/b11b90c4.html</loc>
-    
-    <lastmod>2018-12-06T02:53:23.042Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.rickiyang.cn/posts/a74a883e.html</loc>
     
     <lastmod>2018-12-06T02:53:23.042Z</lastmod>
     
@@ -485,14 +499,14 @@
   </url>
   
   <url>
-    <loc>http://blog.rickiyang.cn/posts/5f5c40c1.html</loc>
+    <loc>http://blog.rickiyang.cn/posts/31315379.html</loc>
     
     <lastmod>2018-12-04T09:28:26.154Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.rickiyang.cn/posts/31315379.html</loc>
+    <loc>http://blog.rickiyang.cn/posts/5f5c40c1.html</loc>
     
     <lastmod>2018-12-04T09:28:26.154Z</lastmod>
     
@@ -513,14 +527,14 @@
   </url>
   
   <url>
-    <loc>http://blog.rickiyang.cn/posts/d48afec7.html</loc>
+    <loc>http://blog.rickiyang.cn/posts/2b5f20ba.html</loc>
     
     <lastmod>2018-12-04T09:28:26.151Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.rickiyang.cn/posts/2b5f20ba.html</loc>
+    <loc>http://blog.rickiyang.cn/posts/d48afec7.html</loc>
     
     <lastmod>2018-12-04T09:28:26.151Z</lastmod>
     
@@ -534,14 +548,14 @@
   </url>
   
   <url>
-    <loc>http://blog.rickiyang.cn/posts/7ab746e7.html</loc>
+    <loc>http://blog.rickiyang.cn/posts/87e472dc.html</loc>
     
     <lastmod>2018-12-04T09:28:26.149Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.rickiyang.cn/posts/87e472dc.html</loc>
+    <loc>http://blog.rickiyang.cn/posts/7ab746e7.html</loc>
     
     <lastmod>2018-12-04T09:28:26.149Z</lastmod>
     
@@ -597,13 +611,6 @@
   </url>
   
   <url>
-    <loc>http://blog.rickiyang.cn/posts/ec039d95.html</loc>
-    
-    <lastmod>2018-12-04T09:28:26.143Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.rickiyang.cn/posts/f5e73779.html</loc>
     
     <lastmod>2018-12-04T09:28:26.143Z</lastmod>
@@ -611,14 +618,21 @@
   </url>
   
   <url>
-    <loc>http://blog.rickiyang.cn/posts/c00aa264.html</loc>
+    <loc>http://blog.rickiyang.cn/posts/ec039d95.html</loc>
+    
+    <lastmod>2018-12-04T09:28:26.143Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.rickiyang.cn/posts/de2aa32e.html</loc>
     
     <lastmod>2018-12-04T09:28:26.142Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.rickiyang.cn/posts/de2aa32e.html</loc>
+    <loc>http://blog.rickiyang.cn/posts/c00aa264.html</loc>
     
     <lastmod>2018-12-04T09:28:26.142Z</lastmod>
     
@@ -639,14 +653,14 @@
   </url>
   
   <url>
-    <loc>http://blog.rickiyang.cn/posts/f9388b3f.html</loc>
+    <loc>http://blog.rickiyang.cn/posts/8ca24763.html</loc>
     
     <lastmod>2018-12-04T09:28:26.140Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.rickiyang.cn/posts/8ca24763.html</loc>
+    <loc>http://blog.rickiyang.cn/posts/f9388b3f.html</loc>
     
     <lastmod>2018-12-04T09:28:26.140Z</lastmod>
     
@@ -691,20 +705,6 @@
     <loc>http://blog.rickiyang.cn/posts/413284da.html</loc>
     
     <lastmod>2018-12-04T09:28:26.135Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.rickiyang.cn/tags/index.html</loc>
-    
-    <lastmod>2018-12-03T12:36:52.160Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.rickiyang.cn/categories/index.html</loc>
-    
-    <lastmod>2018-12-03T12:36:52.157Z</lastmod>
     
   </url>
   
