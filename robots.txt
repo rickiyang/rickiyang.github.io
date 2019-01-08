@@ -1,4 +1,4 @@
-ser-agent: *
+user-agent: *
 Allow: /
 Allow: /archives/
 Allow: /categories/
