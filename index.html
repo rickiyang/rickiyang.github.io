@@ -90,7 +90,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|FZSongKeBenXiuKai:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -434,7 +434,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  394
+                  393
                 </span>
               
 
@@ -1090,6 +1090,207 @@ du（1）基本功能递归查看文件夹下所有文件的大小（2）常用�
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/posts/a996d8cf.html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+    </div>
+
+    
+
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/f8249caa.html">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Rickiyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/adele.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rickiyang's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/posts/f8249caa.html" itemprop="url">Log4j日志追踪中加入tracedId</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-12T10:24:32+08:00">
+                2018-12-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/java开发工具类/" itemprop="url" rel="index">
+                    <span itemprop="name">java开发工具类</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/posts/f8249caa.html" class="leancloud_visitors" data-flag-title="Log4j日志追踪中加入tracedId">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>℃</span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          Java应用开发过程中，每一次请求从头到尾流转的过程如何通过一个唯一标识标记处来整个调用链路上的所有日志记录，对于我们去追踪当前次请求发生的问题是非常有益的。在我们的应用中一般使用Log4J去收集日志，Log4J中提供了MDC类来存放对象，MDC中的对象，可以被同一线程中执行的代码访问到，当前线程的
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/posts/f8249caa.html#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2175,220 +2376,6 @@ CREATE (DATABASE|SCHEMA) [IF NOT EXISTS] database_name
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/d946acf8.html">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Rickiyang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/adele.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Rickiyang's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/posts/d946acf8.html" itemprop="url">hiveserver2使用以及java连接方式</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-22T23:12:33+08:00">
-                2018-11-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/大数据学习/" itemprop="url" rel="index">
-                    <span itemprop="name">大数据学习</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/大数据学习/hive/" itemprop="url" rel="index">
-                    <span itemprop="name">hive</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/posts/d946acf8.html" class="leancloud_visitors" data-flag-title="hiveserver2使用以及java连接方式">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">热度&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-                 <span>℃</span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                  <span class="post-meta-divider">|</span>
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.6k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  7
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          我们知道hive的数据是存储在HDFS上的，hive只是充当一个客户端，实际上是去HDFS执行mapReduce命令。在我们第一次安装hive的时候，介绍过使用bin目录下的”hive”命令去启动hive客户端程序：
-
-那么生产环境下我们肯定不能在服务器上使用命令行的方式去操作hive，在hive的
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/posts/d946acf8.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    <div>
-      
-    </div>
-
-    
-
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2441,7 +2428,7 @@ CREATE (DATABASE|SCHEMA) [IF NOT EXISTS] database_name
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">98</span>
+                  <span class="site-state-item-count">99</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2451,7 +2438,7 @@ CREATE (DATABASE|SCHEMA) [IF NOT EXISTS] database_name
               
               
               <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
+                <a href="/tags/index.html">
                   <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
@@ -2567,7 +2554,7 @@ CREATE (DATABASE|SCHEMA) [IF NOT EXISTS] database_name
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共230.6k字</span>
+  <span class="post-count">博客全站共231.6k字</span>
 </div>
 
 <script>
