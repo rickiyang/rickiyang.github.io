@@ -2,6 +2,15 @@
 
 
 
+
+
+
+
+
+
+
+
+
   
 
 
@@ -9,38 +18,38 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
 
 
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-center-circle.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -64,12 +73,6 @@
   
 
   
-    
-      
-    
-
-    
-  
 
   
     
@@ -90,7 +93,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|FZSongKeBenXiuKai:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
   
 
 
@@ -98,70 +101,40 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
 
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/adele.ico?v=5.1.4">
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/adele.ico?v=5.1.4">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/adele.ico?v=6.7.0">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/adele.ico?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/adele.ico?v=6.7.0">
 
 
-  <link rel="mask-icon" href="/images/adele.ico?v=5.1.4" color="#222">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/adele.ico?v=6.7.0">
 
 
-
-
-
-  <meta name="keywords" content="大数据,">
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="Rickiyang's blog" type="application/atom+xml">
+  <link rel="mask-icon" href="/images/adele.ico?v=6.7.0" color="#222">
 
 
 
 
 
 
-<meta name="description" content="hive默认本地存储是将元数据存储在内嵌的Derby数据库中，但是生产环境中没有人会用本地模式，一般remote模式使用MYSQL数据库，我们在hive-site.xml中也是配置的MYSQL数据库来存储元数据，下面就来看一下在MYSQL中是如何存储这些元数据信息的。 在本地我们连接MYSQL可以看到hive元数据存储创建的表还真的不少：  1.hive表和视图相关的元数据表主要有TBLS、TAB">
-<meta name="keywords" content="大数据">
-<meta property="og:type" content="article">
-<meta property="og:title" content="hive元数据存储-MYSQL数据库表">
-<meta property="og:url" content="https://blog.rickiyang.cn/posts/dfd44a4f.html">
-<meta property="og:site_name" content="Rickiyang&#39;s blog">
-<meta property="og:description" content="hive默认本地存储是将元数据存储在内嵌的Derby数据库中，但是生产环境中没有人会用本地模式，一般remote模式使用MYSQL数据库，我们在hive-site.xml中也是配置的MYSQL数据库来存储元数据，下面就来看一下在MYSQL中是如何存储这些元数据信息的。 在本地我们连接MYSQL可以看到hive元数据存储创建的表还真的不少：  1.hive表和视图相关的元数据表主要有TBLS、TAB">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://i.imgur.com/n08NQD4.jpg">
-<meta property="og:updated_time" content="2019-01-02T11:42:40.842Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="hive元数据存储-MYSQL数据库表">
-<meta name="twitter:description" content="hive默认本地存储是将元数据存储在内嵌的Derby数据库中，但是生产环境中没有人会用本地模式，一般remote模式使用MYSQL数据库，我们在hive-site.xml中也是配置的MYSQL数据库来存储元数据，下面就来看一下在MYSQL中是如何存储这些元数据信息的。 在本地我们连接MYSQL可以看到hive元数据存储创建的表还真的不少：  1.hive表和视图相关的元数据表主要有TBLS、TAB">
-<meta name="twitter:image" content="https://i.imgur.com/n08NQD4.jpg">
 
-
-
-<script type="text/javascript" id="hexo.configurations">
+<script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
     scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
-    fancybox: true,
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
     algolia: {
       applicationID: '',
       apiKey: '',
@@ -173,12 +146,42 @@
 </script>
 
 
-
-  <link rel="canonical" href="https://blog.rickiyang.cn/posts/dfd44a4f.html">
-
+  
 
 
 
+
+  <meta name="description" content="hive默认本地存储是将元数据存储在内嵌的Derby数据库中，但是生产环境中没有人会用本地模式，一般remote模式使用MYSQL数据库，我们在hive-site.xml中也是配置的MYSQL数据库来存储元数据，下面就来看一下在MYSQL中是如何存储这些元数据信息的。 在本地我们连接MYSQL可以看到hive元数据存储创建的表还真的不少：   1.hive表和视图相关的元数据表 主要有TBLS、T">
+<meta name="keywords" content="大数据">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hive元数据存储-MYSQL数据库表">
+<meta property="og:url" content="http://blog.rickiyang.cn/posts/dfd44a4f.html">
+<meta property="og:site_name" content="Rickiyang&#39;s blog">
+<meta property="og:description" content="hive默认本地存储是将元数据存储在内嵌的Derby数据库中，但是生产环境中没有人会用本地模式，一般remote模式使用MYSQL数据库，我们在hive-site.xml中也是配置的MYSQL数据库来存储元数据，下面就来看一下在MYSQL中是如何存储这些元数据信息的。 在本地我们连接MYSQL可以看到hive元数据存储创建的表还真的不少：   1.hive表和视图相关的元数据表 主要有TBLS、T">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.imgur.com/n08NQD4.jpg">
+<meta property="og:updated_time" content="2019-01-02T11:42:40.842Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hive元数据存储-MYSQL数据库表">
+<meta name="twitter:description" content="hive默认本地存储是将元数据存储在内嵌的Derby数据库中，但是生产环境中没有人会用本地模式，一般remote模式使用MYSQL数据库，我们在hive-site.xml中也是配置的MYSQL数据库来存储元数据，下面就来看一下在MYSQL中是如何存储这些元数据信息的。 在本地我们连接MYSQL可以看到hive元数据存储创建的表还真的不少：   1.hive表和视图相关的元数据表 主要有TBLS、T">
+<meta name="twitter:image" content="https://i.imgur.com/n08NQD4.jpg">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Rickiyang's blog" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://blog.rickiyang.cn/posts/dfd44a4f.html">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
 
   <title>hive元数据存储-MYSQL数据库表 | Rickiyang's blog</title>
   
@@ -189,6 +192,35 @@
 
 
 
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
 </head>
 
@@ -204,7 +236,7 @@
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
+  <div class="site-meta">
     
 
     <div class="custom-logo-site-title">
@@ -214,13 +246,16 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
+    
       
-        <h1 class="site-subtitle" itemprop="description"></h1>
+        <h1 class="site-subtitle" itemprop="description">java,大数据,分布式组件</h1>
       
+    
+    
   </div>
 
   <div class="site-nav-toggle">
-    <button>
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -228,66 +263,94 @@
   </div>
 </div>
 
-<nav class="site-nav">
-  
 
+
+<nav class="site-nav">
   
     <ul id="menu" class="menu">
       
         
-        <li class="menu-item menu-item-首页">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            首页
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-标签">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
-            
-            标签
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-分类">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
-            
-            分类
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-归档">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            归档
-          </a>
-        </li>
-      
+          
+          <li class="menu-item menu-item-首页">
 
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
       
         <li class="menu-item menu-item-search">
           
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
-            
-            搜索
-          </a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
         </li>
       
     </ul>
+  
+
   
 
   
@@ -302,7 +365,7 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -316,12 +379,23 @@
 
 
 
- </div>
+  
+
+
+
+</div>
     </header>
+
+    
+
 
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+          
+            
+
+          
           <div id="content" class="content">
             
 
@@ -334,16 +408,18 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/dfd44a4f.html">
+    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/dfd44a4f.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="分享对coding生活的见解">
       <meta itemprop="image" content="/images/adele.png">
     </span>
 
@@ -356,11 +432,20 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">hive元数据存储-MYSQL数据库表</h2>
+          <h2 class="post-title" itemprop="name headline">hive元数据存储-MYSQL数据库表
+
+              
+            
+          </h2>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -368,13 +453,30 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-22T17:15:55+08:00">
-                2018-11-22
-              </time>
+
+              
+                
+              
+
+              <time title="创建于: 2018-11-22 17:15:55" itemprop="dateCreated datePublished" datetime="2018-11-22T17:15:55+08:00">2018-11-22</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">编辑于</span>
+                
+                <time title="Modified: 2019-01-02 19:42:40" itemprop="dateModified" datetime="2019-01-02T19:42:40+08:00">2019-01-02</time>
+              
             
           </span>
 
@@ -390,22 +492,14 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/大数据学习/" itemprop="url" rel="index">
-                    <span itemprop="name">大数据学习</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/大数据学习/" itemprop="url" rel="index"><span itemprop="name">大数据学习</span></a></span>
 
                 
                 
-                  ， 
+                  , 
                 
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/大数据学习/hive/" itemprop="url" rel="index">
-                    <span itemprop="name">hive</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/大数据学习/hive/" itemprop="url" rel="index"><span itemprop="name">hive</span></a></span>
 
                 
                 
@@ -414,6 +508,16 @@
           
 
           
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/posts/dfd44a4f.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/dfd44a4f.html" itemprop="commentCount"></span>
+                </a>
+              </span>
             
           
 
@@ -425,7 +529,7 @@
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">热度&#58;</span>
+                 <span class="post-meta-item-text">热度: </span>
                
                  <span class="leancloud-visitors-count"></span>
                  <span>℃</span>
@@ -433,27 +537,19 @@
           
 
           
-            <span class="post-meta-divider">|</span>
-            <span class="page-pv"><i class="fa fa-file-o"></i>
-            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
-            </span>
-          
 
           
-            <div class="post-wordcount">
+            <div class="post-symbolscount">
               
-                
-                  <span class="post-meta-divider">|</span>
-                
+
+              
                 <span class="post-meta-item-icon">
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">字数统计&#58;</span>
+                  <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="字数统计">
-                  1.3k
-                </span>
+                <span title="Symbols count in article">3.9k</span>
               
 
               
@@ -465,11 +561,9 @@
                   <i class="fa fa-clock-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="阅读时长">
-                  5
-                </span>
+                <span title="Reading time">4 mins.</span>
               
             </div>
           
@@ -492,11 +586,12 @@
         <p>hive默认本地存储是将元数据存储在内嵌的Derby数据库中，但是生产环境中没有人会用本地模式，一般remote模式使用MYSQL数据库，我们在hive-site.xml中也是配置的MYSQL数据库来存储元数据，下面就来看一下在MYSQL中是如何存储这些元数据信息的。</p>
 <p>在本地我们连接MYSQL可以看到hive元数据存储创建的表还真的不少：</p>
 <p><img src="https://i.imgur.com/n08NQD4.jpg" alt=""></p>
-<h4 id="1-hive表和视图相关的元数据表"><a href="#1-hive表和视图相关的元数据表" class="headerlink" title="1.hive表和视图相关的元数据表"></a>1.hive表和视图相关的元数据表</h4><p><strong>主要有TBLS、TABLE_PARAMS、TBL_PRIVS，这三张表通过TBL_ID关联。</strong> </p>
+<h4 id="1hive表和视图相关的元数据表"><a class="markdownIt-Anchor" href="#1hive表和视图相关的元数据表"></a> 1.hive表和视图相关的元数据表</h4>
+<p><strong>主要有TBLS、TABLE_PARAMS、TBL_PRIVS，这三张表通过TBL_ID关联。</strong></p>
 <ul>
-<li>TBLS：存储Hive表、视图、索引表的基本信息 </li>
-<li>TABLE_PARAMS：该表存储表/视图的属性信息 </li>
-<li>TBL_PRIVS： 该表存储表/视图的授权信息 </li>
+<li>TBLS：存储Hive表、视图、索引表的基本信息</li>
+<li>TABLE_PARAMS：该表存储表/视图的属性信息</li>
+<li>TBL_PRIVS： 该表存储表/视图的授权信息</li>
 </ul>
 <p>TBLS表：</p>
 <table>
@@ -649,7 +744,8 @@
 </tr>
 </tbody>
 </table>
-<h4 id="2-hive表字段相关的表："><a href="#2-hive表字段相关的表：" class="headerlink" title="2.hive表字段相关的表："></a>2.hive表字段相关的表：</h4><p>hive会将所有表的字段信息都维护到这张表中：COLUMNS_V2 。</p>
+<h4 id="2hive表字段相关的表"><a class="markdownIt-Anchor" href="#2hive表字段相关的表"></a> 2.hive表字段相关的表：</h4>
+<p>hive会将所有表的字段信息都维护到这张表中：COLUMNS_V2 。</p>
 <table>
 <thead>
 <tr>
@@ -686,9 +782,10 @@
 </tr>
 </tbody>
 </table>
-<h4 id="3-hive表分区相关的表："><a href="#3-hive表分区相关的表：" class="headerlink" title="3.hive表分区相关的表："></a>3.hive表分区相关的表：</h4><p>主要有PARTITIONS、PARTITION_KEYS、PARTITION_KEY_VALS、PARTITION_PARAMS ：</p>
+<h4 id="3hive表分区相关的表"><a class="markdownIt-Anchor" href="#3hive表分区相关的表"></a> 3.hive表分区相关的表：</h4>
+<p>主要有PARTITIONS、PARTITION_KEYS、PARTITION_KEY_VALS、PARTITION_PARAMS ：</p>
 <ul>
-<li>PARTITIONS： 该表存储表分区的基本信息 ；</li>
+<li>PARTITIONS： 该表存储表分区的基本信息 ；</li>
 <li>PARTITION_KEYS：该表存储分区的字段信息；</li>
 <li>PARTITION_KEY_VALS：该表存储分区字段值；</li>
 <li>PARTITION_PARAMS ：该表存储分区的属性信息 。</li>
@@ -826,12 +923,13 @@
 </tr>
 </tbody>
 </table>
-<h4 id="4-hive文件存储相关的表："><a href="#4-hive文件存储相关的表：" class="headerlink" title="4.  hive文件存储相关的表："></a>4.  hive文件存储相关的表：</h4><p>主要有SDS、SD_PARAMS、SERDES、SERDE_PARAMS 。</p>
+<h4 id="4-hive文件存储相关的表"><a class="markdownIt-Anchor" href="#4-hive文件存储相关的表"></a> 4.  hive文件存储相关的表：</h4>
+<p>主要有SDS、SD_PARAMS、SERDES、SERDE_PARAMS 。</p>
 <ul>
 <li>SDS:该表保存文件存储的基本信息，如INPUT_FORMAT、OUTPUT_FORMAT、是否压缩等 ;</li>
 <li>SD_PARAMS:该表存储Hive存储的属性信息，在创建表时候使用 ;</li>
-<li>SERDES: 该表存储序列化使用的类信息 ;</li>
-<li>SERDE_PARAMS : 该表存储序列化的一些属性、格式信息,比如：行、列分隔符 。</li>
+<li>SERDES: 该表存储序列化使用的类信息 ;</li>
+<li>SERDE_PARAMS : 该表存储序列化的一些属性、格式信息,比如：行、列分隔符 。</li>
 </ul>
 <p>SDS表：</p>
 <table>
@@ -971,10 +1069,11 @@
 </tr>
 </tbody>
 </table>
-<h4 id="5-hive数据库相关基本信息"><a href="#5-hive数据库相关基本信息" class="headerlink" title="5.hive数据库相关基本信息"></a>5.hive数据库相关基本信息</h4><p>VERSION,DBS,DATABASE_PARAMS,主要描述hive版本以及hive用户相关信息。</p>
+<h4 id="5hive数据库相关基本信息"><a class="markdownIt-Anchor" href="#5hive数据库相关基本信息"></a> 5.hive数据库相关基本信息</h4>
+<p>VERSION,DBS,DATABASE_PARAMS,主要描述hive版本以及hive用户相关信息。</p>
 <ul>
 <li>VERSION ：查询版本信息 ；</li>
-<li>DBS：存储Hive中所有数据库的基本信息； </li>
+<li>DBS：存储Hive中所有数据库的基本信息；</li>
 <li>DATABASE_PARAMS：存储数据库的相关参数，在CREATE DATABASE时候用 。</li>
 </ul>
 <p>VERSION 表：</p>
@@ -1069,33 +1168,49 @@
 <tr>
 <td><strong>PARAM_VALUE</strong></td>
 <td>参数值</td>
+<td></td>
 </tr>
 </tbody>
 </table>
-<h4 id="6-其他一些不常用的表："><a href="#6-其他一些不常用的表：" class="headerlink" title="6.其他一些不常用的表："></a>6.其他一些不常用的表：</h4><ul>
-<li><strong>DB_PRIVS</strong>：数据库权限信息表。通过GRANT语句对数据库授权后，将会在这里存储;</li>
-<li><p><strong>FUNCS</strong>：用户注册的函数信息;</p>
+<h4 id="6其他一些不常用的表"><a class="markdownIt-Anchor" href="#6其他一些不常用的表"></a> 6.其他一些不常用的表：</h4>
+<ul>
+<li>
+<p><strong>DB_PRIVS</strong>：数据库权限信息表。通过GRANT语句对数据库授权后，将会在这里存储;</p>
 </li>
-<li><p><strong>FUNC_RU</strong>：用户注册函数的资源信息;</p>
+<li>
+<p><strong>FUNCS</strong>：用户注册的函数信息;</p>
 </li>
-<li><p><strong>IDXS</strong>：索引表，存储Hive索引相关的元数据;</p>
+<li>
+<p><strong>FUNC_RU</strong>：用户注册函数的资源信息;</p>
 </li>
-<li><p><strong>INDEX_PARAMS</strong>：索引相关的属性信息;</p>
+<li>
+<p><strong>IDXS</strong>：索引表，存储Hive索引相关的元数据;</p>
 </li>
-<li><p><strong>PART_PRIVS</strong>：分区的授权信息;</p>
+<li>
+<p><strong>INDEX_PARAMS</strong>：索引相关的属性信息;</p>
 </li>
-<li><p><strong>PART_COL_STATS</strong>：分区字段的统计信息;</p>
+<li>
+<p><strong>PART_PRIVS</strong>：分区的授权信息;</p>
 </li>
-<li><p><strong>PART_COL_PRIVS</strong>：分区字段的权限信息;</p>
+<li>
+<p><strong>PART_COL_STATS</strong>：分区字段的统计信息;</p>
 </li>
-<li><p><strong>TAB_COL_STATS</strong>：表字段的统计信息,使用ANALYZE语句对表字段分析后记录在这里;</p>
+<li>
+<p><strong>PART_COL_PRIVS</strong>：分区字段的权限信息;</p>
 </li>
-<li><p><strong>TBL_COL_PRIVS</strong>：表字段的授权信息</p>
+<li>
+<p><strong>TAB_COL_STATS</strong>：表字段的统计信息,使用ANALYZE语句对表字段分析后记录在这里;</p>
+</li>
+<li>
+<p><strong>TBL_COL_PRIVS</strong>：表字段的授权信息</p>
 </li>
 </ul>
 
       
     </div>
+
+    
+
     
     
     
@@ -1113,8 +1228,8 @@
   <p><span>文章作者:</span><a href="/" title="访问 Rickiyang 的个人博客">Rickiyang</a></p>
   <p><span>发布时间:</span>2018年11月22日 - 17:15</p>
   <p><span>最后更新:</span>2019年01月02日 - 19:42</p>
-  <p><span>原始链接:</span><a href="/posts/dfd44a4f.html" title="hive元数据存储-MYSQL数据库表">https://blog.rickiyang.cn/posts/dfd44a4f.html</a>
-    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.rickiyang.cn/posts/dfd44a4f.html" aria-label="复制成功！"></i></span>
+  <p><span>原始链接:</span><a href="/posts/dfd44a4f.html" title="hive元数据存储-MYSQL数据库表">http://blog.rickiyang.cn/posts/dfd44a4f.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://blog.rickiyang.cn/posts/dfd44a4f.html" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
 </div>
@@ -1135,9 +1250,7 @@
 
       
     </div>
-
     
-
     <div>
       
         <div>
@@ -1149,6 +1262,10 @@
       
     </div>
 
+
+    
+      
+    
     
 
     
@@ -1157,7 +1274,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/大数据/" rel="tag"> <i class="”fa" fa-tag”=""></i> 大数据</a>
+            <a href="/tags/大数据/" rel="tag"># 大数据</a>
           
         </div>
       
@@ -1198,44 +1315,15 @@
   </article>
 
 
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript">
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
   </div>
 
 
           </div>
           
 
-
-          
+  
+    <div class="comments" id="comments">
+    </div>
 
   
 
@@ -1262,60 +1350,124 @@ var jiathis_config={
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
+            Table of Contents
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
+            Overview
           </li>
         </ul>
       
 
-      <section class="site-overview-wrap sidebar-panel">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image" src="/images/adele.png" alt="Rickiyang">
             
               <p class="site-author-name" itemprop="name">Rickiyang</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-description motion-element" itemprop="description">分享对coding生活的见解</p>
           </div>
 
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
+          
+            <nav class="site-state motion-element">
               
-                <a href="/archives">
-              
-                  <span class="site-state-item-count">99</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">19</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
+                <div class="site-state-item site-state-posts">
                 
-                  <span class="site-state-item-count">11</span>
-                  <span class="site-state-item-name">标签</span>
+                  <a href="/archives">
                 
-              </div>
-            
+                    <span class="site-state-item-count">99</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
 
-          </nav>
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
 
           
             <div class="feed-link motion-element">
@@ -1328,63 +1480,93 @@ var jiathis_config={
 
           
             <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/rickiyang" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:medee1320@gmail.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://blog.csdn.net/a953713428" target="_blank" title="CSDN">
-                      
-                        <i class="fa fa-fw fa-google"></i>CSDN</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="953713428" target="_blank" title="QQ">
-                      
-                        <i class="fa fa-fw fa-twitter"></i>QQ</a>
-                  </span>
-                
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3JpY2tpeWFuZw==" title="GitHub &rarr; https://github.com/rickiyang"><i class="fa fa-fw fa-github"></i>GitHub</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="bWFpbHRvOm1lZGVlMTMyMEBnbWFpbC5jb20=" title="E-Mail &rarr; mailto:medee1320@gmail.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2E5NTM3MTM0Mjg=" title="CSDN &rarr; https://blog.csdn.net/a953713428"><i class="fa fa-fw fa-google"></i>CSDN</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="/953713428" title="QQ &rarr; 953713428"><i class="fa fa-fw fa-twitter"></i>QQ</a>
+                </span>
+              
             </div>
           
 
           
-          
 
           
           
 
+          
+            
+          
           
 
         </div>
-      </section>
+      </div>
 
       
       <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
           <div class="post-toc">
 
             
-              
+            
+            
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-hive表和视图相关的元数据表"><span class="nav-number">1.</span> <span class="nav-text">1.hive表和视图相关的元数据表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-hive表字段相关的表："><span class="nav-number">2.</span> <span class="nav-text">2.hive表字段相关的表：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-hive表分区相关的表："><span class="nav-number">3.</span> <span class="nav-text">3.hive表分区相关的表：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-hive文件存储相关的表："><span class="nav-number">4.</span> <span class="nav-text">4.  hive文件存储相关的表：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-hive数据库相关基本信息"><span class="nav-number">5.</span> <span class="nav-text">5.hive数据库相关基本信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-其他一些不常用的表："><span class="nav-number">6.</span> <span class="nav-text">6.其他一些不常用的表：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1hive表和视图相关的元数据表"><span class="nav-number">1.</span> <span class="nav-text"> 1.hive表和视图相关的元数据表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2hive表字段相关的表"><span class="nav-number">2.</span> <span class="nav-text"> 2.hive表字段相关的表：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3hive表分区相关的表"><span class="nav-number">3.</span> <span class="nav-text"> 3.hive表分区相关的表：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-hive文件存储相关的表"><span class="nav-number">4.</span> <span class="nav-text"> 4.  hive文件存储相关的表：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5hive数据库相关基本信息"><span class="nav-number">5.</span> <span class="nav-text"> 5.hive数据库相关基本信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6其他一些不常用的表"><span class="nav-number">6.</span> <span class="nav-text"> 6.其他一些不常用的表：</span></a></li></ol></div>
             
 
           </div>
-        </section>
+        </div>
       <!--/noindex-->
       
 
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
       
 
     </div>
@@ -1397,39 +1579,50 @@ var jiathis_config={
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2019</span>
-  <span class="with-love">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Rickiyang</span>
 
   
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="Symbols count total">752k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="Reading time total">11:24</span>
+  
 </div>
 
-<div class="powered-by">
+<!--<div class="powered-by">
 <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
   本站访客数:<span id="busuanzi_value_site_uv"></span>
 </span>
-</div>
-
-<!--
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
--->
-
-
-  <span class="post-meta-divider">|</span>
+</div>-->
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+  <div class="theme-info">Theme – <span class="exturl theme-link" data-url="aHR0cHM6Ly90aGVtZS1uZXh0Lm9yZw==">NexT.Gemini</span> v6.7.0</div>
 
 
 
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共231.6k字</span>
+  <span class="post-count">博客全站共231.9k字</span>
 </div>
 
 <script>
@@ -1449,24 +1642,23 @@ var jiathis_config={
 
         
 <div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
   
-    <span class="site-uv">
+    <span class="site-uv" title="Total Visitors">
       <i class="fa fa-user"></i>
       <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-      人次
     </span>
   
 
   
-    <span class="site-pv">
+    <span class="site-pv" title="Total Views">
       <i class="fa fa-eye"></i>
       <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-      次
     </span>
   
 </div>
+
 
 
 
@@ -1480,21 +1672,17 @@ var jiathis_config={
     </footer>
 
     
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-          <span id="scrollpercent"><span>0</span>%</span>
-        
-      </div>
+
     
 
     
 
+    
   </div>
 
   
 
-<script type="text/javascript">
+<script>
   if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
     window.Promise = null;
   }
@@ -1508,117 +1696,6 @@ var jiathis_config={
 
 
 
-  
-
-
-
-
-
-
-  
-  
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/three.min.js"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
 
 
 
@@ -1631,8 +1708,111 @@ var jiathis_config={
 
 
   
+  
 
-  <script type="text/javascript">
+
+
+  
+  
+  <script id="ribbon" size="300" alpha="0.6" zindex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/three/three.min.js"></script>
+
+  
+  <script src="/lib/three/canvas_sphere.min.js"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script>
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+      el: '#comments' ,
+      verify: false,
+      notify: false,
+      appId: 'X5fy0b9Gknu0SAse5areilGR-gzGzoHsz',
+      appKey: 'URk4cyPQ8Ttqtwhop5t26kok',
+      placeholder: 'Just go go',
+      avatar: 'mm',
+      meta:guest,
+      pageSize: '10' || 10,
+      visitor: false
+    });
+  </script>
+
+
+
+
+  
+
+  <script>
     // Popup Window;
     var isfetched = false;
     var isXml = true;
@@ -1681,6 +1861,8 @@ var jiathis_config={
         .css('overflow', 'hidden');
       $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
 
+      
+
       $.ajax({
         url: path,
         dataType: isXml ? "xml" : "json",
@@ -1714,8 +1896,9 @@ var jiathis_config={
                 var title = data.title.trim();
                 var titleInLowerCase = title.toLowerCase();
                 var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
                 var contentInLowerCase = content.toLowerCase();
-                var articleUrl = decodeURIComponent(data.url);
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
                 var indexOfTitle = [];
                 var indexOfContent = [];
                 // only match articles with not empty titles
@@ -1884,9 +2067,9 @@ var jiathis_config={
               })
             };
             if (keywords.length === 1 && keywords[0] === "") {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
             } else if (resultItems.length === 0) {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
             } else {
               resultItems.sort(function (resultLeft, resultRight) {
                 if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
@@ -1956,107 +2139,66 @@ var jiathis_config={
   
 
   
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("X5fy0b9Gknu0SAse5areilGR-gzGzoHsz", "URk4cyPQ8Ttqtwhop5t26kok");</script>
   <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
-            }
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
+    
     function addCount(Counter) {
       var $visitors = $(".leancloud_visitors");
       var url = $visitors.attr('id').trim();
       var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
 
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function ({ results }) {
           if (results.length > 0) {
             var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
+            
+            Counter('put', `/classes/Counter/${counter.objectId}`, JSON.stringify({ time: { "__op":"Increment", "amount":1 } }))
+            
+            .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.time + 1);
+            })
+            
+            .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+            })
           } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1}))
+                .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function () {
+                  console.log('Failed to create');
+                });
+            
           }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
+        })
+      .fail(function ({ responseJSON }) {
+        console.log('LeanCloud Counter Error:' + responseJSON.code + " " + responseJSON.error);
       });
     }
+    
 
     $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + "X5fy0b9Gknu0SAse5areilGR-gzGzoHsz")
+        .done(function ({ api_server }) {
+          var Counter = function (method, url, data) {
+            return $.ajax({
+              method: method,
+              url: `https://${api_server}/1.1${url}`,
+              headers: {
+                'X-LC-Id': "X5fy0b9Gknu0SAse5areilGR-gzGzoHsz",
+                'X-LC-Key': "URk4cyPQ8Ttqtwhop5t26kok",
+                'Content-Type': 'application/json',
+              },
+              data: data,
+            });
+          };
+          
+          addCount(Counter);
+          
+        })
     });
   </script>
 
@@ -2065,9 +2207,45 @@ var jiathis_config={
   
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+      }
+      else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
 
   
   
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+  <script>
+    
+    
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+  <script src="/js/src/exturl.js?v=6.7.0"></script>
+
 
   
 
@@ -2077,7 +2255,7 @@ var jiathis_config={
 
 
   <!-- 页面点击小红心 -->
-  <script type="text/javascript" src="/js/src/love.js"></script>
-  <!---->
+    <script type="text/javascript" src="/js/src/love.js"></script>
+    <!---->
 </body>
 </html>

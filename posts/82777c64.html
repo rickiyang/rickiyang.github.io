@@ -2,6 +2,15 @@
 
 
 
+
+
+
+
+
+
+
+
+
   
 
 
@@ -9,38 +18,38 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
 
 
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-center-circle.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -64,12 +73,6 @@
   
 
   
-    
-      
-    
-
-    
-  
 
   
     
@@ -90,7 +93,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|FZSongKeBenXiuKai:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
   
 
 
@@ -98,74 +101,40 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
 
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/adele.ico?v=5.1.4">
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/adele.ico?v=5.1.4">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/adele.ico?v=6.7.0">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/adele.ico?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/adele.ico?v=6.7.0">
 
 
-  <link rel="mask-icon" href="/images/adele.ico?v=5.1.4" color="#222">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/adele.ico?v=6.7.0">
 
 
-
-
-
-  <meta name="keywords" content="hadoop学习,">
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="Rickiyang's blog" type="application/atom+xml">
+  <link rel="mask-icon" href="/images/adele.ico?v=6.7.0" color="#222">
 
 
 
 
 
 
-<meta name="description" content="今天我们来完成hadoop2.x的完全分布式环境搭建，话说学习本来是一件很快乐的事情，可是一到了搭环境就怎么都让人快乐不起来啊，搭环境的时间比学习的时间还多。都是泪。话不多说，走起。 1 准备工作开工之前先说一下我们的机器环境：一共是4台主机，主机1,2,3都是从master克隆过来的：                         主机名            IP            用户">
-<meta name="keywords" content="hadoop学习">
-<meta property="og:type" content="article">
-<meta property="og:title" content="hadoop学习(三)----hadoop2.x完全分布式环境搭建">
-<meta property="og:url" content="https://blog.rickiyang.cn/posts/82777c64.html">
-<meta property="og:site_name" content="Rickiyang&#39;s blog">
-<meta property="og:description" content="今天我们来完成hadoop2.x的完全分布式环境搭建，话说学习本来是一件很快乐的事情，可是一到了搭环境就怎么都让人快乐不起来啊，搭环境的时间比学习的时间还多。都是泪。话不多说，走起。 1 准备工作开工之前先说一下我们的机器环境：一共是4台主机，主机1,2,3都是从master克隆过来的：                         主机名            IP            用户">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://i.imgur.com/OByRFXi.jpg">
-<meta property="og:image" content="https://i.imgur.com/YJGl439.jpg">
-<meta property="og:image" content="https://i.imgur.com/Hh2QdO7.jpg">
-<meta property="og:image" content="https://i.imgur.com/ilOXIgw.jpg">
-<meta property="og:image" content="https://i.imgur.com/ryx9uUi.jpg">
-<meta property="og:updated_time" content="2018-12-13T02:14:20.609Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="hadoop学习(三)----hadoop2.x完全分布式环境搭建">
-<meta name="twitter:description" content="今天我们来完成hadoop2.x的完全分布式环境搭建，话说学习本来是一件很快乐的事情，可是一到了搭环境就怎么都让人快乐不起来啊，搭环境的时间比学习的时间还多。都是泪。话不多说，走起。 1 准备工作开工之前先说一下我们的机器环境：一共是4台主机，主机1,2,3都是从master克隆过来的：                         主机名            IP            用户">
-<meta name="twitter:image" content="https://i.imgur.com/OByRFXi.jpg">
 
-
-
-<script type="text/javascript" id="hexo.configurations">
+<script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
     scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
-    fancybox: true,
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
     algolia: {
       applicationID: '',
       apiKey: '',
@@ -177,12 +146,46 @@
 </script>
 
 
-
-  <link rel="canonical" href="https://blog.rickiyang.cn/posts/82777c64.html">
-
+  
 
 
 
+
+  <meta name="description" content="今天我们来完成hadoop2.x的完全分布式环境搭建，话说学习本来是一件很快乐的事情，可是一到了搭环境就怎么都让人快乐不起来啊，搭环境的时间比学习的时间还多。都是泪。话不多说，走起。  1 准备工作 开工之前先说一下我们的机器环境： 一共是4台主机，主机1,2,3都是从master克隆过来的：                            主机名             IP">
+<meta name="keywords" content="hadoop学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hadoop学习(三)----hadoop2.x完全分布式环境搭建">
+<meta property="og:url" content="http://blog.rickiyang.cn/posts/82777c64.html">
+<meta property="og:site_name" content="Rickiyang&#39;s blog">
+<meta property="og:description" content="今天我们来完成hadoop2.x的完全分布式环境搭建，话说学习本来是一件很快乐的事情，可是一到了搭环境就怎么都让人快乐不起来啊，搭环境的时间比学习的时间还多。都是泪。话不多说，走起。  1 准备工作 开工之前先说一下我们的机器环境： 一共是4台主机，主机1,2,3都是从master克隆过来的：                            主机名             IP">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.imgur.com/OByRFXi.jpg">
+<meta property="og:image" content="https://i.imgur.com/YJGl439.jpg">
+<meta property="og:image" content="https://i.imgur.com/Hh2QdO7.jpg">
+<meta property="og:image" content="https://i.imgur.com/ilOXIgw.jpg">
+<meta property="og:image" content="https://i.imgur.com/ryx9uUi.jpg">
+<meta property="og:updated_time" content="2018-12-13T02:14:20.609Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hadoop学习(三)----hadoop2.x完全分布式环境搭建">
+<meta name="twitter:description" content="今天我们来完成hadoop2.x的完全分布式环境搭建，话说学习本来是一件很快乐的事情，可是一到了搭环境就怎么都让人快乐不起来啊，搭环境的时间比学习的时间还多。都是泪。话不多说，走起。  1 准备工作 开工之前先说一下我们的机器环境： 一共是4台主机，主机1,2,3都是从master克隆过来的：                            主机名             IP">
+<meta name="twitter:image" content="https://i.imgur.com/OByRFXi.jpg">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Rickiyang's blog" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://blog.rickiyang.cn/posts/82777c64.html">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
 
   <title>hadoop学习(三)----hadoop2.x完全分布式环境搭建 | Rickiyang's blog</title>
   
@@ -193,6 +196,35 @@
 
 
 
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
 </head>
 
@@ -208,7 +240,7 @@
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
+  <div class="site-meta">
     
 
     <div class="custom-logo-site-title">
@@ -218,13 +250,16 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
+    
       
-        <h1 class="site-subtitle" itemprop="description"></h1>
+        <h1 class="site-subtitle" itemprop="description">java,大数据,分布式组件</h1>
       
+    
+    
   </div>
 
   <div class="site-nav-toggle">
-    <button>
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -232,66 +267,94 @@
   </div>
 </div>
 
-<nav class="site-nav">
-  
 
+
+<nav class="site-nav">
   
     <ul id="menu" class="menu">
       
         
-        <li class="menu-item menu-item-首页">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            首页
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-标签">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
-            
-            标签
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-分类">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
-            
-            分类
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-归档">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            归档
-          </a>
-        </li>
-      
+          
+          <li class="menu-item menu-item-首页">
 
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
       
         <li class="menu-item menu-item-search">
           
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
-            
-            搜索
-          </a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
         </li>
       
     </ul>
+  
+
   
 
   
@@ -306,7 +369,7 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -320,12 +383,23 @@
 
 
 
- </div>
+  
+
+
+
+</div>
     </header>
+
+    
+
 
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+          
+            
+
+          
           <div id="content" class="content">
             
 
@@ -338,16 +412,18 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/82777c64.html">
+    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/82777c64.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="分享对coding生活的见解">
       <meta itemprop="image" content="/images/adele.png">
     </span>
 
@@ -360,11 +436,20 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">hadoop学习(三)----hadoop2.x完全分布式环境搭建</h2>
+          <h2 class="post-title" itemprop="name headline">hadoop学习(三)----hadoop2.x完全分布式环境搭建
+
+              
+            
+          </h2>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -372,13 +457,30 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-12T22:30:11+08:00">
-                2018-06-12
-              </time>
+
+              
+                
+              
+
+              <time title="创建于: 2018-06-12 22:30:11" itemprop="dateCreated datePublished" datetime="2018-06-12T22:30:11+08:00">2018-06-12</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">编辑于</span>
+                
+                <time title="Modified: 2018-12-13 10:14:20" itemprop="dateModified" datetime="2018-12-13T10:14:20+08:00">2018-12-13</time>
+              
             
           </span>
 
@@ -394,22 +496,14 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/大数据学习/" itemprop="url" rel="index">
-                    <span itemprop="name">大数据学习</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/大数据学习/" itemprop="url" rel="index"><span itemprop="name">大数据学习</span></a></span>
 
                 
                 
-                  ， 
+                  , 
                 
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/大数据学习/hadoop/" itemprop="url" rel="index">
-                    <span itemprop="name">hadoop</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/大数据学习/hadoop/" itemprop="url" rel="index"><span itemprop="name">hadoop</span></a></span>
 
                 
                 
@@ -418,6 +512,16 @@
           
 
           
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/posts/82777c64.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/82777c64.html" itemprop="commentCount"></span>
+                </a>
+              </span>
             
           
 
@@ -429,7 +533,7 @@
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">热度&#58;</span>
+                 <span class="post-meta-item-text">热度: </span>
                
                  <span class="leancloud-visitors-count"></span>
                  <span>℃</span>
@@ -437,27 +541,19 @@
           
 
           
-            <span class="post-meta-divider">|</span>
-            <span class="page-pv"><i class="fa fa-file-o"></i>
-            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
-            </span>
-          
 
           
-            <div class="post-wordcount">
+            <div class="post-symbolscount">
               
-                
-                  <span class="post-meta-divider">|</span>
-                
+
+              
                 <span class="post-meta-item-icon">
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">字数统计&#58;</span>
+                  <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="字数统计">
-                  3k
-                </span>
+                <span title="Symbols count in article">11k</span>
               
 
               
@@ -469,11 +565,9 @@
                   <i class="fa fa-clock-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="阅读时长">
-                  13
-                </span>
+                <span title="Reading time">10 mins.</span>
               
             </div>
           
@@ -494,10 +588,40 @@
 
       
         <p>今天我们来完成hadoop2.x的完全分布式环境搭建，话说学习本来是一件很快乐的事情，可是一到了搭环境就怎么都让人快乐不起来啊，搭环境的时间比学习的时间还多。都是泪。话不多说，走起。</p>
-<h3 id="1-准备工作"><a href="#1-准备工作" class="headerlink" title="1 准备工作"></a>1 准备工作</h3><p>开工之前先说一下我们的机器环境：<br>一共是4台主机，主机1,2,3都是从master克隆过来的：</p>
-<table><br>    <thead><br>        <tr><br>            <th>主机名</th><br>            <th>IP</th><br>            <th>用户</th><br>        </tr><br>    </thead><br>    <tbody><br>        <tr><br>        <td>hadoopmaster</td><br>        <td>192.168.131.128</td><br>        <td>hadoop</td><br>    </tr><br>    <tr><br>        <td>hadoopslaver1</td><br>        <td>192.168.131.130</td><br>        <td>hadoop</td><br>    </tr><br>    <tr><br>        <td>hadoopslaver2</td><br>        <td>192.168.131.131</td><br>        <td>hadoop</td><br>    </tr><br>    <tr><br>        <td>hadoopslaver3</td><br>        <td>192.168.131.132</td><br>        <td>hadoop</td><br>    </tr><br>    </tbody><br></table>
-
-
+<h3 id="1-准备工作"><a class="markdownIt-Anchor" href="#1-准备工作"></a> 1 准备工作</h3>
+<p>开工之前先说一下我们的机器环境：<br>
+一共是4台主机，主机1,2,3都是从master克隆过来的：</p>
+<table>
+    <thead>
+        <tr>
+            <th>主机名</th>
+            <th>IP</th>
+            <th>用户</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+        <td>hadoopmaster</td>
+        <td>192.168.131.128</td>
+        <td>hadoop</td>
+    </tr>
+    <tr>
+        <td>hadoopslaver1</td>
+        <td>192.168.131.130</td>
+        <td>hadoop</td>
+    </tr>
+    <tr>
+        <td>hadoopslaver2</td>
+        <td>192.168.131.131</td>
+        <td>hadoop</td>
+    </tr>
+    <tr>
+        <td>hadoopslaver3</td>
+        <td>192.168.131.132</td>
+        <td>hadoop</td>
+    </tr>
+    </tbody>
+</table>
 <p>集群组成：</p>
 <ol>
 <li>Namenode：2台</li>
@@ -508,9 +632,63 @@
 <li>ResourceManager：2台</li>
 <li>NodeManager：3台</li>
 </ol>
-<p>​                        </p>
-<table><br>    <thead><br>        <tr><br>            <th></th><br>            <th>Namenode</th><br>            <th>Datanode</th><br>            <th>Journalnode</th><br>            <th>Zookeeper</th><br>            <th>ZKFC</th><br>            <th>ResourceManager</th><br>            <th>NodeManager</th><br>        </tr><br>    </thead><br>    <tbody><br>        <tr><br>        <td>hadoopmaster</td><br>        <td>1</td><br>        <td></td><br>        <td>1</td><br>        <td>1</td><br>        <td>1</td><br>        <td></td><br>        <td></td><br>    </tr><br>    <tr><br>        <td>hadoopslaver1</td><br>        <td>1</td><br>        <td>1</td><br>        <td>1</td><br>        <td>1</td><br>        <td>1</td><br>        <td></td><br>        <td>1</td><br>    </tr><br>    <tr><br>        <td>hadoopslaver2</td><br>        <td></td><br>        <td>1</td><br>        <td>1</td><br>        <td>1</td><br>        <td></td><br>        <td>1</td><br>        <td>1</td><br>    </tr><br>    <tr><br>        <td>hadoopslaver3</td><br>        <td></td><br>        <td>1</td><br>        <td></td><br>        <td></td><br>        <td></td><br>        <td>1</td><br>        <td>1</td><br>    </tr><br>    </tbody><br></table>
-
+<p>​</p>
+<table>
+    <thead>
+        <tr>
+			<th></th>
+            <th>Namenode</th>
+            <th>Datanode</th>
+            <th>Journalnode</th>
+			<th>Zookeeper</th>
+			<th>ZKFC</th>
+			<th>ResourceManager</th>
+			<th>NodeManager</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+        <td>hadoopmaster</td>
+        <td>1</td>
+		<td></td>
+		<td>1</td>
+		<td>1</td>
+		<td>1</td>
+		<td></td>
+		<td></td>
+    </tr>
+    <tr>
+        <td>hadoopslaver1</td>
+		<td>1</td>
+		<td>1</td>
+		<td>1</td>
+		<td>1</td>
+        <td>1</td>
+		<td></td>
+		<td>1</td>
+    </tr>
+    <tr>
+        <td>hadoopslaver2</td>
+		<td></td>
+		<td>1</td>
+		<td>1</td>
+		<td>1</td>
+        <td></td>
+		<td>1</td>
+		<td>1</td>
+    </tr>
+    <tr>
+        <td>hadoopslaver3</td>
+        <td></td>
+		<td>1</td>
+		<td></td>
+		<td></td>
+        <td></td>
+		<td>1</td>
+		<td>1</td>
+    </tr>
+    </tbody>
+</table>
 <p>首先我们保证做好了如下工作：</p>
 <ul>
 <li>关闭防火墙</li>
@@ -518,20 +696,29 @@
 <li>配置好了环境变量</li>
 </ul>
 <p>本次安装的hadoop版本为2.7.3。</p>
-<h4 id="1-1-关闭防火墙，修改主机名、配置host文件、设置时间同步"><a href="#1-1-关闭防火墙，修改主机名、配置host文件、设置时间同步" class="headerlink" title="1.1 关闭防火墙，修改主机名、配置host文件、设置时间同步"></a>1.1 关闭防火墙，修改主机名、配置host文件、设置时间同步</h4><h5 id="1-1-1-防火墙状态"><a href="#1-1-1-防火墙状态" class="headerlink" title="1.1.1 防火墙状态"></a>1.1.1 防火墙状态</h5><pre><code>查看防火墙是否开启
+<h4 id="11-关闭防火墙修改主机名-配置host文件-设置时间同步"><a class="markdownIt-Anchor" href="#11-关闭防火墙修改主机名-配置host文件-设置时间同步"></a> 1.1 关闭防火墙，修改主机名、配置host文件、设置时间同步</h4>
+<h5 id="111-防火墙状态"><a class="markdownIt-Anchor" href="#111-防火墙状态"></a> 1.1.1 防火墙状态</h5>
+<pre><code>查看防火墙是否开启
 # service iptables status
 
 如果开启则使用如下命令关闭
 # service iptables stop
-</code></pre><h5 id="1-1-2-修改主机名："><a href="#1-1-2-修改主机名：" class="headerlink" title="1.1.2 修改主机名："></a>1.1.2 修改主机名：</h5><p>修改master主机的 /etc/sysconfig/network文件，将HOSTNAME改为master,其余三台主机分别改为对应的主机名。</p>
+</code></pre>
+<h5 id="112-修改主机名"><a class="markdownIt-Anchor" href="#112-修改主机名"></a> 1.1.2 修改主机名：</h5>
+<p>修改master主机的 /etc/sysconfig/network文件，将HOSTNAME改为master,其余三台主机分别改为对应的主机名。</p>
 <pre><code># vim /etc/sysconfig/network
-</code></pre><p>​<br>    NETWORKING=yes<br>    HOSTNAME=hadoopmaster</p>
+</code></pre>
+<p>​<br>
+NETWORKING=yes<br>
+HOSTNAME=hadoopmaster</p>
 <p>其余三台分别改为相应的主机名，现在四台主机的主机名分别是：</p>
 <pre><code>192.168.131.128    hadoopmaster
 192.168.131.130    hadoopslaver1
 192.168.131.131    hadoopslaver2
 192.168.131.132    hadoopslaver3
-</code></pre><h5 id="1-1-3-修改host文件"><a href="#1-1-3-修改host文件" class="headerlink" title="1.1.3 修改host文件"></a>1.1.3 修改host文件</h5><pre><code># vim /etc/hosts
+</code></pre>
+<h5 id="113-修改host文件"><a class="markdownIt-Anchor" href="#113-修改host文件"></a> 1.1.3 修改host文件</h5>
+<pre><code># vim /etc/hosts
 
 添加如下配置：
 
@@ -539,15 +726,21 @@
 192.168.131.130    hadoopslaver1
 192.168.131.131    hadoopslaver2
 192.168.131.132    hadoopslaver3
-</code></pre><h5 id="1-1-4-删除持久化文件-etc-udev-rules-d-70-persistent-net-rules-重启虚拟主机，使配置生效。"><a href="#1-1-4-删除持久化文件-etc-udev-rules-d-70-persistent-net-rules-重启虚拟主机，使配置生效。" class="headerlink" title="1.1.4 删除持久化文件/etc/udev/rules.d/70-persistent-net.rules  ,重启虚拟主机，使配置生效。"></a>1.1.4 删除持久化文件/etc/udev/rules.d/70-persistent-net.rules  ,重启虚拟主机，使配置生效。</h5><pre><code># rm /etc/udev/rules.d/70-persistent-net.rules
-</code></pre><table><tr><td bgcolor="#ADFF2F"><font color="#FF00FF" size="4">TIPS：</font><br>该文件记录的是当前主机的MAC地址与IP地址的映射关系，因为我们后面三台主机都是通过克隆来的，所以四台主机的MAC地址是一样的。后面我们四台主机通信的时候你却会发现有问题，我们需要删除这个持久化文件，然后重启一下机器，系统会检测该文件，发现不存在会重新生成该文件。</td></tr></table>
-
-<h5 id="1-1-5-4台主机做时间同步"><a href="#1-1-5-4台主机做时间同步" class="headerlink" title="1.1.5 4台主机做时间同步"></a>1.1.5 4台主机做时间同步</h5><pre><code># yum install ntp
-</code></pre><p>使用ntp工具来同步时间，这里使用的时间服务器的ip是上海交通大学学的NTP服务器地址，其他的地址自行百度：</p>
+</code></pre>
+<h5 id="114-删除持久化文件etcudevrulesd70-persistent-netrules-重启虚拟主机使配置生效"><a class="markdownIt-Anchor" href="#114-删除持久化文件etcudevrulesd70-persistent-netrules-重启虚拟主机使配置生效"></a> 1.1.4 删除持久化文件/etc/udev/rules.d/70-persistent-net.rules  ,重启虚拟主机，使配置生效。</h5>
+<pre><code># rm /etc/udev/rules.d/70-persistent-net.rules
+</code></pre>
+<table><tr><td bgcolor="#ADFF2F"><font color="#FF00FF" size="4">TIPS：</font><br>该文件记录的是当前主机的MAC地址与IP地址的映射关系，因为我们后面三台主机都是通过克隆来的，所以四台主机的MAC地址是一样的。后面我们四台主机通信的时候你却会发现有问题，我们需要删除这个持久化文件，然后重启一下机器，系统会检测该文件，发现不存在会重新生成该文件。</td></tr></table>
+<h5 id="115-4台主机做时间同步"><a class="markdownIt-Anchor" href="#115-4台主机做时间同步"></a> 1.1.5 4台主机做时间同步</h5>
+<pre><code># yum install ntp
+</code></pre>
+<p>使用ntp工具来同步时间，这里使用的时间服务器的ip是上海交通大学学的NTP服务器地址，其他的地址自行百度：</p>
 <pre><code># ntpdate 202.120.2.101
-</code></pre><p>需要注意的是，如果执行上面的命令出现如下提示：</p>
+</code></pre>
+<p>需要注意的是，如果执行上面的命令出现如下提示：</p>
 <pre><code>ntpdate[2747]: no server suitable for synchronization found
-</code></pre><p>首先检查你的防火墙是否关闭，没有的话先关闭，如果关闭了还是不行可以试一下如下方法：</p>
+</code></pre>
+<p>首先检查你的防火墙是否关闭，没有的话先关闭，如果关闭了还是不行可以试一下如下方法：</p>
 <p>使用rdate命令来更新服务器时间，</p>
 <pre><code>查看时间服务器的时间:
 # rdate time-b.nist.gov
@@ -557,14 +750,15 @@ yum install -y rdate
 
 设置时间和时间服务器同步:
 # rdate -s time-b.nist.gov
-</code></pre><table><tr><td bgcolor="orange"><font color="#FF00FF" size="4">TIPS：</font><br>以上所有操作需要在4台机器上同步执行！！！</td></tr></table>
-
-<h3 id="2-配置ssh免密"><a href="#2-配置ssh免密" class="headerlink" title="2 配置ssh免密"></a>2 配置ssh免密</h3><p>如果设置主机master到主机slaver1的免密钥登录，可按如下方式进行：</p>
+</code></pre>
+<table><tr><td bgcolor="orange"><font color="#FF00FF" size="4">TIPS：</font><br>以上所有操作需要在4台机器上同步执行！！！</td></tr></table>
+<h3 id="2-配置ssh免密"><a class="markdownIt-Anchor" href="#2-配置ssh免密"></a> 2 配置ssh免密</h3>
+<p>如果设置主机master到主机slaver1的免密钥登录，可按如下方式进行：</p>
 <pre><code>在A主机执行  
-1、# ssh-keygen -t rsa -P &apos;&apos; -f ~/.ssh/id_rsa                                
+1、# ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa                                
 
 -t 密钥类型（rsa 或 dsa）   
--P 旧密码 &apos;&apos;代表为空  
+-P 旧密码 ''代表为空  
 -f 密钥文件生成后，保存的位置  
 
 2、# ssh-copy-id 192.168.131.130 
@@ -572,7 +766,10 @@ IP是主机slaver1的IP地址，将主机master生成的密钥，拷贝到远程
 执行过程中，会提示让输入主机slaver1的登录密码 
 
 我们可以使用上面的命令设置4台机器互相免密。
-</code></pre><h3 id="3-安装jdk，hadoop，zookeeper，配置环境变量"><a href="#3-安装jdk，hadoop，zookeeper，配置环境变量" class="headerlink" title="3 安装jdk，hadoop，zookeeper，配置环境变量"></a>3 安装jdk，hadoop，zookeeper，配置环境变量</h3><h4 id="3-1-配置环境变量"><a href="#3-1-配置环境变量" class="headerlink" title="3.1 配置环境变量"></a>3.1 配置环境变量</h4><p>这里我用的jdk是1.8，hadoop是2.7，zookeeper是3.4.11.配置环境变量：</p>
+</code></pre>
+<h3 id="3-安装jdkhadoopzookeeper配置环境变量"><a class="markdownIt-Anchor" href="#3-安装jdkhadoopzookeeper配置环境变量"></a> 3 安装jdk，hadoop，zookeeper，配置环境变量</h3>
+<h4 id="31-配置环境变量"><a class="markdownIt-Anchor" href="#31-配置环境变量"></a> 3.1 配置环境变量</h4>
+<p>这里我用的jdk是1.8，hadoop是2.7，zookeeper是3.4.11.配置环境变量：</p>
 <pre><code># vim /etc/profile
 环境信息如下：
 
@@ -585,40 +782,49 @@ export HADOOP_HOME=/usr/local/hadoop
 export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
 export ZOOKEEPER_HOME=/usr/local/zookeeper
 export PATH=$PATH:$ZOOKEEPER_HOME/bin
-</code></pre><p>配置完成以后执行：</p>
+</code></pre>
+<p>配置完成以后执行：</p>
 <pre><code># source /etc/profile
-</code></pre><p>使配置生效。</p>
-<h4 id="3-2-安装zookeeper"><a href="#3-2-安装zookeeper" class="headerlink" title="3.2 安装zookeeper"></a>3.2 安装zookeeper</h4><table><tr><td bgcolor="orange"><font color="#FF00FF" size="4">注意：</font><br><br>环境配置中后面有关zookeeper这两行只用在master、slaver1和slaver2中配置，即只在这三台机器中安装zookeeper。</td></tr></table>
-
+</code></pre>
+<p>使配置生效。</p>
+<h4 id="32-安装zookeeper"><a class="markdownIt-Anchor" href="#32-安装zookeeper"></a> 3.2 安装zookeeper</h4>
+<table><tr><td bgcolor="orange"><font color="#FF00FF" size="4">注意：</font><br>
+环境配置中后面有关zookeeper这两行只用在master、slaver1和slaver2中配置，即只在这三台机器中安装zookeeper。</td></tr></table>
 <p>zookeeper解压到/usr/local/zookeeper目录，我们进入目录/usr/local/zookeeper/conf修改文件模板文件：</p>
 <pre><code>mv zoo_sample.cfg zoo.cfg
 
 1.首先修改文件中的dataDir，路径是zookeeper的快照存储路径,不要使用默认的路径，重启的话会清空/tmp目录导致数据丢失：
 dataDir=/usr/local/zookeeper/tmp
-</code></pre><table><tr><td bgcolor="orange">✔此处注意：tmp目录是我新建的。</td></tr></table>
-
+</code></pre>
+<table><tr><td bgcolor="orange">✔此处注意：tmp目录是我新建的。</td></tr></table>
 <pre><code>2.在文件的最后加入zookeeper节点的配置：
 server.1=hadoopmaster:2888:3888
 server.2=hadoopslaver1:2888:3888
 server.3=hadoopslaver2:2888:3888
-</code></pre><p>然后我们需要注意的是：上面指定的配置节点server1.2.3是需要我们手动指定，需要在快照目录新建一个文件：myid。</p>
+</code></pre>
+<p>然后我们需要注意的是：上面指定的配置节点server1.2.3是需要我们手动指定，需要在快照目录新建一个文件：myid。</p>
 <pre><code># vim myid
-</code></pre><p>然后内容为该服务器对应的节点id，本次试验：hadoopmaster对应的是1，hadoopslaver1对应的是2，hadoopslaver2对应的是3.</p>
+</code></pre>
+<p>然后内容为该服务器对应的节点id，本次试验：hadoopmaster对应的是1，hadoopslaver1对应的是2，hadoopslaver2对应的是3.</p>
 <p>上面我们在master中配置完之后需要分别在另外两台也要配置，我们直接复制过去得了：</p>
 <pre><code>scp -r zookeeper hadoopslaver1:/usr/local/zookeeper
 scp -r zookeeper hadoopslaver2:/usr/local/zookeeper
-</code></pre><p>然后记得改一下myid，hadoopslaver1的改为2，hadoopslaver2的改为3。</p>
+</code></pre>
+<p>然后记得改一下myid，hadoopslaver1的改为2，hadoopslaver2的改为3。</p>
 <p>好了，配置完成，接下来到了激动人心的启动时刻，启动脚本在bin目录下的zkServer.sh文件:</p>
 <pre><code>zkServer.sh start
-</code></pre><table><tr><td bgcolor="orange"><font color="#FF00FF" size="4">TIPS：</font><br>✔✔注意：三台机器都需要启动啊！！！</td></tr></table>
-
+</code></pre>
+<table><tr><td bgcolor="orange"><font color="#FF00FF" size="4">TIPS：</font><br>✔✔注意：三台机器都需要启动啊！！！</td></tr></table>
 <p>查看zookeeper的状态：</p>
 <pre><code>zkServer.sh status
-</code></pre><p>如果出现如下提示表明启动成功：</p>
+</code></pre>
+<p>如果出现如下提示表明启动成功：</p>
 <p><img src="https://i.imgur.com/OByRFXi.jpg" alt=""></p>
 <p>关闭命令：</p>
 <pre><code>zkServer.sh stop
-</code></pre><h4 id="3-3-安装hadoop"><a href="#3-3-安装hadoop" class="headerlink" title="3.3 安装hadoop"></a>3.3 安装hadoop</h4><p> hadoop集群的配置文件主要涉及到以下这几个：</p>
+</code></pre>
+<h4 id="33-安装hadoop"><a class="markdownIt-Anchor" href="#33-安装hadoop"></a> 3.3 安装hadoop</h4>
+<p>hadoop集群的配置文件主要涉及到以下这几个：</p>
 <pre><code>hadoop-env.sh
 
 core-site.xml
@@ -630,18 +836,20 @@ slaves
 mapred-site.xml
 
 yarn-site.xml
-</code></pre><p>下面以此对上面的文件进行配置：</p>
+</code></pre>
+<p>下面以此对上面的文件进行配置：</p>
 <p>hadoop-env.sh文件，设置jdk的路径：</p>
 <pre><code>export JAVA_HOME=/usr/java/jdk
-</code></pre><p>core-site.xml文件，在configuration里面添加如下配置：</p>
+</code></pre>
+<p>core-site.xml文件，在configuration里面添加如下配置：</p>
 <pre><code>&lt;configuration&gt;
-     &lt;property&gt;  
+ 	&lt;property&gt;  
          &lt;name&gt;fs.defaultFS&lt;/name&gt; 
-        &lt;!--此处名称需要和hdfs-site.xml中的dfs.nameservice保持一致--&gt; 
+		&lt;!--此处名称需要和hdfs-site.xml中的dfs.nameservice保持一致--&gt; 
          &lt;value&gt;hdfs://rickiyang&lt;/value&gt;
     &lt;/property&gt;  
     &lt;property&gt;  
-        &lt;!--配置路径--&gt;
+		&lt;!--配置路径--&gt;
          &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;                                                                                   
          &lt;value&gt;/usr/local/hadoop/tmp&lt;/value&gt;
     &lt;/property&gt;  
@@ -650,14 +858,15 @@ yarn-site.xml
         &lt;value&gt;hadoopmaster:2181,hadoopslaver1:2181,hadoopslaver2:2181&lt;/value&gt; 
       &lt;/property&gt; 
 &lt;/configuration&gt;
-</code></pre><p>hdfs-site.xml文件：</p>
+</code></pre>
+<p>hdfs-site.xml文件：</p>
 <pre><code>&lt;configuration&gt;
   &lt;property&gt;  
     &lt;name&gt;dfs.nameservices&lt;/name&gt; 
-    &lt;!--此处名称需与core-site.xml中fs.defaultFS的值保持一致--&gt; 
+	&lt;!--此处名称需与core-site.xml中fs.defaultFS的值保持一致--&gt; 
     &lt;value&gt;rickiyang&lt;/value&gt; 
   &lt;/property&gt;  
-    &lt;!--配置namenode的组成 --&gt;
+	&lt;!--配置namenode的组成 --&gt;
   &lt;property&gt;  
     &lt;name&gt;dfs.ha.namenodes.rickiyang&lt;/name&gt; 
     &lt;value&gt;nn1,nn2&lt;/value&gt;  
@@ -713,12 +922,14 @@ yarn-site.xml
     &lt;value&gt;true&lt;/value&gt;  
   &lt;/property&gt; 
 &lt;/configuration&gt;
-</code></pre><p>复制配置文件的时候把注释删除，注释是给你看的，不用放进去。</p>
+</code></pre>
+<p>复制配置文件的时候把注释删除，注释是给你看的，不用放进去。</p>
 <p>slaves文件：  配置datanode的主机名称：</p>
 <pre><code>hadoopslaver1
 hadoopslaver2
 hadoopslaver3
-</code></pre><p>mapred-site.xml文件，配置yarn：</p>
+</code></pre>
+<p>mapred-site.xml文件，配置yarn：</p>
 <pre><code>使用自带的模板文件
 # mv mapred-site.xml.template mapred-site.xml
 
@@ -728,9 +939,10 @@ hadoopslaver3
         &lt;value&gt;yarn&lt;/value&gt;  
     &lt;/property&gt;  
 &lt;/configuration&gt; 
-</code></pre><p>yarn-site.xml文件：</p>
+</code></pre>
+<p>yarn-site.xml文件：</p>
 <pre><code>&lt;configuration&gt;
-    &lt;property&gt;  
+	&lt;property&gt;  
         &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;  
         &lt;value&gt;mapreduce_shuffle&lt;/value&gt;  
     &lt;/property&gt;  
@@ -759,58 +971,73 @@ hadoopslaver3
        &lt;value&gt;hadoopmaster:2181,hadoopslaver1:2181,hadoopslaver2:2181&lt;/value&gt;  
     &lt;/property&gt;  
 &lt;/configuration&gt;
-</code></pre><p>以上6个文件配置完毕，同步至其他3台主机：</p>
+</code></pre>
+<p>以上6个文件配置完毕，同步至其他3台主机：</p>
 <pre><code>进入路径：/usr/local/hadoop/etc/hadoop/下：
 
 scp * hadoopslaver1:`pwd`
 scp * hadoopslaver2:`pwd`
 scp * hadoopslaver3:`pwd`
-</code></pre><p>启动journalnode集群。（之所以将journalnode集群放在namenode之前启动，是因为namenode启动时，会往journalnode写入edits日志文件）</p>
+</code></pre>
+<p>启动journalnode集群。（之所以将journalnode集群放在namenode之前启动，是因为namenode启动时，会往journalnode写入edits日志文件）</p>
 <pre><code>在三台journalnode主机分别启动：
 
 hadoop-daemon.sh start journalnode
-</code></pre><p>NN的格式化 与  同步</p>
+</code></pre>
+<p>NN的格式化 与  同步</p>
 <p>在其中一台NN上，执行文件系统的格式化操作。注意：此处的格式化并非真正的格式化，而是一些准备和清除操作（比如清空fsimage和edits文件的存储目录下已有的文件）</p>
 <pre><code>hdfs namenode -format    
-</code></pre><p>此时，这一台NN已经完成了格式化操作，接下来，需要将格式化之后的文件系统同步到另一台NN。同步时，第二台NN会从第一台NN读取数据，故需要先将第一台NN启动起来。</p>
+</code></pre>
+<p>此时，这一台NN已经完成了格式化操作，接下来，需要将格式化之后的文件系统同步到另一台NN。同步时，第二台NN会从第一台NN读取数据，故需要先将第一台NN启动起来。</p>
 <pre><code>hadoop-daemon.sh start namenode
-</code></pre><p>第一台NN启动后，在第二台NN上执行以下命令（此时NN尚未启动），即可完成同步操作：</p>
+</code></pre>
+<p>第一台NN启动后，在第二台NN上执行以下命令（此时NN尚未启动），即可完成同步操作：</p>
 <pre><code>hdfs namenode -bootstrapStandby
-</code></pre><p>zookeeper集群的格式化</p>
+</code></pre>
+<p>zookeeper集群的格式化</p>
 <p>在上面已经启动了zookeeper集群，故此处在其中一台NN上执行以下命令，完成zookeeper的格式化：</p>
 <pre><code>集群的一些高可用信息读到zookeeper中
 
 hdfs zkfc -formatZK  
-</code></pre><p>至此，Hadoop完全分布式集群的配置工作都已经完成！</p>
+</code></pre>
+<p>至此，Hadoop完全分布式集群的配置工作都已经完成！</p>
 <p>接下来，启动集群，在其中一台主机上执行以下命令（最好是在NN上执行，因为NN-&gt;DN设置了免密钥）：</p>
 <pre><code>start-all.sh
-</code></pre><p>然后分别在RS主机上启动resourcemanager：</p>
+</code></pre>
+<p>然后分别在RS主机上启动resourcemanager：</p>
 <pre><code>yarn-daemon.sh start resourcemanager
-</code></pre><p>在start-all.sh的时候会有如下信息输出：</p>
+</code></pre>
+<p>在start-all.sh的时候会有如下信息输出：</p>
 <p><img src="https://i.imgur.com/YJGl439.jpg" alt=""></p>
 <p>在上面截图的信息中我们可以看到，集群的启动顺序是：</p>
-<table><tr><td bgcolor="orange"><font color="#FF00FF" size="4">NN –&gt; DN –&gt; JN  –&gt;ZKFC  –&gt; NM</font></td></tr></table>
-
+<table><tr><td bgcolor="orange"><font color="#FF00FF" size="4">NN --> DN --> JN  -->ZKFC  --> NM</font></td></tr></table>
 <p>jps  查看进程</p>
 <p>hadoop集群的启动顺序：</p>
 <p>1、启动zk集群</p>
 <pre><code>zkServer.sh  start | status
-</code></pre><p>2、start-all.sh</p>
+</code></pre>
+<p>2、<span class="exturl" data-url="aHR0cDovL3N0YXJ0LWFsbC5zaA==" title="http://start-all.sh">start-all.sh<i class="fa fa-external-link"></i></span></p>
 <p>3、手动启动两台RS</p>
 <pre><code>yarn-daemon.sh start resourcemanager
-</code></pre><p>停止顺序：</p>
-<p>1、stop-all.sh</p>
+</code></pre>
+<p>停止顺序：</p>
+<p>1、<span class="exturl" data-url="aHR0cDovL3N0b3AtYWxsLnNo" title="http://stop-all.sh">stop-all.sh<i class="fa fa-external-link"></i></span></p>
 <p>2、手动停止两台rs</p>
 <pre><code>yarn-daemon.sh stop resourcemanager
-</code></pre><p>3、停止zk集群</p>
+</code></pre>
+<p>3、停止zk集群</p>
 <p>启动完成，浏览器访问：</p>
 <p><img src="https://i.imgur.com/Hh2QdO7.jpg" alt=""></p>
 <p><img src="https://i.imgur.com/ilOXIgw.jpg" alt=""></p>
 <p><img src="https://i.imgur.com/ryx9uUi.jpg" alt=""></p>
-<p>至此，我们的高可用环境就搭建完毕了。大家动手尝试吧！<br>​                                                                                                                   </p>
+<p>至此，我们的高可用环境就搭建完毕了。大家动手尝试吧！<br>
+​</p>
 
       
     </div>
+
+    
+
     
     
     
@@ -828,8 +1055,8 @@ hdfs zkfc -formatZK
   <p><span>文章作者:</span><a href="/" title="访问 Rickiyang 的个人博客">Rickiyang</a></p>
   <p><span>发布时间:</span>2018年06月12日 - 22:30</p>
   <p><span>最后更新:</span>2018年12月13日 - 10:14</p>
-  <p><span>原始链接:</span><a href="/posts/82777c64.html" title="hadoop学习(三)----hadoop2.x完全分布式环境搭建">https://blog.rickiyang.cn/posts/82777c64.html</a>
-    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.rickiyang.cn/posts/82777c64.html" aria-label="复制成功！"></i></span>
+  <p><span>原始链接:</span><a href="/posts/82777c64.html" title="hadoop学习(三)----hadoop2.x完全分布式环境搭建">http://blog.rickiyang.cn/posts/82777c64.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://blog.rickiyang.cn/posts/82777c64.html" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
 </div>
@@ -850,9 +1077,7 @@ hdfs zkfc -formatZK
 
       
     </div>
-
     
-
     <div>
       
         <div>
@@ -864,6 +1089,10 @@ hdfs zkfc -formatZK
       
     </div>
 
+
+    
+      
+    
     
 
     
@@ -872,7 +1101,7 @@ hdfs zkfc -formatZK
       
         <div class="post-tags">
           
-            <a href="/tags/hadoop学习/" rel="tag"> <i class="”fa" fa-tag”=""></i> hadoop学习</a>
+            <a href="/tags/hadoop学习/" rel="tag"># hadoop学习</a>
           
         </div>
       
@@ -913,44 +1142,15 @@ hdfs zkfc -formatZK
   </article>
 
 
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript">
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
   </div>
 
 
           </div>
           
 
-
-          
+  
+    <div class="comments" id="comments">
+    </div>
 
   
 
@@ -977,60 +1177,124 @@ var jiathis_config={
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
+            Table of Contents
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
+            Overview
           </li>
         </ul>
       
 
-      <section class="site-overview-wrap sidebar-panel">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image" src="/images/adele.png" alt="Rickiyang">
             
               <p class="site-author-name" itemprop="name">Rickiyang</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-description motion-element" itemprop="description">分享对coding生活的见解</p>
           </div>
 
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
+          
+            <nav class="site-state motion-element">
               
-                <a href="/archives">
-              
-                  <span class="site-state-item-count">99</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">19</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
+                <div class="site-state-item site-state-posts">
                 
-                  <span class="site-state-item-count">11</span>
-                  <span class="site-state-item-name">标签</span>
+                  <a href="/archives">
                 
-              </div>
-            
+                    <span class="site-state-item-count">99</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
 
-          </nav>
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
 
           
             <div class="feed-link motion-element">
@@ -1043,63 +1307,93 @@ var jiathis_config={
 
           
             <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/rickiyang" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:medee1320@gmail.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://blog.csdn.net/a953713428" target="_blank" title="CSDN">
-                      
-                        <i class="fa fa-fw fa-google"></i>CSDN</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="953713428" target="_blank" title="QQ">
-                      
-                        <i class="fa fa-fw fa-twitter"></i>QQ</a>
-                  </span>
-                
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3JpY2tpeWFuZw==" title="GitHub &rarr; https://github.com/rickiyang"><i class="fa fa-fw fa-github"></i>GitHub</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="bWFpbHRvOm1lZGVlMTMyMEBnbWFpbC5jb20=" title="E-Mail &rarr; mailto:medee1320@gmail.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2E5NTM3MTM0Mjg=" title="CSDN &rarr; https://blog.csdn.net/a953713428"><i class="fa fa-fw fa-google"></i>CSDN</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="/953713428" title="QQ &rarr; 953713428"><i class="fa fa-fw fa-twitter"></i>QQ</a>
+                </span>
+              
             </div>
           
 
           
-          
 
           
           
 
+          
+            
+          
           
 
         </div>
-      </section>
+      </div>
 
       
       <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
           <div class="post-toc">
 
             
-              
+            
+            
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-准备工作"><span class="nav-number">1.</span> <span class="nav-text">1 准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-关闭防火墙，修改主机名、配置host文件、设置时间同步"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 关闭防火墙，修改主机名、配置host文件、设置时间同步</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-1-防火墙状态"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1.1 防火墙状态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-2-修改主机名："><span class="nav-number">1.1.2.</span> <span class="nav-text">1.1.2 修改主机名：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-3-修改host文件"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.1.3 修改host文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-4-删除持久化文件-etc-udev-rules-d-70-persistent-net-rules-重启虚拟主机，使配置生效。"><span class="nav-number">1.1.4.</span> <span class="nav-text">1.1.4 删除持久化文件/etc/udev/rules.d/70-persistent-net.rules  ,重启虚拟主机，使配置生效。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-5-4台主机做时间同步"><span class="nav-number">1.1.5.</span> <span class="nav-text">1.1.5 4台主机做时间同步</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-配置ssh免密"><span class="nav-number">2.</span> <span class="nav-text">2 配置ssh免密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-安装jdk，hadoop，zookeeper，配置环境变量"><span class="nav-number">3.</span> <span class="nav-text">3 安装jdk，hadoop，zookeeper，配置环境变量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-配置环境变量"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 配置环境变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-安装zookeeper"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 安装zookeeper</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-安装hadoop"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 安装hadoop</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-准备工作"><span class="nav-number">1.</span> <span class="nav-text"> 1 准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#11-关闭防火墙修改主机名-配置host文件-设置时间同步"><span class="nav-number">1.1.</span> <span class="nav-text"> 1.1 关闭防火墙，修改主机名、配置host文件、设置时间同步</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#111-防火墙状态"><span class="nav-number">1.1.1.</span> <span class="nav-text"> 1.1.1 防火墙状态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#112-修改主机名"><span class="nav-number">1.1.2.</span> <span class="nav-text"> 1.1.2 修改主机名：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#113-修改host文件"><span class="nav-number">1.1.3.</span> <span class="nav-text"> 1.1.3 修改host文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#114-删除持久化文件etcudevrulesd70-persistent-netrules-重启虚拟主机使配置生效"><span class="nav-number">1.1.4.</span> <span class="nav-text"> 1.1.4 删除持久化文件/etc/udev/rules.d/70-persistent-net.rules  ,重启虚拟主机，使配置生效。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#115-4台主机做时间同步"><span class="nav-number">1.1.5.</span> <span class="nav-text"> 1.1.5 4台主机做时间同步</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-配置ssh免密"><span class="nav-number">2.</span> <span class="nav-text"> 2 配置ssh免密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-安装jdkhadoopzookeeper配置环境变量"><span class="nav-number">3.</span> <span class="nav-text"> 3 安装jdk，hadoop，zookeeper，配置环境变量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#31-配置环境变量"><span class="nav-number">3.1.</span> <span class="nav-text"> 3.1 配置环境变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#32-安装zookeeper"><span class="nav-number">3.2.</span> <span class="nav-text"> 3.2 安装zookeeper</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#33-安装hadoop"><span class="nav-number">3.3.</span> <span class="nav-text"> 3.3 安装hadoop</span></a></li></ol></li></ol></div>
             
 
           </div>
-        </section>
+        </div>
       <!--/noindex-->
       
 
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
       
 
     </div>
@@ -1112,39 +1406,50 @@ var jiathis_config={
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2019</span>
-  <span class="with-love">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Rickiyang</span>
 
   
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="Symbols count total">752k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="Reading time total">11:24</span>
+  
 </div>
 
-<div class="powered-by">
+<!--<div class="powered-by">
 <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
   本站访客数:<span id="busuanzi_value_site_uv"></span>
 </span>
-</div>
-
-<!--
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
--->
-
-
-  <span class="post-meta-divider">|</span>
+</div>-->
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+  <div class="theme-info">Theme – <span class="exturl theme-link" data-url="aHR0cHM6Ly90aGVtZS1uZXh0Lm9yZw==">NexT.Gemini</span> v6.7.0</div>
 
 
 
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共231.6k字</span>
+  <span class="post-count">博客全站共231.9k字</span>
 </div>
 
 <script>
@@ -1164,24 +1469,23 @@ var jiathis_config={
 
         
 <div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
   
-    <span class="site-uv">
+    <span class="site-uv" title="Total Visitors">
       <i class="fa fa-user"></i>
       <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-      人次
     </span>
   
 
   
-    <span class="site-pv">
+    <span class="site-pv" title="Total Views">
       <i class="fa fa-eye"></i>
       <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-      次
     </span>
   
 </div>
+
 
 
 
@@ -1195,21 +1499,17 @@ var jiathis_config={
     </footer>
 
     
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-          <span id="scrollpercent"><span>0</span>%</span>
-        
-      </div>
+
     
 
     
 
+    
   </div>
 
   
 
-<script type="text/javascript">
+<script>
   if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
     window.Promise = null;
   }
@@ -1223,117 +1523,6 @@ var jiathis_config={
 
 
 
-  
-
-
-
-
-
-
-  
-  
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/three.min.js"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
 
 
 
@@ -1346,8 +1535,111 @@ var jiathis_config={
 
 
   
+  
 
-  <script type="text/javascript">
+
+
+  
+  
+  <script id="ribbon" size="300" alpha="0.6" zindex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/three/three.min.js"></script>
+
+  
+  <script src="/lib/three/canvas_sphere.min.js"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script>
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+      el: '#comments' ,
+      verify: false,
+      notify: false,
+      appId: 'X5fy0b9Gknu0SAse5areilGR-gzGzoHsz',
+      appKey: 'URk4cyPQ8Ttqtwhop5t26kok',
+      placeholder: 'Just go go',
+      avatar: 'mm',
+      meta:guest,
+      pageSize: '10' || 10,
+      visitor: false
+    });
+  </script>
+
+
+
+
+  
+
+  <script>
     // Popup Window;
     var isfetched = false;
     var isXml = true;
@@ -1396,6 +1688,8 @@ var jiathis_config={
         .css('overflow', 'hidden');
       $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
 
+      
+
       $.ajax({
         url: path,
         dataType: isXml ? "xml" : "json",
@@ -1429,8 +1723,9 @@ var jiathis_config={
                 var title = data.title.trim();
                 var titleInLowerCase = title.toLowerCase();
                 var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
                 var contentInLowerCase = content.toLowerCase();
-                var articleUrl = decodeURIComponent(data.url);
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
                 var indexOfTitle = [];
                 var indexOfContent = [];
                 // only match articles with not empty titles
@@ -1599,9 +1894,9 @@ var jiathis_config={
               })
             };
             if (keywords.length === 1 && keywords[0] === "") {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
             } else if (resultItems.length === 0) {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
             } else {
               resultItems.sort(function (resultLeft, resultRight) {
                 if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
@@ -1671,107 +1966,66 @@ var jiathis_config={
   
 
   
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("X5fy0b9Gknu0SAse5areilGR-gzGzoHsz", "URk4cyPQ8Ttqtwhop5t26kok");</script>
   <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
-            }
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
+    
     function addCount(Counter) {
       var $visitors = $(".leancloud_visitors");
       var url = $visitors.attr('id').trim();
       var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
 
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function ({ results }) {
           if (results.length > 0) {
             var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
+            
+            Counter('put', `/classes/Counter/${counter.objectId}`, JSON.stringify({ time: { "__op":"Increment", "amount":1 } }))
+            
+            .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.time + 1);
+            })
+            
+            .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+            })
           } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1}))
+                .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function () {
+                  console.log('Failed to create');
+                });
+            
           }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
+        })
+      .fail(function ({ responseJSON }) {
+        console.log('LeanCloud Counter Error:' + responseJSON.code + " " + responseJSON.error);
       });
     }
+    
 
     $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + "X5fy0b9Gknu0SAse5areilGR-gzGzoHsz")
+        .done(function ({ api_server }) {
+          var Counter = function (method, url, data) {
+            return $.ajax({
+              method: method,
+              url: `https://${api_server}/1.1${url}`,
+              headers: {
+                'X-LC-Id': "X5fy0b9Gknu0SAse5areilGR-gzGzoHsz",
+                'X-LC-Key': "URk4cyPQ8Ttqtwhop5t26kok",
+                'Content-Type': 'application/json',
+              },
+              data: data,
+            });
+          };
+          
+          addCount(Counter);
+          
+        })
     });
   </script>
 
@@ -1780,9 +2034,45 @@ var jiathis_config={
   
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+      }
+      else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
 
   
   
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+  <script>
+    
+    
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+  <script src="/js/src/exturl.js?v=6.7.0"></script>
+
 
   
 
@@ -1792,7 +2082,7 @@ var jiathis_config={
 
 
   <!-- 页面点击小红心 -->
-  <script type="text/javascript" src="/js/src/love.js"></script>
-  <!---->
+    <script type="text/javascript" src="/js/src/love.js"></script>
+    <!---->
 </body>
 </html>

@@ -2,6 +2,15 @@
 
 
 
+
+
+
+
+
+
+
+
+
   
 
 
@@ -9,38 +18,38 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
 
 
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-center-circle.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -64,12 +73,6 @@
   
 
   
-    
-      
-    
-
-    
-  
 
   
     
@@ -90,7 +93,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|FZSongKeBenXiuKai:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
   
 
 
@@ -98,63 +101,40 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
 
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/adele.ico?v=5.1.4">
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/adele.ico?v=5.1.4">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/adele.ico?v=6.7.0">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/adele.ico?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/adele.ico?v=6.7.0">
 
 
-  <link rel="mask-icon" href="/images/adele.ico?v=5.1.4" color="#222">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/adele.ico?v=6.7.0">
 
 
-
-
-
-  <meta name="keywords" content="爱生活,爱造作">
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="Rickiyang's blog" type="application/atom+xml">
+  <link rel="mask-icon" href="/images/adele.ico?v=6.7.0" color="#222">
 
 
 
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Rickiyang&#39;s blog">
-<meta property="og:url" content="https://blog.rickiyang.cn/page/4/index.html">
-<meta property="og:site_name" content="Rickiyang&#39;s blog">
-<meta property="og:locale" content="zh-Hans">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Rickiyang&#39;s blog">
 
-
-
-<script type="text/javascript" id="hexo.configurations">
+<script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
     scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
-    fancybox: true,
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
     algolia: {
       applicationID: '',
       apiKey: '',
@@ -166,15 +146,42 @@
 </script>
 
 
-
-  <link rel="canonical" href="https://blog.rickiyang.cn/page/4/">
-
+  
 
 
 
+
+  <meta name="description" content="分享对coding生活的见解">
+<meta name="keywords" content="java,大数据,分布式组件,hadoop,spark,Scala,机器学习">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Rickiyang&#39;s blog">
+<meta property="og:url" content="http://blog.rickiyang.cn/page/4/index.html">
+<meta property="og:site_name" content="Rickiyang&#39;s blog">
+<meta property="og:description" content="分享对coding生活的见解">
+<meta property="og:locale" content="zh-Hans">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Rickiyang&#39;s blog">
+<meta name="twitter:description" content="分享对coding生活的见解">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Rickiyang's blog" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://blog.rickiyang.cn/page/4/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
 
   <title>
-  爱生活,爱造作 - Rickiyang's blog - 
+  java,大数据,分布式组件,hadoop,spark,Scala,机器学习 - Rickiyang's blog - 分享对coding生活的见解
 </title>
   
 
@@ -184,6 +191,35 @@
 
 
 
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
 </head>
 
@@ -200,7 +236,7 @@
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
+  <div class="site-meta">
     
 
     <div class="custom-logo-site-title">
@@ -210,13 +246,16 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
+    
       
-        <h1 class="site-subtitle" itemprop="description"></h1>
+        <h1 class="site-subtitle" itemprop="description">java,大数据,分布式组件</h1>
       
+    
+    
   </div>
 
   <div class="site-nav-toggle">
-    <button>
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -224,66 +263,94 @@
   </div>
 </div>
 
-<nav class="site-nav">
-  
 
+
+<nav class="site-nav">
   
     <ul id="menu" class="menu">
       
         
-        <li class="menu-item menu-item-首页">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            首页
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-标签">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
-            
-            标签
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-分类">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
-            
-            分类
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-归档">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            归档
-          </a>
-        </li>
-      
+          
+          <li class="menu-item menu-item-首页">
 
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
       
         <li class="menu-item menu-item-search">
           
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
-            
-            搜索
-          </a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
         </li>
       
     </ul>
+  
+
   
 
   
@@ -298,7 +365,7 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -312,12 +379,23 @@
 
 
 
- </div>
+  
+
+
+
+</div>
     </header>
+
+    
+
 
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+          
+            
+
+          
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
@@ -330,16 +408,18 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/6f52a716.html">
+    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/6f52a716.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="分享对coding生活的见解">
       <meta itemprop="image" content="/images/adele.png">
     </span>
 
@@ -354,11 +434,20 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/posts/6f52a716.html" itemprop="url">hadoop学习(五)----HDFS的java操作</a></h2>
+                
+                <a href="/posts/6f52a716.html" class="post-title-link" itemprop="url">hadoop学习(五)----HDFS的java操作</a>
+              
+            
+          </h2>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -366,13 +455,30 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-07T21:55:23+08:00">
-                2018-06-07
-              </time>
+
+              
+                
+              
+
+              <time title="创建于: 2018-06-07 21:55:23" itemprop="dateCreated datePublished" datetime="2018-06-07T21:55:23+08:00">2018-06-07</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">编辑于</span>
+                
+                <time title="Modified: 2018-12-13 10:14:20" itemprop="dateModified" datetime="2018-12-13T10:14:20+08:00">2018-12-13</time>
+              
             
           </span>
 
@@ -388,22 +494,14 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/大数据学习/" itemprop="url" rel="index">
-                    <span itemprop="name">大数据学习</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/大数据学习/" itemprop="url" rel="index"><span itemprop="name">大数据学习</span></a></span>
 
                 
                 
-                  ， 
+                  , 
                 
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/大数据学习/hadoop/" itemprop="url" rel="index">
-                    <span itemprop="name">hadoop</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/大数据学习/hadoop/" itemprop="url" rel="index"><span itemprop="name">hadoop</span></a></span>
 
                 
                 
@@ -412,6 +510,16 @@
           
 
           
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/posts/6f52a716.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/6f52a716.html" itemprop="commentCount"></span>
+                </a>
+              </span>
             
           
 
@@ -423,7 +531,7 @@
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">热度&#58;</span>
+                 <span class="post-meta-item-text">热度: </span>
                
                  <span class="leancloud-visitors-count"></span>
                  <span>℃</span>
@@ -433,20 +541,17 @@
           
 
           
-            <div class="post-wordcount">
+            <div class="post-symbolscount">
               
-                
-                  <span class="post-meta-divider">|</span>
-                
+
+              
                 <span class="post-meta-item-icon">
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">字数统计&#58;</span>
+                  <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="字数统计">
-                  968
-                </span>
+                <span title="Symbols count in article">6k</span>
               
 
               
@@ -458,11 +563,9 @@
                   <i class="fa fa-clock-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="阅读时长">
-                  5
-                </span>
+                <span title="Reading time">5 mins.</span>
               
             </div>
           
@@ -484,21 +587,29 @@
       
         
           
-          前面我们基本学习了HDFS的原理，hadoop环境的搭建，下面开始正式的实践，语言以java为主。这一节来看一下HDFS的java操作。
-1 环境准备上一篇说了windows下搭建hadoop环境，开始之前先启动hadoop。我本地的编译器是idea。搭建maven工程：
+            <p>
+              前面我们基本学习了HDFS的原理，hadoop环境的搭建，下面开始正式的实践，语言以java为主。这一节来看一下HDFS的java操作。
+ 1 环境准备
+上一篇说了windows下搭建hadoop环境，开始之前先启动hadoop。我本地的编译器是idea。搭建maven工程：
 pom.xml文件：
-&l
-          ...
+
+              ...
+            </p>
           <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/posts/6f52a716.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/posts/6f52a716.html#more" rel="contents">
+                读取更多 &raquo;
+              </a>
+            </div>
+          
           <!--/noindex-->
         
       
     </div>
+
+    
+
     
     
     
@@ -506,13 +617,15 @@ pom.xml文件：
     <div>
       
     </div>
-
     
-
     <div>
       
     </div>
 
+
+    
+      
+    
     
 
     
@@ -545,16 +658,18 @@ pom.xml文件：
   
   
 
+  
+
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/5f43c4fb.html">
+    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/5f43c4fb.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="分享对coding生活的见解">
       <meta itemprop="image" content="/images/adele.png">
     </span>
 
@@ -569,11 +684,20 @@ pom.xml文件：
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/posts/5f43c4fb.html" itemprop="url">zookeeper基本知识入门</a></h2>
+                
+                <a href="/posts/5f43c4fb.html" class="post-title-link" itemprop="url">zookeeper基本知识入门</a>
+              
+            
+          </h2>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -581,13 +705,30 @@ pom.xml文件：
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-07T13:11:28+08:00">
-                2018-06-07
-              </time>
+
+              
+                
+              
+
+              <time title="创建于: 2018-06-07 13:11:28" itemprop="dateCreated datePublished" datetime="2018-06-07T13:11:28+08:00">2018-06-07</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">编辑于</span>
+                
+                <time title="Modified: 2018-12-13 10:14:20" itemprop="dateModified" datetime="2018-12-13T10:14:20+08:00">2018-12-13</time>
+              
             
           </span>
 
@@ -603,22 +744,14 @@ pom.xml文件：
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/分布式组件/" itemprop="url" rel="index">
-                    <span itemprop="name">分布式组件</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/分布式组件/" itemprop="url" rel="index"><span itemprop="name">分布式组件</span></a></span>
 
                 
                 
-                  ， 
+                  , 
                 
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/分布式组件/zookeeper/" itemprop="url" rel="index">
-                    <span itemprop="name">zookeeper</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/分布式组件/zookeeper/" itemprop="url" rel="index"><span itemprop="name">zookeeper</span></a></span>
 
                 
                 
@@ -627,6 +760,16 @@ pom.xml文件：
           
 
           
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/posts/5f43c4fb.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/5f43c4fb.html" itemprop="commentCount"></span>
+                </a>
+              </span>
             
           
 
@@ -638,7 +781,7 @@ pom.xml文件：
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">热度&#58;</span>
+                 <span class="post-meta-item-text">热度: </span>
                
                  <span class="leancloud-visitors-count"></span>
                  <span>℃</span>
@@ -648,20 +791,17 @@ pom.xml文件：
           
 
           
-            <div class="post-wordcount">
+            <div class="post-symbolscount">
               
-                
-                  <span class="post-meta-divider">|</span>
-                
+
+              
                 <span class="post-meta-item-icon">
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">字数统计&#58;</span>
+                  <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="字数统计">
-                  3.4k
-                </span>
+                <span title="Symbols count in article">6k</span>
               
 
               
@@ -673,11 +813,9 @@ pom.xml文件：
                   <i class="fa fa-clock-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="阅读时长">
-                  12
-                </span>
+                <span title="Reading time">5 mins.</span>
               
             </div>
           
@@ -699,19 +837,26 @@ pom.xml文件：
       
         
           
-          之前我们在搭建hadoop分布式环境的时候用到过Zookeeper注册hadoop服务。那么到底Zookeeper在分布式环境中发挥了什么作用呢，这次我们就来讨论这个问题。
+            <p>
+              之前我们在搭建hadoop分布式环境的时候用到过Zookeeper注册hadoop服务。那么到底Zookeeper在分布式环境中发挥了什么作用呢，这次我们就来讨论这个问题。
 在分布式系统中通常都会有多台机器构成一个集群来对外提供服务，对外来说有几台机器在提供服务它并不关心，那么对内而言组成集群的机器
-          ...
+              ...
+            </p>
           <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/posts/5f43c4fb.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/posts/5f43c4fb.html#more" rel="contents">
+                读取更多 &raquo;
+              </a>
+            </div>
+          
           <!--/noindex-->
         
       
     </div>
+
+    
+
     
     
     
@@ -719,13 +864,15 @@ pom.xml文件：
     <div>
       
     </div>
-
     
-
     <div>
       
     </div>
 
+
+    
+      
+    
     
 
     
@@ -758,16 +905,18 @@ pom.xml文件：
   
   
 
+  
+
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/a713f481.html">
+    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/a713f481.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="分享对coding生活的见解">
       <meta itemprop="image" content="/images/adele.png">
     </span>
 
@@ -782,11 +931,20 @@ pom.xml文件：
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/posts/a713f481.html" itemprop="url">hadoop学习(四)----windows环境下安装hadoop</a></h2>
+                
+                <a href="/posts/a713f481.html" class="post-title-link" itemprop="url">hadoop学习(四)----windows环境下安装hadoop</a>
+              
+            
+          </h2>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -794,13 +952,30 @@ pom.xml文件：
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-04T11:03:02+08:00">
-                2018-06-04
-              </time>
+
+              
+                
+              
+
+              <time title="创建于: 2018-06-04 11:03:02" itemprop="dateCreated datePublished" datetime="2018-06-04T11:03:02+08:00">2018-06-04</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">编辑于</span>
+                
+                <time title="Modified: 2018-12-13 10:14:20" itemprop="dateModified" datetime="2018-12-13T10:14:20+08:00">2018-12-13</time>
+              
             
           </span>
 
@@ -816,22 +991,14 @@ pom.xml文件：
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/大数据学习/" itemprop="url" rel="index">
-                    <span itemprop="name">大数据学习</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/大数据学习/" itemprop="url" rel="index"><span itemprop="name">大数据学习</span></a></span>
 
                 
                 
-                  ， 
+                  , 
                 
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/大数据学习/hadoop/" itemprop="url" rel="index">
-                    <span itemprop="name">hadoop</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/大数据学习/hadoop/" itemprop="url" rel="index"><span itemprop="name">hadoop</span></a></span>
 
                 
                 
@@ -840,6 +1007,16 @@ pom.xml文件：
           
 
           
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/posts/a713f481.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/a713f481.html" itemprop="commentCount"></span>
+                </a>
+              </span>
             
           
 
@@ -851,7 +1028,7 @@ pom.xml文件：
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">热度&#58;</span>
+                 <span class="post-meta-item-text">热度: </span>
                
                  <span class="leancloud-visitors-count"></span>
                  <span>℃</span>
@@ -861,20 +1038,17 @@ pom.xml文件：
           
 
           
-            <div class="post-wordcount">
+            <div class="post-symbolscount">
               
-                
-                  <span class="post-meta-divider">|</span>
-                
+
+              
                 <span class="post-meta-item-icon">
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">字数统计&#58;</span>
+                  <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="字数统计">
-                  660
-                </span>
+                <span title="Symbols count in article">2.2k</span>
               
 
               
@@ -886,11 +1060,9 @@ pom.xml文件：
                   <i class="fa fa-clock-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="阅读时长">
-                  2
-                </span>
+                <span title="Reading time">2 mins.</span>
               
             </div>
           
@@ -912,23 +1084,31 @@ pom.xml文件：
       
         
           
-          因为我们不能在线上环境进行调试hadoop，这样就只能在本地先调试好了再放到线上去啦。我本地是windows环境，今天先记下windows下搭建hadoop2.7的步骤。
-1 本地环境
+            <p>
+              因为我们不能在线上环境进行调试hadoop，这样就只能在本地先调试好了再放到线上去啦。我本地是windows环境，今天先记下windows下搭建hadoop2.7的步骤。
+ 1 本地环境
+
 windows7 64位
 hadoop-2.7.3.tar.gz
 
-hadoop在apache下载，看别的教程都说
-          ...
+hadoop在apache下载，看别的教程
+              ...
+            </p>
           <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/posts/a713f481.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/posts/a713f481.html#more" rel="contents">
+                读取更多 &raquo;
+              </a>
+            </div>
+          
           <!--/noindex-->
         
       
     </div>
+
+    
+
     
     
     
@@ -936,13 +1116,15 @@ hadoop在apache下载，看别的教程都说
     <div>
       
     </div>
-
     
-
     <div>
       
     </div>
 
+
+    
+      
+    
     
 
     
@@ -975,16 +1157,18 @@ hadoop在apache下载，看别的教程都说
   
   
 
+  
+
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/84e37d27.html">
+    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/84e37d27.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="分享对coding生活的见解">
       <meta itemprop="image" content="/images/adele.png">
     </span>
 
@@ -999,11 +1183,20 @@ hadoop在apache下载，看别的教程都说
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/posts/84e37d27.html" itemprop="url">hadoop学习(二)----HDFS简介及原理</a></h2>
+                
+                <a href="/posts/84e37d27.html" class="post-title-link" itemprop="url">hadoop学习(二)----HDFS简介及原理</a>
+              
+            
+          </h2>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -1011,13 +1204,30 @@ hadoop在apache下载，看别的教程都说
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-03T21:16:24+08:00">
-                2018-06-03
-              </time>
+
+              
+                
+              
+
+              <time title="创建于: 2018-06-03 21:16:24" itemprop="dateCreated datePublished" datetime="2018-06-03T21:16:24+08:00">2018-06-03</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">编辑于</span>
+                
+                <time title="Modified: 2018-12-13 10:14:20" itemprop="dateModified" datetime="2018-12-13T10:14:20+08:00">2018-12-13</time>
+              
             
           </span>
 
@@ -1033,22 +1243,14 @@ hadoop在apache下载，看别的教程都说
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/大数据学习/" itemprop="url" rel="index">
-                    <span itemprop="name">大数据学习</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/大数据学习/" itemprop="url" rel="index"><span itemprop="name">大数据学习</span></a></span>
 
                 
                 
-                  ， 
+                  , 
                 
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/大数据学习/hadoop/" itemprop="url" rel="index">
-                    <span itemprop="name">hadoop</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/大数据学习/hadoop/" itemprop="url" rel="index"><span itemprop="name">hadoop</span></a></span>
 
                 
                 
@@ -1057,6 +1259,16 @@ hadoop在apache下载，看别的教程都说
           
 
           
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/posts/84e37d27.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/84e37d27.html" itemprop="commentCount"></span>
+                </a>
+              </span>
             
           
 
@@ -1068,7 +1280,7 @@ hadoop在apache下载，看别的教程都说
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">热度&#58;</span>
+                 <span class="post-meta-item-text">热度: </span>
                
                  <span class="leancloud-visitors-count"></span>
                  <span>℃</span>
@@ -1078,20 +1290,17 @@ hadoop在apache下载，看别的教程都说
           
 
           
-            <div class="post-wordcount">
+            <div class="post-symbolscount">
               
-                
-                  <span class="post-meta-divider">|</span>
-                
+
+              
                 <span class="post-meta-item-icon">
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">字数统计&#58;</span>
+                  <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="字数统计">
-                  2.4k
-                </span>
+                <span title="Symbols count in article">3.9k</span>
               
 
               
@@ -1103,11 +1312,9 @@ hadoop在apache下载，看别的教程都说
                   <i class="fa fa-clock-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="阅读时长">
-                  8
-                </span>
+                <span title="Reading time">4 mins.</span>
               
             </div>
           
@@ -1129,18 +1336,25 @@ hadoop在apache下载，看别的教程都说
       
         
           
-          前面简单介绍了hadoop生态圈，大致了解hadoop是什么、能做什么。带着这些目的我们深入的去学习他。今天一起看一下hadoop的基石—-文件存储。因为hadoop是运行与集群之上，处于分布式环境之中，所以他的文件存储也不同与普通的本地存储，而是分布式存储系统，HDFS（The Hadoop Di
-          ...
+            <p>
+              前面简单介绍了hadoop生态圈，大致了解hadoop是什么、能做什么。带着这些目的我们深入的去学习他。今天一起看一下hadoop的基石----文件存储。因为hadoop是运行与集群之上，处于分布式环境之中，所以他的文件存储也不同与普通的本地存储，而是分布式存储系统，HDFS（The Hadoop 
+              ...
+            </p>
           <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/posts/84e37d27.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/posts/84e37d27.html#more" rel="contents">
+                读取更多 &raquo;
+              </a>
+            </div>
+          
           <!--/noindex-->
         
       
     </div>
+
+    
+
     
     
     
@@ -1148,13 +1362,15 @@ hadoop在apache下载，看别的教程都说
     <div>
       
     </div>
-
     
-
     <div>
       
     </div>
 
+
+    
+      
+    
     
 
     
@@ -1187,16 +1403,18 @@ hadoop在apache下载，看别的教程都说
   
   
 
+  
+
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/88686410.html">
+    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/88686410.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="分享对coding生活的见解">
       <meta itemprop="image" content="/images/adele.png">
     </span>
 
@@ -1211,11 +1429,20 @@ hadoop在apache下载，看别的教程都说
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/posts/88686410.html" itemprop="url">hive基础知识</a></h2>
+                
+                <a href="/posts/88686410.html" class="post-title-link" itemprop="url">hive基础知识</a>
+              
+            
+          </h2>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -1223,13 +1450,30 @@ hadoop在apache下载，看别的教程都说
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-16T22:15:00+08:00">
-                2018-05-16
-              </time>
+
+              
+                
+              
+
+              <time title="创建于: 2018-05-16 22:15:00" itemprop="dateCreated datePublished" datetime="2018-05-16T22:15:00+08:00">2018-05-16</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">编辑于</span>
+                
+                <time title="Modified: 2018-12-05 14:15:19" itemprop="dateModified" datetime="2018-12-05T14:15:19+08:00">2018-12-05</time>
+              
             
           </span>
 
@@ -1245,22 +1489,14 @@ hadoop在apache下载，看别的教程都说
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/大数据学习/" itemprop="url" rel="index">
-                    <span itemprop="name">大数据学习</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/大数据学习/" itemprop="url" rel="index"><span itemprop="name">大数据学习</span></a></span>
 
                 
                 
-                  ， 
+                  , 
                 
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/大数据学习/hive/" itemprop="url" rel="index">
-                    <span itemprop="name">hive</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/大数据学习/hive/" itemprop="url" rel="index"><span itemprop="name">hive</span></a></span>
 
                 
                 
@@ -1269,6 +1505,16 @@ hadoop在apache下载，看别的教程都说
           
 
           
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/posts/88686410.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/88686410.html" itemprop="commentCount"></span>
+                </a>
+              </span>
             
           
 
@@ -1280,7 +1526,7 @@ hadoop在apache下载，看别的教程都说
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">热度&#58;</span>
+                 <span class="post-meta-item-text">热度: </span>
                
                  <span class="leancloud-visitors-count"></span>
                  <span>℃</span>
@@ -1290,20 +1536,17 @@ hadoop在apache下载，看别的教程都说
           
 
           
-            <div class="post-wordcount">
+            <div class="post-symbolscount">
               
-                
-                  <span class="post-meta-divider">|</span>
-                
+
+              
                 <span class="post-meta-item-icon">
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">字数统计&#58;</span>
+                  <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="字数统计">
-                  2.5k
-                </span>
+                <span title="Symbols count in article">6.7k</span>
               
 
               
@@ -1315,11 +1558,9 @@ hadoop在apache下载，看别的教程都说
                   <i class="fa fa-clock-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="阅读时长">
-                  10
-                </span>
+                <span title="Reading time">6 mins.</span>
               
             </div>
           
@@ -1341,18 +1582,28 @@ hadoop在apache下载，看别的教程都说
       
         
           
-          hive基础知识Hive是建立在 Hadoop上的数据仓库基础构架。它提供了一系列的工具，可以用来进行数据提取转化加载（ETL），这是一种可以存储、查询和分析存储在Hadoop中的大规模数据的机制。Hive定义了简单的类 SQL查询语言，称为HQL，它允许熟悉SQL的用户查询数据。同时，这个语言也允
-          ...
+            <p>
+               hive基础知识
+Hive是建立在 Hadoop上的数据仓库基础构架。它提供了一系列的工具，可以用来进行数据提取转化加载（ETL），
+这是一种可以存储、查询和分析存储在Hadoop中的大规模数据的机制。Hive定义了简单的类 SQL查询语言，称为HQL，
+它允许熟悉SQL的用户查询数据。同时，这个
+              ...
+            </p>
           <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/posts/88686410.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/posts/88686410.html#more" rel="contents">
+                读取更多 &raquo;
+              </a>
+            </div>
+          
           <!--/noindex-->
         
       
     </div>
+
+    
+
     
     
     
@@ -1360,13 +1611,15 @@ hadoop在apache下载，看别的教程都说
     <div>
       
     </div>
-
     
-
     <div>
       
     </div>
 
+
+    
+      
+    
     
 
     
@@ -1399,16 +1652,18 @@ hadoop在apache下载，看别的教程都说
   
   
 
+  
+
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/d538d95c.html">
+    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/d538d95c.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="分享对coding生活的见解">
       <meta itemprop="image" content="/images/adele.png">
     </span>
 
@@ -1423,11 +1678,20 @@ hadoop在apache下载，看别的教程都说
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/posts/d538d95c.html" itemprop="url">hadoop学习(一)----概念和整体架构</a></h2>
+                
+                <a href="/posts/d538d95c.html" class="post-title-link" itemprop="url">hadoop学习(一)----概念和整体架构</a>
+              
+            
+          </h2>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -1435,13 +1699,30 @@ hadoop在apache下载，看别的教程都说
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-04T11:20:12+08:00">
-                2018-05-04
-              </time>
+
+              
+                
+              
+
+              <time title="创建于: 2018-05-04 11:20:12" itemprop="dateCreated datePublished" datetime="2018-05-04T11:20:12+08:00">2018-05-04</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">编辑于</span>
+                
+                <time title="Modified: 2018-12-13 10:14:20" itemprop="dateModified" datetime="2018-12-13T10:14:20+08:00">2018-12-13</time>
+              
             
           </span>
 
@@ -1457,22 +1738,14 @@ hadoop在apache下载，看别的教程都说
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/大数据学习/" itemprop="url" rel="index">
-                    <span itemprop="name">大数据学习</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/大数据学习/" itemprop="url" rel="index"><span itemprop="name">大数据学习</span></a></span>
 
                 
                 
-                  ， 
+                  , 
                 
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/大数据学习/hadoop/" itemprop="url" rel="index">
-                    <span itemprop="name">hadoop</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/大数据学习/hadoop/" itemprop="url" rel="index"><span itemprop="name">hadoop</span></a></span>
 
                 
                 
@@ -1481,6 +1754,16 @@ hadoop在apache下载，看别的教程都说
           
 
           
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/posts/d538d95c.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/d538d95c.html" itemprop="commentCount"></span>
+                </a>
+              </span>
             
           
 
@@ -1492,7 +1775,7 @@ hadoop在apache下载，看别的教程都说
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">热度&#58;</span>
+                 <span class="post-meta-item-text">热度: </span>
                
                  <span class="leancloud-visitors-count"></span>
                  <span>℃</span>
@@ -1502,20 +1785,17 @@ hadoop在apache下载，看别的教程都说
           
 
           
-            <div class="post-wordcount">
+            <div class="post-symbolscount">
               
-                
-                  <span class="post-meta-divider">|</span>
-                
+
+              
                 <span class="post-meta-item-icon">
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">字数统计&#58;</span>
+                  <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="字数统计">
-                  4.6k
-                </span>
+                <span title="Symbols count in article">7.9k</span>
               
 
               
@@ -1527,11 +1807,9 @@ hadoop在apache下载，看别的教程都说
                   <i class="fa fa-clock-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="阅读时长">
-                  16
-                </span>
+                <span title="Reading time">7 mins.</span>
               
             </div>
           
@@ -1553,18 +1831,25 @@ hadoop在apache下载，看别的教程都说
       
         
           
-          程序员就得不停地学习啊，故步自封不能满足公司的业务发展啊！所以我们要有搞事情的精神。都说现在是大数据的时代，可以我们这些码农还在java的业务世界里面转悠呢。好不容易碰到一个可能会用到大数据技术的场景时可惜你又没这个技术把这一票接下来！书到用时方恨少。所以我们也要与时代同进步，搞搞大数据。分布式的基
-          ...
+            <p>
+              程序员就得不停地学习啊，故步自封不能满足公司的业务发展啊！所以我们要有搞事情的精神。都说现在是大数据的时代，可以我们这些码农还在java的业务世界里面转悠呢。好不容易碰到一个可能会用到大数据技术的场景时可惜你又没这个技术把这一票接下来！书到用时方恨少。所以我们也要与时代同进步，搞搞大数据。分布式的基
+              ...
+            </p>
           <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/posts/d538d95c.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/posts/d538d95c.html#more" rel="contents">
+                读取更多 &raquo;
+              </a>
+            </div>
+          
           <!--/noindex-->
         
       
     </div>
+
+    
+
     
     
     
@@ -1572,13 +1857,15 @@ hadoop在apache下载，看别的教程都说
     <div>
       
     </div>
-
     
-
     <div>
       
     </div>
 
+
+    
+      
+    
     
 
     
@@ -1611,16 +1898,18 @@ hadoop在apache下载，看别的教程都说
   
   
 
+  
+
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/596588bb.html">
+    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/596588bb.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="分享对coding生活的见解">
       <meta itemprop="image" content="/images/adele.png">
     </span>
 
@@ -1635,11 +1924,20 @@ hadoop在apache下载，看别的教程都说
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/posts/596588bb.html" itemprop="url">Scala文件读写（五）</a></h2>
+                
+                <a href="/posts/596588bb.html" class="post-title-link" itemprop="url">Scala文件读写（五）</a>
+              
+            
+          </h2>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -1647,13 +1945,30 @@ hadoop在apache下载，看别的教程都说
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-29T20:43:27+08:00">
-                2018-04-29
-              </time>
+
+              
+                
+              
+
+              <time title="创建于: 2018-04-29 20:43:27" itemprop="dateCreated datePublished" datetime="2018-04-29T20:43:27+08:00">2018-04-29</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">编辑于</span>
+                
+                <time title="Modified: 2019-01-07 09:48:18" itemprop="dateModified" datetime="2019-01-07T09:48:18+08:00">2019-01-07</time>
+              
             
           </span>
 
@@ -1669,11 +1984,7 @@ hadoop在apache下载，看别的教程都说
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/scala/" itemprop="url" rel="index">
-                    <span itemprop="name">scala</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/scala/" itemprop="url" rel="index"><span itemprop="name">scala</span></a></span>
 
                 
                 
@@ -1682,6 +1993,16 @@ hadoop在apache下载，看别的教程都说
           
 
           
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/posts/596588bb.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/596588bb.html" itemprop="commentCount"></span>
+                </a>
+              </span>
             
           
 
@@ -1693,7 +2014,7 @@ hadoop在apache下载，看别的教程都说
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">热度&#58;</span>
+                 <span class="post-meta-item-text">热度: </span>
                
                  <span class="leancloud-visitors-count"></span>
                  <span>℃</span>
@@ -1703,20 +2024,17 @@ hadoop在apache下载，看别的教程都说
           
 
           
-            <div class="post-wordcount">
+            <div class="post-symbolscount">
               
-                
-                  <span class="post-meta-divider">|</span>
-                
+
+              
                 <span class="post-meta-item-icon">
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">字数统计&#58;</span>
+                  <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="字数统计">
-                  452
-                </span>
+                <span title="Symbols count in article">1.6k</span>
               
 
               
@@ -1728,11 +2046,9 @@ hadoop在apache下载，看别的教程都说
                   <i class="fa fa-clock-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="阅读时长">
-                  1
-                </span>
+                <span title="Reading time">1 mins.</span>
               
             </div>
           
@@ -1754,24 +2070,32 @@ hadoop在apache下载，看别的教程都说
       
         
           
-          1.读取文件在Scala中有两种基本方式可以打开并读取文件：
+            <p>
+               1.读取文件
+在Scala中有两种基本方式可以打开并读取文件：
 
 使用一个仅一行的代码，这种方式有个副作用-文件不会被自动关闭，对于那些生命周期很短的程序比如shell脚本可以使用。
 使用稍长些的代码，确保文件流会被关闭。
 
 使用简洁语法：
-var fileName = &quot;c:/1.txt&
-          ...
+var fileName = &quot;c:/1.tx
+              ...
+            </p>
           <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/posts/596588bb.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/posts/596588bb.html#more" rel="contents">
+                读取更多 &raquo;
+              </a>
+            </div>
+          
           <!--/noindex-->
         
       
     </div>
+
+    
+
     
     
     
@@ -1779,13 +2103,15 @@ var fileName = &quot;c:/1.txt&
     <div>
       
     </div>
-
     
-
     <div>
       
     </div>
 
+
+    
+      
+    
     
 
     
@@ -1818,16 +2144,18 @@ var fileName = &quot;c:/1.txt&
   
   
 
+  
+
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/c3007ea1.html">
+    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/c3007ea1.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="分享对coding生活的见解">
       <meta itemprop="image" content="/images/adele.png">
     </span>
 
@@ -1842,11 +2170,20 @@ var fileName = &quot;c:/1.txt&
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/posts/c3007ea1.html" itemprop="url">Scala集合（四）</a></h2>
+                
+                <a href="/posts/c3007ea1.html" class="post-title-link" itemprop="url">Scala集合（四）</a>
+              
+            
+          </h2>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -1854,13 +2191,30 @@ var fileName = &quot;c:/1.txt&
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-26T23:12:08+08:00">
-                2018-04-26
-              </time>
+
+              
+                
+              
+
+              <time title="创建于: 2018-04-26 23:12:08" itemprop="dateCreated datePublished" datetime="2018-04-26T23:12:08+08:00">2018-04-26</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">编辑于</span>
+                
+                <time title="Modified: 2019-01-07 09:48:18" itemprop="dateModified" datetime="2019-01-07T09:48:18+08:00">2019-01-07</time>
+              
             
           </span>
 
@@ -1876,11 +2230,7 @@ var fileName = &quot;c:/1.txt&
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/scala/" itemprop="url" rel="index">
-                    <span itemprop="name">scala</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/scala/" itemprop="url" rel="index"><span itemprop="name">scala</span></a></span>
 
                 
                 
@@ -1889,6 +2239,16 @@ var fileName = &quot;c:/1.txt&
           
 
           
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/posts/c3007ea1.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/c3007ea1.html" itemprop="commentCount"></span>
+                </a>
+              </span>
             
           
 
@@ -1900,7 +2260,7 @@ var fileName = &quot;c:/1.txt&
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">热度&#58;</span>
+                 <span class="post-meta-item-text">热度: </span>
                
                  <span class="leancloud-visitors-count"></span>
                  <span>℃</span>
@@ -1910,20 +2270,17 @@ var fileName = &quot;c:/1.txt&
           
 
           
-            <div class="post-wordcount">
+            <div class="post-symbolscount">
               
-                
-                  <span class="post-meta-divider">|</span>
-                
+
+              
                 <span class="post-meta-item-icon">
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">字数统计&#58;</span>
+                  <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="字数统计">
-                  3.2k
-                </span>
+                <span title="Symbols count in article">13k</span>
               
 
               
@@ -1935,11 +2292,9 @@ var fileName = &quot;c:/1.txt&
                   <i class="fa fa-clock-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="阅读时长">
-                  16
-                </span>
+                <span title="Reading time">11 mins.</span>
               
             </div>
           
@@ -1961,25 +2316,33 @@ var fileName = &quot;c:/1.txt&
       
         
           
-          1. 集合集合主要有三种：
+            <p>
+               1. 集合
+集合主要有三种：
 
 Sequence
 Map
 Set
 
 sequence是一种线性元素的集合，可能会是索引或者线性的（链表）。map是包含键值对的集合，就像Java的Map,set是包含无重复元素的集合。
-除了这三个主要的集合类之外，还有其他有用的集合类型，如Stack, Queue和Ra
-          ...
+除了这三个主要的集合类之外，还有其他有用的集合类型，如Stack, Queue和
+              ...
+            </p>
           <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/posts/c3007ea1.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/posts/c3007ea1.html#more" rel="contents">
+                读取更多 &raquo;
+              </a>
+            </div>
+          
           <!--/noindex-->
         
       
     </div>
+
+    
+
     
     
     
@@ -1987,13 +2350,15 @@ sequence是一种线性元素的集合，可能会是索引或者线性的（链
     <div>
       
     </div>
-
     
-
     <div>
       
     </div>
 
+
+    
+      
+    
     
 
     
@@ -2026,16 +2391,18 @@ sequence是一种线性元素的集合，可能会是索引或者线性的（链
   
   
 
+  
+
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/64535299.html">
+    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/64535299.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="分享对coding生活的见解">
       <meta itemprop="image" content="/images/adele.png">
     </span>
 
@@ -2050,11 +2417,20 @@ sequence是一种线性元素的集合，可能会是索引或者线性的（链
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/posts/64535299.html" itemprop="url">Scala函数式编程（三）</a></h2>
+                
+                <a href="/posts/64535299.html" class="post-title-link" itemprop="url">Scala函数式编程（三）</a>
+              
+            
+          </h2>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -2062,13 +2438,30 @@ sequence是一种线性元素的集合，可能会是索引或者线性的（链
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-25T16:12:51+08:00">
-                2018-04-25
-              </time>
+
+              
+                
+              
+
+              <time title="创建于: 2018-04-25 16:12:51" itemprop="dateCreated datePublished" datetime="2018-04-25T16:12:51+08:00">2018-04-25</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">编辑于</span>
+                
+                <time title="Modified: 2019-01-07 09:48:18" itemprop="dateModified" datetime="2019-01-07T09:48:18+08:00">2019-01-07</time>
+              
             
           </span>
 
@@ -2084,11 +2477,7 @@ sequence是一种线性元素的集合，可能会是索引或者线性的（链
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/scala/" itemprop="url" rel="index">
-                    <span itemprop="name">scala</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/scala/" itemprop="url" rel="index"><span itemprop="name">scala</span></a></span>
 
                 
                 
@@ -2097,6 +2486,16 @@ sequence是一种线性元素的集合，可能会是索引或者线性的（链
           
 
           
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/posts/64535299.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/64535299.html" itemprop="commentCount"></span>
+                </a>
+              </span>
             
           
 
@@ -2108,7 +2507,7 @@ sequence是一种线性元素的集合，可能会是索引或者线性的（链
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">热度&#58;</span>
+                 <span class="post-meta-item-text">热度: </span>
                
                  <span class="leancloud-visitors-count"></span>
                  <span>℃</span>
@@ -2118,20 +2517,17 @@ sequence是一种线性元素的集合，可能会是索引或者线性的（链
           
 
           
-            <div class="post-wordcount">
+            <div class="post-symbolscount">
               
-                
-                  <span class="post-meta-divider">|</span>
-                
+
+              
                 <span class="post-meta-item-icon">
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">字数统计&#58;</span>
+                  <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="字数统计">
-                  685
-                </span>
+                <span title="Symbols count in article">2k</span>
               
 
               
@@ -2143,11 +2539,9 @@ sequence是一种线性元素的集合，可能会是索引或者线性的（链
                   <i class="fa fa-clock-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="阅读时长">
-                  3
-                </span>
+                <span title="Reading time">2 mins.</span>
               
             </div>
           
@@ -2169,19 +2563,26 @@ sequence是一种线性元素的集合，可能会是索引或者线性的（链
       
         
           
-          Scala既是一门面向对象(OOP)语言，又是一门函数式编程(FP)语言。作为一门支持函数式编程的语言，Scala鼓励面向表达式编程(EOP)模型。简单来说，EOP中每个语句都有返回值。这一模式很明显，因为if/else语句就可以返回值：
+            <p>
+              Scala既是一门面向对象(OOP)语言，又是一门函数式编程(FP)语言。作为一门支持函数式编程的语言，Scala鼓励面向表达式编程(EOP)模型。简单来说，EOP中每个语句都有返回值。这一模式很明显，因为if/else语句就可以返回值：
 val result = if(a &gt; b) a el
-          ...
+              ...
+            </p>
           <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/posts/64535299.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/posts/64535299.html#more" rel="contents">
+                读取更多 &raquo;
+              </a>
+            </div>
+          
           <!--/noindex-->
         
       
     </div>
+
+    
+
     
     
     
@@ -2189,13 +2590,15 @@ val result = if(a &gt; b) a el
     <div>
       
     </div>
-
     
-
     <div>
       
     </div>
 
+
+    
+      
+    
     
 
     
@@ -2228,16 +2631,18 @@ val result = if(a &gt; b) a el
   
   
 
+  
+
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/a0c17a47.html">
+    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/a0c17a47.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="分享对coding生活的见解">
       <meta itemprop="image" content="/images/adele.png">
     </span>
 
@@ -2252,11 +2657,20 @@ val result = if(a &gt; b) a el
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/posts/a0c17a47.html" itemprop="url">Scala类和对象（二）</a></h2>
+                
+                <a href="/posts/a0c17a47.html" class="post-title-link" itemprop="url">Scala类和对象（二）</a>
+              
+            
+          </h2>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -2264,13 +2678,30 @@ val result = if(a &gt; b) a el
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-22T21:26:34+08:00">
-                2018-04-22
-              </time>
+
+              
+                
+              
+
+              <time title="创建于: 2018-04-22 21:26:34" itemprop="dateCreated datePublished" datetime="2018-04-22T21:26:34+08:00">2018-04-22</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">编辑于</span>
+                
+                <time title="Modified: 2019-01-07 09:48:18" itemprop="dateModified" datetime="2019-01-07T09:48:18+08:00">2019-01-07</time>
+              
             
           </span>
 
@@ -2286,11 +2717,7 @@ val result = if(a &gt; b) a el
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/scala/" itemprop="url" rel="index">
-                    <span itemprop="name">scala</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/scala/" itemprop="url" rel="index"><span itemprop="name">scala</span></a></span>
 
                 
                 
@@ -2299,6 +2726,16 @@ val result = if(a &gt; b) a el
           
 
           
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/posts/a0c17a47.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/a0c17a47.html" itemprop="commentCount"></span>
+                </a>
+              </span>
             
           
 
@@ -2310,7 +2747,7 @@ val result = if(a &gt; b) a el
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">热度&#58;</span>
+                 <span class="post-meta-item-text">热度: </span>
                
                  <span class="leancloud-visitors-count"></span>
                  <span>℃</span>
@@ -2320,20 +2757,17 @@ val result = if(a &gt; b) a el
           
 
           
-            <div class="post-wordcount">
+            <div class="post-symbolscount">
               
-                
-                  <span class="post-meta-divider">|</span>
-                
+
+              
                 <span class="post-meta-item-icon">
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">字数统计&#58;</span>
+                  <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="字数统计">
-                  2.8k
-                </span>
+                <span title="Symbols count in article">7.1k</span>
               
 
               
@@ -2345,11 +2779,9 @@ val result = if(a &gt; b) a el
                   <i class="fa fa-clock-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="阅读时长">
-                  11
-                </span>
+                <span title="Reading time">6 mins.</span>
               
             </div>
           
@@ -2371,22 +2803,31 @@ val result = if(a &gt; b) a el
       
         
           
-          1. 类和属性1.1 如何控制构造函数字段的可见性在Scala中：
+            <p>
+               1. 类和属性
+ 1.1 如何控制构造函数字段的可见性
+在Scala中：
 
 如果一个字段被声明为var, Scala会为该字段生成getter和setter方法。
 如果字段是val, Scala只生成getter方法。
-如果一个字段没有var或者val的修饰符， Scala比较保守，不会生成getter和
-          ...
+如果一个字段没有var或者val的修饰符， Scala比较保守，不会生成get
+              ...
+            </p>
           <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/posts/a0c17a47.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/posts/a0c17a47.html#more" rel="contents">
+                读取更多 &raquo;
+              </a>
+            </div>
+          
           <!--/noindex-->
         
       
     </div>
+
+    
+
     
     
     
@@ -2394,13 +2835,15 @@ val result = if(a &gt; b) a el
     <div>
       
     </div>
-
     
-
     <div>
       
     </div>
 
+
+    
+      
+    
     
 
     
@@ -2429,15 +2872,12 @@ val result = if(a &gt; b) a el
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
 
           </div>
-          
-
-
           
 
         </div>
@@ -2460,52 +2900,116 @@ val result = if(a &gt; b) a el
 
       
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image" src="/images/adele.png" alt="Rickiyang">
             
               <p class="site-author-name" itemprop="name">Rickiyang</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-description motion-element" itemprop="description">分享对coding生活的见解</p>
           </div>
 
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
+          
+            <nav class="site-state motion-element">
               
-                <a href="/archives">
-              
-                  <span class="site-state-item-count">99</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">19</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
+                <div class="site-state-item site-state-posts">
                 
-                  <span class="site-state-item-count">11</span>
-                  <span class="site-state-item-name">标签</span>
+                  <a href="/archives">
                 
-              </div>
-            
+                    <span class="site-state-item-count">99</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
 
-          </nav>
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
 
           
             <div class="feed-link motion-element">
@@ -2518,47 +3022,76 @@ val result = if(a &gt; b) a el
 
           
             <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/rickiyang" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:medee1320@gmail.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://blog.csdn.net/a953713428" target="_blank" title="CSDN">
-                      
-                        <i class="fa fa-fw fa-google"></i>CSDN</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="953713428" target="_blank" title="QQ">
-                      
-                        <i class="fa fa-fw fa-twitter"></i>QQ</a>
-                  </span>
-                
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3JpY2tpeWFuZw==" title="GitHub &rarr; https://github.com/rickiyang"><i class="fa fa-fw fa-github"></i>GitHub</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="bWFpbHRvOm1lZGVlMTMyMEBnbWFpbC5jb20=" title="E-Mail &rarr; mailto:medee1320@gmail.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2E5NTM3MTM0Mjg=" title="CSDN &rarr; https://blog.csdn.net/a953713428"><i class="fa fa-fw fa-google"></i>CSDN</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="/953713428" title="QQ &rarr; 953713428"><i class="fa fa-fw fa-twitter"></i>QQ</a>
+                </span>
+              
             </div>
           
 
           
-          
 
           
           
 
+          
+            
+          
           
 
         </div>
-      </section>
+      </div>
 
       
 
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
       
 
     </div>
@@ -2571,39 +3104,50 @@ val result = if(a &gt; b) a el
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2019</span>
-  <span class="with-love">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Rickiyang</span>
 
   
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="Symbols count total">752k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="Reading time total">11:24</span>
+  
 </div>
 
-<div class="powered-by">
+<!--<div class="powered-by">
 <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
   本站访客数:<span id="busuanzi_value_site_uv"></span>
 </span>
-</div>
-
-<!--
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
--->
-
-
-  <span class="post-meta-divider">|</span>
+</div>-->
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+  <div class="theme-info">Theme – <span class="exturl theme-link" data-url="aHR0cHM6Ly90aGVtZS1uZXh0Lm9yZw==">NexT.Gemini</span> v6.7.0</div>
 
 
 
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共231.6k字</span>
+  <span class="post-count">博客全站共231.9k字</span>
 </div>
 
 <script>
@@ -2623,24 +3167,23 @@ val result = if(a &gt; b) a el
 
         
 <div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
   
-    <span class="site-uv">
+    <span class="site-uv" title="Total Visitors">
       <i class="fa fa-user"></i>
       <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-      人次
     </span>
   
 
   
-    <span class="site-pv">
+    <span class="site-pv" title="Total Views">
       <i class="fa fa-eye"></i>
       <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-      次
     </span>
   
 </div>
+
 
 
 
@@ -2654,21 +3197,17 @@ val result = if(a &gt; b) a el
     </footer>
 
     
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-          <span id="scrollpercent"><span>0</span>%</span>
-        
-      </div>
+
     
 
     
 
+    
   </div>
 
   
 
-<script type="text/javascript">
+<script>
   if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
     window.Promise = null;
   }
@@ -2682,113 +3221,6 @@ val result = if(a &gt; b) a el
 
 
 
-  
-
-
-
-
-
-
-  
-  
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/three.min.js"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
 
 
 
@@ -2801,8 +3233,107 @@ val result = if(a &gt; b) a el
 
 
   
+  
 
-  <script type="text/javascript">
+
+
+  
+  
+  <script id="ribbon" size="300" alpha="0.6" zindex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/three/three.min.js"></script>
+
+  
+  <script src="/lib/three/canvas_sphere.min.js"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+  
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script>
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+      el: '#comments' ,
+      verify: false,
+      notify: false,
+      appId: 'X5fy0b9Gknu0SAse5areilGR-gzGzoHsz',
+      appKey: 'URk4cyPQ8Ttqtwhop5t26kok',
+      placeholder: 'Just go go',
+      avatar: 'mm',
+      meta:guest,
+      pageSize: '10' || 10,
+      visitor: false
+    });
+  </script>
+
+
+
+
+  
+
+  <script>
     // Popup Window;
     var isfetched = false;
     var isXml = true;
@@ -2851,6 +3382,8 @@ val result = if(a &gt; b) a el
         .css('overflow', 'hidden');
       $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
 
+      
+
       $.ajax({
         url: path,
         dataType: isXml ? "xml" : "json",
@@ -2884,8 +3417,9 @@ val result = if(a &gt; b) a el
                 var title = data.title.trim();
                 var titleInLowerCase = title.toLowerCase();
                 var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
                 var contentInLowerCase = content.toLowerCase();
-                var articleUrl = decodeURIComponent(data.url);
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
                 var indexOfTitle = [];
                 var indexOfContent = [];
                 // only match articles with not empty titles
@@ -3054,9 +3588,9 @@ val result = if(a &gt; b) a el
               })
             };
             if (keywords.length === 1 && keywords[0] === "") {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
             } else if (resultItems.length === 0) {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
             } else {
               resultItems.sort(function (resultLeft, resultRight) {
                 if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
@@ -3126,11 +3660,9 @@ val result = if(a &gt; b) a el
   
 
   
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("X5fy0b9Gknu0SAse5areilGR-gzGzoHsz", "URk4cyPQ8Ttqtwhop5t26kok");</script>
   <script>
+    
     function showTime(Counter) {
-      var query = new AV.Query(Counter);
       var entries = [];
       var $visitors = $(".leancloud_visitors");
 
@@ -3138,9 +3670,8 @@ val result = if(a &gt; b) a el
         entries.push( $(this).attr("id").trim() );
       });
 
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url: { "$in": entries } }) })
+        .done(function ({ results }) {
           var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
 
           if (results.length === 0) {
@@ -3150,8 +3681,8 @@ val result = if(a &gt; b) a el
 
           for (var i = 0; i < results.length; i++) {
             var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
+            var url = item.url;
+            var time = item.time;
             var element = document.getElementById(url);
 
             $(element).find(COUNT_CONTAINER_REF).text(time);
@@ -3165,68 +3696,33 @@ val result = if(a &gt; b) a el
             }
           }
         })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
+        .fail(function ({ responseJSON }) {
+          console.log("LeanCloud Counter Error: " + responseJSON.code + " " + responseJSON.error);
         });
     }
-
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
-
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
-          if (results.length > 0) {
-            var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
-          } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
-          }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
-      });
-    }
+    
 
     $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + "X5fy0b9Gknu0SAse5areilGR-gzGzoHsz")
+        .done(function ({ api_server }) {
+          var Counter = function (method, url, data) {
+            return $.ajax({
+              method: method,
+              url: `https://${api_server}/1.1${url}`,
+              headers: {
+                'X-LC-Id': "X5fy0b9Gknu0SAse5areilGR-gzGzoHsz",
+                'X-LC-Key': "URk4cyPQ8Ttqtwhop5t26kok",
+                'Content-Type': 'application/json',
+              },
+              data: data,
+            });
+          };
+          
+          if ($('.post-title-link').length >= 1) {
+            showTime(Counter);
+          }
+          
+        })
     });
   </script>
 
@@ -3235,9 +3731,45 @@ val result = if(a &gt; b) a el
   
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+      }
+      else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
 
   
   
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+  <script>
+    
+    
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+  <script src="/js/src/exturl.js?v=6.7.0"></script>
+
 
   
 
@@ -3247,7 +3779,7 @@ val result = if(a &gt; b) a el
 
 
   <!-- 页面点击小红心 -->
-  <script type="text/javascript" src="/js/src/love.js"></script>
-  <!---->
+    <script type="text/javascript" src="/js/src/love.js"></script>
+    <!---->
 </body>
 </html>

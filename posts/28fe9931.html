@@ -2,6 +2,15 @@
 
 
 
+
+
+
+
+
+
+
+
+
   
 
 
@@ -9,38 +18,38 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
 
 
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-center-circle.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -64,12 +73,6 @@
   
 
   
-    
-      
-    
-
-    
-  
 
   
     
@@ -90,7 +93,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|FZSongKeBenXiuKai:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
   
 
 
@@ -98,70 +101,40 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
 
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/adele.ico?v=5.1.4">
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/adele.ico?v=5.1.4">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/adele.ico?v=6.7.0">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/adele.ico?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/adele.ico?v=6.7.0">
 
 
-  <link rel="mask-icon" href="/images/adele.ico?v=5.1.4" color="#222">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/adele.ico?v=6.7.0">
 
 
-
-
-
-  <meta name="keywords" content="学习,">
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="Rickiyang's blog" type="application/atom+xml">
+  <link rel="mask-icon" href="/images/adele.ico?v=6.7.0" color="#222">
 
 
 
 
 
 
-<meta name="description" content="前面一节简单学习了activemq的使用，我们知道activemq的使用方式非常简单有如下几个步骤：  创建连接工厂 创建连接  创建会话 创建目的地 创建生产者或消费者 生产或消费消息 关闭生产或消费者、关闭会话、关闭连接  前面我们的实例代码中已经按照这个步骤完成了P2P和Pub/Sub模式的消息发送和接收。那么这一节我们就针对他的消息传播机制和持久化方式做一个简单的学习。在会用的同时我们也需">
-<meta name="keywords" content="学习">
-<meta property="og:type" content="article">
-<meta property="og:title" content="消息中间件-activemq消息机制和持久化介绍(三)">
-<meta property="og:url" content="https://blog.rickiyang.cn/posts/28fe9931.html">
-<meta property="og:site_name" content="Rickiyang&#39;s blog">
-<meta property="og:description" content="前面一节简单学习了activemq的使用，我们知道activemq的使用方式非常简单有如下几个步骤：  创建连接工厂 创建连接  创建会话 创建目的地 创建生产者或消费者 生产或消费消息 关闭生产或消费者、关闭会话、关闭连接  前面我们的实例代码中已经按照这个步骤完成了P2P和Pub/Sub模式的消息发送和接收。那么这一节我们就针对他的消息传播机制和持久化方式做一个简单的学习。在会用的同时我们也需">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://img.blog.csdn.net/20170502232257791?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYTk1MzcxMzQyOA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2018-12-04T09:28:26.146Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="消息中间件-activemq消息机制和持久化介绍(三)">
-<meta name="twitter:description" content="前面一节简单学习了activemq的使用，我们知道activemq的使用方式非常简单有如下几个步骤：  创建连接工厂 创建连接  创建会话 创建目的地 创建生产者或消费者 生产或消费消息 关闭生产或消费者、关闭会话、关闭连接  前面我们的实例代码中已经按照这个步骤完成了P2P和Pub/Sub模式的消息发送和接收。那么这一节我们就针对他的消息传播机制和持久化方式做一个简单的学习。在会用的同时我们也需">
-<meta name="twitter:image" content="http://img.blog.csdn.net/20170502232257791?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYTk1MzcxMzQyOA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 
-
-
-<script type="text/javascript" id="hexo.configurations">
+<script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
     scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
-    fancybox: true,
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
     algolia: {
       applicationID: '',
       apiKey: '',
@@ -173,12 +146,42 @@
 </script>
 
 
-
-  <link rel="canonical" href="https://blog.rickiyang.cn/posts/28fe9931.html">
-
+  
 
 
 
+
+  <meta name="description" content="前面一节简单学习了activemq的使用，我们知道activemq的使用方式非常简单有如下几个步骤：  创建连接工厂 创建连接 创建会话 创建目的地 创建生产者或消费者 生产或消费消息 关闭生产或消费者、关闭会话、关闭连接  前面我们的实例代码中已经按照这个步骤完成了P2P和Pub/Sub模式的消息发送和接收。那么这一节我们就针对他的消息传播机制和持久化方式做一个简单的学习。在会用的同时我们也需要">
+<meta name="keywords" content="学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="消息中间件-activemq消息机制和持久化介绍(三)">
+<meta property="og:url" content="http://blog.rickiyang.cn/posts/28fe9931.html">
+<meta property="og:site_name" content="Rickiyang&#39;s blog">
+<meta property="og:description" content="前面一节简单学习了activemq的使用，我们知道activemq的使用方式非常简单有如下几个步骤：  创建连接工厂 创建连接 创建会话 创建目的地 创建生产者或消费者 生产或消费消息 关闭生产或消费者、关闭会话、关闭连接  前面我们的实例代码中已经按照这个步骤完成了P2P和Pub/Sub模式的消息发送和接收。那么这一节我们就针对他的消息传播机制和持久化方式做一个简单的学习。在会用的同时我们也需要">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://img.blog.csdn.net/20170502232257791?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYTk1MzcxMzQyOA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2018-12-04T09:28:26.146Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="消息中间件-activemq消息机制和持久化介绍(三)">
+<meta name="twitter:description" content="前面一节简单学习了activemq的使用，我们知道activemq的使用方式非常简单有如下几个步骤：  创建连接工厂 创建连接 创建会话 创建目的地 创建生产者或消费者 生产或消费消息 关闭生产或消费者、关闭会话、关闭连接  前面我们的实例代码中已经按照这个步骤完成了P2P和Pub/Sub模式的消息发送和接收。那么这一节我们就针对他的消息传播机制和持久化方式做一个简单的学习。在会用的同时我们也需要">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170502232257791?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYTk1MzcxMzQyOA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Rickiyang's blog" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://blog.rickiyang.cn/posts/28fe9931.html">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
 
   <title>消息中间件-activemq消息机制和持久化介绍(三) | Rickiyang's blog</title>
   
@@ -189,6 +192,35 @@
 
 
 
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
 </head>
 
@@ -204,7 +236,7 @@
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
+  <div class="site-meta">
     
 
     <div class="custom-logo-site-title">
@@ -214,13 +246,16 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
+    
       
-        <h1 class="site-subtitle" itemprop="description"></h1>
+        <h1 class="site-subtitle" itemprop="description">java,大数据,分布式组件</h1>
       
+    
+    
   </div>
 
   <div class="site-nav-toggle">
-    <button>
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -228,66 +263,94 @@
   </div>
 </div>
 
-<nav class="site-nav">
-  
 
+
+<nav class="site-nav">
   
     <ul id="menu" class="menu">
       
         
-        <li class="menu-item menu-item-首页">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            首页
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-标签">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
-            
-            标签
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-分类">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
-            
-            分类
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-归档">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            归档
-          </a>
-        </li>
-      
+          
+          <li class="menu-item menu-item-首页">
 
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
       
         <li class="menu-item menu-item-search">
           
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
-            
-            搜索
-          </a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
         </li>
       
     </ul>
+  
+
   
 
   
@@ -302,7 +365,7 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -316,12 +379,23 @@
 
 
 
- </div>
+  
+
+
+
+</div>
     </header>
+
+    
+
 
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+          
+            
+
+          
           <div id="content" class="content">
             
 
@@ -334,16 +408,18 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/28fe9931.html">
+    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/28fe9931.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="分享对coding生活的见解">
       <meta itemprop="image" content="/images/adele.png">
     </span>
 
@@ -356,11 +432,20 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">消息中间件-activemq消息机制和持久化介绍(三)</h2>
+          <h2 class="post-title" itemprop="name headline">消息中间件-activemq消息机制和持久化介绍(三)
+
+              
+            
+          </h2>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -368,13 +453,30 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-17T01:02:00+08:00">
-                2017-03-17
-              </time>
+
+              
+                
+              
+
+              <time title="创建于: 2017-03-17 01:02:00" itemprop="dateCreated datePublished" datetime="2017-03-17T01:02:00+08:00">2017-03-17</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">编辑于</span>
+                
+                <time title="Modified: 2018-12-04 17:28:26" itemprop="dateModified" datetime="2018-12-04T17:28:26+08:00">2018-12-04</time>
+              
             
           </span>
 
@@ -390,11 +492,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/activeMQ/" itemprop="url" rel="index">
-                    <span itemprop="name">activeMQ</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/activeMQ/" itemprop="url" rel="index"><span itemprop="name">activeMQ</span></a></span>
 
                 
                 
@@ -403,6 +501,16 @@
           
 
           
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/posts/28fe9931.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/28fe9931.html" itemprop="commentCount"></span>
+                </a>
+              </span>
             
           
 
@@ -414,7 +522,7 @@
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">热度&#58;</span>
+                 <span class="post-meta-item-text">热度: </span>
                
                  <span class="leancloud-visitors-count"></span>
                  <span>℃</span>
@@ -422,27 +530,19 @@
           
 
           
-            <span class="post-meta-divider">|</span>
-            <span class="page-pv"><i class="fa fa-file-o"></i>
-            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
-            </span>
-          
 
           
-            <div class="post-wordcount">
+            <div class="post-symbolscount">
               
-                
-                  <span class="post-meta-divider">|</span>
-                
+
+              
                 <span class="post-meta-item-icon">
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">字数统计&#58;</span>
+                  <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="字数统计">
-                  2.4k
-                </span>
+                <span title="Symbols count in article">4.5k</span>
               
 
               
@@ -454,11 +554,9 @@
                   <i class="fa fa-clock-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="阅读时长">
-                  8
-                </span>
+                <span title="Reading time">4 mins.</span>
               
             </div>
           
@@ -481,7 +579,7 @@
         <p>前面一节简单学习了activemq的使用，我们知道activemq的使用方式非常简单有如下几个步骤：</p>
 <ol>
 <li>创建连接工厂</li>
-<li>创建连接 </li>
+<li>创建连接</li>
 <li>创建会话</li>
 <li>创建目的地</li>
 <li>创建生产者或消费者</li>
@@ -489,18 +587,22 @@
 <li>关闭生产或消费者、关闭会话、关闭连接</li>
 </ol>
 <p>前面我们的实例代码中已经按照这个步骤完成了P2P和Pub/Sub模式的消息发送和接收。那么这一节我们就针对他的消息传播机制和持久化方式做一个简单的学习。在会用的同时我们也需要理解一些基本的概念，这样才不至于在出错后无从下手。</p>
-<h4 id="1-activemq服务器工作模型"><a href="#1-activemq服务器工作模型" class="headerlink" title="1.activemq服务器工作模型"></a><strong>1.activemq服务器工作模型</strong></h4><p>我们先看一下消息发送的时序图：</p>
+<h4 id="1activemq服务器工作模型"><a class="markdownIt-Anchor" href="#1activemq服务器工作模型"></a> <strong>1.activemq服务器工作模型</strong></h4>
+<p>我们先看一下消息发送的时序图：</p>
 <p><img src="http://img.blog.csdn.net/20170502232257791?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYTk1MzcxMzQyOA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
 <p>ConnectionFactory 对象创建一个连接工厂，消息的发送和接受服务均由此进行；</p>
 <p>ConnectionFactory 创建一个活动Connection作为当前使用的连接；</p>
 <p>Session 是一个用于生成和使用消息的单线程上下文，它用于创建发送的生产者和接收消息的消费者，并为所发送的消息定义发送顺序。会话通过大量确认选项或通过事务来支持可靠传送。</p>
 <p>户端使用 MessageProducer 向指定的物理目标发送消息，生产者可指定一个默认传送模式（持久性消息与非持久性消息）、优先级和有效期值，以控制生产者向物理目标发送的所有消息；</p>
 <p>消费者可以支持同步或异步消息接收。异步使用可通过向消费者注册 MessageListener 来实现。当会话线程调用 MessageListener 对象的 onMessage 方法时，客户端将使用消息。</p>
-<h4 id="2-ActiveMQ消息传送模型"><a href="#2-ActiveMQ消息传送模型" class="headerlink" title="2.ActiveMQ消息传送模型"></a><strong>2.ActiveMQ消息传送模型</strong></h4><p> ActiveMQ 支持两种消息传送模型：PTP（即点对点模型）和Pub/Sub（即发布 /订阅模型）,前面我们已经讲过，在此就不赘述。</p>
-<h4 id="3-消息选择器"><a href="#3-消息选择器" class="headerlink" title="3.消息选择器"></a><strong>3.消息选择器</strong></h4><p>ActiveMQ提供了一种机制，使用它，消息服务可根据消息选择器中的标准来执行消息过滤。生产者可在消息中放入应用程序特有的属性，而消费者可使用基于这些属性的选择标准来表明对消息是否感兴趣。</p>
+<h4 id="2activemq消息传送模型"><a class="markdownIt-Anchor" href="#2activemq消息传送模型"></a> <strong>2.ActiveMQ消息传送模型</strong></h4>
+<p>ActiveMQ 支持两种消息传送模型：PTP（即点对点模型）和Pub/Sub（即发布 /订阅模型）,前面我们已经讲过，在此就不赘述。</p>
+<h4 id="3消息选择器"><a class="markdownIt-Anchor" href="#3消息选择器"></a> <strong>3.消息选择器</strong></h4>
+<p>ActiveMQ提供了一种机制，使用它，消息服务可根据消息选择器中的标准来执行消息过滤。生产者可在消息中放入应用程序特有的属性，而消费者可使用基于这些属性的选择标准来表明对消息是否感兴趣。</p>
 <p>消息选择器是根据 header 和 properties 允许客户端选择性的制定需要接收的消息，消息选择器是无法利用 消息主体(Body)进行过滤的。无论你的消息主题是什么类型， 文本、或者对象、或者键值对。下面我们讲一下消息选择器的语法以及使用规范：</p>
 <p>可接收的类型包括：byte,int,double,boolean,String;</p>
-<h5 id="属性标识符定义："><a href="#属性标识符定义：" class="headerlink" title="属性标识符定义："></a>属性标识符定义：</h5><pre><code>变量名与java定义一样； 
+<h5 id="属性标识符定义"><a class="markdownIt-Anchor" href="#属性标识符定义"></a> 属性标识符定义：</h5>
+<pre><code>变量名与java定义一样； 
 
 要么在heads中定义 要么在 properties中定义，如果在sender中是在heads中定义而receiver中却从properties中寻找的话，找不到的情况下他是不会自动去heads中寻找的，而是会返回null；
 
@@ -513,12 +615,15 @@ message.setIntProperty(&quot;test&quot;,14);
 session.createConsumer(destination,&quot;test &gt; 14&quot;)；
 
 属性标志符是区分大小写的；
-</code></pre><h5 id="拦截器中的部分表示方式："><a href="#拦截器中的部分表示方式：" class="headerlink" title="拦截器中的部分表示方式："></a>拦截器中的部分表示方式：</h5><pre><code>可以是条件表达式
+</code></pre>
+<h5 id="拦截器中的部分表示方式"><a class="markdownIt-Anchor" href="#拦截器中的部分表示方式"></a> 拦截器中的部分表示方式：</h5>
+<pre><code>可以是条件表达式
 
 可以是算术表达式
 
 可以是比较运算和逻辑运算组成的表达式
-</code></pre><p>支持 () 左右括号；</p>
+</code></pre>
+<p>支持 () 左右括号；</p>
 <p>支持逻辑运算的优先顺序表达式 例如: NOT , AND , OR；</p>
 <p>比较运算符有: = , &gt; , &gt;= , &lt; , &lt;= , &lt;&gt; (not equal)；</p>
 <p>eg：</p>
@@ -527,15 +632,17 @@ session.createConsumer(destination,&quot;test &gt; 14&quot;)；
 标识符非空 not null
 &quot;prop_name IS NOT NULL&quot;
 &quot;age BETWEEN 15 AND 19&quot; is equivalent to &quot;age &gt;= 15 AND age &lt;= 19&quot;
-&quot;Country NOT IN (&apos; UK&apos;, &apos;US&apos;, &apos;France&apos;) &quot;
-</code></pre><p>代码很简单，只需要在Sender端做如下改写：</p>
+&quot;Country NOT IN (' UK', 'US', 'France') &quot;
+</code></pre>
+<p>代码很简单，只需要在Sender端做如下改写：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">TextMessage message = session.createTextMessage();</span><br><span class="line">message.setIntProperty(<span class="string">"test"</span>,<span class="number">14</span>);</span><br><span class="line">message.setText(<span class="string">"test"</span>);</span><br></pre></td></tr></table></figure>
 <p>Receiver端：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">consumer = session.createConsumer(destination,<span class="string">"test &gt; 14"</span>);</span><br></pre></td></tr></table></figure>
 <p>对发送端的特定字符做一个判断符合条件即被拦截</p>
-<h4 id="4-消息确认机制"><a href="#4-消息确认机制" class="headerlink" title="4.消息确认机制"></a><strong>4.消息确认机制</strong></h4><p>jms消息只有在被确认之后才认为成功消费了这条消息。消息的成功消费通常包括三个步骤：</p>
-<p>（1）client接收消息 </p>
-<p>（2）client处理消息 </p>
+<h4 id="4消息确认机制"><a class="markdownIt-Anchor" href="#4消息确认机制"></a> <strong>4.消息确认机制</strong></h4>
+<p>jms消息只有在被确认之后才认为成功消费了这条消息。消息的成功消费通常包括三个步骤：</p>
+<p>（1）client接收消息</p>
+<p>（2）client处理消息</p>
 <p>（3）消息被确认（也就是client给一个确认消息）</p>
 <p>在事务性会话中当一个事务被提交的时候，确认自动发生，和应答模式没关系，这个值可以随便写。（这里多提一句异步消息接收中不能使用事务性会话）。</p>
 <p>在非事务性会话中消息何时被确认取决于创建的session中设置的消息应答模式（acknowledge model）该参数有三个值：</p>
@@ -544,12 +651,16 @@ session.createConsumer(destination,&quot;test &gt; 14&quot;)；
 <li>Session.CLIENT_ACKNOWLEDGE: 客户单通过调用acknowledge方法来确认客户端收到消息。但需要注意在这种应答模式下，确认是在会话层上进行的，确认一个被消费的消息将自动确认所有已消费的其他消息。比如一个消费者已经消费了10条消息，然后确认了第5条消息被消费，则这10条都被确认消费了。、</li>
 </ol>
 <p>acknowledge（）通知方法是在Message对象上，同步接收，调用acknowledge（）方法进行确认如下所示：</p>
-<p>consumer = session.createConsumer(queue);<br>Message message = consumer.receive();<br>message.acknowledge(); </p>
+<p>consumer = session.createConsumer(queue);<br>
+Message message = consumer.receive();<br>
+message.acknowledge();</p>
 <p>异步接受，调用acknowledge（）方法进行确认：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">consumer.setMessageListener(<span class="keyword">new</span> MessageListener() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onMessage</span><span class="params">(Message message)</span> </span>&#123;</span><br><span class="line">        TextMessage textMessage = (TextMessage) message;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            String value = textMessage.getText();</span><br><span class="line">            System.out.println(<span class="string">"value: "</span> + value);</span><br><span class="line">            message.acknowledge(); <span class="comment">//消息消费确认通知</span></span><br><span class="line">        &#125; <span class="keyword">catch</span> (JMSException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>3.Session.DUPS_ACKNOWLEDGE：不是必须签收，消息可能会重复发送。在第二次重新传送消息的时候，消息头的JmsDelivered会被置为true标示当前消息已经传送过一次，客户端需要进行消息的重复处理控制。 </p>
-<h4 id="5-持久化消息"><a href="#5-持久化消息" class="headerlink" title="5. 持久化消息"></a><strong>5. 持久化消息</strong></h4><p>JMS 支持以下两种消息提交模式：</p>
-<h5 id="5-1-ERSISTENT-持久消息"><a href="#5-1-ERSISTENT-持久消息" class="headerlink" title="5.1 ERSISTENT 持久消息"></a>5.1 ERSISTENT 持久消息</h5><p>是activemq默认的传送方式，此方式下的消息在配合activemq.xml中配置的消息存储方式，会被存储在特定的地方，直到有消费者将消息消费或者消息过期进入DLQ队列，消息生命周期才会结束。此模式下可以保证消息只会被成功传送一次和成功使用一次，消息具有可靠性。在消息传递到目标消费者，在消费者没有成功应答前，消息不会丢失。所以很自然的，需要一个地方来持久性存储。如果消息消费者在进行消费过程发生失败，则消息会被再次投递。</p>
+<p>3.Session.DUPS_ACKNOWLEDGE：不是必须签收，消息可能会重复发送。在第二次重新传送消息的时候，消息头的JmsDelivered会被置为true标示当前消息已经传送过一次，客户端需要进行消息的重复处理控制。</p>
+<h4 id="5-持久化消息"><a class="markdownIt-Anchor" href="#5-持久化消息"></a> <strong>5. 持久化消息</strong></h4>
+<p>JMS 支持以下两种消息提交模式：</p>
+<h5 id="51-ersistent-持久消息"><a class="markdownIt-Anchor" href="#51-ersistent-持久消息"></a> 5.1 ERSISTENT 持久消息</h5>
+<p>是activemq默认的传送方式，此方式下的消息在配合activemq.xml中配置的消息存储方式，会被存储在特定的地方，直到有消费者将消息消费或者消息过期进入DLQ队列，消息生命周期才会结束。此模式下可以保证消息只会被成功传送一次和成功使用一次，消息具有可靠性。在消息传递到目标消费者，在消费者没有成功应答前，消息不会丢失。所以很自然的，需要一个地方来持久性存储。如果消息消费者在进行消费过程发生失败，则消息会被再次投递。</p>
 <p>DeliveryMode.PERSISTENT  指示JMS provider持久保存消息，以保证消息不会因为JMS provider的失败而丢失。 消息持久化在硬盘中，ActiveMQ持久化有三种方式：AMQ、KahaDB、JDBC。</p>
 <p>AMQ</p>
 <p>AMQ是一种文件存储形式，它具有写入速度快和容易恢复的特点。消息存储在一个个文件中，文件的默认大小为32M，如果一条消息的大小超过了32M，那么这个值必须设置大一点。当一个存储文件中的消息已经全部被消费，那么这个文件将被标识为可删除，在下一个清除阶段，这个文件被删除。AMQ适用于ActiveMQ5.3之前的版本。</p>
@@ -558,11 +669,14 @@ session.createConsumer(destination,&quot;test &gt; 14&quot;)；
 <p>JDBC</p>
 <p>可以将消息存储到数据库中，例如：Mysql、SQL Server、Oracle、DB2。</p>
 <p>具体使用方式大家下去查一下，限于篇幅在此就不做太详细的介绍。</p>
-<h5 id="5-2-NON-PERSISTENT-非持久消息"><a href="#5-2-NON-PERSISTENT-非持久消息" class="headerlink" title="5.2 NON_PERSISTENT 非持久消息"></a><strong>5.2 NON_PERSISTENT 非持久消息</strong></h5><p>非持久的消息适用于不重要的，可以接受消息丢失的哪一类消息，这种消息只会被投递一次，消息不会在持久性存储中存储，也不会保证消息丢失后的重新投递。</p>
+<h5 id="52-non_persistent-非持久消息"><a class="markdownIt-Anchor" href="#52-non_persistent-非持久消息"></a> <strong>5.2 NON_PERSISTENT 非持久消息</strong></h5>
+<p>非持久的消息适用于不重要的，可以接受消息丢失的哪一类消息，这种消息只会被投递一次，消息不会在持久性存储中存储，也不会保证消息丢失后的重新投递。</p>
 <p>DeliveryMode.NON_PERSISTENT  不要求JMS provider持久保存消息，消息存放在内存中，读写速度快，在JMS服务停止后消息会消失，没有持久化到硬盘。</p>
-<h4 id="6-ActiveMQ消息过期设置"><a href="#6-ActiveMQ消息过期设置" class="headerlink" title="6. ActiveMQ消息过期设置"></a><strong>6. ActiveMQ消息过期设置</strong></h4><p>允许消息过期 。默认情况下，消息永不会过期。如果消息在特定周期内失去意义，那么可以设置过期时间。<br>有两种方法设置消息的过期时间，时间单位为毫秒： </p>
+<h4 id="6-activemq消息过期设置"><a class="markdownIt-Anchor" href="#6-activemq消息过期设置"></a> <strong>6. ActiveMQ消息过期设置</strong></h4>
+<p>允许消息过期 。默认情况下，消息永不会过期。如果消息在特定周期内失去意义，那么可以设置过期时间。<br>
+有两种方法设置消息的过期时间，时间单位为毫秒：</p>
 <ol>
-<li>使用 setTimeToLive 方法为所有的消息设置过期时间； </li>
+<li>使用 setTimeToLive 方法为所有的消息设置过期时间；</li>
 <li>使用 send 方法为每一条消息设置过期时间。</li>
 </ol>
 <p>消息过期时间，send 方法中的 timeToLive 值加上发送时刻的 GMT 时间值。如果 timeToLive 值等于零，则 JMSExpiration 被设为零，表示该消息永不过期。如果发送后，在消息过期时间之后消息还没有被发送到目的地，则该消息被清除。</p>
@@ -570,6 +684,9 @@ session.createConsumer(destination,&quot;test &gt; 14&quot;)；
 
       
     </div>
+
+    
+
     
     
     
@@ -587,8 +704,8 @@ session.createConsumer(destination,&quot;test &gt; 14&quot;)；
   <p><span>文章作者:</span><a href="/" title="访问 Rickiyang 的个人博客">Rickiyang</a></p>
   <p><span>发布时间:</span>2017年03月17日 - 01:02</p>
   <p><span>最后更新:</span>2018年12月04日 - 17:28</p>
-  <p><span>原始链接:</span><a href="/posts/28fe9931.html" title="消息中间件-activemq消息机制和持久化介绍(三)">https://blog.rickiyang.cn/posts/28fe9931.html</a>
-    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.rickiyang.cn/posts/28fe9931.html" aria-label="复制成功！"></i></span>
+  <p><span>原始链接:</span><a href="/posts/28fe9931.html" title="消息中间件-activemq消息机制和持久化介绍(三)">http://blog.rickiyang.cn/posts/28fe9931.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://blog.rickiyang.cn/posts/28fe9931.html" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
 </div>
@@ -609,9 +726,7 @@ session.createConsumer(destination,&quot;test &gt; 14&quot;)；
 
       
     </div>
-
     
-
     <div>
       
         <div>
@@ -623,6 +738,10 @@ session.createConsumer(destination,&quot;test &gt; 14&quot;)；
       
     </div>
 
+
+    
+      
+    
     
 
     
@@ -631,7 +750,7 @@ session.createConsumer(destination,&quot;test &gt; 14&quot;)；
       
         <div class="post-tags">
           
-            <a href="/tags/学习/" rel="tag"> <i class="”fa" fa-tag”=""></i> 学习</a>
+            <a href="/tags/学习/" rel="tag"># 学习</a>
           
         </div>
       
@@ -644,8 +763,8 @@ session.createConsumer(destination,&quot;test &gt; 14&quot;)；
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/a042465a.html" rel="next" title="消息中间件-activemq入门(二)">
-                <i class="fa fa-chevron-left"></i> 消息中间件-activemq入门(二)
+              <a href="/posts/c0d0b105.html" rel="next" title="消息中间件和JMS介绍(一)">
+                <i class="fa fa-chevron-left"></i> 消息中间件和JMS介绍(一)
               </a>
             
           </div>
@@ -654,8 +773,8 @@ session.createConsumer(destination,&quot;test &gt; 14&quot;)；
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/posts/1d6950fa.html" rel="prev" title="消息中间件-activemq实战整合Spring之Topic模式(五)">
-                消息中间件-activemq实战整合Spring之Topic模式(五) <i class="fa fa-chevron-right"></i>
+              <a href="/posts/e8d11d6a.html" rel="prev" title="java学习-NIO(二)Buffer">
+                java学习-NIO(二)Buffer <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -672,44 +791,15 @@ session.createConsumer(destination,&quot;test &gt; 14&quot;)；
   </article>
 
 
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript">
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
   </div>
 
 
           </div>
           
 
-
-          
+  
+    <div class="comments" id="comments">
+    </div>
 
   
 
@@ -736,60 +826,124 @@ var jiathis_config={
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
+            Table of Contents
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
+            Overview
           </li>
         </ul>
       
 
-      <section class="site-overview-wrap sidebar-panel">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image" src="/images/adele.png" alt="Rickiyang">
             
               <p class="site-author-name" itemprop="name">Rickiyang</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-description motion-element" itemprop="description">分享对coding生活的见解</p>
           </div>
 
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
+          
+            <nav class="site-state motion-element">
               
-                <a href="/archives">
-              
-                  <span class="site-state-item-count">99</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">19</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
+                <div class="site-state-item site-state-posts">
                 
-                  <span class="site-state-item-count">11</span>
-                  <span class="site-state-item-name">标签</span>
+                  <a href="/archives">
                 
-              </div>
-            
+                    <span class="site-state-item-count">99</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
 
-          </nav>
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
 
           
             <div class="feed-link motion-element">
@@ -802,63 +956,93 @@ var jiathis_config={
 
           
             <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/rickiyang" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:medee1320@gmail.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://blog.csdn.net/a953713428" target="_blank" title="CSDN">
-                      
-                        <i class="fa fa-fw fa-google"></i>CSDN</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="953713428" target="_blank" title="QQ">
-                      
-                        <i class="fa fa-fw fa-twitter"></i>QQ</a>
-                  </span>
-                
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3JpY2tpeWFuZw==" title="GitHub &rarr; https://github.com/rickiyang"><i class="fa fa-fw fa-github"></i>GitHub</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="bWFpbHRvOm1lZGVlMTMyMEBnbWFpbC5jb20=" title="E-Mail &rarr; mailto:medee1320@gmail.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2E5NTM3MTM0Mjg=" title="CSDN &rarr; https://blog.csdn.net/a953713428"><i class="fa fa-fw fa-google"></i>CSDN</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="/953713428" title="QQ &rarr; 953713428"><i class="fa fa-fw fa-twitter"></i>QQ</a>
+                </span>
+              
             </div>
           
 
           
-          
 
           
           
 
+          
+            
+          
           
 
         </div>
-      </section>
+      </div>
 
       
       <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
           <div class="post-toc">
 
             
-              
+            
+            
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-activemq服务器工作模型"><span class="nav-number">1.</span> <span class="nav-text">1.activemq服务器工作模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-ActiveMQ消息传送模型"><span class="nav-number">2.</span> <span class="nav-text">2.ActiveMQ消息传送模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-消息选择器"><span class="nav-number">3.</span> <span class="nav-text">3.消息选择器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#属性标识符定义："><span class="nav-number">3.1.</span> <span class="nav-text">属性标识符定义：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#拦截器中的部分表示方式："><span class="nav-number">3.2.</span> <span class="nav-text">拦截器中的部分表示方式：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-消息确认机制"><span class="nav-number">4.</span> <span class="nav-text">4.消息确认机制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-持久化消息"><span class="nav-number">5.</span> <span class="nav-text">5. 持久化消息</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#5-1-ERSISTENT-持久消息"><span class="nav-number">5.1.</span> <span class="nav-text">5.1 ERSISTENT 持久消息</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-2-NON-PERSISTENT-非持久消息"><span class="nav-number">5.2.</span> <span class="nav-text">5.2 NON_PERSISTENT 非持久消息</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-ActiveMQ消息过期设置"><span class="nav-number">6.</span> <span class="nav-text">6. ActiveMQ消息过期设置</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1activemq服务器工作模型"><span class="nav-number">1.</span> <span class="nav-text"> 1.activemq服务器工作模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2activemq消息传送模型"><span class="nav-number">2.</span> <span class="nav-text"> 2.ActiveMQ消息传送模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3消息选择器"><span class="nav-number">3.</span> <span class="nav-text"> 3.消息选择器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#属性标识符定义"><span class="nav-number">3.1.</span> <span class="nav-text"> 属性标识符定义：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#拦截器中的部分表示方式"><span class="nav-number">3.2.</span> <span class="nav-text"> 拦截器中的部分表示方式：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4消息确认机制"><span class="nav-number">4.</span> <span class="nav-text"> 4.消息确认机制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-持久化消息"><span class="nav-number">5.</span> <span class="nav-text"> 5. 持久化消息</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#51-ersistent-持久消息"><span class="nav-number">5.1.</span> <span class="nav-text"> 5.1 ERSISTENT 持久消息</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#52-non_persistent-非持久消息"><span class="nav-number">5.2.</span> <span class="nav-text"> 5.2 NON_PERSISTENT 非持久消息</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-activemq消息过期设置"><span class="nav-number">6.</span> <span class="nav-text"> 6. ActiveMQ消息过期设置</span></a></li></ol></div>
             
 
           </div>
-        </section>
+        </div>
       <!--/noindex-->
       
 
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
       
 
     </div>
@@ -871,39 +1055,50 @@ var jiathis_config={
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2019</span>
-  <span class="with-love">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Rickiyang</span>
 
   
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="Symbols count total">752k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="Reading time total">11:24</span>
+  
 </div>
 
-<div class="powered-by">
+<!--<div class="powered-by">
 <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
   本站访客数:<span id="busuanzi_value_site_uv"></span>
 </span>
-</div>
-
-<!--
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
--->
-
-
-  <span class="post-meta-divider">|</span>
+</div>-->
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+  <div class="theme-info">Theme – <span class="exturl theme-link" data-url="aHR0cHM6Ly90aGVtZS1uZXh0Lm9yZw==">NexT.Gemini</span> v6.7.0</div>
 
 
 
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共231.6k字</span>
+  <span class="post-count">博客全站共231.9k字</span>
 </div>
 
 <script>
@@ -923,24 +1118,23 @@ var jiathis_config={
 
         
 <div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
   
-    <span class="site-uv">
+    <span class="site-uv" title="Total Visitors">
       <i class="fa fa-user"></i>
       <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-      人次
     </span>
   
 
   
-    <span class="site-pv">
+    <span class="site-pv" title="Total Views">
       <i class="fa fa-eye"></i>
       <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-      次
     </span>
   
 </div>
+
 
 
 
@@ -954,21 +1148,17 @@ var jiathis_config={
     </footer>
 
     
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-          <span id="scrollpercent"><span>0</span>%</span>
-        
-      </div>
+
     
 
     
 
+    
   </div>
 
   
 
-<script type="text/javascript">
+<script>
   if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
     window.Promise = null;
   }
@@ -982,117 +1172,6 @@ var jiathis_config={
 
 
 
-  
-
-
-
-
-
-
-  
-  
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/three.min.js"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
 
 
 
@@ -1105,8 +1184,111 @@ var jiathis_config={
 
 
   
+  
 
-  <script type="text/javascript">
+
+
+  
+  
+  <script id="ribbon" size="300" alpha="0.6" zindex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/three/three.min.js"></script>
+
+  
+  <script src="/lib/three/canvas_sphere.min.js"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script>
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+      el: '#comments' ,
+      verify: false,
+      notify: false,
+      appId: 'X5fy0b9Gknu0SAse5areilGR-gzGzoHsz',
+      appKey: 'URk4cyPQ8Ttqtwhop5t26kok',
+      placeholder: 'Just go go',
+      avatar: 'mm',
+      meta:guest,
+      pageSize: '10' || 10,
+      visitor: false
+    });
+  </script>
+
+
+
+
+  
+
+  <script>
     // Popup Window;
     var isfetched = false;
     var isXml = true;
@@ -1155,6 +1337,8 @@ var jiathis_config={
         .css('overflow', 'hidden');
       $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
 
+      
+
       $.ajax({
         url: path,
         dataType: isXml ? "xml" : "json",
@@ -1188,8 +1372,9 @@ var jiathis_config={
                 var title = data.title.trim();
                 var titleInLowerCase = title.toLowerCase();
                 var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
                 var contentInLowerCase = content.toLowerCase();
-                var articleUrl = decodeURIComponent(data.url);
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
                 var indexOfTitle = [];
                 var indexOfContent = [];
                 // only match articles with not empty titles
@@ -1358,9 +1543,9 @@ var jiathis_config={
               })
             };
             if (keywords.length === 1 && keywords[0] === "") {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
             } else if (resultItems.length === 0) {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
             } else {
               resultItems.sort(function (resultLeft, resultRight) {
                 if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
@@ -1430,107 +1615,66 @@ var jiathis_config={
   
 
   
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("X5fy0b9Gknu0SAse5areilGR-gzGzoHsz", "URk4cyPQ8Ttqtwhop5t26kok");</script>
   <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
-            }
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
+    
     function addCount(Counter) {
       var $visitors = $(".leancloud_visitors");
       var url = $visitors.attr('id').trim();
       var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
 
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function ({ results }) {
           if (results.length > 0) {
             var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
+            
+            Counter('put', `/classes/Counter/${counter.objectId}`, JSON.stringify({ time: { "__op":"Increment", "amount":1 } }))
+            
+            .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.time + 1);
+            })
+            
+            .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+            })
           } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1}))
+                .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function () {
+                  console.log('Failed to create');
+                });
+            
           }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
+        })
+      .fail(function ({ responseJSON }) {
+        console.log('LeanCloud Counter Error:' + responseJSON.code + " " + responseJSON.error);
       });
     }
+    
 
     $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + "X5fy0b9Gknu0SAse5areilGR-gzGzoHsz")
+        .done(function ({ api_server }) {
+          var Counter = function (method, url, data) {
+            return $.ajax({
+              method: method,
+              url: `https://${api_server}/1.1${url}`,
+              headers: {
+                'X-LC-Id': "X5fy0b9Gknu0SAse5areilGR-gzGzoHsz",
+                'X-LC-Key': "URk4cyPQ8Ttqtwhop5t26kok",
+                'Content-Type': 'application/json',
+              },
+              data: data,
+            });
+          };
+          
+          addCount(Counter);
+          
+        })
     });
   </script>
 
@@ -1539,9 +1683,45 @@ var jiathis_config={
   
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+      }
+      else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
 
   
   
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+  <script>
+    
+    
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+  <script src="/js/src/exturl.js?v=6.7.0"></script>
+
 
   
 
@@ -1551,7 +1731,7 @@ var jiathis_config={
 
 
   <!-- 页面点击小红心 -->
-  <script type="text/javascript" src="/js/src/love.js"></script>
-  <!---->
+    <script type="text/javascript" src="/js/src/love.js"></script>
+    <!---->
 </body>
 </html>

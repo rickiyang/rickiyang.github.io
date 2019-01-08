@@ -2,6 +2,15 @@
 
 
 
+
+
+
+
+
+
+
+
+
   
 
 
@@ -9,38 +18,38 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
 
 
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-center-circle.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -64,12 +73,6 @@
   
 
   
-    
-      
-    
-
-    
-  
 
   
     
@@ -90,7 +93,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|FZSongKeBenXiuKai:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
   
 
 
@@ -98,68 +101,40 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
 
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/adele.ico?v=5.1.4">
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/adele.ico?v=5.1.4">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/adele.ico?v=6.7.0">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/adele.ico?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/adele.ico?v=6.7.0">
 
 
-  <link rel="mask-icon" href="/images/adele.ico?v=5.1.4" color="#222">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/adele.ico?v=6.7.0">
 
 
-
-
-
-  <meta name="keywords" content="大数据,scala学习,">
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="Rickiyang's blog" type="application/atom+xml">
+  <link rel="mask-icon" href="/images/adele.ico?v=6.7.0" color="#222">
 
 
 
 
 
 
-<meta name="description" content="1. 集合集合主要有三种：  Sequence Map Set  sequence是一种线性元素的集合，可能会是索引或者线性的（链表）。map是包含键值对的集合，就像Java的Map,set是包含无重复元素的集合。 除了这三个主要的集合类之外，还有其他有用的集合类型，如Stack, Queue和Range。还有其他一些用起来像集合的类，如元组、枚举、Option/Some/None以及Try/Su">
-<meta name="keywords" content="大数据,scala学习">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Scala集合（四）">
-<meta property="og:url" content="https://blog.rickiyang.cn/posts/c3007ea1.html">
-<meta property="og:site_name" content="Rickiyang&#39;s blog">
-<meta property="og:description" content="1. 集合集合主要有三种：  Sequence Map Set  sequence是一种线性元素的集合，可能会是索引或者线性的（链表）。map是包含键值对的集合，就像Java的Map,set是包含无重复元素的集合。 除了这三个主要的集合类之外，还有其他有用的集合类型，如Stack, Queue和Range。还有其他一些用起来像集合的类，如元组、枚举、Option/Some/None以及Try/Su">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-07T01:48:18.201Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Scala集合（四）">
-<meta name="twitter:description" content="1. 集合集合主要有三种：  Sequence Map Set  sequence是一种线性元素的集合，可能会是索引或者线性的（链表）。map是包含键值对的集合，就像Java的Map,set是包含无重复元素的集合。 除了这三个主要的集合类之外，还有其他有用的集合类型，如Stack, Queue和Range。还有其他一些用起来像集合的类，如元组、枚举、Option/Some/None以及Try/Su">
 
-
-
-<script type="text/javascript" id="hexo.configurations">
+<script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
     scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
-    fancybox: true,
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
     algolia: {
       applicationID: '',
       apiKey: '',
@@ -171,12 +146,40 @@
 </script>
 
 
-
-  <link rel="canonical" href="https://blog.rickiyang.cn/posts/c3007ea1.html">
-
+  
 
 
 
+
+  <meta name="description" content="1. 集合 集合主要有三种：  Sequence Map Set  sequence是一种线性元素的集合，可能会是索引或者线性的（链表）。map是包含键值对的集合，就像Java的Map,set是包含无重复元素的集合。 除了这三个主要的集合类之外，还有其他有用的集合类型，如Stack, Queue和Range。还有其他一些用起来像集合的类，如元组、枚举、Option/Some/None以及Try/">
+<meta name="keywords" content="大数据,scala学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Scala集合（四）">
+<meta property="og:url" content="http://blog.rickiyang.cn/posts/c3007ea1.html">
+<meta property="og:site_name" content="Rickiyang&#39;s blog">
+<meta property="og:description" content="1. 集合 集合主要有三种：  Sequence Map Set  sequence是一种线性元素的集合，可能会是索引或者线性的（链表）。map是包含键值对的集合，就像Java的Map,set是包含无重复元素的集合。 除了这三个主要的集合类之外，还有其他有用的集合类型，如Stack, Queue和Range。还有其他一些用起来像集合的类，如元组、枚举、Option/Some/None以及Try/">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-01-07T01:48:18.201Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Scala集合（四）">
+<meta name="twitter:description" content="1. 集合 集合主要有三种：  Sequence Map Set  sequence是一种线性元素的集合，可能会是索引或者线性的（链表）。map是包含键值对的集合，就像Java的Map,set是包含无重复元素的集合。 除了这三个主要的集合类之外，还有其他有用的集合类型，如Stack, Queue和Range。还有其他一些用起来像集合的类，如元组、枚举、Option/Some/None以及Try/">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Rickiyang's blog" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://blog.rickiyang.cn/posts/c3007ea1.html">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
 
   <title>Scala集合（四） | Rickiyang's blog</title>
   
@@ -187,6 +190,35 @@
 
 
 
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
 </head>
 
@@ -202,7 +234,7 @@
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
+  <div class="site-meta">
     
 
     <div class="custom-logo-site-title">
@@ -212,13 +244,16 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
+    
       
-        <h1 class="site-subtitle" itemprop="description"></h1>
+        <h1 class="site-subtitle" itemprop="description">java,大数据,分布式组件</h1>
       
+    
+    
   </div>
 
   <div class="site-nav-toggle">
-    <button>
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -226,66 +261,94 @@
   </div>
 </div>
 
-<nav class="site-nav">
-  
 
+
+<nav class="site-nav">
   
     <ul id="menu" class="menu">
       
         
-        <li class="menu-item menu-item-首页">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            首页
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-标签">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
-            
-            标签
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-分类">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
-            
-            分类
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-归档">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            归档
-          </a>
-        </li>
-      
+          
+          <li class="menu-item menu-item-首页">
 
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
       
         <li class="menu-item menu-item-search">
           
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
-            
-            搜索
-          </a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
         </li>
       
     </ul>
+  
+
   
 
   
@@ -300,7 +363,7 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -314,12 +377,23 @@
 
 
 
- </div>
+  
+
+
+
+</div>
     </header>
+
+    
+
 
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+          
+            
+
+          
           <div id="content" class="content">
             
 
@@ -332,16 +406,18 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/c3007ea1.html">
+    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/c3007ea1.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="分享对coding生活的见解">
       <meta itemprop="image" content="/images/adele.png">
     </span>
 
@@ -354,11 +430,20 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Scala集合（四）</h2>
+          <h2 class="post-title" itemprop="name headline">Scala集合（四）
+
+              
+            
+          </h2>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -366,13 +451,30 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-26T23:12:08+08:00">
-                2018-04-26
-              </time>
+
+              
+                
+              
+
+              <time title="创建于: 2018-04-26 23:12:08" itemprop="dateCreated datePublished" datetime="2018-04-26T23:12:08+08:00">2018-04-26</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">编辑于</span>
+                
+                <time title="Modified: 2019-01-07 09:48:18" itemprop="dateModified" datetime="2019-01-07T09:48:18+08:00">2019-01-07</time>
+              
             
           </span>
 
@@ -388,11 +490,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/scala/" itemprop="url" rel="index">
-                    <span itemprop="name">scala</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/scala/" itemprop="url" rel="index"><span itemprop="name">scala</span></a></span>
 
                 
                 
@@ -401,6 +499,16 @@
           
 
           
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/posts/c3007ea1.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/c3007ea1.html" itemprop="commentCount"></span>
+                </a>
+              </span>
             
           
 
@@ -412,7 +520,7 @@
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">热度&#58;</span>
+                 <span class="post-meta-item-text">热度: </span>
                
                  <span class="leancloud-visitors-count"></span>
                  <span>℃</span>
@@ -420,27 +528,19 @@
           
 
           
-            <span class="post-meta-divider">|</span>
-            <span class="page-pv"><i class="fa fa-file-o"></i>
-            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
-            </span>
-          
 
           
-            <div class="post-wordcount">
+            <div class="post-symbolscount">
               
-                
-                  <span class="post-meta-divider">|</span>
-                
+
+              
                 <span class="post-meta-item-icon">
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">字数统计&#58;</span>
+                  <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="字数统计">
-                  3.2k
-                </span>
+                <span title="Symbols count in article">13k</span>
               
 
               
@@ -452,11 +552,9 @@
                   <i class="fa fa-clock-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="阅读时长">
-                  16
-                </span>
+                <span title="Reading time">11 mins.</span>
               
             </div>
           
@@ -476,7 +574,8 @@
       
 
       
-        <h4 id="1-集合"><a href="#1-集合" class="headerlink" title="1. 集合"></a>1. 集合</h4><p>集合主要有三种：</p>
+        <h4 id="1-集合"><a class="markdownIt-Anchor" href="#1-集合"></a> 1. 集合</h4>
+<p>集合主要有三种：</p>
 <ol>
 <li>Sequence</li>
 <li>Map</li>
@@ -829,14 +928,16 @@
   </tr>
 </table>
 
-<h4 id="2-List"><a href="#2-List" class="headerlink" title="2. List"></a>2. List</h4><p>创建List：</p>
+<h4 id="2-list"><a class="markdownIt-Anchor" href="#2-list"></a> 2. List</h4>
+<p>创建List：</p>
 <pre><code>val list = List(1,2,3)
 val list1 = List[Number](1,2,3,4)
 val list2 = List.range(1,10)
 val list3 = List.range(1,20,2)
 val list4 = List.fill[String](3)(&quot;list&quot;)
 List[Char] list5 = &quot;list&quot;.toList
-</code></pre><p>创建可变列表：</p>
+</code></pre>
+<p>创建可变列表：</p>
 <pre><code>var buffer = new ListBuffer[String]()
 buffer.+=(&quot;you&quot;,&quot;have&quot;,&quot;a&quot;,&quot;child&quot;)
 buffer += &quot;。&quot;
@@ -846,7 +947,8 @@ println(buffer.toList)
 List(you, have, a, child, 。)
 
 Process finished with exit code 0
-</code></pre><p>List基本方法的使用：</p>
+</code></pre>
+<p>List基本方法的使用：</p>
 <p>1.合并两个list：</p>
 <pre><code>val l3 = list ::: list1
 val l7 = list ++ list1
@@ -857,7 +959,8 @@ println(l3,l7,l8)
 (List(2, 3, 4, 5),
 List(2, 3, 4, 5),
 List(2, 3, 4, 5))
-</code></pre><p>2.+:和:+ 的用法区别-连接两个列表：</p>
+</code></pre>
+<p>2.+:和:+ 的用法区别-连接两个列表：</p>
 <pre><code>val list = List(2,3)
 val list1 = List(4,5)
 val l2 = list +: list1
@@ -866,8 +969,9 @@ println(l2,l3)
 输出：
 (List(List(2, 3), 4, 5),
 List(2, 3, List(4, 5)))
-</code></pre><p>由结果可以看出+:和:+是根据”:”的方法来解析数据的，”:”朝向那一边，这一边的数据就会作为基数据，另一方的数据会被添加到这个List中。</p>
-<p>3.使用Stream—-惰性计算元素周期</p>
+</code></pre>
+<p>由结果可以看出+:和:+是根据&quot;:“的方法来解析数据的，”:&quot;朝向那一边，这一边的数据就会作为基数据，另一方的数据会被添加到这个List中。</p>
+<p>3.使用Stream----惰性计算元素周期</p>
 <p>List通过::构造， Stream可以用#::方法构建，表达式的结尾用Stream.empty代替Nil:</p>
 <pre><code>val stream = 1#::2#::3#::Stream.empty
 println(stream)
@@ -882,8 +986,10 @@ Stream(1, ?)
 3
 
 Process finished with exit code 0
-</code></pre><p>可以看到打印stream的时候只打出了1，后面的是?。这是因为流的结尾还没有执行,？表示惰性集合的结尾尚未被执行的表示方式。</p>
-<h4 id="2-数组"><a href="#2-数组" class="headerlink" title="2.数组"></a>2.数组</h4><p>2.1 创建数组：</p>
+</code></pre>
+<p>可以看到打印stream的时候只打出了1，后面的是?。这是因为流的结尾还没有执行,？表示惰性集合的结尾尚未被执行的表示方式。</p>
+<h4 id="2数组"><a class="markdownIt-Anchor" href="#2数组"></a> 2.数组</h4>
+<p>2.1 创建数组：</p>
 <pre><code>val array = Array(1,2,3)
 val array1 = Array(&quot;I&quot;,&quot;am&quot;,&quot;a&quot;,&quot;boy&quot;)
 val array2 = Array[String](&quot;I&quot;,&quot;am&quot;,&quot;a&quot;,&quot;boy&quot;)
@@ -899,7 +1005,8 @@ println(array.toList,array1.toList,array2.toList,array3.toList)
 List(I, am, a, boy),
 List(I, am, a, boy),
 List(1, 2, 3))
-</code></pre><p>其他创建数组的方式：</p>
+</code></pre>
+<p>其他创建数组的方式：</p>
 <pre><code>val a1 = Array.range(1,10)
 val a2 = Array.range(1,20,2)
 val a3 = Array.apply(2,3,4,5,6)
@@ -914,7 +1021,8 @@ List(1, 3, 5, 7, 9, 11, 13, 15, 17, 19),
 List(2, 3, 4, 5, 6),
 List(oo, oo, oo),
 List(5, 6, 7, 8, 9))
-</code></pre><p>创建可变数组：</p>
+</code></pre>
+<p>创建可变数组：</p>
 <p>Array既是可变的又是不可变的，可变的是他的内容，不可变的是他的大小。要想创建一个大小可变的数组，可以使用ArrayBuffer。</p>
 <pre><code>val a1 = ArrayBuffer[Number](1)
 a1 += 2
@@ -930,7 +1038,8 @@ ArrayBuffer(1, 2, 3, 4)
 ArrayBuffer(1, 2, 3, 4, 5, 6)
 
 Process finished with exit code 0
-</code></pre><p>删除操作：</p>
+</code></pre>
+<p>删除操作：</p>
 <pre><code>val a1 = ArrayBuffer[Number](1,2,3,4,5)
 a1 -= 1
 println(a1)
@@ -955,7 +1064,9 @@ ArrayBuffer(2, 4, 3, 4, 5)
 ArrayBuffer(2, 4, 3)
 
 Process finished with exit code 0
-</code></pre><h4 id="3-Map"><a href="#3-Map" class="headerlink" title="3. Map"></a>3. Map</h4><p>创建Map：</p>
+</code></pre>
+<h4 id="3-map"><a class="markdownIt-Anchor" href="#3-map"></a> 3. Map</h4>
+<p>创建Map：</p>
 <pre><code>var a1 =  Map(&quot;name&quot;-&gt;&quot;xiaoming&quot;,&quot;age&quot;-&gt;12)
 val a2 = Map((&quot;name&quot;,&quot;xiaoming&quot;),(&quot;age&quot;,12))
 a1 += (&quot;address&quot;-&gt;&quot;xxxx&quot;)
@@ -966,7 +1077,8 @@ println(a1,a2)
 Map(name -&gt; xiaoming, age -&gt; 12))
 
 Process finished with exit code 0
-</code></pre><p>修改Map：</p>
+</code></pre>
+<p>修改Map：</p>
 <p>默认Map是immutable类型的，所以如果要修改Map，需要手动引入Mutable的Map。</p>
 <pre><code>var a1 =  mutable.Map(&quot;name&quot;-&gt;&quot;xiaoming&quot;,&quot;age&quot;-&gt;12)
 a1(&quot;name&quot;) = &quot;xiaohong&quot;
@@ -987,7 +1099,8 @@ Map(address -&gt; xxx, age -&gt; 12, name -&gt; xiaohong, sex -&gt; 1)
 Map(address -&gt; xxx, age -&gt; 12, sex -&gt; 1)
 Map(address -&gt; xxx)
 Map(idCard -&gt; 111)
-</code></pre><p>遍历映射：</p>
+</code></pre>
+<p>遍历映射：</p>
 <pre><code>var a1 =  mutable.Map(&quot;name&quot;-&gt;&quot;xiaoming&quot;,&quot;age&quot;-&gt;12,&quot;address&quot;-&gt;&quot;xxx&quot;,&quot;sex&quot;-&gt;1)
 for((k,v) &lt;- a1){
   println(k,v)
@@ -995,7 +1108,8 @@ for((k,v) &lt;- a1){
 a1.foreach(x=&gt;{
   println(x._1,x._2)
 })
-</code></pre><p>常用方法：</p>
+</code></pre>
+<p>常用方法：</p>
 <pre><code>var a1 =  mutable.Map(&quot;name&quot;-&gt;&quot;xiaoming&quot;,&quot;age&quot;-&gt;12,&quot;address&quot;-&gt;&quot;xxx&quot;,&quot;sex&quot;-&gt;1)
 //判断某个key是否存在
 if(a1.contains(&quot;name&quot;)){
@@ -1030,7 +1144,9 @@ Map(address -&gt; xxx, name -&gt; xiaoming)
 Map(age -&gt; 12, name -&gt; xiaoming)
 Map(address -&gt; xxx, name -&gt; xiaoming)
 Map(name -&gt; xiaoming, age -&gt; 12)
-</code></pre><h4 id="4-Set"><a href="#4-Set" class="headerlink" title="4.Set"></a>4.Set</h4><p>集合的基本操作：</p>
+</code></pre>
+<h4 id="4set"><a class="markdownIt-Anchor" href="#4set"></a> 4.Set</h4>
+<p>集合的基本操作：</p>
 <pre><code>val a1 = mutable.Set(1,2,3,4)
 a1 += 5
 //集合中的元素是无序的并且是唯一的
@@ -1062,7 +1178,8 @@ Set(9, 5, 2, 6, 3, 10, 7, 4, 8)
 Set(9, 5, 6, 10, 7, 4, 8)
 Set(9, 6, 10, 7, 8)
 Set(10)
-</code></pre><p>创建有序集合：</p>
+</code></pre>
+<p>创建有序集合：</p>
 <pre><code>var a1 = SortedSet(1,2,3,4)
 println(a1)
 a1 = a1.filter(v=&gt;v&gt;3)
@@ -1075,8 +1192,10 @@ println(a2)
 TreeSet(1, 2, 3, 4)
 TreeSet(4)
 Set(4)
-</code></pre><p>从输出类型上可以看到SortedSet被改变之后输出为TreeSet对象，这是因为SortedSet只有不可变的版本，如果想用可变的集合，可以使用TreeSet。</p>
-<h5 id="5-队列和堆栈"><a href="#5-队列和堆栈" class="headerlink" title="5.队列和堆栈"></a>5.队列和堆栈</h5><pre><code>var a1 = mutable.Queue(1,2,3)
+</code></pre>
+<p>从输出类型上可以看到SortedSet被改变之后输出为TreeSet对象，这是因为SortedSet只有不可变的版本，如果想用可变的集合，可以使用TreeSet。</p>
+<h5 id="5队列和堆栈"><a class="markdownIt-Anchor" href="#5队列和堆栈"></a> 5.队列和堆栈</h5>
+<pre><code>var a1 = mutable.Queue(1,2,3)
 a1.enqueue(1)
 var a2 = a1.dequeueAll(x=&gt;x&gt;0)
 println(a2)
@@ -1100,13 +1219,15 @@ Stack(1, 2, 3, 4)
 Stack(2, 3, 4)
 
 Process finished with exit code 0
-</code></pre><h4 id="6-强大的Range功能"><a href="#6-强大的Range功能" class="headerlink" title="6.强大的Range功能"></a>6.强大的Range功能</h4><pre><code>var a1 = (1 to 10).toList
+</code></pre>
+<h4 id="6强大的range功能"><a class="markdownIt-Anchor" href="#6强大的range功能"></a> 6.强大的Range功能</h4>
+<pre><code>var a1 = (1 to 10).toList
 println(a1)
 var a2 =(1 until(10)).toList
 println(a2)
 var a3 = (1 to 10 by(2)).toList
 println(a3)
-var a4 = (&apos;a&apos; to &apos;m&apos;).toList
+var a4 = ('a' to 'm').toList
 println(a4)
 
 输出：
@@ -1116,10 +1237,14 @@ List(1, 3, 5, 7, 9)
 List(a, b, c, d, e, f, g, h, i, j, k, l, m)
 
 Process finished with exit code 0
-</code></pre><p>上面这些功能在for循环中经常用到。</p>
+</code></pre>
+<p>上面这些功能在for循环中经常用到。</p>
 
       
     </div>
+
+    
+
     
     
     
@@ -1137,8 +1262,8 @@ Process finished with exit code 0
   <p><span>文章作者:</span><a href="/" title="访问 Rickiyang 的个人博客">Rickiyang</a></p>
   <p><span>发布时间:</span>2018年04月26日 - 23:12</p>
   <p><span>最后更新:</span>2019年01月07日 - 09:48</p>
-  <p><span>原始链接:</span><a href="/posts/c3007ea1.html" title="Scala集合（四）">https://blog.rickiyang.cn/posts/c3007ea1.html</a>
-    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.rickiyang.cn/posts/c3007ea1.html" aria-label="复制成功！"></i></span>
+  <p><span>原始链接:</span><a href="/posts/c3007ea1.html" title="Scala集合（四）">http://blog.rickiyang.cn/posts/c3007ea1.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://blog.rickiyang.cn/posts/c3007ea1.html" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
 </div>
@@ -1159,9 +1284,7 @@ Process finished with exit code 0
 
       
     </div>
-
     
-
     <div>
       
         <div>
@@ -1173,6 +1296,10 @@ Process finished with exit code 0
       
     </div>
 
+
+    
+      
+    
     
 
     
@@ -1181,9 +1308,9 @@ Process finished with exit code 0
       
         <div class="post-tags">
           
-            <a href="/tags/大数据/" rel="tag"> <i class="”fa" fa-tag”=""></i> 大数据</a>
+            <a href="/tags/大数据/" rel="tag"># 大数据</a>
           
-            <a href="/tags/scala学习/" rel="tag"> <i class="”fa" fa-tag”=""></i> scala学习</a>
+            <a href="/tags/scala学习/" rel="tag"># scala学习</a>
           
         </div>
       
@@ -1224,44 +1351,15 @@ Process finished with exit code 0
   </article>
 
 
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript">
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
   </div>
 
 
           </div>
           
 
-
-          
+  
+    <div class="comments" id="comments">
+    </div>
 
   
 
@@ -1288,60 +1386,124 @@ var jiathis_config={
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
+            Table of Contents
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
+            Overview
           </li>
         </ul>
       
 
-      <section class="site-overview-wrap sidebar-panel">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image" src="/images/adele.png" alt="Rickiyang">
             
               <p class="site-author-name" itemprop="name">Rickiyang</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-description motion-element" itemprop="description">分享对coding生活的见解</p>
           </div>
 
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
+          
+            <nav class="site-state motion-element">
               
-                <a href="/archives">
-              
-                  <span class="site-state-item-count">99</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">19</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
+                <div class="site-state-item site-state-posts">
                 
-                  <span class="site-state-item-count">11</span>
-                  <span class="site-state-item-name">标签</span>
+                  <a href="/archives">
                 
-              </div>
-            
+                    <span class="site-state-item-count">99</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
 
-          </nav>
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
 
           
             <div class="feed-link motion-element">
@@ -1354,63 +1516,93 @@ var jiathis_config={
 
           
             <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/rickiyang" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:medee1320@gmail.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://blog.csdn.net/a953713428" target="_blank" title="CSDN">
-                      
-                        <i class="fa fa-fw fa-google"></i>CSDN</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="953713428" target="_blank" title="QQ">
-                      
-                        <i class="fa fa-fw fa-twitter"></i>QQ</a>
-                  </span>
-                
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3JpY2tpeWFuZw==" title="GitHub &rarr; https://github.com/rickiyang"><i class="fa fa-fw fa-github"></i>GitHub</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="bWFpbHRvOm1lZGVlMTMyMEBnbWFpbC5jb20=" title="E-Mail &rarr; mailto:medee1320@gmail.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2E5NTM3MTM0Mjg=" title="CSDN &rarr; https://blog.csdn.net/a953713428"><i class="fa fa-fw fa-google"></i>CSDN</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="/953713428" title="QQ &rarr; 953713428"><i class="fa fa-fw fa-twitter"></i>QQ</a>
+                </span>
+              
             </div>
           
 
           
-          
 
           
           
 
+          
+            
+          
           
 
         </div>
-      </section>
+      </div>
 
       
       <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
           <div class="post-toc">
 
             
-              
+            
+            
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-集合"><span class="nav-number">1.</span> <span class="nav-text">1. 集合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-List"><span class="nav-number">2.</span> <span class="nav-text">2. List</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-数组"><span class="nav-number">3.</span> <span class="nav-text">2.数组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Map"><span class="nav-number">4.</span> <span class="nav-text">3. Map</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Set"><span class="nav-number">5.</span> <span class="nav-text">4.Set</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#5-队列和堆栈"><span class="nav-number">5.1.</span> <span class="nav-text">5.队列和堆栈</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-强大的Range功能"><span class="nav-number">6.</span> <span class="nav-text">6.强大的Range功能</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-集合"><span class="nav-number">1.</span> <span class="nav-text"> 1. 集合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-list"><span class="nav-number">2.</span> <span class="nav-text"> 2. List</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2数组"><span class="nav-number">3.</span> <span class="nav-text"> 2.数组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-map"><span class="nav-number">4.</span> <span class="nav-text"> 3. Map</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4set"><span class="nav-number">5.</span> <span class="nav-text"> 4.Set</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#5队列和堆栈"><span class="nav-number">5.1.</span> <span class="nav-text"> 5.队列和堆栈</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6强大的range功能"><span class="nav-number">6.</span> <span class="nav-text"> 6.强大的Range功能</span></a></li></ol></div>
             
 
           </div>
-        </section>
+        </div>
       <!--/noindex-->
       
 
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
       
 
     </div>
@@ -1423,39 +1615,50 @@ var jiathis_config={
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2019</span>
-  <span class="with-love">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Rickiyang</span>
 
   
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="Symbols count total">752k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="Reading time total">11:24</span>
+  
 </div>
 
-<div class="powered-by">
+<!--<div class="powered-by">
 <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
   本站访客数:<span id="busuanzi_value_site_uv"></span>
 </span>
-</div>
-
-<!--
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
--->
-
-
-  <span class="post-meta-divider">|</span>
+</div>-->
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+  <div class="theme-info">Theme – <span class="exturl theme-link" data-url="aHR0cHM6Ly90aGVtZS1uZXh0Lm9yZw==">NexT.Gemini</span> v6.7.0</div>
 
 
 
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共231.6k字</span>
+  <span class="post-count">博客全站共231.9k字</span>
 </div>
 
 <script>
@@ -1475,24 +1678,23 @@ var jiathis_config={
 
         
 <div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
   
-    <span class="site-uv">
+    <span class="site-uv" title="Total Visitors">
       <i class="fa fa-user"></i>
       <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-      人次
     </span>
   
 
   
-    <span class="site-pv">
+    <span class="site-pv" title="Total Views">
       <i class="fa fa-eye"></i>
       <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-      次
     </span>
   
 </div>
+
 
 
 
@@ -1506,21 +1708,17 @@ var jiathis_config={
     </footer>
 
     
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-          <span id="scrollpercent"><span>0</span>%</span>
-        
-      </div>
+
     
 
     
 
+    
   </div>
 
   
 
-<script type="text/javascript">
+<script>
   if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
     window.Promise = null;
   }
@@ -1534,117 +1732,6 @@ var jiathis_config={
 
 
 
-  
-
-
-
-
-
-
-  
-  
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/three.min.js"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
 
 
 
@@ -1657,8 +1744,111 @@ var jiathis_config={
 
 
   
+  
 
-  <script type="text/javascript">
+
+
+  
+  
+  <script id="ribbon" size="300" alpha="0.6" zindex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/three/three.min.js"></script>
+
+  
+  <script src="/lib/three/canvas_sphere.min.js"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script>
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+      el: '#comments' ,
+      verify: false,
+      notify: false,
+      appId: 'X5fy0b9Gknu0SAse5areilGR-gzGzoHsz',
+      appKey: 'URk4cyPQ8Ttqtwhop5t26kok',
+      placeholder: 'Just go go',
+      avatar: 'mm',
+      meta:guest,
+      pageSize: '10' || 10,
+      visitor: false
+    });
+  </script>
+
+
+
+
+  
+
+  <script>
     // Popup Window;
     var isfetched = false;
     var isXml = true;
@@ -1707,6 +1897,8 @@ var jiathis_config={
         .css('overflow', 'hidden');
       $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
 
+      
+
       $.ajax({
         url: path,
         dataType: isXml ? "xml" : "json",
@@ -1740,8 +1932,9 @@ var jiathis_config={
                 var title = data.title.trim();
                 var titleInLowerCase = title.toLowerCase();
                 var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
                 var contentInLowerCase = content.toLowerCase();
-                var articleUrl = decodeURIComponent(data.url);
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
                 var indexOfTitle = [];
                 var indexOfContent = [];
                 // only match articles with not empty titles
@@ -1910,9 +2103,9 @@ var jiathis_config={
               })
             };
             if (keywords.length === 1 && keywords[0] === "") {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
             } else if (resultItems.length === 0) {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
             } else {
               resultItems.sort(function (resultLeft, resultRight) {
                 if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
@@ -1982,107 +2175,66 @@ var jiathis_config={
   
 
   
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("X5fy0b9Gknu0SAse5areilGR-gzGzoHsz", "URk4cyPQ8Ttqtwhop5t26kok");</script>
   <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
-            }
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
+    
     function addCount(Counter) {
       var $visitors = $(".leancloud_visitors");
       var url = $visitors.attr('id').trim();
       var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
 
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function ({ results }) {
           if (results.length > 0) {
             var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
+            
+            Counter('put', `/classes/Counter/${counter.objectId}`, JSON.stringify({ time: { "__op":"Increment", "amount":1 } }))
+            
+            .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.time + 1);
+            })
+            
+            .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+            })
           } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1}))
+                .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function () {
+                  console.log('Failed to create');
+                });
+            
           }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
+        })
+      .fail(function ({ responseJSON }) {
+        console.log('LeanCloud Counter Error:' + responseJSON.code + " " + responseJSON.error);
       });
     }
+    
 
     $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + "X5fy0b9Gknu0SAse5areilGR-gzGzoHsz")
+        .done(function ({ api_server }) {
+          var Counter = function (method, url, data) {
+            return $.ajax({
+              method: method,
+              url: `https://${api_server}/1.1${url}`,
+              headers: {
+                'X-LC-Id': "X5fy0b9Gknu0SAse5areilGR-gzGzoHsz",
+                'X-LC-Key': "URk4cyPQ8Ttqtwhop5t26kok",
+                'Content-Type': 'application/json',
+              },
+              data: data,
+            });
+          };
+          
+          addCount(Counter);
+          
+        })
     });
   </script>
 
@@ -2091,9 +2243,45 @@ var jiathis_config={
   
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+      }
+      else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
 
   
   
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+  <script>
+    
+    
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+  <script src="/js/src/exturl.js?v=6.7.0"></script>
+
 
   
 
@@ -2103,7 +2291,7 @@ var jiathis_config={
 
 
   <!-- 页面点击小红心 -->
-  <script type="text/javascript" src="/js/src/love.js"></script>
-  <!---->
+    <script type="text/javascript" src="/js/src/love.js"></script>
+    <!---->
 </body>
 </html>

@@ -2,6 +2,15 @@
 
 
 
+
+
+
+
+
+
+
+
+
   
 
 
@@ -9,38 +18,38 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
 
 
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-center-circle.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -64,12 +73,6 @@
   
 
   
-    
-      
-    
-
-    
-  
 
   
     
@@ -90,7 +93,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|FZSongKeBenXiuKai:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
   
 
 
@@ -98,68 +101,40 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
 
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/adele.ico?v=5.1.4">
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/adele.ico?v=5.1.4">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/adele.ico?v=6.7.0">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/adele.ico?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/adele.ico?v=6.7.0">
 
 
-  <link rel="mask-icon" href="/images/adele.ico?v=5.1.4" color="#222">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/adele.ico?v=6.7.0">
 
 
-
-
-
-  <meta name="keywords" content="分布式,">
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="Rickiyang's blog" type="application/atom+xml">
+  <link rel="mask-icon" href="/images/adele.ico?v=6.7.0" color="#222">
 
 
 
 
 
 
-<meta name="description" content="1. zookeeper中的一致性协议-ZAB协议在深入了解ZK之前，相信很多同学都会认为ZK就是Paxos算法的一个实现。但事实上，ZK并没有完全采用Paxos算法，而是使用了一种称为ZooKeeper Atomic Broadcast(ZAB,ZooKeeper原子消息广播协议)的协议作为其数据一致性的核心算法。 ZAB协议是为分布式协调服务ZooKeeper专门设计的一种支持崩渍恢复的原子广">
-<meta name="keywords" content="分布式">
-<meta property="og:type" content="article">
-<meta property="og:title" content="zookeeper中的分布式一致性协议">
-<meta property="og:url" content="https://blog.rickiyang.cn/posts/e3052d18.html">
-<meta property="og:site_name" content="Rickiyang&#39;s blog">
-<meta property="og:description" content="1. zookeeper中的一致性协议-ZAB协议在深入了解ZK之前，相信很多同学都会认为ZK就是Paxos算法的一个实现。但事实上，ZK并没有完全采用Paxos算法，而是使用了一种称为ZooKeeper Atomic Broadcast(ZAB,ZooKeeper原子消息广播协议)的协议作为其数据一致性的核心算法。 ZAB协议是为分布式协调服务ZooKeeper专门设计的一种支持崩渍恢复的原子广">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-13T02:14:20.616Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="zookeeper中的分布式一致性协议">
-<meta name="twitter:description" content="1. zookeeper中的一致性协议-ZAB协议在深入了解ZK之前，相信很多同学都会认为ZK就是Paxos算法的一个实现。但事实上，ZK并没有完全采用Paxos算法，而是使用了一种称为ZooKeeper Atomic Broadcast(ZAB,ZooKeeper原子消息广播协议)的协议作为其数据一致性的核心算法。 ZAB协议是为分布式协调服务ZooKeeper专门设计的一种支持崩渍恢复的原子广">
 
-
-
-<script type="text/javascript" id="hexo.configurations">
+<script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
     scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
-    fancybox: true,
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
     algolia: {
       applicationID: '',
       apiKey: '',
@@ -171,12 +146,40 @@
 </script>
 
 
-
-  <link rel="canonical" href="https://blog.rickiyang.cn/posts/e3052d18.html">
-
+  
 
 
 
+
+  <meta name="description" content="1. zookeeper中的一致性协议-ZAB协议 在深入了解ZK之前，相信很多同学都会认为ZK就是Paxos算法的一个实现。但事实上，ZK并没有完全采用Paxos算法，而是使用了一种称为ZooKeeper Atomic Broadcast(ZAB,ZooKeeper原子消息广播协议)的协议作为其数据一致性的核心算法。 ZAB协议是为分布式协调服务ZooKeeper专门设计的一种支持崩渍恢复的原">
+<meta name="keywords" content="分布式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="zookeeper中的分布式一致性协议">
+<meta property="og:url" content="http://blog.rickiyang.cn/posts/e3052d18.html">
+<meta property="og:site_name" content="Rickiyang&#39;s blog">
+<meta property="og:description" content="1. zookeeper中的一致性协议-ZAB协议 在深入了解ZK之前，相信很多同学都会认为ZK就是Paxos算法的一个实现。但事实上，ZK并没有完全采用Paxos算法，而是使用了一种称为ZooKeeper Atomic Broadcast(ZAB,ZooKeeper原子消息广播协议)的协议作为其数据一致性的核心算法。 ZAB协议是为分布式协调服务ZooKeeper专门设计的一种支持崩渍恢复的原">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-13T02:14:20.616Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="zookeeper中的分布式一致性协议">
+<meta name="twitter:description" content="1. zookeeper中的一致性协议-ZAB协议 在深入了解ZK之前，相信很多同学都会认为ZK就是Paxos算法的一个实现。但事实上，ZK并没有完全采用Paxos算法，而是使用了一种称为ZooKeeper Atomic Broadcast(ZAB,ZooKeeper原子消息广播协议)的协议作为其数据一致性的核心算法。 ZAB协议是为分布式协调服务ZooKeeper专门设计的一种支持崩渍恢复的原">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Rickiyang's blog" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://blog.rickiyang.cn/posts/e3052d18.html">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
 
   <title>zookeeper中的分布式一致性协议 | Rickiyang's blog</title>
   
@@ -187,6 +190,35 @@
 
 
 
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
 </head>
 
@@ -202,7 +234,7 @@
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
+  <div class="site-meta">
     
 
     <div class="custom-logo-site-title">
@@ -212,13 +244,16 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
+    
       
-        <h1 class="site-subtitle" itemprop="description"></h1>
+        <h1 class="site-subtitle" itemprop="description">java,大数据,分布式组件</h1>
       
+    
+    
   </div>
 
   <div class="site-nav-toggle">
-    <button>
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -226,66 +261,94 @@
   </div>
 </div>
 
-<nav class="site-nav">
-  
 
+
+<nav class="site-nav">
   
     <ul id="menu" class="menu">
       
         
-        <li class="menu-item menu-item-首页">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            首页
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-标签">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
-            
-            标签
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-分类">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
-            
-            分类
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-归档">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            归档
-          </a>
-        </li>
-      
+          
+          <li class="menu-item menu-item-首页">
 
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
       
         <li class="menu-item menu-item-search">
           
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
-            
-            搜索
-          </a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
         </li>
       
     </ul>
+  
+
   
 
   
@@ -300,7 +363,7 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -314,12 +377,23 @@
 
 
 
- </div>
+  
+
+
+
+</div>
     </header>
+
+    
+
 
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+          
+            
+
+          
           <div id="content" class="content">
             
 
@@ -332,16 +406,18 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/e3052d18.html">
+    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/e3052d18.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="分享对coding生活的见解">
       <meta itemprop="image" content="/images/adele.png">
     </span>
 
@@ -354,11 +430,20 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">zookeeper中的分布式一致性协议</h2>
+          <h2 class="post-title" itemprop="name headline">zookeeper中的分布式一致性协议
+
+              
+            
+          </h2>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -366,13 +451,30 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-15T20:42:41+08:00">
-                2018-08-15
-              </time>
+
+              
+                
+              
+
+              <time title="创建于: 2018-08-15 20:42:41" itemprop="dateCreated datePublished" datetime="2018-08-15T20:42:41+08:00">2018-08-15</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">编辑于</span>
+                
+                <time title="Modified: 2018-12-13 10:14:20" itemprop="dateModified" datetime="2018-12-13T10:14:20+08:00">2018-12-13</time>
+              
             
           </span>
 
@@ -388,22 +490,14 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/分布式组件/" itemprop="url" rel="index">
-                    <span itemprop="name">分布式组件</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/分布式组件/" itemprop="url" rel="index"><span itemprop="name">分布式组件</span></a></span>
 
                 
                 
-                  ， 
+                  , 
                 
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/分布式组件/zookeeper/" itemprop="url" rel="index">
-                    <span itemprop="name">zookeeper</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/分布式组件/zookeeper/" itemprop="url" rel="index"><span itemprop="name">zookeeper</span></a></span>
 
                 
                 
@@ -412,6 +506,16 @@
           
 
           
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/posts/e3052d18.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/e3052d18.html" itemprop="commentCount"></span>
+                </a>
+              </span>
             
           
 
@@ -423,7 +527,7 @@
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">热度&#58;</span>
+                 <span class="post-meta-item-text">热度: </span>
                
                  <span class="leancloud-visitors-count"></span>
                  <span>℃</span>
@@ -431,27 +535,19 @@
           
 
           
-            <span class="post-meta-divider">|</span>
-            <span class="page-pv"><i class="fa fa-file-o"></i>
-            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
-            </span>
-          
 
           
-            <div class="post-wordcount">
+            <div class="post-symbolscount">
               
-                
-                  <span class="post-meta-divider">|</span>
-                
+
+              
                 <span class="post-meta-item-icon">
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">字数统计&#58;</span>
+                  <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="字数统计">
-                  3.8k
-                </span>
+                <span title="Symbols count in article">6.4k</span>
               
 
               
@@ -463,11 +559,9 @@
                   <i class="fa fa-clock-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="阅读时长">
-                  13
-                </span>
+                <span title="Reading time">6 mins.</span>
               
             </div>
           
@@ -487,14 +581,18 @@
       
 
       
-        <h4 id="1-zookeeper中的一致性协议-ZAB协议"><a href="#1-zookeeper中的一致性协议-ZAB协议" class="headerlink" title="1. zookeeper中的一致性协议-ZAB协议"></a>1. zookeeper中的一致性协议-ZAB协议</h4><p>在深入了解ZK之前，相信很多同学都会认为ZK就是Paxos算法的一个实现。但事实上，ZK并没有完全采用Paxos算法，而是使用了一种称为ZooKeeper Atomic Broadcast(ZAB,ZooKeeper原子消息广播协议)的协议作为其数据一致性的核心算法。</p>
+        <h4 id="1-zookeeper中的一致性协议-zab协议"><a class="markdownIt-Anchor" href="#1-zookeeper中的一致性协议-zab协议"></a> 1. zookeeper中的一致性协议-ZAB协议</h4>
+<p>在深入了解ZK之前，相信很多同学都会认为ZK就是Paxos算法的一个实现。但事实上，ZK并没有完全采用Paxos算法，而是使用了一种称为ZooKeeper Atomic Broadcast(ZAB,ZooKeeper原子消息广播协议)的协议作为其数据一致性的核心算法。</p>
 <p>ZAB协议是为分布式协调服务ZooKeeper专门设计的一种支持崩渍恢复的原子广播协议。ZAB协议的开发设计人员在协议设计之初并没有要求其具有很好的扩展性，最初只是为雅虎公司内部那些高吞吐量、低延迟、健壮、简单的分布式系统场景设计的。在ZooKeeper的官方文档中也指出，ZAB协议并不像Paxos算法那样，是一种通用的分布式一致性算法，它是一种特别为ZooKeeper设计的崩溃可恢复的原子消息广播算法。</p>
 <p>ZAB 协议的核心是定义了对于那些会改变ZooKeeper服务器数据状态的事务请求的处理方式，即：</p>
-<p><em>所有事务请求必须由一个全局唯一的服务器来协调处理，这样的服务器被称为Leader服务器，而余下的其他服务器则成为Follower服务器。Leader服务器负责将一个客户端事务请求转换成一个事务Proposal(提议),并将该Proposal分发给集群中所有的Follower服务器。之后Leader 服务器需要等待所有Follower服务器的反馈，一旦超过半数的Follower 服务器进行了正确的反馈后，那么Leader就会再次向所有的Follower<br>服务器分发Commit消息，要求其将前一个Proposal进行提交。</em></p>
-<h5 id="1-1-ZAB协议的两种基本模式"><a href="#1-1-ZAB协议的两种基本模式" class="headerlink" title="1.1 ZAB协议的两种基本模式"></a>1.1 ZAB协议的两种基本模式</h5><p>ZAB协议包括两种基本的模式，分别是崩愤恢复和消息广播。</p>
+<p><em>所有事务请求必须由一个全局唯一的服务器来协调处理，这样的服务器被称为Leader服务器，而余下的其他服务器则成为Follower服务器。Leader服务器负责将一个客户端事务请求转换成一个事务Proposal(提议),并将该Proposal分发给集群中所有的Follower服务器。之后Leader 服务器需要等待所有Follower服务器的反馈，一旦超过半数的Follower 服务器进行了正确的反馈后，那么Leader就会再次向所有的Follower<br>
+服务器分发Commit消息，要求其将前一个Proposal进行提交。</em></p>
+<h5 id="11-zab协议的两种基本模式"><a class="markdownIt-Anchor" href="#11-zab协议的两种基本模式"></a> 1.1 ZAB协议的两种基本模式</h5>
+<p>ZAB协议包括两种基本的模式，分别是崩愤恢复和消息广播。</p>
 <p><strong>消息广播：</strong></p>
 <p>ZAB 协议的消息广播过程使用的是一个原子广播协议，类似于一个二阶段提交过程。针对客户端的事务请求，Leader服务器会为其生成对应的事务Proposal，并将其发送给集群中其余所有的机器，然后再分别收集各自的选票，最后进行事务提交。</p>
-<p>在ZAB协议的二阶段提交过程中，移除了中断逻辑，所有的Follower服务器要么正常反馈Leader提出的事务Proposal，要么就抛弃Leader服务器。同时，ZAB协议将二阶段提交中的中断逻辑移除意味着我们可以在过半<br>的Follower服务器已经反馈Ack之后就开始提交事务Proposal了，而不需要等待集群中所有的Follower服务器都反馈响应。</p>
+<p>在ZAB协议的二阶段提交过程中，移除了中断逻辑，所有的Follower服务器要么正常反馈Leader提出的事务Proposal，要么就抛弃Leader服务器。同时，ZAB协议将二阶段提交中的中断逻辑移除意味着我们可以在过半<br>
+的Follower服务器已经反馈Ack之后就开始提交事务Proposal了，而不需要等待集群中所有的Follower服务器都反馈响应。</p>
 <p>当然，在这种简化了的二阶段提交模型下，是无法处理Leader服务器崩溃退出而带来的数据不一致问题的，因此在ZAB协议中添加了另一个模式，即采用崩愤恢复模式来解决这个问题。另外，整个消息广播协议是基于具有FIFO特性的TCP协议来进行网络通信的，因此能够很容易地保证消息广播过程中消息接收与发送的顺序性。</p>
 <p>在整个消息广播过程中，Leader服务器会为每个事务请求生成对应的Proposal来进行广播，并且在广播事务Proposal之前，Leader服务器会首先为这个事务Proposal 分配一个全局单调递增的唯一ID，我们称之为事务ID(即ZXID)。由于ZAB协议需要保证每一个消息严格的因果关系，因此必须将每一个事务Proposal按照其ZXID的先后顺序来进行排序与处理。</p>
 <p>在消息广播过程中，Leader服务器会为每一个Follower服务器都各自分配一个单独的队列，然后将需要广播的事务Proposal依次放入这些队列中去，并且根据FIFO策略进行消息发送。每一个Follower服务器在接收到这个事务Proposal之后，都会首先将其以事务日志的形式写入到本地磁盘中去，并且在成功写入后反馈给Leader服务器一个Ack响应。当Leader服务器接收到超过半数Follower的Ack响应后，就会广播一个Commit消息给所有的Follower服务器以通知其进行事务提交，同时Leader自身也会完成对事务的提交，而每一个Follower服务器在接收到Commit消息后，也会成对事务提交。</p>
@@ -502,17 +600,23 @@
 <p>上面我们说过一旦Leader服务器出现崩愤，或者说由于网络原因导致Leader服务器失去了与过半Follower的联系，那么就会进入崩溃恢复模式。在ZAB协议中，为了保证程序的正确运行，整个恢复过程结束后需要选举出一个新的Leader服务器。</p>
 <p>为了确保ZAB可以快速的选出一个Leader，同时让新Leader知道自己被选举为Leader和让集群中的机器也快速的感知到产生了新的Leader，ZAB需要确保一些特性：</p>
 <ol>
-<li><p><strong>ZAB协议需要确保那些已经在Leader服务器上提交的事务最终被所有服务器都提交。</strong></p>
-<p> 假设一个事务在Leader服务器上被提交了，并且已经得到过半Follower服务器的Ack反馈，但是在它将Commit消息发送给所有Follower机器之前，Leader服务器挂了。</p>
+<li>
+<p><strong>ZAB协议需要确保那些已经在Leader服务器上提交的事务最终被所有服务器都提交。</strong></p>
+<p>假设一个事务在Leader服务器上被提交了，并且已经得到过半Follower服务器的Ack反馈，但是在它将Commit消息发送给所有Follower机器之前，Leader服务器挂了。</p>
 </li>
-<li><p><strong>ZAB协议需要确保丢弃那些只在Leader服务器上被提出的事务。</strong></p>
-<p> 如果在崩愤恢复过程中出现一个需要被丢弃的提案，那么在崩溃恢复结束后需要跳过该事务Proposal。，假设初始的Leader服务器Server1在提出了一个事务Proposal3之后就崩愤退出了，从而导致集群中的其他服务器都没有收到这个事务Proposal。于是，当Server恢复过来再次加入到集群中的时候，ZAB协议需要确保丢弃Proposal3这个事务。</p>
+<li>
+<p><strong>ZAB协议需要确保丢弃那些只在Leader服务器上被提出的事务。</strong></p>
+<p>如果在崩愤恢复过程中出现一个需要被丢弃的提案，那么在崩溃恢复结束后需要跳过该事务Proposal。，假设初始的Leader服务器Server1在提出了一个事务Proposal3之后就崩愤退出了，从而导致集群中的其他服务器都没有收到这个事务Proposal。于是，当Server恢复过来再次加入到集群中的时候，ZAB协议需要确保丢弃Proposal3这个事务。</p>
 </li>
 </ol>
 <p>结合上面提到的这两个崩愤恢复过程中需要处理的特殊情况，就决定了ZAB 协议必须设计这样一个Leader选举算法：</p>
 <p><strong>能够确保提交已经被Leader提交的事务Proposal，同时丢弃已经被跳过的事务Proposal。针对这个要求，如果让Leader选举算越能够保证新选举出来的Leader服务器拥有集群中所有机器最高编号(即ZXID最大)的事务Proposal,那么就可以保证这个新选举出来的Leader一定具有所有已经提交的提案。更为重要的是，如果让具有最高编号事务Proposal的机器来成为Leader，就可以省去Leader服务器检查Proposal的提交和丢弃工作的这一步操作了。</strong></p>
-<h5 id="1-2-数据同步"><a href="#1-2-数据同步" class="headerlink" title="1.2 数据同步"></a>1.2 数据同步</h5><p>所有正常运行的服务器，要么成为Leader，要么成为Follower并和Leader保持同步。Leader服务器需要确保所有的Follower服务器能够接收到每一条事务Proposal，并且能够正确地将所有已经提交了的事务Proposal应用到内存数据库中去。具体的，Leader服务器会为每一个<br>Follower服务器都准备一个队列，并将那些没有被各Follower服务器同<br>步的事务以Proposal以消息的形式逐个发送给Follower服务器，并在每一个Proposal消息后面紧接着再发送一个Commit消息，以表示该事务已经被提交。等到Follower服务器将所有其尚未同步的事务Proposal都从Leader服务器上同步过来并成功应用到本地数据库中后，Leader服务器就会将该Follower服务器加入到真正的可用Follower列表中，并开始之后的其他流程。</p>
-<h5 id="1-3-ZAB算法描述"><a href="#1-3-ZAB算法描述" class="headerlink" title="1.3 ZAB算法描述"></a>1.3 ZAB算法描述</h5><p>整个ZAB 协议主要包括消息广播和崩愤恢复两个过程，进一步可以细分为三个阶段，分别是发现(Discovery)、同步(Synchronization)和广播(Broadcast)阶段。组成ZAB协议的每一个分布式进程，会循环地执行这三个阶段，我们将这样一个循环称为一个主进程周期。</p>
+<h5 id="12-数据同步"><a class="markdownIt-Anchor" href="#12-数据同步"></a> 1.2 数据同步</h5>
+<p>所有正常运行的服务器，要么成为Leader，要么成为Follower并和Leader保持同步。Leader服务器需要确保所有的Follower服务器能够接收到每一条事务Proposal，并且能够正确地将所有已经提交了的事务Proposal应用到内存数据库中去。具体的，Leader服务器会为每一个<br>
+Follower服务器都准备一个队列，并将那些没有被各Follower服务器同<br>
+步的事务以Proposal以消息的形式逐个发送给Follower服务器，并在每一个Proposal消息后面紧接着再发送一个Commit消息，以表示该事务已经被提交。等到Follower服务器将所有其尚未同步的事务Proposal都从Leader服务器上同步过来并成功应用到本地数据库中后，Leader服务器就会将该Follower服务器加入到真正的可用Follower列表中，并开始之后的其他流程。</p>
+<h5 id="13-zab算法描述"><a class="markdownIt-Anchor" href="#13-zab算法描述"></a> 1.3 ZAB算法描述</h5>
+<p>整个ZAB 协议主要包括消息广播和崩愤恢复两个过程，进一步可以细分为三个阶段，分别是发现(Discovery)、同步(Synchronization)和广播(Broadcast)阶段。组成ZAB协议的每一个分布式进程，会循环地执行这三个阶段，我们将这样一个循环称为一个主进程周期。</p>
 <p>ZAB协议算法表述说明：</p>
 
 <table>
@@ -547,7 +651,8 @@
 <p>阶段一主要就是Leader选举过程，用于在多个分布式进程中选举出主进程，准Leader L和Follower F的工作流程分别如下：</p>
 <ol>
 <li>步骤F.1.1： Follower F将自己最后接受的事务Proposal的epoch值CEPOCH(F.p)发送给准Leader L。</li>
-<li>步骤L.1.1 当接收到来自过半Follower的CEPOCH(F.p)消息后，准Leader L会生成NEWEPOCH(e’)悄息给这些过半的Follower。<br> 关于这个epoch值e’，准Leader L 会从所有接收到的CEPOCH(F.p）消息中选取出最大的epoch值，然后对其进行加l操作，即为e’。</li>
+<li>步骤L.1.1 当接收到来自过半Follower的CEPOCH(F.p)消息后，准Leader L会生成NEWEPOCH(e’)悄息给这些过半的Follower。<br>
+关于这个epoch值e’，准Leader L 会从所有接收到的CEPOCH(F.p）消息中选取出最大的epoch值，然后对其进行加l操作，即为e’。</li>
 <li>步骤F.1.2：当Follower接收到来自准Leader L 的NEWEPOCH(e’)消息后，如果其检测到当前的CEPOCH(F.p)值小于e’，那么就会将CEPOCH(F.p)赋值为e’,同时向这个准Leader L反馈Ack消息。在这个反馈消息(ACK-E(F<sub>.p</sub>,h<sub>f</sub>)中,包含了当前该Follower 的epoch CEPOCH(F.p),以及该Follower的历史事务Proposal集合:h<sub>r</sub>。</li>
 </ol>
 <p>当Leader L接收到来自过半Follower的确认消息Ack之后，Leader L就会从这过半服务器中选取出一个Follower F,并使用其作为初始化事务集合I<sub>e’</sub>。</p>
@@ -557,7 +662,7 @@
 <li>步骤L.2.1: Leader L会将e’和Ie’以NEWLEADER(e’,I<sub>e’</sub>）消息的形式发送给所有Quorum中的Follower。</li>
 <li>步骤F.2.1:当Follower接收到来自Leader L的NEWLEADER(e’,I<sub>e’</sub>)消息后，如果Follower发现CEPOCH(F<sub>.p</sub>)那么直接进入下一轮循环，因为此时Follower发现自己还在上一轮，或者更上轮，无法参与本轮的同步。如果CEPOCH(F.p) = e’，那么Follower就会执行事务应用操作。具体的，对于每一个事务Proposal:&lt;v,z&gt;∈I<sub>e’</sub>,Follower都会接受&lt;e’,&lt;v,z&gt;&gt;。最后 Follower会反馈给Leader，表明自己已经接受并处理了所有I<sub>e’</sub>中的事务Proposal。</li>
 <li>步骤L.2.2 :当Leader接收到来自过半Follower针对NEWLEADER(e’，Ie’)的反馈消息后，就会向所有的Follower发送Commit消息。至此Leader完成阶段二。</li>
-<li>步骤F.2.2: 当Follower收到来自Leader的Commit消息后，就会依次处理并提交所有在I<sub>e’’</sub>中未处理的事务。至此Follower完成阶段二。</li>
+<li>步骤F.2.2: 当Follower收到来自Leader的Commit消息后，就会依次处理并提交所有在I<sub>e’'</sub>中未处理的事务。至此Follower完成阶段二。</li>
 </ol>
 <p><strong>阶段3：广播</strong></p>
 <p>完成同步阶段之后，ZAB协议就可以正式开始接收客户端新的事务请求，井进行消息广播流程。</p>
@@ -565,7 +670,7 @@
 <li>步骤L.3.1： Leader L接收到客户端新的事务请求后，会生成对应的事务Proposal并根据zxid的顺序向所有Follower发送提案&lt;e’,&lt;v,z&gt;&gt;,其中epoch(z) = e’。</li>
 <li>步骤F.3.1： Follower根据消息接收的先后次序来处理这些来自Leader的事务Proposal,并将他们追加到h<sub>r</sub>中去，之后再反馈给Leader。</li>
 <li>步骤L.3.1：当Leader接收到来自过半Follower针对事务Proposal&lt; e’,&lt;v,z&gt;&gt;的Ack消息后，就会发送Commit&lt;e’,&lt;v,z&gt;&gt;消息给所有的Follower，要求它们进行事务的提交。</li>
-<li>步骤F.3.2: 当Follower F接收到来自Leader的Commit&lt;e’,&lt;v,z&gt;&gt;消息后，就会开始提交事务Proposal&lt;e’,&lt;v,z&gt;&gt;。需要注意的是，此时该Follower F必定已经提交了事务Proposal <v',z'>，其中<v',z'>∈h<sub>f</sub>,z’ ∈ <sub>z</sub> Z。</v',z'></v',z'></li>
+<li>步骤F.3.2: 当Follower F接收到来自Leader的Commit&lt;e’,&lt;v,z&gt;&gt;消息后，就会开始提交事务Proposal&lt;e’,&lt;v,z&gt;&gt;。需要注意的是，此时该Follower F必定已经提交了事务Proposal &lt;v’,z’&gt;，其中&lt;v’,z’&gt;∈h<sub>f</sub>,z’ ∈ <sub>z</sub> Z。</li>
 </ol>
 <p>以上就是整个ZAB 协议的三个核心工作流程，以上各个状态字段说明如下：</p>
 <ul>
@@ -579,17 +684,22 @@
 <li>ACK: Follower进程反馈Leader进程发来的PROPOSAL消息。</li>
 <li>COMMIT:Leader发送COMMIT消息，要求所有进程提交事务PROPOSE。</li>
 </ul>
-<h4 id="1-4-ZAB与Paxos算法的区别"><a href="#1-4-ZAB与Paxos算法的区别" class="headerlink" title="1.4 ZAB与Paxos算法的区别"></a>1.4 ZAB与Paxos算法的区别</h4><p>ZAB 协议并不是Paxos算法的一个典型实现，在讲解ZAB和Paxos之间的区别之前，我们首先来看下两者的联系：</p>
+<h4 id="14-zab与paxos算法的区别"><a class="markdownIt-Anchor" href="#14-zab与paxos算法的区别"></a> 1.4 ZAB与Paxos算法的区别</h4>
+<p>ZAB 协议并不是Paxos算法的一个典型实现，在讲解ZAB和Paxos之间的区别之前，我们首先来看下两者的联系：</p>
 <ol>
 <li>两者都存在一个类似于Leader进程的角色，由其负责协调多个Follower进程的运行。</li>
 <li>Leader进程都会等待超过半数的Follower做出正确的反馈后，才会将一个提案进行提交。</li>
 <li>在ZAB协议中，每个Proposal中都包含了一个epoch值，用来代表当前的Leader周期，在Paxos算法中，同样存在这样的一个标识，只是名字变成了Ballot。</li>
 </ol>
-<p>在Paxos算法中，一个新选举产生的主进程会进行两个阶段的工作。第一阶段被称为读阶段，在这个阶段中，这个新的主进程会通过和所有其他进程进行通信的方式来收集上一个主进程提出的提案，井将它们提交。第二阶段被称为写阶段，在这个阶段，当前主进程开始提出它自己的提案。在Paxos算法设计的基础上，ZAB协议额外添加了一个同步阶段。在同步阶段之前，ZAB协议也存在一个和Paxos算法中的读阶段非常类似的过<br>程，称为发现(Discovery)阶段。在同步阶段中，新的Leader会确保存在过半的Follower已经提交了之前Leader周期中的所有事务Proposal。这一同步阶段的引入，能够有效地保证Leader在新的周期中提出事务Proposal之前，所有的进程都已经完成了对之前所有事务Proposal的提交。一旦完成同步阶段后，那么ZAB就会执行和Paxos算法类似的写阶段。</p>
-<p>总的来讲，ZAB协议和Paxos算法的本质区别在于，两者的设计目标不太一样。ZAB协议主要用于构建一个高可用的分布式数据主备系统，例如ZooKeeper，而Paxos算法则是用于构建一个分布式的一致性状态机系统。          </p>
+<p>在Paxos算法中，一个新选举产生的主进程会进行两个阶段的工作。第一阶段被称为读阶段，在这个阶段中，这个新的主进程会通过和所有其他进程进行通信的方式来收集上一个主进程提出的提案，井将它们提交。第二阶段被称为写阶段，在这个阶段，当前主进程开始提出它自己的提案。在Paxos算法设计的基础上，ZAB协议额外添加了一个同步阶段。在同步阶段之前，ZAB协议也存在一个和Paxos算法中的读阶段非常类似的过<br>
+程，称为发现(Discovery)阶段。在同步阶段中，新的Leader会确保存在过半的Follower已经提交了之前Leader周期中的所有事务Proposal。这一同步阶段的引入，能够有效地保证Leader在新的周期中提出事务Proposal之前，所有的进程都已经完成了对之前所有事务Proposal的提交。一旦完成同步阶段后，那么ZAB就会执行和Paxos算法类似的写阶段。</p>
+<p>总的来讲，ZAB协议和Paxos算法的本质区别在于，两者的设计目标不太一样。ZAB协议主要用于构建一个高可用的分布式数据主备系统，例如ZooKeeper，而Paxos算法则是用于构建一个分布式的一致性状态机系统。</p>
 
       
     </div>
+
+    
+
     
     
     
@@ -607,8 +717,8 @@
   <p><span>文章作者:</span><a href="/" title="访问 Rickiyang 的个人博客">Rickiyang</a></p>
   <p><span>发布时间:</span>2018年08月15日 - 20:42</p>
   <p><span>最后更新:</span>2018年12月13日 - 10:14</p>
-  <p><span>原始链接:</span><a href="/posts/e3052d18.html" title="zookeeper中的分布式一致性协议">https://blog.rickiyang.cn/posts/e3052d18.html</a>
-    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.rickiyang.cn/posts/e3052d18.html" aria-label="复制成功！"></i></span>
+  <p><span>原始链接:</span><a href="/posts/e3052d18.html" title="zookeeper中的分布式一致性协议">http://blog.rickiyang.cn/posts/e3052d18.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://blog.rickiyang.cn/posts/e3052d18.html" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
 </div>
@@ -629,9 +739,7 @@
 
       
     </div>
-
     
-
     <div>
       
         <div>
@@ -643,6 +751,10 @@
       
     </div>
 
+
+    
+      
+    
     
 
     
@@ -651,7 +763,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/分布式/" rel="tag"> <i class="”fa" fa-tag”=""></i> 分布式</a>
+            <a href="/tags/分布式/" rel="tag"># 分布式</a>
           
         </div>
       
@@ -692,44 +804,15 @@
   </article>
 
 
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript">
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
   </div>
 
 
           </div>
           
 
-
-          
+  
+    <div class="comments" id="comments">
+    </div>
 
   
 
@@ -756,60 +839,124 @@ var jiathis_config={
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
+            Table of Contents
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
+            Overview
           </li>
         </ul>
       
 
-      <section class="site-overview-wrap sidebar-panel">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image" src="/images/adele.png" alt="Rickiyang">
             
               <p class="site-author-name" itemprop="name">Rickiyang</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-description motion-element" itemprop="description">分享对coding生活的见解</p>
           </div>
 
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
+          
+            <nav class="site-state motion-element">
               
-                <a href="/archives">
-              
-                  <span class="site-state-item-count">99</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">19</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
+                <div class="site-state-item site-state-posts">
                 
-                  <span class="site-state-item-count">11</span>
-                  <span class="site-state-item-name">标签</span>
+                  <a href="/archives">
                 
-              </div>
-            
+                    <span class="site-state-item-count">99</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
 
-          </nav>
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
 
           
             <div class="feed-link motion-element">
@@ -822,63 +969,93 @@ var jiathis_config={
 
           
             <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/rickiyang" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:medee1320@gmail.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://blog.csdn.net/a953713428" target="_blank" title="CSDN">
-                      
-                        <i class="fa fa-fw fa-google"></i>CSDN</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="953713428" target="_blank" title="QQ">
-                      
-                        <i class="fa fa-fw fa-twitter"></i>QQ</a>
-                  </span>
-                
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3JpY2tpeWFuZw==" title="GitHub &rarr; https://github.com/rickiyang"><i class="fa fa-fw fa-github"></i>GitHub</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="bWFpbHRvOm1lZGVlMTMyMEBnbWFpbC5jb20=" title="E-Mail &rarr; mailto:medee1320@gmail.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2E5NTM3MTM0Mjg=" title="CSDN &rarr; https://blog.csdn.net/a953713428"><i class="fa fa-fw fa-google"></i>CSDN</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="/953713428" title="QQ &rarr; 953713428"><i class="fa fa-fw fa-twitter"></i>QQ</a>
+                </span>
+              
             </div>
           
 
           
-          
 
           
           
 
+          
+            
+          
           
 
         </div>
-      </section>
+      </div>
 
       
       <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
           <div class="post-toc">
 
             
-              
+            
+            
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-zookeeper中的一致性协议-ZAB协议"><span class="nav-number">1.</span> <span class="nav-text">1. zookeeper中的一致性协议-ZAB协议</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-ZAB协议的两种基本模式"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 ZAB协议的两种基本模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-数据同步"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 数据同步</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-ZAB算法描述"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 ZAB算法描述</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-ZAB与Paxos算法的区别"><span class="nav-number">2.</span> <span class="nav-text">1.4 ZAB与Paxos算法的区别</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-zookeeper中的一致性协议-zab协议"><span class="nav-number">1.</span> <span class="nav-text"> 1. zookeeper中的一致性协议-ZAB协议</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#11-zab协议的两种基本模式"><span class="nav-number">1.1.</span> <span class="nav-text"> 1.1 ZAB协议的两种基本模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#12-数据同步"><span class="nav-number">1.2.</span> <span class="nav-text"> 1.2 数据同步</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#13-zab算法描述"><span class="nav-number">1.3.</span> <span class="nav-text"> 1.3 ZAB算法描述</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#14-zab与paxos算法的区别"><span class="nav-number">2.</span> <span class="nav-text"> 1.4 ZAB与Paxos算法的区别</span></a></li></ol></div>
             
 
           </div>
-        </section>
+        </div>
       <!--/noindex-->
       
 
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
       
 
     </div>
@@ -891,39 +1068,50 @@ var jiathis_config={
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2019</span>
-  <span class="with-love">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Rickiyang</span>
 
   
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="Symbols count total">752k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="Reading time total">11:24</span>
+  
 </div>
 
-<div class="powered-by">
+<!--<div class="powered-by">
 <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
   本站访客数:<span id="busuanzi_value_site_uv"></span>
 </span>
-</div>
-
-<!--
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
--->
-
-
-  <span class="post-meta-divider">|</span>
+</div>-->
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+  <div class="theme-info">Theme – <span class="exturl theme-link" data-url="aHR0cHM6Ly90aGVtZS1uZXh0Lm9yZw==">NexT.Gemini</span> v6.7.0</div>
 
 
 
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共231.6k字</span>
+  <span class="post-count">博客全站共231.9k字</span>
 </div>
 
 <script>
@@ -943,24 +1131,23 @@ var jiathis_config={
 
         
 <div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
   
-    <span class="site-uv">
+    <span class="site-uv" title="Total Visitors">
       <i class="fa fa-user"></i>
       <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-      人次
     </span>
   
 
   
-    <span class="site-pv">
+    <span class="site-pv" title="Total Views">
       <i class="fa fa-eye"></i>
       <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-      次
     </span>
   
 </div>
+
 
 
 
@@ -974,21 +1161,17 @@ var jiathis_config={
     </footer>
 
     
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-          <span id="scrollpercent"><span>0</span>%</span>
-        
-      </div>
+
     
 
     
 
+    
   </div>
 
   
 
-<script type="text/javascript">
+<script>
   if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
     window.Promise = null;
   }
@@ -1002,117 +1185,6 @@ var jiathis_config={
 
 
 
-  
-
-
-
-
-
-
-  
-  
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/three.min.js"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
 
 
 
@@ -1125,8 +1197,111 @@ var jiathis_config={
 
 
   
+  
 
-  <script type="text/javascript">
+
+
+  
+  
+  <script id="ribbon" size="300" alpha="0.6" zindex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/three/three.min.js"></script>
+
+  
+  <script src="/lib/three/canvas_sphere.min.js"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script>
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+      el: '#comments' ,
+      verify: false,
+      notify: false,
+      appId: 'X5fy0b9Gknu0SAse5areilGR-gzGzoHsz',
+      appKey: 'URk4cyPQ8Ttqtwhop5t26kok',
+      placeholder: 'Just go go',
+      avatar: 'mm',
+      meta:guest,
+      pageSize: '10' || 10,
+      visitor: false
+    });
+  </script>
+
+
+
+
+  
+
+  <script>
     // Popup Window;
     var isfetched = false;
     var isXml = true;
@@ -1175,6 +1350,8 @@ var jiathis_config={
         .css('overflow', 'hidden');
       $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
 
+      
+
       $.ajax({
         url: path,
         dataType: isXml ? "xml" : "json",
@@ -1208,8 +1385,9 @@ var jiathis_config={
                 var title = data.title.trim();
                 var titleInLowerCase = title.toLowerCase();
                 var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
                 var contentInLowerCase = content.toLowerCase();
-                var articleUrl = decodeURIComponent(data.url);
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
                 var indexOfTitle = [];
                 var indexOfContent = [];
                 // only match articles with not empty titles
@@ -1378,9 +1556,9 @@ var jiathis_config={
               })
             };
             if (keywords.length === 1 && keywords[0] === "") {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
             } else if (resultItems.length === 0) {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
             } else {
               resultItems.sort(function (resultLeft, resultRight) {
                 if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
@@ -1450,107 +1628,66 @@ var jiathis_config={
   
 
   
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("X5fy0b9Gknu0SAse5areilGR-gzGzoHsz", "URk4cyPQ8Ttqtwhop5t26kok");</script>
   <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
-            }
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
+    
     function addCount(Counter) {
       var $visitors = $(".leancloud_visitors");
       var url = $visitors.attr('id').trim();
       var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
 
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function ({ results }) {
           if (results.length > 0) {
             var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
+            
+            Counter('put', `/classes/Counter/${counter.objectId}`, JSON.stringify({ time: { "__op":"Increment", "amount":1 } }))
+            
+            .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.time + 1);
+            })
+            
+            .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+            })
           } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1}))
+                .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function () {
+                  console.log('Failed to create');
+                });
+            
           }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
+        })
+      .fail(function ({ responseJSON }) {
+        console.log('LeanCloud Counter Error:' + responseJSON.code + " " + responseJSON.error);
       });
     }
+    
 
     $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + "X5fy0b9Gknu0SAse5areilGR-gzGzoHsz")
+        .done(function ({ api_server }) {
+          var Counter = function (method, url, data) {
+            return $.ajax({
+              method: method,
+              url: `https://${api_server}/1.1${url}`,
+              headers: {
+                'X-LC-Id': "X5fy0b9Gknu0SAse5areilGR-gzGzoHsz",
+                'X-LC-Key': "URk4cyPQ8Ttqtwhop5t26kok",
+                'Content-Type': 'application/json',
+              },
+              data: data,
+            });
+          };
+          
+          addCount(Counter);
+          
+        })
     });
   </script>
 
@@ -1559,9 +1696,45 @@ var jiathis_config={
   
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+      }
+      else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
 
   
   
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+  <script>
+    
+    
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+  <script src="/js/src/exturl.js?v=6.7.0"></script>
+
 
   
 
@@ -1571,7 +1744,7 @@ var jiathis_config={
 
 
   <!-- 页面点击小红心 -->
-  <script type="text/javascript" src="/js/src/love.js"></script>
-  <!---->
+    <script type="text/javascript" src="/js/src/love.js"></script>
+    <!---->
 </body>
 </html>

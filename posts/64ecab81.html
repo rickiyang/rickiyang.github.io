@@ -2,6 +2,15 @@
 
 
 
+
+
+
+
+
+
+
+
+
   
 
 
@@ -9,38 +18,38 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
 
 
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-center-circle.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -64,12 +73,6 @@
   
 
   
-    
-      
-    
-
-    
-  
 
   
     
@@ -90,7 +93,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|FZSongKeBenXiuKai:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
   
 
 
@@ -98,73 +101,40 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
 
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/adele.ico?v=5.1.4">
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/adele.ico?v=5.1.4">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/adele.ico?v=6.7.0">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/adele.ico?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/adele.ico?v=6.7.0">
 
 
-  <link rel="mask-icon" href="/images/adele.ico?v=5.1.4" color="#222">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/adele.ico?v=6.7.0">
 
 
-
-
-
-  <meta name="keywords" content="分布式,">
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="Rickiyang's blog" type="application/atom+xml">
+  <link rel="mask-icon" href="/images/adele.ico?v=6.7.0" color="#222">
 
 
 
 
 
 
-<meta name="description" content="1.从ACID到CAP我们知道传统集中式系统中实现ACID是很简单的，在分布式环境中，涉及到不同的节点，节点内的ACID可以控制，那么节点间的ACID如何控制呢？构建一个可用性和一致性的分布系统成为难题，于是出现了CAP和BASE这样的理论。 CAP定理： CAP告诉我们一个分布式系统不可能同时满足一致性(Consistency)、可用性(Availability)、分区容错性(Partition">
-<meta name="keywords" content="分布式">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Paxos算法原理">
-<meta property="og:url" content="https://blog.rickiyang.cn/posts/64ecab81.html">
-<meta property="og:site_name" content="Rickiyang&#39;s blog">
-<meta property="og:description" content="1.从ACID到CAP我们知道传统集中式系统中实现ACID是很简单的，在分布式环境中，涉及到不同的节点，节点内的ACID可以控制，那么节点间的ACID如何控制呢？构建一个可用性和一致性的分布系统成为难题，于是出现了CAP和BASE这样的理论。 CAP定理： CAP告诉我们一个分布式系统不可能同时满足一致性(Consistency)、可用性(Availability)、分区容错性(Partition">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://i.imgur.com/w160kvh.png">
-<meta property="og:image" content="https://i.imgur.com/kK477ld.png">
-<meta property="og:image" content="https://i.imgur.com/GlPwiFk.png">
-<meta property="og:image" content="https://i.imgur.com/gKbR7xF.png">
-<meta property="og:updated_time" content="2018-12-13T02:14:20.616Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Paxos算法原理">
-<meta name="twitter:description" content="1.从ACID到CAP我们知道传统集中式系统中实现ACID是很简单的，在分布式环境中，涉及到不同的节点，节点内的ACID可以控制，那么节点间的ACID如何控制呢？构建一个可用性和一致性的分布系统成为难题，于是出现了CAP和BASE这样的理论。 CAP定理： CAP告诉我们一个分布式系统不可能同时满足一致性(Consistency)、可用性(Availability)、分区容错性(Partition">
-<meta name="twitter:image" content="https://i.imgur.com/w160kvh.png">
 
-
-
-<script type="text/javascript" id="hexo.configurations">
+<script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
     scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
-    fancybox: true,
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
     algolia: {
       applicationID: '',
       apiKey: '',
@@ -176,12 +146,45 @@
 </script>
 
 
-
-  <link rel="canonical" href="https://blog.rickiyang.cn/posts/64ecab81.html">
-
+  
 
 
 
+
+  <meta name="description" content="1.从ACID到CAP 我们知道传统集中式系统中实现ACID是很简单的，在分布式环境中，涉及到不同的节点，节点内的ACID可以控制，那么节点间的ACID如何控制呢？构建一个可用性和一致性的分布系统成为难题，于是出现了CAP和BASE这样的理论。 CAP定理： CAP告诉我们一个分布式系统不可能同时满足一致性(Consistency)、可用性(Availability)、分区容错性(Partiti">
+<meta name="keywords" content="分布式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Paxos算法原理">
+<meta property="og:url" content="http://blog.rickiyang.cn/posts/64ecab81.html">
+<meta property="og:site_name" content="Rickiyang&#39;s blog">
+<meta property="og:description" content="1.从ACID到CAP 我们知道传统集中式系统中实现ACID是很简单的，在分布式环境中，涉及到不同的节点，节点内的ACID可以控制，那么节点间的ACID如何控制呢？构建一个可用性和一致性的分布系统成为难题，于是出现了CAP和BASE这样的理论。 CAP定理： CAP告诉我们一个分布式系统不可能同时满足一致性(Consistency)、可用性(Availability)、分区容错性(Partiti">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.imgur.com/w160kvh.png">
+<meta property="og:image" content="https://i.imgur.com/kK477ld.png">
+<meta property="og:image" content="https://i.imgur.com/GlPwiFk.png">
+<meta property="og:image" content="https://i.imgur.com/gKbR7xF.png">
+<meta property="og:updated_time" content="2018-12-13T02:14:20.616Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Paxos算法原理">
+<meta name="twitter:description" content="1.从ACID到CAP 我们知道传统集中式系统中实现ACID是很简单的，在分布式环境中，涉及到不同的节点，节点内的ACID可以控制，那么节点间的ACID如何控制呢？构建一个可用性和一致性的分布系统成为难题，于是出现了CAP和BASE这样的理论。 CAP定理： CAP告诉我们一个分布式系统不可能同时满足一致性(Consistency)、可用性(Availability)、分区容错性(Partiti">
+<meta name="twitter:image" content="https://i.imgur.com/w160kvh.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Rickiyang's blog" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://blog.rickiyang.cn/posts/64ecab81.html">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
 
   <title>Paxos算法原理 | Rickiyang's blog</title>
   
@@ -192,6 +195,35 @@
 
 
 
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
 </head>
 
@@ -207,7 +239,7 @@
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
+  <div class="site-meta">
     
 
     <div class="custom-logo-site-title">
@@ -217,13 +249,16 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
+    
       
-        <h1 class="site-subtitle" itemprop="description"></h1>
+        <h1 class="site-subtitle" itemprop="description">java,大数据,分布式组件</h1>
       
+    
+    
   </div>
 
   <div class="site-nav-toggle">
-    <button>
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -231,66 +266,94 @@
   </div>
 </div>
 
-<nav class="site-nav">
-  
 
+
+<nav class="site-nav">
   
     <ul id="menu" class="menu">
       
         
-        <li class="menu-item menu-item-首页">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            首页
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-标签">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
-            
-            标签
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-分类">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
-            
-            分类
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-归档">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            归档
-          </a>
-        </li>
-      
+          
+          <li class="menu-item menu-item-首页">
 
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
       
         <li class="menu-item menu-item-search">
           
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
-            
-            搜索
-          </a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
         </li>
       
     </ul>
+  
+
   
 
   
@@ -305,7 +368,7 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -319,12 +382,23 @@
 
 
 
- </div>
+  
+
+
+
+</div>
     </header>
+
+    
+
 
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+          
+            
+
+          
           <div id="content" class="content">
             
 
@@ -337,16 +411,18 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/64ecab81.html">
+    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/64ecab81.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="分享对coding生活的见解">
       <meta itemprop="image" content="/images/adele.png">
     </span>
 
@@ -359,11 +435,20 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Paxos算法原理</h2>
+          <h2 class="post-title" itemprop="name headline">Paxos算法原理
+
+              
+            
+          </h2>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -371,13 +456,30 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-11T10:20:21+08:00">
-                2018-08-11
-              </time>
+
+              
+                
+              
+
+              <time title="创建于: 2018-08-11 10:20:21" itemprop="dateCreated datePublished" datetime="2018-08-11T10:20:21+08:00">2018-08-11</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">编辑于</span>
+                
+                <time title="Modified: 2018-12-13 10:14:20" itemprop="dateModified" datetime="2018-12-13T10:14:20+08:00">2018-12-13</time>
+              
             
           </span>
 
@@ -393,22 +495,14 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/分布式组件/" itemprop="url" rel="index">
-                    <span itemprop="name">分布式组件</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/分布式组件/" itemprop="url" rel="index"><span itemprop="name">分布式组件</span></a></span>
 
                 
                 
-                  ， 
+                  , 
                 
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/分布式组件/zookeeper/" itemprop="url" rel="index">
-                    <span itemprop="name">zookeeper</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/分布式组件/zookeeper/" itemprop="url" rel="index"><span itemprop="name">zookeeper</span></a></span>
 
                 
                 
@@ -417,6 +511,16 @@
           
 
           
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/posts/64ecab81.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/64ecab81.html" itemprop="commentCount"></span>
+                </a>
+              </span>
             
           
 
@@ -428,7 +532,7 @@
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">热度&#58;</span>
+                 <span class="post-meta-item-text">热度: </span>
                
                  <span class="leancloud-visitors-count"></span>
                  <span>℃</span>
@@ -436,27 +540,19 @@
           
 
           
-            <span class="post-meta-divider">|</span>
-            <span class="page-pv"><i class="fa fa-file-o"></i>
-            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
-            </span>
-          
 
           
-            <div class="post-wordcount">
+            <div class="post-symbolscount">
               
-                
-                  <span class="post-meta-divider">|</span>
-                
+
+              
                 <span class="post-meta-item-icon">
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">字数统计&#58;</span>
+                  <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="字数统计">
-                  6k
-                </span>
+                <span title="Symbols count in article">8.8k</span>
               
 
               
@@ -468,11 +564,9 @@
                   <i class="fa fa-clock-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="阅读时长">
-                  21
-                </span>
+                <span title="Reading time">8 mins.</span>
               
             </div>
           
@@ -492,7 +586,8 @@
       
 
       
-        <h4 id="1-从ACID到CAP"><a href="#1-从ACID到CAP" class="headerlink" title="1.从ACID到CAP"></a>1.从ACID到CAP</h4><p>我们知道传统集中式系统中实现ACID是很简单的，在分布式环境中，涉及到不同的节点，节点内的ACID可以控制，那么节点间的ACID如何控制呢？构建一个可用性和一致性的分布系统成为难题，于是出现了CAP和BASE这样的理论。</p>
+        <h4 id="1从acid到cap"><a class="markdownIt-Anchor" href="#1从acid到cap"></a> 1.从ACID到CAP</h4>
+<p>我们知道传统集中式系统中实现ACID是很简单的，在分布式环境中，涉及到不同的节点，节点内的ACID可以控制，那么节点间的ACID如何控制呢？构建一个可用性和一致性的分布系统成为难题，于是出现了CAP和BASE这样的理论。</p>
 <p>CAP定理：</p>
 <p>CAP告诉我们一个分布式系统不可能同时满足一致性(Consistency)、可用性(Availability)、分区容错性(Partition tolerance)。最多只能同时满足其中两项。</p>
 
@@ -536,17 +631,20 @@
 <p>将二阶段提交协议的“提交事务请求”过程一分为二，形成了由CanCommit，PreCommit和doCommit三个阶段组成的事务处理协议，协议设计如下图：</p>
 <p><img src="https://i.imgur.com/w160kvh.png" alt=""></p>
 <ol>
-<li>阶段1，canCommit<ol>
+<li>阶段1，canCommit
+<ol>
 <li>事务查询；</li>
 <li>各参与者向协调者反馈事务询问的响应。</li>
 </ol>
 </li>
-<li>阶段2,preCommit<ol>
+<li>阶段2,preCommit
+<ol>
 <li>假如协调者从所有的参与者获得的反馈都是Yes 响应，那么就会执行事务预提交。</li>
 <li>假如任何一个参与者向协调者反馈了No 响应，或者在等待超时之后，协调者尚无能接收到所有参与者的反馈响应，那么就会中断事务。</li>
 </ol>
 </li>
-<li>阶段3，doCommit<ol>
+<li>阶段3，doCommit
+<ol>
 <li>执行提交；</li>
 <li>进入这一阶段，假设协调者处于正常工作状态，井且有任意一个参与者向协调者反馈了No 响应，或者在等待超时之后，协调者尚无告接收到所有参与者的反馈响应，那么就会中断事务。</li>
 </ol>
@@ -555,7 +653,8 @@
 <p>优缺点：</p>
 <p>三阶段提交协议的优点：相较于二阶段提交协议，三阶段提交协议最大的优点就是降低了参与者的阻塞范围，并且能够在出现单点故障后继续达成一致。</p>
 <p>三阶段提交协议的缺点：三阶段提交协议在去除阻塞的同时也引入了新的问题，那就是在参与者接收到preCommit消息后，如果网络出现分区，此时协调者所在的节点和参与者无能进行正常的网络通信，在这种情况下， 该参与者依然会进行事务的提交，这必然出现数据的不一致性。</p>
-<h4 id="2-Paxos算法"><a href="#2-Paxos算法" class="headerlink" title="2. Paxos算法"></a>2. Paxos算法</h4><p>Paxos算法的核心是一个一致性算法，也就是论文The Part-time Parliament中提到的”synid”算法，我们将从对一致性问题的描述开始来讲解该算法需要解决的实际需求。</p>
+<h4 id="2-paxos算法"><a class="markdownIt-Anchor" href="#2-paxos算法"></a> 2. Paxos算法</h4>
+<p>Paxos算法的核心是一个一致性算法，也就是论文The Part-time Parliament中提到的&quot;synid&quot;算法，我们将从对一致性问题的描述开始来讲解该算法需要解决的实际需求。</p>
 <p>问题描述：</p>
 <p>假设有一组可以提出提案的进程集合，那么对于一个一致性算越来说需要保证以下几点：</p>
 <ul>
@@ -578,27 +677,33 @@
 <p>上面这个需求就引出了另外一个问题：如果有多个提案被不同的Proposer 同时提出，这可能会导致虽然每个Acceptor都批准了它收到的第一个提案，但是没有一个提案是由多数人都批准的。</p>
 <p><img src="https://i.imgur.com/kK477ld.png" alt=""></p>
 <p>不同的Proposer 分别提出每个提案。</p>
-<p>另外，即使只有两个提案被提出，如果每个提案都被差不多一半的<br>Acceptor 批准了，此时即使只有一个Acceptor出错，都有可能导致无法确定该选定哪个提案。</p>
+<p>另外，即使只有两个提案被提出，如果每个提案都被差不多一半的<br>
+Acceptor 批准了，此时即使只有一个Acceptor出错，都有可能导致无法确定该选定哪个提案。</p>
 <p><img src="https://i.imgur.com/GlPwiFk.png" alt=""></p>
 <p>任意一个Acceptor 出现问题。</p>
 <p>因此在需求1的基础上，再加上一个提案被选定需要由半数以上的Acceptor批准的需求暗示着一个Acceptor必须能够批准不止一个提案。</p>
 <p>在这里，我们使用一个全局的编号（这种全局唯一编号的生成并不是Paxos算法需要关注的地方，就算法本身而言，其假设当前已经具备这样的外部组件能够生成一个全局唯一的编号）来唯一标识每一个被Acceptor 批准的提案，当一个具有某Value值的提案被半数以上的Acceptor批准后，我们就认为该Value被选定了，此时我们也认为该提案被选定了。需要注意的是，此处讲到的提案已经和Value不是同一个概念了，提案变成了一个由编号和Value组成的组合体，因此我们以“［编号，Value］＂来表示一个提案。</p>
 <p>根据上面讲到的内容，我们虽然允许多个提案被选定，但同时必须要保证所有被选定的提案都具有相同的Value值这是一个关于提案Value的约定， 结合提案的编号，该约定可以定义如下：</p>
 <p><strong>条件2：</strong></p>
-<p><strong>如果编号为Mo, Value值为V0的提案(即[Mo, Vo])被选定了，那么所<br>有比编号Mo更高的，且被选定的提案，其Value值必须也是Vo。</strong></p>
+<p><strong>如果编号为Mo, Value值为V0的提案(即[Mo, Vo])被选定了，那么所<br>
+有比编号Mo更高的，且被选定的提案，其Value值必须也是Vo。</strong></p>
 <p>因为提案的编号是全序的，条件2就保证了只有一个Value值被选定这一关键安全性属性。同时，一个提案要被选定，其首先必须被至少一个Acceptor 批准，因此我们可以通过满足如下条件来满足条件2：</p>
 <p><strong>条件2.1：</strong></p>
-<p><strong>如果编号为Mo，Value值为Vo的提案(即［Mo, Vo])被选定了，那么所<br>有比编号Mo更高的，且被Acceptor批准的提案，其Valu值必须也是Vo。</strong></p>
+<p><strong>如果编号为Mo，Value值为Vo的提案(即［Mo, Vo])被选定了，那么所<br>
+有比编号Mo更高的，且被Acceptor批准的提案，其Valu值必须也是Vo。</strong></p>
 <p>因此，我们在条件1的前提下来发起提案，但是因为通信是异步的，一个提案可能会在某个Acceptor还未收到任何提案时就被选定了。</p>
 <p><img src="https://i.imgur.com/gKbR7xF.png" alt=""></p>
-<p>在Acceptorl没有收到任何提案的情况下，其他4个Acceptor已经批准<br>了来自Proposer2的提案［Mo,V1],而此时,Proposerl产生了一个具有其他Value值的、编号更高的提案［M1,V2］，并发送给了Acceptor1。根据条件1就需要Acceptorl批准该提案，但是这与条件2矛盾，因此如果要同时满足条件1和1，需要对条件2进行如下强化：</p>
+<p>在Acceptorl没有收到任何提案的情况下，其他4个Acceptor已经批准<br>
+了来自Proposer2的提案［Mo,V1],而此时,Proposerl产生了一个具有其他Value值的、编号更高的提案［M1,V2］，并发送给了Acceptor1。根据条件1就需要Acceptorl批准该提案，但是这与条件2矛盾，因此如果要同时满足条件1和1，需要对条件2进行如下强化：</p>
 <p><strong>条件2.2：</strong></p>
-<p><strong>如果一个提案[Mo,Vo]被选定后，那么之后任何Proposer产生的编号是<br>高的提案，其Value值都为Vo。</strong></p>
+<p><strong>如果一个提案[Mo,Vo]被选定后，那么之后任何Proposer产生的编号是<br>
+高的提案，其Value值都为Vo。</strong></p>
 <p>因为一个提案必须在被Proposer提出后才能被Acceptor批准，因此2.2 包含了2.1，进而包含了2。于是，接下去的重点就是论证2.2成立即可：</p>
 <p><strong>假设某个提案[Mo,Vo]已经被选定了，证明任何编号Mn&gt; Mo的提案，其Value值都是Vo。</strong></p>
-<h5 id="2-1-证明"><a href="#2-1-证明" class="headerlink" title="2.1 证明"></a>2.1 证明</h5><p>我们可以将上述结论转化为如下：</p>
+<h5 id="21-证明"><a class="markdownIt-Anchor" href="#21-证明"></a> 2.1 证明</h5>
+<p>我们可以将上述结论转化为如下：</p>
 <p><strong>假设编号在Mo到Mn-1之间的提案，其Value值都是Vo，证明编号为Mn的提案的Value值也为Vo。</strong></p>
-<p>因为编号为Mo的提案已经被选定了，这就意味着肯定存在一个由半数以上的Acceptor组成的集合c, c中的每个Acceptor都批准了该提案。再结合归纳假设，”编号为Mo的提案被选定”意味着：</p>
+<p>因为编号为Mo的提案已经被选定了，这就意味着肯定存在一个由半数以上的Acceptor组成的集合c, c中的每个Acceptor都批准了该提案。再结合归纳假设，&quot;编号为Mo的提案被选定&quot;意味着：</p>
 <p><strong>C中的每个Acceptor都批准了一个编号在Mo到Mn-范围内的提案，并且每个编号在Mo到Mn-1范围内的被Acceptor批准的提案，其Value值都为Vo。</strong></p>
 <p>因为任何包含半数以上Acceptor的集合S都至少包含C中的一个成员，因此我们可以认为如果保持了下面条件2.3的不变性，那么编号为Mn的提案的Value也为Vo。</p>
 <p><strong>条件2.3：</strong></p>
@@ -617,34 +722,42 @@
 <p>当每个Proposer都按照这个规则来产生提案时，就可以保证满足2.2了。我们继续来证明2.3。</p>
 <p>首先假设提案[Mo,Vo]被选定了,设比该提案编号大的提案为[Mn,Vn]，我们需要证明的就是在2.3的前提下，对于所有的[Mn,Vn]，存在Vn=Vo。</p>
 <ol>
-<li><p>当Mn= Mo+1时，如果有这样一个编号为Mn的提案，首先我们知道[Mo,Vo]已经被选定了，那么就一定存在－个Acceptor的子集S，且S中的Acceptor已经批准了小于M的提案，于是，Vn只能是多数集S中编号小于M但为最大编号的那个提案的值。而此时因为Mn= Mo+1，因此理论上编号小于Mn但为最大编号的那个提案肯定是[Mo,Vo]同时由于S和通过[Mo,Vo]的Acceptor集合都是多数集,也就是说二者肯定有交集—这样Proposer在确定Vn取值的时候，就一定会选择Vo。</p>
-<p> 值得注意的一点是，Paxos算法的证明过程使用的是第二数学归纳法，上面实际上就是数学归纳陆的第一步，验证了某个初始值成立。接下去，就需要假设编号在Mo + 1到Mn-l 区间内时成立，并在此基础上推导出当编号为Mn时也成立。</p>
+<li>
+<p>当Mn= Mo+1时，如果有这样一个编号为Mn的提案，首先我们知道[Mo,Vo]已经被选定了，那么就一定存在－个Acceptor的子集S，且S中的Acceptor已经批准了小于M的提案，于是，Vn只能是多数集S中编号小于M但为最大编号的那个提案的值。而此时因为Mn= Mo+1，因此理论上编号小于Mn但为最大编号的那个提案肯定是[Mo,Vo]同时由于S和通过[Mo,Vo]的Acceptor集合都是多数集,也就是说二者肯定有交集—这样Proposer在确定Vn取值的时候，就一定会选择Vo。</p>
+<p>值得注意的一点是，Paxos算法的证明过程使用的是第二数学归纳法，上面实际上就是数学归纳陆的第一步，验证了某个初始值成立。接下去，就需要假设编号在Mo + 1到Mn-l 区间内时成立，并在此基础上推导出当编号为Mn时也成立。</p>
 </li>
-<li><p>根据假设，编号在Mo+1到Mn-1区间内的所有提案的Value值为Vo,需要证明的是编号为Mn的提案的Value值也为Vo。根据2.3，首先同样一定存在一个Acceptor的子集S，且S中的Acceptor已经批准了小子Mn的提案，那么编号为Mn的提案的Value值只能是这个多数集S中编号小于Mn但为最大编号的那个提案的值。如果这个最大编号落在Mo+1到Mn-1区间内，那么Value值肯定是Vo，如果不落在Mo+1到Mn-1区间内，那么它的编号不可能比Mo再小了,肯定就是Mo,因为S也肯定会与批准[Mo,Vo]这个提案的Acceptor集合S有交集，而如果编号是Mo,那么它的Value值也是Vo,由此得证。</p>
+<li>
+<p>根据假设，编号在Mo+1到Mn-1区间内的所有提案的Value值为Vo,需要证明的是编号为Mn的提案的Value值也为Vo。根据2.3，首先同样一定存在一个Acceptor的子集S，且S中的Acceptor已经批准了小子Mn的提案，那么编号为Mn的提案的Value值只能是这个多数集S中编号小于Mn但为最大编号的那个提案的值。如果这个最大编号落在Mo+1到Mn-1区间内，那么Value值肯定是Vo，如果不落在Mo+1到Mn-1区间内，那么它的编号不可能比Mo再小了,肯定就是Mo,因为S也肯定会与批准[Mo,Vo]这个提案的Acceptor集合S有交集，而如果编号是Mo,那么它的Value值也是Vo,由此得证。</p>
 </li>
 </ol>
 <p><strong>proposer生成提案</strong></p>
-<p>对于一个Proposer来说，获取那些已经被通过的提案远比预恻未来可能会被通过的提案来得简单。因此，Proposer 在产生一个编号为Mn的提案时，必须要知道当前某一个将要或已经被半数以上Acceptor批准的编号小于Mn但为最大编号的提案。并且，Proposer会要求所有的Acceptor都不<br>要再批准任何编号小于Mn的提案—这就引出了如下的提案生成算法。</p>
+<p>对于一个Proposer来说，获取那些已经被通过的提案远比预恻未来可能会被通过的提案来得简单。因此，Proposer 在产生一个编号为Mn的提案时，必须要知道当前某一个将要或已经被半数以上Acceptor批准的编号小于Mn但为最大编号的提案。并且，Proposer会要求所有的Acceptor都不<br>
+要再批准任何编号小于Mn的提案—这就引出了如下的提案生成算法。</p>
 <ol>
-<li><p>Proposer选择一个新的提案编号Mn，然后向某个Acceptor集合的成员发送请求，要求该集合中的Acceptor做出如下回应：</p>
+<li>
+<p>Proposer选择一个新的提案编号Mn，然后向某个Acceptor集合的成员发送请求，要求该集合中的Acceptor做出如下回应：</p>
 <ol>
 <li>向Proposer承诺，保证不再批准任何编号小于Mn 的提案。</li>
 <li>如果Acceptor已经批准过任何提案，那么其就向Proposer反馈当前该Acceptor已经批准的编号小于Mn但为最大编号的那个提案的值。</li>
 <li>我们将该请求称为编号为Mn的提案的Prepare请求。</li>
 </ol>
 </li>
-<li><p>如果Proposer收到了来自半数以上的Acceptor的晌应结果，那么它就可以产生编号为Mn，Value值为Vn的提案，这里的Vn是所有响应中编号最大的提案的Value值。当然还存在另一种情况，就是半数以上的Acceptor 都没有批准过任何提案，即响应中不包含任何的提案，那么此时Vn值就可以由Proposer任意选择。</p>
+<li>
+<p>如果Proposer收到了来自半数以上的Acceptor的晌应结果，那么它就可以产生编号为Mn，Value值为Vn的提案，这里的Vn是所有响应中编号最大的提案的Value值。当然还存在另一种情况，就是半数以上的Acceptor 都没有批准过任何提案，即响应中不包含任何的提案，那么此时Vn值就可以由Proposer任意选择。</p>
 </li>
 </ol>
 <p><strong>Acceptor批准提案：</strong></p>
-<p>一个Acceptor可能会收到来自Proposer的两种请求，分别是Prepare<br>请求和Accept请求，对这两类请求做出响应的条件分别如下：</p>
+<p>一个Acceptor可能会收到来自Proposer的两种请求，分别是Prepare<br>
+请求和Accept请求，对这两类请求做出响应的条件分别如下：</p>
 <ol>
 <li>Prepare请求：Acceptor可以在任何时候响应一个Prepare请求。</li>
 <li>Accept请求：在不违背Accept现有承诺的前提下，可以任意响应Accept请求。</li>
 </ol>
 <p>因此对Acceptor逻辑处理的约束条件大体如下：</p>
-<p><strong>一个Acceptor只要尚未响应过任何编号大于Mn的Prepare请求，那么它<br>就可以接受这个编号为Mn的提案。</strong></p>
-<h5 id="2-2-算法优化"><a href="#2-2-算法优化" class="headerlink" title="2.2 算法优化"></a>2.2 算法优化</h5><p>在上面的内容中，我们分别从Proposer和Acceptor对提案的生成和批准两方面来讲解了Paxos算法在提案选定过程中的算也细节，同时也在提案的编号全局唯一的前提下，获得了一个满足安全性需求的提案选定算法，接下来我们再对这个初步算法做一个小优化，尽可能地忽略Prepare请求：</p>
+<p><strong>一个Acceptor只要尚未响应过任何编号大于Mn的Prepare请求，那么它<br>
+就可以接受这个编号为Mn的提案。</strong></p>
+<h5 id="22-算法优化"><a class="markdownIt-Anchor" href="#22-算法优化"></a> 2.2 算法优化</h5>
+<p>在上面的内容中，我们分别从Proposer和Acceptor对提案的生成和批准两方面来讲解了Paxos算法在提案选定过程中的算也细节，同时也在提案的编号全局唯一的前提下，获得了一个满足安全性需求的提案选定算法，接下来我们再对这个初步算法做一个小优化，尽可能地忽略Prepare请求：</p>
 <p><strong>假设一个Acceptor收到了一个编号为Mn的Prepare请求，但此时该Acceptor已经对编号大于Mn的Prepare请求做出了响应，因此它肯定不会再批准任何新的编号为Mn的提案，那么很显然，Acceptor就没有必要对这个Prepare请求做出响应，于是Acceptor可以选择忽略这样的Prepare 请求。同时，Acceptor也可以忽略掉那些它已经批准过的提案的Prepare 请求。</strong></p>
 <p>通过这个优化，每个Acceptor只需要记住它已经批准的提案的最大编号以及它已经做出Prepare请求响应的提案的最大编号，以便在出现故障或节点重启的情况下，也能保证条件2.3的不变性。而对干Proposer来说，只要它可以保证不会产生具有相同编号的提案，那么就可以丢弃任意的提案以及它所有的运行时状态信息。</p>
 <p>根据我们的优化，结合Proposer和Acceptor对提案的处理逻辑，就可以得到如下类似于两阶段提交的算能执行过程：</p>
@@ -666,16 +779,20 @@
 <p>Learner获取一个已经被选定的提案的前提是，该提案已经被半数以上的Acceptor批准。因此，最简单的做怯就是一旦Acceptor批准了一个提案，就将该提案发送给所有的Learner。</p>
 <p>很显然，这种做法虽然可以让Learner尽快地获取被选定的提案，但是却需要让每个Acceptor与所有的Learner逐个进行一次通信，通信的次数至少为二者个数的乘积。</p>
 <p>方案二：</p>
-<p>另一种可行的方案是，我们可以让所有的Acceptor将它们对提案的批准情况，统一发送给一个特定的Learner(下文中我们将这样的Learner称为”主Learner”），在不考虑拜占庭将军问题的前提下，我们假定Learner之间可以通过消息通信来互相感知提案的选定情况。基于这样的前提，当主Learner被通知一个提案已经被选定时，它会负责通知其他的Learner。</p>
+<p>另一种可行的方案是，我们可以让所有的Acceptor将它们对提案的批准情况，统一发送给一个特定的Learner(下文中我们将这样的Learner称为&quot;主Learner&quot;），在不考虑拜占庭将军问题的前提下，我们假定Learner之间可以通过消息通信来互相感知提案的选定情况。基于这样的前提，当主Learner被通知一个提案已经被选定时，它会负责通知其他的Learner。</p>
 <p>在这种方案中，Acceptor首先会将得到批准的提案发送给圭Learner，再由其同步给其他Learner，因此较方案一而言，方案二虽然需要多一个步骤才能将提案通知到所有的Learner，但其通信次数却大大减少了，通常只是Acceptor和Learner的个数总和。但同时，该方案引入了一个新的不稳定因素：主Learner随时可能出现故障。</p>
 <p>方案三：</p>
 <p>在讲解方案二的时候，我们提到，方案二最大的问题在于主Learner存在单点问题，即主Learner随时可能出现故障。因此，对方案二进行改进，可以将主Learner的范围扩大，即Acceptor可以将批准的提案发送给一个特定的Learner集合，该集合中的每个Learner都可以在一个提案被选定后通知所有其他的Learner。这个Learner集合中的Learner个数越多，可靠性就越好，但同时网络通信的复杂度也就越高。</p>
-<h5 id="2-3-通过选举出主Proposer保证算法的活性"><a href="#2-3-通过选举出主Proposer保证算法的活性" class="headerlink" title="2.3 通过选举出主Proposer保证算法的活性"></a>2.3 通过选举出主Proposer保证算法的活性</h5><p>根据前面的内容讲解，我们已经基本上了解了Paxos算法的核心逻辑，下面我们再来看看Paxos算法在实际运作过程中的一些细节。假设存在这样一种极端情况，有两个Proposer依次提出了一系列编号递增的议案，但是最终都无法被选定，具体流程如下：</p>
+<h5 id="23-通过选举出主proposer保证算法的活性"><a class="markdownIt-Anchor" href="#23-通过选举出主proposer保证算法的活性"></a> 2.3 通过选举出主Proposer保证算法的活性</h5>
+<p>根据前面的内容讲解，我们已经基本上了解了Paxos算法的核心逻辑，下面我们再来看看Paxos算法在实际运作过程中的一些细节。假设存在这样一种极端情况，有两个Proposer依次提出了一系列编号递增的议案，但是最终都无法被选定，具体流程如下：</p>
 <p>Proposer P1提出了一个编号为M1的提案，并完成了上述阶段一的流程。但与此同时，另外一个Proposer P2提出了一个编号为M2(M2&gt;M1)的提案，同样也完成了阶段一的流程，于是Acceptor已经承诺不再批准编号小于M2 的提案了。因此，当P1进入阶段二的时候，其发出的Acceptor请求将被Acceptor忽略，于是P1再次进入阶段一并提出了一个编号为M3(M3 &gt; M2)的提案，而这又导致P2在第二阶段的Accept请求被忽略，以此类格，提案的选定过程将陷入死循环。</p>
 <p>为了保证Paxos算法流程的可持续性，以避免陷入上述提到的“死循环”，就必须选择一个主Proposer，并规定只有主Proposer才能提出议案。这样一来，只要主Proposer和过半的Acceptor能够正常进行网络通信，那么但凡主Proposer提出一个编号更高的提案，该提案终将会被批准。当然，如果Proposer发现当前算法流程中已经有一个编号更大的提案被提出或正在接受批准，那么它会丢弃当前这个编号较小的提案，并最终能够选出一个编号足够大的提案。因此，如果系统中有足够多的组件（包括Proposer，Acceptor和其他网络通信组件）能够正常工作，那么通过选择一个主Proposer，整套Paxos算住流程就能够保持活性。</p>
 
       
     </div>
+
+    
+
     
     
     
@@ -693,8 +810,8 @@
   <p><span>文章作者:</span><a href="/" title="访问 Rickiyang 的个人博客">Rickiyang</a></p>
   <p><span>发布时间:</span>2018年08月11日 - 10:20</p>
   <p><span>最后更新:</span>2018年12月13日 - 10:14</p>
-  <p><span>原始链接:</span><a href="/posts/64ecab81.html" title="Paxos算法原理">https://blog.rickiyang.cn/posts/64ecab81.html</a>
-    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.rickiyang.cn/posts/64ecab81.html" aria-label="复制成功！"></i></span>
+  <p><span>原始链接:</span><a href="/posts/64ecab81.html" title="Paxos算法原理">http://blog.rickiyang.cn/posts/64ecab81.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://blog.rickiyang.cn/posts/64ecab81.html" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
 </div>
@@ -715,9 +832,7 @@
 
       
     </div>
-
     
-
     <div>
       
         <div>
@@ -729,6 +844,10 @@
       
     </div>
 
+
+    
+      
+    
     
 
     
@@ -737,7 +856,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/分布式/" rel="tag"> <i class="”fa" fa-tag”=""></i> 分布式</a>
+            <a href="/tags/分布式/" rel="tag"># 分布式</a>
           
         </div>
       
@@ -778,44 +897,15 @@
   </article>
 
 
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript">
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
   </div>
 
 
           </div>
           
 
-
-          
+  
+    <div class="comments" id="comments">
+    </div>
 
   
 
@@ -842,60 +932,124 @@ var jiathis_config={
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
+            Table of Contents
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
+            Overview
           </li>
         </ul>
       
 
-      <section class="site-overview-wrap sidebar-panel">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image" src="/images/adele.png" alt="Rickiyang">
             
               <p class="site-author-name" itemprop="name">Rickiyang</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-description motion-element" itemprop="description">分享对coding生活的见解</p>
           </div>
 
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
+          
+            <nav class="site-state motion-element">
               
-                <a href="/archives">
-              
-                  <span class="site-state-item-count">99</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">19</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
+                <div class="site-state-item site-state-posts">
                 
-                  <span class="site-state-item-count">11</span>
-                  <span class="site-state-item-name">标签</span>
+                  <a href="/archives">
                 
-              </div>
-            
+                    <span class="site-state-item-count">99</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
 
-          </nav>
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
 
           
             <div class="feed-link motion-element">
@@ -908,63 +1062,93 @@ var jiathis_config={
 
           
             <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/rickiyang" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:medee1320@gmail.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://blog.csdn.net/a953713428" target="_blank" title="CSDN">
-                      
-                        <i class="fa fa-fw fa-google"></i>CSDN</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="953713428" target="_blank" title="QQ">
-                      
-                        <i class="fa fa-fw fa-twitter"></i>QQ</a>
-                  </span>
-                
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3JpY2tpeWFuZw==" title="GitHub &rarr; https://github.com/rickiyang"><i class="fa fa-fw fa-github"></i>GitHub</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="bWFpbHRvOm1lZGVlMTMyMEBnbWFpbC5jb20=" title="E-Mail &rarr; mailto:medee1320@gmail.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2E5NTM3MTM0Mjg=" title="CSDN &rarr; https://blog.csdn.net/a953713428"><i class="fa fa-fw fa-google"></i>CSDN</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="/953713428" title="QQ &rarr; 953713428"><i class="fa fa-fw fa-twitter"></i>QQ</a>
+                </span>
+              
             </div>
           
 
           
-          
 
           
           
 
+          
+            
+          
           
 
         </div>
-      </section>
+      </div>
 
       
       <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
           <div class="post-toc">
 
             
-              
+            
+            
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-从ACID到CAP"><span class="nav-number">1.</span> <span class="nav-text">1.从ACID到CAP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Paxos算法"><span class="nav-number">2.</span> <span class="nav-text">2. Paxos算法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-证明"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 证明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-算法优化"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 算法优化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-通过选举出主Proposer保证算法的活性"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 通过选举出主Proposer保证算法的活性</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1从acid到cap"><span class="nav-number">1.</span> <span class="nav-text"> 1.从ACID到CAP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-paxos算法"><span class="nav-number">2.</span> <span class="nav-text"> 2. Paxos算法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#21-证明"><span class="nav-number">2.1.</span> <span class="nav-text"> 2.1 证明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#22-算法优化"><span class="nav-number">2.2.</span> <span class="nav-text"> 2.2 算法优化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#23-通过选举出主proposer保证算法的活性"><span class="nav-number">2.3.</span> <span class="nav-text"> 2.3 通过选举出主Proposer保证算法的活性</span></a></li></ol></li></ol></div>
             
 
           </div>
-        </section>
+        </div>
       <!--/noindex-->
       
 
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
       
 
     </div>
@@ -977,39 +1161,50 @@ var jiathis_config={
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2019</span>
-  <span class="with-love">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Rickiyang</span>
 
   
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="Symbols count total">752k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="Reading time total">11:24</span>
+  
 </div>
 
-<div class="powered-by">
+<!--<div class="powered-by">
 <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
   本站访客数:<span id="busuanzi_value_site_uv"></span>
 </span>
-</div>
-
-<!--
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
--->
-
-
-  <span class="post-meta-divider">|</span>
+</div>-->
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+  <div class="theme-info">Theme – <span class="exturl theme-link" data-url="aHR0cHM6Ly90aGVtZS1uZXh0Lm9yZw==">NexT.Gemini</span> v6.7.0</div>
 
 
 
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共231.6k字</span>
+  <span class="post-count">博客全站共231.9k字</span>
 </div>
 
 <script>
@@ -1029,24 +1224,23 @@ var jiathis_config={
 
         
 <div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
   
-    <span class="site-uv">
+    <span class="site-uv" title="Total Visitors">
       <i class="fa fa-user"></i>
       <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-      人次
     </span>
   
 
   
-    <span class="site-pv">
+    <span class="site-pv" title="Total Views">
       <i class="fa fa-eye"></i>
       <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-      次
     </span>
   
 </div>
+
 
 
 
@@ -1060,21 +1254,17 @@ var jiathis_config={
     </footer>
 
     
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-          <span id="scrollpercent"><span>0</span>%</span>
-        
-      </div>
+
     
 
     
 
+    
   </div>
 
   
 
-<script type="text/javascript">
+<script>
   if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
     window.Promise = null;
   }
@@ -1088,117 +1278,6 @@ var jiathis_config={
 
 
 
-  
-
-
-
-
-
-
-  
-  
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/three.min.js"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
 
 
 
@@ -1211,8 +1290,111 @@ var jiathis_config={
 
 
   
+  
 
-  <script type="text/javascript">
+
+
+  
+  
+  <script id="ribbon" size="300" alpha="0.6" zindex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/three/three.min.js"></script>
+
+  
+  <script src="/lib/three/canvas_sphere.min.js"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script>
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+      el: '#comments' ,
+      verify: false,
+      notify: false,
+      appId: 'X5fy0b9Gknu0SAse5areilGR-gzGzoHsz',
+      appKey: 'URk4cyPQ8Ttqtwhop5t26kok',
+      placeholder: 'Just go go',
+      avatar: 'mm',
+      meta:guest,
+      pageSize: '10' || 10,
+      visitor: false
+    });
+  </script>
+
+
+
+
+  
+
+  <script>
     // Popup Window;
     var isfetched = false;
     var isXml = true;
@@ -1261,6 +1443,8 @@ var jiathis_config={
         .css('overflow', 'hidden');
       $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
 
+      
+
       $.ajax({
         url: path,
         dataType: isXml ? "xml" : "json",
@@ -1294,8 +1478,9 @@ var jiathis_config={
                 var title = data.title.trim();
                 var titleInLowerCase = title.toLowerCase();
                 var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
                 var contentInLowerCase = content.toLowerCase();
-                var articleUrl = decodeURIComponent(data.url);
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
                 var indexOfTitle = [];
                 var indexOfContent = [];
                 // only match articles with not empty titles
@@ -1464,9 +1649,9 @@ var jiathis_config={
               })
             };
             if (keywords.length === 1 && keywords[0] === "") {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
             } else if (resultItems.length === 0) {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
             } else {
               resultItems.sort(function (resultLeft, resultRight) {
                 if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
@@ -1536,107 +1721,66 @@ var jiathis_config={
   
 
   
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("X5fy0b9Gknu0SAse5areilGR-gzGzoHsz", "URk4cyPQ8Ttqtwhop5t26kok");</script>
   <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
-            }
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
+    
     function addCount(Counter) {
       var $visitors = $(".leancloud_visitors");
       var url = $visitors.attr('id').trim();
       var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
 
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function ({ results }) {
           if (results.length > 0) {
             var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
+            
+            Counter('put', `/classes/Counter/${counter.objectId}`, JSON.stringify({ time: { "__op":"Increment", "amount":1 } }))
+            
+            .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.time + 1);
+            })
+            
+            .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+            })
           } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1}))
+                .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function () {
+                  console.log('Failed to create');
+                });
+            
           }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
+        })
+      .fail(function ({ responseJSON }) {
+        console.log('LeanCloud Counter Error:' + responseJSON.code + " " + responseJSON.error);
       });
     }
+    
 
     $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + "X5fy0b9Gknu0SAse5areilGR-gzGzoHsz")
+        .done(function ({ api_server }) {
+          var Counter = function (method, url, data) {
+            return $.ajax({
+              method: method,
+              url: `https://${api_server}/1.1${url}`,
+              headers: {
+                'X-LC-Id': "X5fy0b9Gknu0SAse5areilGR-gzGzoHsz",
+                'X-LC-Key': "URk4cyPQ8Ttqtwhop5t26kok",
+                'Content-Type': 'application/json',
+              },
+              data: data,
+            });
+          };
+          
+          addCount(Counter);
+          
+        })
     });
   </script>
 
@@ -1645,9 +1789,45 @@ var jiathis_config={
   
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+      }
+      else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
 
   
   
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+  <script>
+    
+    
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+  <script src="/js/src/exturl.js?v=6.7.0"></script>
+
 
   
 
@@ -1657,7 +1837,7 @@ var jiathis_config={
 
 
   <!-- 页面点击小红心 -->
-  <script type="text/javascript" src="/js/src/love.js"></script>
-  <!---->
+    <script type="text/javascript" src="/js/src/love.js"></script>
+    <!---->
 </body>
 </html>

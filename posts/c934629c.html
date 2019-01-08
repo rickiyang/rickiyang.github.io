@@ -2,6 +2,15 @@
 
 
 
+
+
+
+
+
+
+
+
+
   
 
 
@@ -9,38 +18,38 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
 
 
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-center-circle.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -64,12 +73,6 @@
   
 
   
-    
-      
-    
-
-    
-  
 
   
     
@@ -90,7 +93,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|FZSongKeBenXiuKai:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
   
 
 
@@ -98,68 +101,40 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
 
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/adele.ico?v=5.1.4">
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/adele.ico?v=5.1.4">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/adele.ico?v=6.7.0">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/adele.ico?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/adele.ico?v=6.7.0">
 
 
-  <link rel="mask-icon" href="/images/adele.ico?v=5.1.4" color="#222">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/adele.ico?v=6.7.0">
 
 
-
-
-
-  <meta name="keywords" content="分布式,">
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="Rickiyang's blog" type="application/atom+xml">
+  <link rel="mask-icon" href="/images/adele.ico?v=6.7.0" color="#222">
 
 
 
 
 
 
-<meta name="description" content="开源zk客户端-Curator创建会话： RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000,3); CuratorFramework client = CuratorFrameworkFactory.newClient(&amp;quot;192.168.131.128:2181&amp;quot;,retryPolicy); 使用Curator">
-<meta name="keywords" content="分布式">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Zookeeeper开源客户端Curator">
-<meta property="og:url" content="https://blog.rickiyang.cn/posts/c934629c.html">
-<meta property="og:site_name" content="Rickiyang&#39;s blog">
-<meta property="og:description" content="开源zk客户端-Curator创建会话： RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000,3); CuratorFramework client = CuratorFrameworkFactory.newClient(&amp;quot;192.168.131.128:2181&amp;quot;,retryPolicy); 使用Curator">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-13T02:18:39.800Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Zookeeeper开源客户端Curator">
-<meta name="twitter:description" content="开源zk客户端-Curator创建会话： RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000,3); CuratorFramework client = CuratorFrameworkFactory.newClient(&amp;quot;192.168.131.128:2181&amp;quot;,retryPolicy); 使用Curator">
 
-
-
-<script type="text/javascript" id="hexo.configurations">
+<script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
     scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
-    fancybox: true,
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
     algolia: {
       applicationID: '',
       apiKey: '',
@@ -171,12 +146,40 @@
 </script>
 
 
-
-  <link rel="canonical" href="https://blog.rickiyang.cn/posts/c934629c.html">
-
+  
 
 
 
+
+  <meta name="description" content="开源zk客户端-Curator 创建会话： RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000,3); CuratorFramework client = CuratorFrameworkFactory.newClient(&amp;quot;192.168.131.128:2181&amp;quot;,retryPolicy);  使用Cura">
+<meta name="keywords" content="分布式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Zookeeeper开源客户端Curator">
+<meta property="og:url" content="http://blog.rickiyang.cn/posts/c934629c.html">
+<meta property="og:site_name" content="Rickiyang&#39;s blog">
+<meta property="og:description" content="开源zk客户端-Curator 创建会话： RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000,3); CuratorFramework client = CuratorFrameworkFactory.newClient(&amp;quot;192.168.131.128:2181&amp;quot;,retryPolicy);  使用Cura">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-13T02:18:39.800Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Zookeeeper开源客户端Curator">
+<meta name="twitter:description" content="开源zk客户端-Curator 创建会话： RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000,3); CuratorFramework client = CuratorFrameworkFactory.newClient(&amp;quot;192.168.131.128:2181&amp;quot;,retryPolicy);  使用Cura">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Rickiyang's blog" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://blog.rickiyang.cn/posts/c934629c.html">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
 
   <title>Zookeeeper开源客户端Curator | Rickiyang's blog</title>
   
@@ -187,6 +190,35 @@
 
 
 
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
 </head>
 
@@ -202,7 +234,7 @@
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
+  <div class="site-meta">
     
 
     <div class="custom-logo-site-title">
@@ -212,13 +244,16 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
+    
       
-        <h1 class="site-subtitle" itemprop="description"></h1>
+        <h1 class="site-subtitle" itemprop="description">java,大数据,分布式组件</h1>
       
+    
+    
   </div>
 
   <div class="site-nav-toggle">
-    <button>
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -226,66 +261,94 @@
   </div>
 </div>
 
-<nav class="site-nav">
-  
 
+
+<nav class="site-nav">
   
     <ul id="menu" class="menu">
       
         
-        <li class="menu-item menu-item-首页">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            首页
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-标签">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
-            
-            标签
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-分类">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
-            
-            分类
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-归档">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            归档
-          </a>
-        </li>
-      
+          
+          <li class="menu-item menu-item-首页">
 
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
       
         <li class="menu-item menu-item-search">
           
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
-            
-            搜索
-          </a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
         </li>
       
     </ul>
+  
+
   
 
   
@@ -300,7 +363,7 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -314,12 +377,23 @@
 
 
 
- </div>
+  
+
+
+
+</div>
     </header>
+
+    
+
 
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+          
+            
+
+          
           <div id="content" class="content">
             
 
@@ -332,16 +406,18 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/c934629c.html">
+    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/c934629c.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="分享对coding生活的见解">
       <meta itemprop="image" content="/images/adele.png">
     </span>
 
@@ -354,11 +430,20 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Zookeeeper开源客户端Curator</h2>
+          <h2 class="post-title" itemprop="name headline">Zookeeeper开源客户端Curator
+
+              
+            
+          </h2>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -366,13 +451,30 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-17T22:41:17+08:00">
-                2018-06-17
-              </time>
+
+              
+                
+              
+
+              <time title="创建于: 2018-06-17 22:41:17" itemprop="dateCreated datePublished" datetime="2018-06-17T22:41:17+08:00">2018-06-17</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">编辑于</span>
+                
+                <time title="Modified: 2018-12-13 10:18:39" itemprop="dateModified" datetime="2018-12-13T10:18:39+08:00">2018-12-13</time>
+              
             
           </span>
 
@@ -388,22 +490,14 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/分布式组件/" itemprop="url" rel="index">
-                    <span itemprop="name">分布式组件</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/分布式组件/" itemprop="url" rel="index"><span itemprop="name">分布式组件</span></a></span>
 
                 
                 
-                  ， 
+                  , 
                 
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/分布式组件/zookeeper/" itemprop="url" rel="index">
-                    <span itemprop="name">zookeeper</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/分布式组件/zookeeper/" itemprop="url" rel="index"><span itemprop="name">zookeeper</span></a></span>
 
                 
                 
@@ -412,6 +506,16 @@
           
 
           
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/posts/c934629c.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/c934629c.html" itemprop="commentCount"></span>
+                </a>
+              </span>
             
           
 
@@ -423,7 +527,7 @@
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">热度&#58;</span>
+                 <span class="post-meta-item-text">热度: </span>
                
                  <span class="leancloud-visitors-count"></span>
                  <span>℃</span>
@@ -431,27 +535,19 @@
           
 
           
-            <span class="post-meta-divider">|</span>
-            <span class="page-pv"><i class="fa fa-file-o"></i>
-            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
-            </span>
-          
 
           
-            <div class="post-wordcount">
+            <div class="post-symbolscount">
               
-                
-                  <span class="post-meta-divider">|</span>
-                
+
+              
                 <span class="post-meta-item-icon">
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">字数统计&#58;</span>
+                  <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="字数统计">
-                  3.2k
-                </span>
+                <span title="Symbols count in article">17k</span>
               
 
               
@@ -463,11 +559,9 @@
                   <i class="fa fa-clock-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="阅读时长">
-                  15
-                </span>
+                <span title="Reading time">16 mins.</span>
               
             </div>
           
@@ -487,13 +581,16 @@
       
 
       
-        <h4 id="开源zk客户端-Curator"><a href="#开源zk客户端-Curator" class="headerlink" title="开源zk客户端-Curator"></a>开源zk客户端-Curator</h4><p>创建会话：</p>
+        <h4 id="开源zk客户端-curator"><a class="markdownIt-Anchor" href="#开源zk客户端-curator"></a> 开源zk客户端-Curator</h4>
+<p>创建会话：</p>
 <pre><code>RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000,3);
 CuratorFramework client = CuratorFrameworkFactory.newClient(&quot;192.168.131.128:2181&quot;,retryPolicy);
-</code></pre><p>使用CuratorFrameworkFactory工厂类的静态方法newClient来创建会话。</p>
+</code></pre>
+<p>使用CuratorFrameworkFactory工厂类的静态方法newClient来创建会话。</p>
 <p>在重试策略上， Curator通过一个接口RetryPolicy来让用户实现自定义的重试策略。在RetryPolicy接口中只定义了一个方法：</p>
 <pre><code>boolean allowRetry(int var1, long var2, RetrySleeper var4);
-</code></pre><p>三个参数分别为：</p>
+</code></pre>
+<p>三个参数分别为：</p>
 <ul>
 <li>baseSleepTimeMs：初始sleep时间</li>
 <li>maxRetries：最大重试次数</li>
@@ -502,7 +599,8 @@ CuratorFramework client = CuratorFrameworkFactory.newClient(&quot;192.168.131.12
 <p>ExponentialBackoffRetry的重试策略设计如下：</p>
 <p>给定一个初始sleep时间baseSleepTimeMs，在这个基础上结合重试次数，通过以下公式计算出当前需要sleep的时间：</p>
 <pre><code>当前sleep时间 = baseSleepTimeMs  * Math.max(1,random.nextInt(1 &lt;&lt; (retryCount = 1)))
-</code></pre><p>可以看出，随着重试次数的增加，计算出的sleep时间会越来越大。如果该sleep时间在maxSleepMs的范围之内，那么就使用该sleep时间，否则使用maxSleepMs。另外，maxRetries参数控制了最大重试次数，以避免无限制的重试。</p>
+</code></pre>
+<p>可以看出，随着重试次数的增加，计算出的sleep时间会越来越大。如果该sleep时间在maxSleepMs的范围之内，那么就使用该sleep时间，否则使用maxSleepMs。另外，maxRetries参数控制了最大重试次数，以避免无限制的重试。</p>
 <p>另外，newClient方法并没有完成创建客户端的工作，你需要主动调用CuratorFramework的start()方法来完成创建客户端。</p>
 <p>一个完整的创建客户端的例子：</p>
 <pre><code>import org.apache.curator.RetryPolicy;
@@ -525,26 +623,34 @@ public class Demo1 {
         }
     }
 }
-</code></pre><p>创建一个节点，初始内容为空：</p>
-<p>builder.forPath(“/test”,”ceshi”.getBytes());</p>
+</code></pre>
+<p>创建一个节点，初始内容为空：</p>
+<p>builder.forPath(&quot;/test&quot;,“ceshi”.getBytes());</p>
 <p>注意，如果没有设置节点属性，那么Curator默认创建的是持久节点，内容默认是空。</p>
 <p>创建一个临时节点，初始内容为空：</p>
 <pre><code>builder.withMode(CreateMode.EPHEMERAL).forPath(&quot;/test&quot;);
-</code></pre><p>创建一个临时节点，并自动逆归创建父节点：</p>
+</code></pre>
+<p>创建一个临时节点，并自动逆归创建父节点：</p>
 <pre><code>builder.creatingParentsIfNeeded().withMode(CreateMode.EPHEMERAL).forPath(&quot;/test&quot;,&quot;ceshi&quot;.getBytes());
-</code></pre><p>这个接口非常有用，在使用ZooKeeper 的过程中，开发人员经常会碰到<br>NoNodeException异常，其中一个可能的原因就是试图对一个不存在的父节点创建子节点。因此，开发人员不得不在每次创建节点之前，都判断－下该父节点是否存在。在使用Curator之后，通过调用creatingParentsIfNeeded接口，Curator就能够自动地递归创建所有需要的父节点。</p>
+</code></pre>
+<p>这个接口非常有用，在使用ZooKeeper 的过程中，开发人员经常会碰到<br>
+NoNodeException异常，其中一个可能的原因就是试图对一个不存在的父节点创建子节点。因此，开发人员不得不在每次创建节点之前，都判断－下该父节点是否存在。在使用Curator之后，通过调用creatingParentsIfNeeded接口，Curator就能够自动地递归创建所有需要的父节点。</p>
 <p><strong>同时要注意的一点是，由于在ZooKeeper中规定了所有非叶子节点必须为持久节点，调用上面这个API之后，只有path参数对应的数据节点是临时节点，其父节点均为持久节点。</strong></p>
 <p>删除节点：</p>
 <p>同样创建和删除操作都是由CuratorFramework接口发出来的。</p>
 <pre><code>client.delete().forPath(&quot;/test/test1&quot;);
-</code></pre><p>使用上面的方法只能删除叶子节点。</p>
+</code></pre>
+<p>使用上面的方法只能删除叶子节点。</p>
 <p>删除一个节点，并递归删除其所有子节点：</p>
 <pre><code>client.delete().deletingChildrenIfNeeded().forPath(&quot;/test/test1&quot;);
-</code></pre><p>删除一个节点，强制指定版本进行删除：</p>
+</code></pre>
+<p>删除一个节点，强制指定版本进行删除：</p>
 <pre><code>client.delete().withVersion(1).forPath(&quot;/test/test1&quot;);
-</code></pre><p>删除一个节点，强制保证删除：</p>
+</code></pre>
+<p>删除一个节点，强制保证删除：</p>
 <pre><code>client.delete().guaranteed().forPath(&quot;/test/test1&quot;);
-</code></pre><p>一个完整的创建节点删除节点的例子：</p>
+</code></pre>
+<p>一个完整的创建节点删除节点的例子：</p>
 <pre><code>import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
@@ -567,7 +673,8 @@ public class Demo1 {
         }
     }
 }
-</code></pre><p><strong>异步接口：</strong></p>
+</code></pre>
+<p><strong>异步接口：</strong></p>
 <p>Curator中引入了BackgroundCallback接口，用来处理异步接口调用。CreateBuilder提供了一个inBackground()方法可供使用，此接口就是Curator提供的异步调用入口。对应的异步处理接口为BackgroundCallback。此接口指提供了一个processResult的方法，用来处理回调结果。其中processResult的参数event中的getType()包含了各种事件类型，getResultCode()包含了各种响应码。</p>
 <pre><code>import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.CuratorFramework;
@@ -593,11 +700,20 @@ public class Demo2 {
                             + event.getResultCode() + &quot;,type:&quot; + event.getType());
                 }
             }, Executors.newFixedThreadPool(10)).forPath(&quot;/test&quot;);
-</code></pre><p>​<br>                builder.withMode(CreateMode.EPHEMERAL).inBackground(new BackgroundCallback() {<br>                    public void processResult(CuratorFramework client, CuratorEvent event) throws Exception {<br>                        System.out.println(“当前线程：” + Thread.currentThread().getName() + “,code:”</p>
-<pre><code>                + event.getResultCode() + &quot;,type:&quot; + event.getType());
-    }
-}).forPath(&quot;/test1&quot;);
-</code></pre><p>​<br>            } catch (Exception e) {<br>                e.printStackTrace();<br>            }<br>        }<br>    }</p>
+</code></pre>
+<p>​	<br>
+builder.withMode(CreateMode.EPHEMERAL).inBackground(new BackgroundCallback() {<br>
+public void processResult(CuratorFramework client, CuratorEvent event) throws Exception {<br>
+System.out.println(“当前线程：” + Thread.currentThread().getName() + “,code:”<br>
++ event.getResultCode() + “,type:” + event.getType());<br>
+}<br>
+}).forPath(&quot;/test1&quot;);</p>
+<p>​	<br>
+} catch (Exception e) {<br>
+e.printStackTrace();<br>
+}<br>
+}<br>
+}</p>
 <p><strong>注意:如果自己指定了线程池,那么相应的操作就会在线程池中执行,如果没有指定,那么就会使用Zookeeper的EventThread线程对事件进行串行处理。</strong></p>
 <p><strong>事件监听：</strong></p>
 <p>ZooKeeper原生支持通过注册Watcher来进行事件监听，但是其使用并不是特别方便，需要开发人员自己反复注册Watcher，比较繁琐。Curator 引入了Cache来实现对ZooKeeper服务端事件的监听。Cache是Curator 中对事件监听的包装，其对事件的监听其实可以近似看作是一个本地缓存视图和远程ZooKeeper视图的对比过程。同时Curator能够自动为开发人员处理反复注册监听，从而大大简化了原生API开发的繁琐过程。Cache分为两类监听类型：节点监听和子节点监听。</p>
@@ -640,7 +756,8 @@ public class Demo2 {
         }
     }
 }
-</code></pre><p>PathChildrenCache:</p>
+</code></pre>
+<p>PathChildrenCache:</p>
 <p>PathChildrenCache用于监听指定ZooKeeper数据节点的子节点变化情况。</p>
 <p>当指定节点的子节点发生变化时，就会回调该方法。PathChildrenCacheEvent类中定义了所有的事件类型，主要包括新增子节点(CHILD_ADDED)、子节点数据变更(CHILD_UPDATED)和子节点删除(CHILD_RE问OVED)三类。</p>
 <pre><code>import org.apache.curator.RetryPolicy;
@@ -702,8 +819,12 @@ public class Demo2 {
         }
     }
 }
-</code></pre><h4 id="4-Curator应用"><a href="#4-Curator应用" class="headerlink" title="4. Curator应用"></a>4. Curator应用</h4><h5 id="4-1-master选举"><a href="#4-1-master选举" class="headerlink" title="4.1 master选举"></a>4.1 master选举</h5><p>有这样的场景：在分布式系统中，我们需要从集群中选举出一台机器作为master来分发任务。借助zk我们可以很方便的实现master选举功能。大体思路如下：</p>
-<p>选择一个根节点，例如/master，多台机器同时向该节点创建一个子节点<br>力naster/lock ,利用ZooKeeper的特性，最终只有一台机器能够创建成功，成功的那台机器就作为Master。</p>
+</code></pre>
+<h4 id="4-curator应用"><a class="markdownIt-Anchor" href="#4-curator应用"></a> 4. Curator应用</h4>
+<h5 id="41-master选举"><a class="markdownIt-Anchor" href="#41-master选举"></a> 4.1 master选举</h5>
+<p>有这样的场景：在分布式系统中，我们需要从集群中选举出一台机器作为master来分发任务。借助zk我们可以很方便的实现master选举功能。大体思路如下：</p>
+<p>选择一个根节点，例如/master，多台机器同时向该节点创建一个子节点<br>
+力naster/lock ,利用ZooKeeper的特性，最终只有一台机器能够创建成功，成功的那台机器就作为Master。</p>
 <p>Curator也是基于这个思路，但是它将节点创建、事件监听和自动选举过程进行了封装，开发人员只需要调用简单的API 即可实现Master选举。</p>
 <pre><code>import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.CuratorFramework;
@@ -762,7 +883,8 @@ class LeaderSelect implements Runnable{
         selector.start();
     }
 }
-</code></pre><p>输出结果：</p>
+</code></pre>
+<p>输出结果：</p>
 <pre><code>Curator-LeaderSelector-2 成为leader
 Curator-LeaderSelector-3 成为leader
 Curator-LeaderSelector-1 成为leader
@@ -777,12 +899,16 @@ Curator-LeaderSelector-1 成为leader
 Curator-LeaderSelector-0 成为leader
 Curator-LeaderSelector-2 成为leader
 ...
-</code></pre><h5 id="4-2-分布式锁"><a href="#4-2-分布式锁" class="headerlink" title="4.2 分布式锁"></a>4.2 分布式锁</h5><p>锁的问题经常会遇到，在分布式环境中更甚。zk实现分布式锁的逻辑是：各个节点同时在某个根节点”Lock”下创建临时顺序子节点：</p>
+</code></pre>
+<h5 id="42-分布式锁"><a class="markdownIt-Anchor" href="#42-分布式锁"></a> 4.2 分布式锁</h5>
+<p>锁的问题经常会遇到，在分布式环境中更甚。zk实现分布式锁的逻辑是：各个节点同时在某个根节点&quot;Lock&quot;下创建临时顺序子节点：</p>
 <pre><code>/Lock/instance1_00001
 /Lock/instance2_00002
 /Lock/instance3_00003
 ...
-</code></pre><p>然后对比谁的序号最小即谁获得锁。<br>那么Curator也是同理做了封装：InterProcessMutex类提供了分布式锁支持。</p>
+</code></pre>
+<p>然后对比谁的序号最小即谁获得锁。<br>
+那么Curator也是同理做了封装：InterProcessMutex类提供了分布式锁支持。</p>
 <pre><code>import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
@@ -822,7 +948,8 @@ public class Demo5 {
         }
     }
 }
-</code></pre><p>结果：</p>
+</code></pre>
+<p>结果：</p>
 <pre><code>date is : 2018-05-05 21:40:55|129
 date is : 2018-05-05 21:40:55|175
 date is : 2018-05-05 21:40:55|193
@@ -855,8 +982,11 @@ date is : 2018-05-05 21:40:55|535
 date is : 2018-05-05 21:40:55|541
 
 Process finished with exit code 0
-</code></pre><h5 id="4-3-分布式计数器"><a href="#4-3-分布式计数器" class="headerlink" title="4.3 分布式计数器"></a>4.3 分布式计数器</h5><p>如果有需求是在分布式环境中统计系统访问人数，那么这个时候分布式计数器可以发挥作用。基于zk的分布式计数器实现思路也很简单：</p>
-<p><em>指定一个zk数据节点作为计数器，多个应用实例在分布式锁的控制下，通<br>过更新该数据节点的内容来实现计数功能。</em></p>
+</code></pre>
+<h5 id="43-分布式计数器"><a class="markdownIt-Anchor" href="#43-分布式计数器"></a> 4.3 分布式计数器</h5>
+<p>如果有需求是在分布式环境中统计系统访问人数，那么这个时候分布式计数器可以发挥作用。基于zk的分布式计数器实现思路也很简单：</p>
+<p><em>指定一个zk数据节点作为计数器，多个应用实例在分布式锁的控制下，通<br>
+过更新该数据节点的内容来实现计数功能。</em></p>
 <p>Curator同样将这一系列逻辑封装在了DistributedAtomic开头的类中，从其类名我们可以看出这是一个可以在分布式环境中使用的原子整型。具体使用与java中的Atomic类一样：</p>
 <pre><code>RetryPolicy policy = new RetryNTimes(3,1000);
 DistributedAtomicLo
@@ -867,8 +997,12 @@ try {
     e.printStackTrace();
 }
 </code></pre>
+
       
     </div>
+
+    
+
     
     
     
@@ -886,8 +1020,8 @@ try {
   <p><span>文章作者:</span><a href="/" title="访问 Rickiyang 的个人博客">Rickiyang</a></p>
   <p><span>发布时间:</span>2018年06月17日 - 22:41</p>
   <p><span>最后更新:</span>2018年12月13日 - 10:18</p>
-  <p><span>原始链接:</span><a href="/posts/c934629c.html" title="Zookeeeper开源客户端Curator">https://blog.rickiyang.cn/posts/c934629c.html</a>
-    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.rickiyang.cn/posts/c934629c.html" aria-label="复制成功！"></i></span>
+  <p><span>原始链接:</span><a href="/posts/c934629c.html" title="Zookeeeper开源客户端Curator">http://blog.rickiyang.cn/posts/c934629c.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://blog.rickiyang.cn/posts/c934629c.html" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
 </div>
@@ -908,9 +1042,7 @@ try {
 
       
     </div>
-
     
-
     <div>
       
         <div>
@@ -922,6 +1054,10 @@ try {
       
     </div>
 
+
+    
+      
+    
     
 
     
@@ -930,7 +1066,7 @@ try {
       
         <div class="post-tags">
           
-            <a href="/tags/分布式/" rel="tag"> <i class="”fa" fa-tag”=""></i> 分布式</a>
+            <a href="/tags/分布式/" rel="tag"># 分布式</a>
           
         </div>
       
@@ -971,44 +1107,15 @@ try {
   </article>
 
 
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript">
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
   </div>
 
 
           </div>
           
 
-
-          
+  
+    <div class="comments" id="comments">
+    </div>
 
   
 
@@ -1035,60 +1142,124 @@ var jiathis_config={
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
+            Table of Contents
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
+            Overview
           </li>
         </ul>
       
 
-      <section class="site-overview-wrap sidebar-panel">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image" src="/images/adele.png" alt="Rickiyang">
             
               <p class="site-author-name" itemprop="name">Rickiyang</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-description motion-element" itemprop="description">分享对coding生活的见解</p>
           </div>
 
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
+          
+            <nav class="site-state motion-element">
               
-                <a href="/archives">
-              
-                  <span class="site-state-item-count">99</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">19</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
+                <div class="site-state-item site-state-posts">
                 
-                  <span class="site-state-item-count">11</span>
-                  <span class="site-state-item-name">标签</span>
+                  <a href="/archives">
                 
-              </div>
-            
+                    <span class="site-state-item-count">99</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
 
-          </nav>
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
 
           
             <div class="feed-link motion-element">
@@ -1101,63 +1272,93 @@ var jiathis_config={
 
           
             <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/rickiyang" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:medee1320@gmail.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://blog.csdn.net/a953713428" target="_blank" title="CSDN">
-                      
-                        <i class="fa fa-fw fa-google"></i>CSDN</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="953713428" target="_blank" title="QQ">
-                      
-                        <i class="fa fa-fw fa-twitter"></i>QQ</a>
-                  </span>
-                
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3JpY2tpeWFuZw==" title="GitHub &rarr; https://github.com/rickiyang"><i class="fa fa-fw fa-github"></i>GitHub</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="bWFpbHRvOm1lZGVlMTMyMEBnbWFpbC5jb20=" title="E-Mail &rarr; mailto:medee1320@gmail.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2E5NTM3MTM0Mjg=" title="CSDN &rarr; https://blog.csdn.net/a953713428"><i class="fa fa-fw fa-google"></i>CSDN</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="/953713428" title="QQ &rarr; 953713428"><i class="fa fa-fw fa-twitter"></i>QQ</a>
+                </span>
+              
             </div>
           
 
           
-          
 
           
           
 
+          
+            
+          
           
 
         </div>
-      </section>
+      </div>
 
       
       <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
           <div class="post-toc">
 
             
-              
+            
+            
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#开源zk客户端-Curator"><span class="nav-number">1.</span> <span class="nav-text">开源zk客户端-Curator</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Curator应用"><span class="nav-number">2.</span> <span class="nav-text">4. Curator应用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-1-master选举"><span class="nav-number">2.1.</span> <span class="nav-text">4.1 master选举</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-2-分布式锁"><span class="nav-number">2.2.</span> <span class="nav-text">4.2 分布式锁</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-3-分布式计数器"><span class="nav-number">2.3.</span> <span class="nav-text">4.3 分布式计数器</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#开源zk客户端-curator"><span class="nav-number">1.</span> <span class="nav-text"> 开源zk客户端-Curator</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-curator应用"><span class="nav-number">2.</span> <span class="nav-text"> 4. Curator应用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#41-master选举"><span class="nav-number">2.1.</span> <span class="nav-text"> 4.1 master选举</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#42-分布式锁"><span class="nav-number">2.2.</span> <span class="nav-text"> 4.2 分布式锁</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#43-分布式计数器"><span class="nav-number">2.3.</span> <span class="nav-text"> 4.3 分布式计数器</span></a></li></ol></li></ol></div>
             
 
           </div>
-        </section>
+        </div>
       <!--/noindex-->
       
 
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
       
 
     </div>
@@ -1170,39 +1371,50 @@ var jiathis_config={
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2019</span>
-  <span class="with-love">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Rickiyang</span>
 
   
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="Symbols count total">752k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="Reading time total">11:24</span>
+  
 </div>
 
-<div class="powered-by">
+<!--<div class="powered-by">
 <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
   本站访客数:<span id="busuanzi_value_site_uv"></span>
 </span>
-</div>
-
-<!--
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
--->
-
-
-  <span class="post-meta-divider">|</span>
+</div>-->
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+  <div class="theme-info">Theme – <span class="exturl theme-link" data-url="aHR0cHM6Ly90aGVtZS1uZXh0Lm9yZw==">NexT.Gemini</span> v6.7.0</div>
 
 
 
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共231.6k字</span>
+  <span class="post-count">博客全站共231.9k字</span>
 </div>
 
 <script>
@@ -1222,24 +1434,23 @@ var jiathis_config={
 
         
 <div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
   
-    <span class="site-uv">
+    <span class="site-uv" title="Total Visitors">
       <i class="fa fa-user"></i>
       <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-      人次
     </span>
   
 
   
-    <span class="site-pv">
+    <span class="site-pv" title="Total Views">
       <i class="fa fa-eye"></i>
       <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-      次
     </span>
   
 </div>
+
 
 
 
@@ -1253,21 +1464,17 @@ var jiathis_config={
     </footer>
 
     
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-          <span id="scrollpercent"><span>0</span>%</span>
-        
-      </div>
+
     
 
     
 
+    
   </div>
 
   
 
-<script type="text/javascript">
+<script>
   if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
     window.Promise = null;
   }
@@ -1281,117 +1488,6 @@ var jiathis_config={
 
 
 
-  
-
-
-
-
-
-
-  
-  
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/three.min.js"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
 
 
 
@@ -1404,8 +1500,111 @@ var jiathis_config={
 
 
   
+  
 
-  <script type="text/javascript">
+
+
+  
+  
+  <script id="ribbon" size="300" alpha="0.6" zindex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/three/three.min.js"></script>
+
+  
+  <script src="/lib/three/canvas_sphere.min.js"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script>
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+      el: '#comments' ,
+      verify: false,
+      notify: false,
+      appId: 'X5fy0b9Gknu0SAse5areilGR-gzGzoHsz',
+      appKey: 'URk4cyPQ8Ttqtwhop5t26kok',
+      placeholder: 'Just go go',
+      avatar: 'mm',
+      meta:guest,
+      pageSize: '10' || 10,
+      visitor: false
+    });
+  </script>
+
+
+
+
+  
+
+  <script>
     // Popup Window;
     var isfetched = false;
     var isXml = true;
@@ -1454,6 +1653,8 @@ var jiathis_config={
         .css('overflow', 'hidden');
       $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
 
+      
+
       $.ajax({
         url: path,
         dataType: isXml ? "xml" : "json",
@@ -1487,8 +1688,9 @@ var jiathis_config={
                 var title = data.title.trim();
                 var titleInLowerCase = title.toLowerCase();
                 var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
                 var contentInLowerCase = content.toLowerCase();
-                var articleUrl = decodeURIComponent(data.url);
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
                 var indexOfTitle = [];
                 var indexOfContent = [];
                 // only match articles with not empty titles
@@ -1657,9 +1859,9 @@ var jiathis_config={
               })
             };
             if (keywords.length === 1 && keywords[0] === "") {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
             } else if (resultItems.length === 0) {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
             } else {
               resultItems.sort(function (resultLeft, resultRight) {
                 if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
@@ -1729,107 +1931,66 @@ var jiathis_config={
   
 
   
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("X5fy0b9Gknu0SAse5areilGR-gzGzoHsz", "URk4cyPQ8Ttqtwhop5t26kok");</script>
   <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
-            }
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
+    
     function addCount(Counter) {
       var $visitors = $(".leancloud_visitors");
       var url = $visitors.attr('id').trim();
       var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
 
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function ({ results }) {
           if (results.length > 0) {
             var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
+            
+            Counter('put', `/classes/Counter/${counter.objectId}`, JSON.stringify({ time: { "__op":"Increment", "amount":1 } }))
+            
+            .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.time + 1);
+            })
+            
+            .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+            })
           } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1}))
+                .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function () {
+                  console.log('Failed to create');
+                });
+            
           }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
+        })
+      .fail(function ({ responseJSON }) {
+        console.log('LeanCloud Counter Error:' + responseJSON.code + " " + responseJSON.error);
       });
     }
+    
 
     $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + "X5fy0b9Gknu0SAse5areilGR-gzGzoHsz")
+        .done(function ({ api_server }) {
+          var Counter = function (method, url, data) {
+            return $.ajax({
+              method: method,
+              url: `https://${api_server}/1.1${url}`,
+              headers: {
+                'X-LC-Id': "X5fy0b9Gknu0SAse5areilGR-gzGzoHsz",
+                'X-LC-Key': "URk4cyPQ8Ttqtwhop5t26kok",
+                'Content-Type': 'application/json',
+              },
+              data: data,
+            });
+          };
+          
+          addCount(Counter);
+          
+        })
     });
   </script>
 
@@ -1838,9 +1999,45 @@ var jiathis_config={
   
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+      }
+      else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
 
   
   
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+  <script>
+    
+    
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+  <script src="/js/src/exturl.js?v=6.7.0"></script>
+
 
   
 
@@ -1850,7 +2047,7 @@ var jiathis_config={
 
 
   <!-- 页面点击小红心 -->
-  <script type="text/javascript" src="/js/src/love.js"></script>
-  <!---->
+    <script type="text/javascript" src="/js/src/love.js"></script>
+    <!---->
 </body>
 </html>

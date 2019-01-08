@@ -2,6 +2,15 @@
 
 
 
+
+
+
+
+
+
+
+
+
   
 
 
@@ -9,38 +18,38 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
 
 
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-center-circle.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -64,12 +73,6 @@
   
 
   
-    
-      
-    
-
-    
-  
 
   
     
@@ -90,7 +93,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|FZSongKeBenXiuKai:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
   
 
 
@@ -98,44 +101,61 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
 
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/adele.ico?v=5.1.4">
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/adele.ico?v=5.1.4">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/adele.ico?v=6.7.0">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/adele.ico?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/adele.ico?v=6.7.0">
 
 
-  <link rel="mask-icon" href="/images/adele.ico?v=5.1.4" color="#222">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/adele.ico?v=6.7.0">
 
 
-
-
-
-  <meta name="keywords" content="hadoop学习,">
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="Rickiyang's blog" type="application/atom+xml">
+  <link rel="mask-icon" href="/images/adele.ico?v=6.7.0" color="#222">
 
 
 
 
 
 
-<meta name="description" content="前面我们使用HDFS进行了相关的操作，也了解了HDFS的原理和机制，有了分布式文件系统我们如何去处理文件呢，这就的提到hadoop的第二个组成部分-MapReduce。 MapReduce充分借鉴了分而治之的思想，将一个数据的处理过程分为Map（映射）和Reduce（处理）两步。那么用户只需要将数据以需要的格式交给reduce函数处理就能轻松实现分布式的计算，很多的工作都由mapReduce框架为">
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="前面我们使用HDFS进行了相关的操作，也了解了HDFS的原理和机制，有了分布式文件系统我们如何去处理文件呢，这就的提到hadoop的第二个组成部分-MapReduce。 MapReduce充分借鉴了分而治之的思想，将一个数据的处理过程分为Map（映射）和Reduce（处理）两步。那么用户只需要将数据以需要的格式交给reduce函数处理就能轻松实现分布式的计算，很多的工作都由mapReduce框架为">
 <meta name="keywords" content="hadoop学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="hadoop学习(七)----mapReduce原理以及操作过程">
-<meta property="og:url" content="https://blog.rickiyang.cn/posts/b8ffaf86.html">
+<meta property="og:url" content="http://blog.rickiyang.cn/posts/b8ffaf86.html">
 <meta property="og:site_name" content="Rickiyang&#39;s blog">
 <meta property="og:description" content="前面我们使用HDFS进行了相关的操作，也了解了HDFS的原理和机制，有了分布式文件系统我们如何去处理文件呢，这就的提到hadoop的第二个组成部分-MapReduce。 MapReduce充分借鉴了分而治之的思想，将一个数据的处理过程分为Map（映射）和Reduce（处理）两步。那么用户只需要将数据以需要的格式交给reduce函数处理就能轻松实现分布式的计算，很多的工作都由mapReduce框架为">
 <meta property="og:locale" content="zh-Hans">
@@ -160,37 +180,20 @@
 
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+  <link rel="alternate" href="/atom.xml" title="Rickiyang's blog" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://blog.rickiyang.cn/posts/b8ffaf86.html">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
   };
 </script>
-
-
-
-  <link rel="canonical" href="https://blog.rickiyang.cn/posts/b8ffaf86.html">
-
-
-
-
 
   <title>hadoop学习(七)----mapReduce原理以及操作过程 | Rickiyang's blog</title>
   
@@ -201,6 +204,35 @@
 
 
 
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
 </head>
 
@@ -216,7 +248,7 @@
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
+  <div class="site-meta">
     
 
     <div class="custom-logo-site-title">
@@ -226,13 +258,16 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
+    
       
-        <h1 class="site-subtitle" itemprop="description"></h1>
+        <h1 class="site-subtitle" itemprop="description">java,大数据,分布式组件</h1>
       
+    
+    
   </div>
 
   <div class="site-nav-toggle">
-    <button>
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -240,66 +275,94 @@
   </div>
 </div>
 
-<nav class="site-nav">
-  
 
+
+<nav class="site-nav">
   
     <ul id="menu" class="menu">
       
         
-        <li class="menu-item menu-item-首页">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            首页
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-标签">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
-            
-            标签
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-分类">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
-            
-            分类
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-归档">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            归档
-          </a>
-        </li>
-      
+          
+          <li class="menu-item menu-item-首页">
 
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
       
         <li class="menu-item menu-item-search">
           
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
-            
-            搜索
-          </a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
         </li>
       
     </ul>
+  
+
   
 
   
@@ -314,7 +377,7 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -328,12 +391,23 @@
 
 
 
- </div>
+  
+
+
+
+</div>
     </header>
+
+    
+
 
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+          
+            
+
+          
           <div id="content" class="content">
             
 
@@ -346,16 +420,18 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/b8ffaf86.html">
+    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/b8ffaf86.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="分享对coding生活的见解">
       <meta itemprop="image" content="/images/adele.png">
     </span>
 
@@ -368,11 +444,20 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">hadoop学习(七)----mapReduce原理以及操作过程</h2>
+          <h2 class="post-title" itemprop="name headline">hadoop学习(七)----mapReduce原理以及操作过程
+
+              
+            
+          </h2>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -380,13 +465,30 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-22T19:30:15+08:00">
-                2018-06-22
-              </time>
+
+              
+                
+              
+
+              <time title="创建于: 2018-06-22 19:30:15" itemprop="dateCreated datePublished" datetime="2018-06-22T19:30:15+08:00">2018-06-22</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">编辑于</span>
+                
+                <time title="Modified: 2018-12-13 10:14:20" itemprop="dateModified" datetime="2018-12-13T10:14:20+08:00">2018-12-13</time>
+              
             
           </span>
 
@@ -402,22 +504,14 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/大数据学习/" itemprop="url" rel="index">
-                    <span itemprop="name">大数据学习</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/大数据学习/" itemprop="url" rel="index"><span itemprop="name">大数据学习</span></a></span>
 
                 
                 
-                  ， 
+                  , 
                 
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/大数据学习/hadoop/" itemprop="url" rel="index">
-                    <span itemprop="name">hadoop</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/大数据学习/hadoop/" itemprop="url" rel="index"><span itemprop="name">hadoop</span></a></span>
 
                 
                 
@@ -426,6 +520,16 @@
           
 
           
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/posts/b8ffaf86.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/b8ffaf86.html" itemprop="commentCount"></span>
+                </a>
+              </span>
             
           
 
@@ -437,7 +541,7 @@
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">热度&#58;</span>
+                 <span class="post-meta-item-text">热度: </span>
                
                  <span class="leancloud-visitors-count"></span>
                  <span>℃</span>
@@ -445,27 +549,19 @@
           
 
           
-            <span class="post-meta-divider">|</span>
-            <span class="page-pv"><i class="fa fa-file-o"></i>
-            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
-            </span>
-          
 
           
-            <div class="post-wordcount">
+            <div class="post-symbolscount">
               
-                
-                  <span class="post-meta-divider">|</span>
-                
+
+              
                 <span class="post-meta-item-icon">
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">字数统计&#58;</span>
+                  <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="字数统计">
-                  5.4k
-                </span>
+                <span title="Symbols count in article">12k</span>
               
 
               
@@ -477,11 +573,9 @@
                   <i class="fa fa-clock-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="阅读时长">
-                  20
-                </span>
+                <span title="Reading time">11 mins.</span>
               
             </div>
           
@@ -503,27 +597,44 @@
       
         <p>前面我们使用HDFS进行了相关的操作，也了解了HDFS的原理和机制，有了分布式文件系统我们如何去处理文件呢，这就的提到hadoop的第二个组成部分-MapReduce。</p>
 <p>MapReduce充分借鉴了分而治之的思想，将一个数据的处理过程分为Map（映射）和Reduce（处理）两步。那么用户只需要将数据以需要的格式交给reduce函数处理就能轻松实现分布式的计算，很多的工作都由mapReduce框架为我们封装好，大大简化了操作流程。</p>
-<h4 id="1-MapReduce的编程思想"><a href="#1-MapReduce的编程思想" class="headerlink" title="1 MapReduce的编程思想"></a>1 MapReduce的编程思想</h4><p>MapReduce的设计思路来源于LISP和其他的函数式编程语言中的映射和化简操作。数据操作的最小单位是一个键值对。用户在使用MapReduce编程模型的时候第一步就是要将数据转化为键值对的形式，map函数会以键值对作为输入，经过map函数的处理，产生新的键值对作为中间结果，然后MapReduce计算框架会自动将这些中间结果数据做聚合处理，然后将键相同的数据分发给reduce函数处理。reduce函数以键值对的形式对处理结果进行输出。要用表达式的形式表达的话，大致如下：</p>
+<h4 id="1-mapreduce的编程思想"><a class="markdownIt-Anchor" href="#1-mapreduce的编程思想"></a> 1 MapReduce的编程思想</h4>
+<p>MapReduce的设计思路来源于LISP和其他的函数式编程语言中的映射和化简操作。数据操作的最小单位是一个键值对。用户在使用MapReduce编程模型的时候第一步就是要将数据转化为键值对的形式，map函数会以键值对作为输入，经过map函数的处理，产生新的键值对作为中间结果，然后MapReduce计算框架会自动将这些中间结果数据做聚合处理，然后将键相同的数据分发给reduce函数处理。reduce函数以键值对的形式对处理结果进行输出。要用表达式的形式表达的话，大致如下：</p>
 <pre><code>{key1,value1}-----&gt;{key2,List&lt;value2&gt;}-----&gt;{key3,value3}
-</code></pre><h4 id="2-MapReduce的运行环境"><a href="#2-MapReduce的运行环境" class="headerlink" title="2 MapReduce的运行环境"></a>2 MapReduce的运行环境</h4><p>与HDFS相同的是，MapReduce计算框也是主从架构。支撑MapReduce计算框架的是JobTracker和TaskTracker两类后台进程。</p>
+</code></pre>
+<h4 id="2-mapreduce的运行环境"><a class="markdownIt-Anchor" href="#2-mapreduce的运行环境"></a> 2 MapReduce的运行环境</h4>
+<p>与HDFS相同的是，MapReduce计算框也是主从架构。支撑MapReduce计算框架的是JobTracker和TaskTracker两类后台进程。</p>
 <p><img src="https://i.imgur.com/mwXjL3k.png" alt=""></p>
-<h4 id="2-1-JobTracker"><a href="#2-1-JobTracker" class="headerlink" title="2.1 JobTracker"></a>2.1 JobTracker</h4><p>Job Tracker 在集群中扮演了主的角色，它主要负责任务调度和集群资源监控这两个功能，但并不参与具体的计算。一个Hadoop 集群只有一个JobTracker ，存在单点故障的可能，所以必须运行在相对可靠的节点上，一JobTracker 出错，将导致集群所有正在运行的任务全部失败。</p>
+<h4 id="21-jobtracker"><a class="markdownIt-Anchor" href="#21-jobtracker"></a> 2.1 JobTracker</h4>
+<p>Job Tracker 在集群中扮演了主的角色，它主要负责任务调度和集群资源监控这两个功能，但并不参与具体的计算。一个Hadoop 集群只有一个JobTracker ，存在单点故障的可能，所以必须运行在相对可靠的节点上，一JobTracker 出错，将导致集群所有正在运行的任务全部失败。</p>
 <p>与HDFS 的NameNode 和DataNode 相似， TaskTracker 也会通过周期性的心跳向JobTracker汇报当前的健康状况和状态，心跳信息里面包括了自身计算资源的信息、被占用的计算资源的信息和正在运行中的任务的状态信息。JobTracker 则会根据各个TaskTracker 周期性发送过来的心跳信息综合考虑TaskTracker 的资源剩余量、作业优先级、作业提交时间等因素，为TaskTracker分配合适的任务。</p>
-<h5 id="2-2-TaskTracker"><a href="#2-2-TaskTracker" class="headerlink" title="2.2 TaskTracker"></a>2.2 TaskTracker</h5><p>TaskTracker 在集群中扮模了从的角色，它主要负责汇报心跳和执行JobTracker 的命令这两个功能。一个集群可以有多个TaskTracker ，但一个节点只会有一个TaskTracker ， 并且TaskTracker和DataNode 运行在同一个节点之中，这样， 一个节点既是计算节点又是存储节点。TaskTracker会周期性地将各种信息汇报给JobTracker ，而JobTracker 收到心跳信息， 会根据心跳信息和当前作业运行情况为该TaskTracker 下达命令， 主要包括启动任务、提交任务、杀死任务、杀死作业和重新初始化5 种命令。</p>
-<h5 id="2-3-客户端"><a href="#2-3-客户端" class="headerlink" title="2.3 客户端"></a>2.3 客户端</h5><p>用户通过客户端提交编写的MapReduce程序给JobTracker。</p>
-<h4 id="3-MapReduce-作业和任务"><a href="#3-MapReduce-作业和任务" class="headerlink" title="3 MapReduce 作业和任务"></a>3 MapReduce 作业和任务</h4><p>Map Reduce 作业（ job ）是用户提交的最小单位， 而Map/Reduce 任务（ task ） 是MapReduce<br>计算的最小单位。当用户向Hadoop 提交一个MapReduce 作业时， JobTracker 的作业分解模块会将其分拆为<br>任务交由各个TaskTracker 执行， 在MapReduce 计算框架中，任务分为两种-Map 任务和Reduce 任务。</p>
+<h5 id="22-tasktracker"><a class="markdownIt-Anchor" href="#22-tasktracker"></a> 2.2 TaskTracker</h5>
+<p>TaskTracker 在集群中扮模了从的角色，它主要负责汇报心跳和执行JobTracker 的命令这两个功能。一个集群可以有多个TaskTracker ，但一个节点只会有一个TaskTracker ， 并且TaskTracker和DataNode 运行在同一个节点之中，这样， 一个节点既是计算节点又是存储节点。TaskTracker会周期性地将各种信息汇报给JobTracker ，而JobTracker 收到心跳信息， 会根据心跳信息和当前作业运行情况为该TaskTracker 下达命令， 主要包括启动任务、提交任务、杀死任务、杀死作业和重新初始化5 种命令。</p>
+<h5 id="23-客户端"><a class="markdownIt-Anchor" href="#23-客户端"></a> 2.3 客户端</h5>
+<p>用户通过客户端提交编写的MapReduce程序给JobTracker。</p>
+<h4 id="3-mapreduce-作业和任务"><a class="markdownIt-Anchor" href="#3-mapreduce-作业和任务"></a> 3 MapReduce 作业和任务</h4>
+<p>Map Reduce 作业（ job ）是用户提交的最小单位， 而Map/Reduce 任务（ task ） 是MapReduce<br>
+计算的最小单位。当用户向Hadoop 提交一个MapReduce 作业时， JobTracker 的作业分解模块会将其分拆为<br>
+任务交由各个TaskTracker 执行， 在MapReduce 计算框架中，任务分为两种-Map 任务和Reduce 任务。</p>
 <p><img src="https://i.imgur.com/Q2tKbYe.png" alt=""></p>
-<h4 id="4-MapReduce-的计算资源划分"><a href="#4-MapReduce-的计算资源划分" class="headerlink" title="4 MapReduce 的计算资源划分"></a>4 MapReduce 的计算资源划分</h4><p>一个MapReduce 作业的计算工作都由TaskTracker 完成。用户向Hadoop 提交作业，Job Tracker 会将该作业拆分为多个任务， 并根据心跳信息交由空闲的TaskTracker 启动。一个Task Tracker 能够启动的任务数量是由TaskTracker 配置的任务槽（ slot ） 决定。槽是Hadoop 的计算资源的表示模型， Hadoop 将各个节点上的多维度资源（ CPU 、内存等）抽象成一维度的槽，这样就将多维度资源分配问题转换成一维度的槽分配的问题。在实际情况中，Map 任务和Reduce任务需要的计算资源不尽相同， Hadoop 又将槽分成Map 槽和Reduce 槽， 并且Map 任务只能使用Map槽， Reduce 任务只能使用Reduce槽。</p>
+<h4 id="4-mapreduce-的计算资源划分"><a class="markdownIt-Anchor" href="#4-mapreduce-的计算资源划分"></a> 4 MapReduce 的计算资源划分</h4>
+<p>一个MapReduce 作业的计算工作都由TaskTracker 完成。用户向Hadoop 提交作业，Job Tracker 会将该作业拆分为多个任务， 并根据心跳信息交由空闲的TaskTracker 启动。一个Task Tracker 能够启动的任务数量是由TaskTracker 配置的任务槽（ slot ） 决定。槽是Hadoop 的计算资源的表示模型， Hadoop 将各个节点上的多维度资源（ CPU 、内存等）抽象成一维度的槽，这样就将多维度资源分配问题转换成一维度的槽分配的问题。在实际情况中，Map 任务和Reduce任务需要的计算资源不尽相同， Hadoop 又将槽分成Map 槽和Reduce 槽， 并且Map 任务只能使用Map槽， Reduce 任务只能使用Reduce槽。</p>
 <p><img src="https://i.imgur.com/7oXaIPd.png" alt=""></p>
 <p>Hadoop 的资源管理采用了静态资源设置方案，即每个节点配置好Map 槽和Reduce 槽的数量（配置项为mapred-site.xml 的mapred.task:tracker.map.tasks.maximum 和mapred.taskTracker.reduce.tasks.maximum),一旦Hadoop启动后将无法动态更改。</p>
-<h4 id="5-MapReduce-的局限性"><a href="#5-MapReduce-的局限性" class="headerlink" title="5 MapReduce 的局限性"></a>5 MapReduce 的局限性</h4><ol>
-<li><p>从MapReduce 的特点可以看出MapReduce 的优点非常明显，但是MapReduce 也有其局限性，井不是处理海量数据的普适方法。它的局限性主要体现在以下几点：<br>MapReduce 的执行速度慢。一个普通的MapReduce作业一般在分钟级别完成，复杂的作业或者数据量更大的情况下，也可能花费一小时或者更多，好在离线计算对于时间远没有OLTP那么敏感。所以MapReduce 现在不是，以后也不会是关系型数据库的终结者。MapReduce的慢主要是由于磁盘1/0 , MapReduce 作业通常都是数据密集型作业，大量的中间结果需要写到磁盘上并通过网络进行传输，这耗去了大量的时间。</p>
+<h4 id="5-mapreduce-的局限性"><a class="markdownIt-Anchor" href="#5-mapreduce-的局限性"></a> 5 MapReduce 的局限性</h4>
+<ol>
+<li>
+<p>从MapReduce 的特点可以看出MapReduce 的优点非常明显，但是MapReduce 也有其局限性，井不是处理海量数据的普适方法。它的局限性主要体现在以下几点：<br>
+MapReduce 的执行速度慢。一个普通的MapReduce作业一般在分钟级别完成，复杂的作业或者数据量更大的情况下，也可能花费一小时或者更多，好在离线计算对于时间远没有OLTP那么敏感。所以MapReduce 现在不是，以后也不会是关系型数据库的终结者。MapReduce的慢主要是由于磁盘1/0 , MapReduce 作业通常都是数据密集型作业，大量的中间结果需要写到磁盘上并通过网络进行传输，这耗去了大量的时间。</p>
 </li>
-<li><p>MapReduce过于底层。与SQL相比，MapReduce显得过于底层。对于普通的查询，一般人是不会希望写一个map 函数和reduce函数的。对于习惯于关系型数据库的用户，或者数据分析师来说，编写map 函数和reduce 函数无疑是一件头疼的事情。好在Hive的出现，大大改善了这种状况。</p>
+<li>
+<p>MapReduce过于底层。与SQL相比，MapReduce显得过于底层。对于普通的查询，一般人是不会希望写一个map 函数和reduce函数的。对于习惯于关系型数据库的用户，或者数据分析师来说，编写map 函数和reduce 函数无疑是一件头疼的事情。好在Hive的出现，大大改善了这种状况。</p>
 </li>
-<li>不是所有算法都能用MapReduce 实现。这意味着，不是所有算法都能实现并行。例如机器学习的模型训练， 这些算法需要状态共享或者参数间有依赖，且需要集中维护和更新。</li>
+<li>
+<p>不是所有算法都能用MapReduce 实现。这意味着，不是所有算法都能实现并行。例如机器学习的模型训练， 这些算法需要状态共享或者参数间有依赖，且需要集中维护和更新。</p>
+</li>
 </ol>
-<h4 id="6-来一个Hello-world"><a href="#6-来一个Hello-world" class="headerlink" title="6 来一个Hello world"></a>6 来一个Hello world</h4><p>本次hello world为word count程序，通过这个小程序来了解一下MapReduce的用法。</p>
+<h4 id="6-来一个hello-world"><a class="markdownIt-Anchor" href="#6-来一个hello-world"></a> 6 来一个Hello world</h4>
+<p>本次hello world为word count程序，通过这个小程序来了解一下MapReduce的用法。</p>
 <p>Mapper类：</p>
 <pre><code>import java.io.IOException;
 import java.util.StringTokenizer;
@@ -548,7 +659,8 @@ public class TokenizerMapper extends Mapper&lt;Object, Text, Text, IntWritable&g
         }
     }
 }
-</code></pre><p>以上就是Map打散过程。</p>
+</code></pre>
+<p>以上就是Map打散过程。</p>
 <p>上面我们看到有IntWritable这个数据类型，这里的Text相当于jdk中的String IntWritable相当于jdk的int类型，hadoop有8个基本数据类型，它们均实现了WritableComparable接口：</p>
 
 <table>
@@ -606,7 +718,7 @@ public class MyReducer extends Reducer&lt;Text, IntWritable, Text, IntWritable&g
 
     public void reduce(Text key, Iterable&lt;IntWritable&gt; values, Context context) throws IOException,InterruptedException {
         int sum = 0;
-        //因为map已经将文本处理为键值对的形式，所以在这里只用取出map中保存的键值
+		//因为map已经将文本处理为键值对的形式，所以在这里只用取出map中保存的键值
         for(IntWritable val:values) {
             sum += val.get();
         }
@@ -614,7 +726,8 @@ public class MyReducer extends Reducer&lt;Text, IntWritable, Text, IntWritable&g
         context.write(key,result);
     }
 }
-</code></pre><p>下面是主函数：</p>
+</code></pre>
+<p>下面是主函数：</p>
 <pre><code>import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
@@ -655,11 +768,14 @@ public class WordCount {
         System.exit(job.waitForCompletion(true)?0:1);
     }
 }
-</code></pre><p>工程目录结构如下：</p>
+</code></pre>
+<p>工程目录结构如下：</p>
 <p><img src="https://i.imgur.com/hE1Zr6g.jpg" alt=""></p>
-<p>然后就是打jar包，我用的是idea，打包的过程就不表，自己百度一下。我打的jar包名为：hadoop.jar。打完之后将jar包上传至服务器。<br>在你的hadoop服务开启的状态下，输入如下命令：</p>
+<p>然后就是打jar包，我用的是idea，打包的过程就不表，自己百度一下。我打的jar包名为：hadoop.jar。打完之后将jar包上传至服务器。<br>
+在你的hadoop服务开启的状态下，输入如下命令：</p>
 <pre><code>#hadoop jar hadoop.jar cn.edu.hust.demo1.WordCount /user/input /user/output
-</code></pre><p>中间的是主程序的路径，后面第一个路径是你的单词文档的路径，我将单词文档上传到/user/input下，/user/output的路径为输出路径。这个路径在执行上面这个命令之前不能存在，不然会报错。</p>
+</code></pre>
+<p>中间的是主程序的路径，后面第一个路径是你的单词文档的路径，我将单词文档上传到/user/input下，/user/output的路径为输出路径。这个路径在执行上面这个命令之前不能存在，不然会报错。</p>
 <p><img src="https://i.imgur.com/PmalxRc.jpg" alt=""></p>
 <p>执行完等一会之后，如果出现上面的输出表示运行成功。</p>
 <p>下面是输出路径的内容：</p>
@@ -669,24 +785,35 @@ public class WordCount {
 hello world xiaoming
 the world is beautiful
 xiaoming is my friend
-</code></pre><p>运行完程序之后的单词统计结果为：</p>
+</code></pre>
+<p>运行完程序之后的单词统计结果为：</p>
 <p><img src="https://i.imgur.com/1sLSiIC.jpg" alt=""></p>
 <p>由此我们的单词统计就完成了。</p>
 <p>下面我们借着词频统计来说一下MapReduce的运行过程。</p>
-<h4 id="7-MapReduce的运行过程深入了解"><a href="#7-MapReduce的运行过程深入了解" class="headerlink" title="7 MapReduce的运行过程深入了解"></a>7 MapReduce的运行过程深入了解</h4><p>从前面的WordCount可以看出， 一个MapReduce作业经过了input,map,combine,reduce,output 五个阶段,其中combine阶段并不一定发生， map输出的中间结果被分发到reducer的过程被称为shuffle （数据混洗）。</p>
-<h5 id="7-1-从输入到输出的状态"><a href="#7-1-从输入到输出的状态" class="headerlink" title="7.1 从输入到输出的状态"></a>7.1 从输入到输出的状态</h5><p><img src="https://i.imgur.com/dkoF6eI.png" alt=""></p>
-<p>在shuffle阶段还会发生copy（复制）和sort（排序)。<br>在MapReduce 的过程中，一个作业被分成Map和Reduce计算两个阶段，它们分别由两个或者多个Map任务和Reduce任务组成，这个在前面已经说过了。Reduce任务默认会在Map任务数量完成5%后才开始启动。</p>
-<p>Map任务的执行过程可概括为： </p>
+<h4 id="7-mapreduce的运行过程深入了解"><a class="markdownIt-Anchor" href="#7-mapreduce的运行过程深入了解"></a> 7 MapReduce的运行过程深入了解</h4>
+<p>从前面的WordCount可以看出， 一个MapReduce作业经过了input,map,combine,reduce,output 五个阶段,其中combine阶段并不一定发生， map输出的中间结果被分发到reducer的过程被称为shuffle （数据混洗）。</p>
+<h5 id="71-从输入到输出的状态"><a class="markdownIt-Anchor" href="#71-从输入到输出的状态"></a> 7.1 从输入到输出的状态</h5>
+<p><img src="https://i.imgur.com/dkoF6eI.png" alt=""></p>
+<p>在shuffle阶段还会发生copy（复制）和sort（排序)。<br>
+在MapReduce 的过程中，一个作业被分成Map和Reduce计算两个阶段，它们分别由两个或者多个Map任务和Reduce任务组成，这个在前面已经说过了。Reduce任务默认会在Map任务数量完成5%后才开始启动。</p>
+<p>Map任务的执行过程可概括为：</p>
 <ol>
-<li><p>首先通过用户指定的Inputformat类（如WordCount中的FilelnputFormat 类）中的getSplits方法和next方法将输入文件切片并解析成键值对作为map函数的输入。</p>
+<li>
+<p>首先通过用户指定的Inputformat类（如WordCount中的FilelnputFormat 类）中的getSplits方法和next方法将输入文件切片并解析成键值对作为map函数的输入。</p>
 </li>
-<li><p>然后map函数经过处理之后输出并将中间结果交给指定的Partitioner处理，确保中间结果分发到指定的Reduce任务处理，此时如果用户指定了Combiner，将执行combine操作。</p>
+<li>
+<p>然后map函数经过处理之后输出并将中间结果交给指定的Partitioner处理，确保中间结果分发到指定的Reduce任务处理，此时如果用户指定了Combiner，将执行combine操作。</p>
 </li>
-<li>最后map函数将中间结果保存到本地。</li>
+<li>
+<p>最后map函数将中间结果保存到本地。</p>
+</li>
 </ol>
-<p>Reduce 任务的执行过程可概括为： </p>
+<p>Reduce 任务的执行过程可概括为：</p>
 <p>首先需要将已经完成的Map任务的中问结果复制到Reduce任务所在的节点，待数据复制完成后，再以key进行排序，通过排序，将所有key相同的数据交给reduce函数处理，处理完成后，结果直接输出到HDFS上。</p>
-<h5 id="7-2-input过程"><a href="#7-2-input过程" class="headerlink" title="7.2 input过程"></a>7.2 input过程</h5><p>如果使用HDFS上的文件作为MapReduce的输入（由于用户的数据大部分数据是以文件的<br>形式存储在HDFS上，所以这是最常见的情况）MapReduce计算框架首先会用<br>org.apache.hadoop.mapreduce.InputFormat类的子类FilelnputFormat类将作为输入的HDFS 上的文件切分形成输入分片（InputSplit），每个InputSplit将作为一个Map任务的输入，再将InputSplit解析为键值对。InputSplit的大小和数量对于MapReduce作业的性能有非常大的影响，因此有必要深入了解InputSplit 。</p>
+<h5 id="72-input过程"><a class="markdownIt-Anchor" href="#72-input过程"></a> 7.2 input过程</h5>
+<p>如果使用HDFS上的文件作为MapReduce的输入（由于用户的数据大部分数据是以文件的<br>
+形式存储在HDFS上，所以这是最常见的情况）MapReduce计算框架首先会用<br>
+org.apache.hadoop.mapreduce.InputFormat类的子类FilelnputFormat类将作为输入的HDFS 上的文件切分形成输入分片（InputSplit），每个InputSplit将作为一个Map任务的输入，再将InputSplit解析为键值对。InputSplit的大小和数量对于MapReduce作业的性能有非常大的影响，因此有必要深入了解InputSplit 。</p>
 <p>在List<inputsplit> getSplits(JobContext job)方法中会对JobTracker进行拆分，确定需要多少个taskTracker。</inputsplit></p>
 <p><img src="https://i.imgur.com/EGuET71.jpg" alt=""></p>
 <p>该方法中调用了computeSplitSize(blockSize, minSize, maxSize)方法。用来计算拆分多少个taskTracker。我们看到三个参数：blockSize, minSize, maxSize，</p>
@@ -700,22 +827,30 @@ xiaoming is my friend
 <p>对于Map任务来说，处理的单位为一个InputSplit。而InputSplit是一个逻辑概念， InputSplit所包含的数据是仍然是存储在HDFS 的块里面，它们之间的关系如下图所示：</p>
 <p><img src="https://i.imgur.com/3h4xc0A.png" alt=""></p>
 <p>InputSplit 可以不和块对齐，根据前面的公式也可以看出，一个InputSplit的大小可以大于一个块的大小亦可以小于一个块的大小。Hadoop在进行任务调度的时候，会优先考虑本节点的数据，如果本节点没有可处理的数据或者是还需要其他节点的数据， Map 任务所在的节点会从其他节点将数据通过网络传输给自己。当InputSplit的容量大于块的容量，Map任务就必须从其他节点读取一部分数据，这样就不能实现完全数据本地性，所以当使用FileIputFormat实现InputFormat时，应尽量使InputSplit的大小和块的大小相同以提高Map任务计算的数据本地性。</p>
-<h5 id="7-3-Map及中间结果的输出"><a href="#7-3-Map及中间结果的输出" class="headerlink" title="7.3 Map及中间结果的输出"></a>7.3 Map及中间结果的输出</h5><p>InputSplit将解析好的键值对交给用户编写的map函数处理，处理后的中间结果会写到本地磁盘上，在刷写磁盘的过程中，还做了partition（分区）和sort（排序）的操作。map 函数产生输出时，并不是简单地刷写磁盘。为了保证I/0 效率，采取了先写到内存的环形缓冲区，并作一次预排序。</p>
+<h5 id="73-map及中间结果的输出"><a class="markdownIt-Anchor" href="#73-map及中间结果的输出"></a> 7.3 Map及中间结果的输出</h5>
+<p>InputSplit将解析好的键值对交给用户编写的map函数处理，处理后的中间结果会写到本地磁盘上，在刷写磁盘的过程中，还做了partition（分区）和sort（排序）的操作。map 函数产生输出时，并不是简单地刷写磁盘。为了保证I/0 效率，采取了先写到内存的环形缓冲区，并作一次预排序。</p>
 <p><img src="https://i.imgur.com/Z2EubV9.png" alt=""></p>
-<p>每个Map任务都有一个环形内存缓冲区，用于存储map函数的输出。默认情况下，缓冲<br>区的大小是100 MB ，该值可以通过mapred-site.xml文件的io.sort.mb的配置项配置。一旦缓冲区内容达到阀值（由mapred-site.xml文件的io.sort.spill.percent 的值决定，默认为0.80或80%），一个后台线程便会将缓冲区的内容溢写（spill）到磁盘中。在写磁盘的过程中，map函数的输出继续被写到缓冲区，但如果在此期间缓冲区被填满,map会阻塞直到写磁盘过程完成。写磁盘会以轮询的方式写到mapred.local.dir(mapred-site.xml文件的配置项）配置的作业特定目录下。</p>
+<p>每个Map任务都有一个环形内存缓冲区，用于存储map函数的输出。默认情况下，缓冲<br>
+区的大小是100 MB ，该值可以通过mapred-site.xml文件的io.sort.mb的配置项配置。一旦缓冲区内容达到阀值（由mapred-site.xml文件的io.sort.spill.percent 的值决定，默认为0.80或80%），一个后台线程便会将缓冲区的内容溢写（spill）到磁盘中。在写磁盘的过程中，map函数的输出继续被写到缓冲区，但如果在此期间缓冲区被填满,map会阻塞直到写磁盘过程完成。写磁盘会以轮询的方式写到mapred.local.dir(mapred-site.xml文件的配置项）配置的作业特定目录下。</p>
 <p>在写磁盘之前，线程会根据数据最终要传送到的Reducer把缓冲区的数据划分成（默认是按照键）相应的分区。在每个分区中，后台线程技键进行内排序，此时如果有一个Combiner,它会在排序后的输出上运行。</p>
 <p>如果己经指定Combiner且溢出写次数至少为3时，Combiner就会在输出文件写到磁盘之前运行。如前文所述，Combiner可以多次运行，并不影响输出结果。运行Combiner 的意义在于使map 输出的中间结果更紧凑，使得写到本地磁盘和传给Reducer的数据更少。</p>
 <p>为了提高磁盘I/O 性能，可以考虑压缩map的输出，这样会让写磁盘的速度更快，节约磁盘空间，从而使传送给Reducer的数据量减少。默认情况下，map的输出是不压缩的，但只要将mapred-site.xml文件的配置项mapred.compress.map.output设为true 即可开启压缩功能。使用的压缩库由mapred-site.xml文件的配置项mapred.map.output.compression.codec指定。</p>
-<p>map输出的中间结果存储的格式为IFile,IFile是一种支持行压缩的存储格式。Reducer通过HTTP方式得到输出文件的分区。将map输出的中间结果（map 输出）发送<br>到Reducer的工作线程的数量由mapred-site.xml文件的tasktracker.http.threads 配置项决定，此配置针对每个节点，即每个TaskTracker,而不是每个Map任务，默认是40，可以根据作业大小，集群规模以及节点的计算能力而增大。</p>
-<h5 id="7-4-shuffle"><a href="#7-4-shuffle" class="headerlink" title="7.4 shuffle"></a>7.4 shuffle</h5><p>shuffle,也叫数据混洗。在某些语境中，代表map函数产生输出到reduce的消化输入的整个过程，上面我们也有一个流程图中看到shuffle是在combine和reduce之间的过程，前面map已经处理完了数据那为什么还要shuffle呢，这就是shuffle的功能：完成数据和合并和排序。</p>
+<p>map输出的中间结果存储的格式为IFile,IFile是一种支持行压缩的存储格式。Reducer通过HTTP方式得到输出文件的分区。将map输出的中间结果（map 输出）发送<br>
+到Reducer的工作线程的数量由mapred-site.xml文件的tasktracker.http.threads 配置项决定，此配置针对每个节点，即每个TaskTracker,而不是每个Map任务，默认是40，可以根据作业大小，集群规模以及节点的计算能力而增大。</p>
+<h5 id="74-shuffle"><a class="markdownIt-Anchor" href="#74-shuffle"></a> 7.4 shuffle</h5>
+<p>shuffle,也叫数据混洗。在某些语境中，代表map函数产生输出到reduce的消化输入的整个过程，上面我们也有一个流程图中看到shuffle是在combine和reduce之间的过程，前面map已经处理完了数据那为什么还要shuffle呢，这就是shuffle的功能：完成数据和合并和排序。</p>
 <p>前面我们说了，Map任务输出的结果位于运行Map任务的TaskTracker所在的节点的本地磁盘上。TaskTracker需要为这些分区文件（map输出）运行Reduce任务。但是 Reduce任务可能需要多个Map 任务的输出作为其特殊的分区文件。每个Map 任务的完成时间可能不同，当只要有一个任务完成，Reduce 任务就开始复制其输出。这就是shuffle中的copy阶段。Reduce任务有少量复制线程，可以井行取得Map 任务的输出，默认值是5个线程，该值可以通过设置mapred-site.xml的mapred.reduce.parallel.copies配置项来改变。</p>
-<p>如果map输出相当小，则会被复制到Reducer所在的TaskTracker的内存的缓冲区中，缓冲区的大小由mapred-site.xml文件中的mapred.job.shuffie.input.buffer.percent配置项指定。否则，<br>map输出将会被复制到磁盘。一旦内存缓冲区达到阀值大小（由mapred-site.xml 文件的<br>mapred.job.shuffle.merge.percent 配置项决定）或缓冲区的文件数达到阀值大小（由<br>mapred-site.xml文件的mapred.inmem.merge.threshold配置项决定）,则合并后溢写到磁盘中。</p>
+<p>如果map输出相当小，则会被复制到Reducer所在的TaskTracker的内存的缓冲区中，缓冲区的大小由mapred-site.xml文件中的mapred.job.shuffie.input.buffer.percent配置项指定。否则，<br>
+map输出将会被复制到磁盘。一旦内存缓冲区达到阀值大小（由mapred-site.xml 文件的<br>
+mapred.job.shuffle.merge.percent 配置项决定）或缓冲区的文件数达到阀值大小（由<br>
+mapred-site.xml文件的mapred.inmem.merge.threshold配置项决定）,则合并后溢写到磁盘中。</p>
 <p>随着溢写到磁盘的文件增多，后台线程会将它们合并为更大的、有序的文件，这会为后面的合并节省时间为了合并,压缩的中间结果都将在内存中解压缩。</p>
 <p>复制完所有的map输出，shuffle进入sort阶段。这个阶段将合并map的输出文件，并维持其顺序排序，其实做的是归并排序。排序的过程是循环进行，如果有50个map的输出文件，而合并因子（由mapred-site.xml文件的io.sort.factor配置项决定，默认为10）为10,合并操作将进行5次，每次将10个文件合,并成一个文件,最后会有5个文件，这5个文件由于不满足合并条件（文件数小于合并因子），则不会进行合井，将会直接把这5 个文件交给reduce函数处理。至此，shuffle 阶段完成。</p>
 <p><img src="https://i.imgur.com/7HVBNsi.png" alt=""></p>
 <p>从shuffle的过程可以看出,Map任务处理的是一个InputSplit,而Reduce任务处理的是所有Map任务同一个分区的中间结果。</p>
 <p>reduce阶段操作的实质就是对经过shuffle处理后的文件调用reduce函数处理。由于经过了shuffle的处理，文件都是按键分区且有序，对相同分区的文件调用一次reduce函数处理。与map的中间结果不同的是,reduce的输出一般为HDFS。</p>
-<h5 id="7-5-sort"><a href="#7-5-sort" class="headerlink" title="7.5 sort"></a>7.5 sort</h5><p>上面我们讲到shuffle的过程在合并Map的时候顺带做了排序。其实排序贯穿Map和Reduce的所有任务，在MapReduce任务中一共发生了三次排序：</p>
+<h5 id="75-sort"><a class="markdownIt-Anchor" href="#75-sort"></a> 7.5 sort</h5>
+<p>上面我们讲到shuffle的过程在合并Map的时候顺带做了排序。其实排序贯穿Map和Reduce的所有任务，在MapReduce任务中一共发生了三次排序：</p>
 <ol>
 <li>当map函数产生输出时，会首先写入内存的环形缓冲区，当达到设定的阀值，在刷写磁盘之前，后台线程会将缓冲区的数据划分为相应的分区。在每个分区中，后台线程按照键的值进行内排序。</li>
 <li>在Map任务完成之前，磁盘上存在多个己经分好区并排好序的、大小和缓冲区一样的溢写文件，这时溢写文件将被合并成一个己分区且己排序的输出文件。由于溢写文件己经经过第一次排序，所以合并文件时只需再做一次排序就可使输出文件整体有序。</li>
@@ -726,6 +861,9 @@ xiaoming is my friend
 
       
     </div>
+
+    
+
     
     
     
@@ -743,8 +881,8 @@ xiaoming is my friend
   <p><span>文章作者:</span><a href="/" title="访问 Rickiyang 的个人博客">Rickiyang</a></p>
   <p><span>发布时间:</span>2018年06月22日 - 19:30</p>
   <p><span>最后更新:</span>2018年12月13日 - 10:14</p>
-  <p><span>原始链接:</span><a href="/posts/b8ffaf86.html" title="hadoop学习(七)----mapReduce原理以及操作过程">https://blog.rickiyang.cn/posts/b8ffaf86.html</a>
-    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.rickiyang.cn/posts/b8ffaf86.html" aria-label="复制成功！"></i></span>
+  <p><span>原始链接:</span><a href="/posts/b8ffaf86.html" title="hadoop学习(七)----mapReduce原理以及操作过程">http://blog.rickiyang.cn/posts/b8ffaf86.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://blog.rickiyang.cn/posts/b8ffaf86.html" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
 </div>
@@ -765,9 +903,7 @@ xiaoming is my friend
 
       
     </div>
-
     
-
     <div>
       
         <div>
@@ -779,6 +915,10 @@ xiaoming is my friend
       
     </div>
 
+
+    
+      
+    
     
 
     
@@ -787,7 +927,7 @@ xiaoming is my friend
       
         <div class="post-tags">
           
-            <a href="/tags/hadoop学习/" rel="tag"> <i class="”fa" fa-tag”=""></i> hadoop学习</a>
+            <a href="/tags/hadoop学习/" rel="tag"># hadoop学习</a>
           
         </div>
       
@@ -828,44 +968,15 @@ xiaoming is my friend
   </article>
 
 
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript">
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
   </div>
 
 
           </div>
           
 
-
-          
+  
+    <div class="comments" id="comments">
+    </div>
 
   
 
@@ -892,60 +1003,124 @@ var jiathis_config={
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
+            Table of Contents
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
+            Overview
           </li>
         </ul>
       
 
-      <section class="site-overview-wrap sidebar-panel">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image" src="/images/adele.png" alt="Rickiyang">
             
               <p class="site-author-name" itemprop="name">Rickiyang</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-description motion-element" itemprop="description">分享对coding生活的见解</p>
           </div>
 
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
+          
+            <nav class="site-state motion-element">
               
-                <a href="/archives">
-              
-                  <span class="site-state-item-count">99</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">19</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
+                <div class="site-state-item site-state-posts">
                 
-                  <span class="site-state-item-count">11</span>
-                  <span class="site-state-item-name">标签</span>
+                  <a href="/archives">
                 
-              </div>
-            
+                    <span class="site-state-item-count">99</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
 
-          </nav>
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
 
           
             <div class="feed-link motion-element">
@@ -958,63 +1133,93 @@ var jiathis_config={
 
           
             <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/rickiyang" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:medee1320@gmail.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://blog.csdn.net/a953713428" target="_blank" title="CSDN">
-                      
-                        <i class="fa fa-fw fa-google"></i>CSDN</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="953713428" target="_blank" title="QQ">
-                      
-                        <i class="fa fa-fw fa-twitter"></i>QQ</a>
-                  </span>
-                
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3JpY2tpeWFuZw==" title="GitHub &rarr; https://github.com/rickiyang"><i class="fa fa-fw fa-github"></i>GitHub</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="bWFpbHRvOm1lZGVlMTMyMEBnbWFpbC5jb20=" title="E-Mail &rarr; mailto:medee1320@gmail.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2E5NTM3MTM0Mjg=" title="CSDN &rarr; https://blog.csdn.net/a953713428"><i class="fa fa-fw fa-google"></i>CSDN</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="/953713428" title="QQ &rarr; 953713428"><i class="fa fa-fw fa-twitter"></i>QQ</a>
+                </span>
+              
             </div>
           
 
           
-          
 
           
           
 
+          
+            
+          
           
 
         </div>
-      </section>
+      </div>
 
       
       <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
           <div class="post-toc">
 
             
-              
+            
+            
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-MapReduce的编程思想"><span class="nav-number">1.</span> <span class="nav-text">1 MapReduce的编程思想</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-MapReduce的运行环境"><span class="nav-number">2.</span> <span class="nav-text">2 MapReduce的运行环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-JobTracker"><span class="nav-number">3.</span> <span class="nav-text">2.1 JobTracker</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-TaskTracker"><span class="nav-number">3.1.</span> <span class="nav-text">2.2 TaskTracker</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-客户端"><span class="nav-number">3.2.</span> <span class="nav-text">2.3 客户端</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-MapReduce-作业和任务"><span class="nav-number">4.</span> <span class="nav-text">3 MapReduce 作业和任务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-MapReduce-的计算资源划分"><span class="nav-number">5.</span> <span class="nav-text">4 MapReduce 的计算资源划分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-MapReduce-的局限性"><span class="nav-number">6.</span> <span class="nav-text">5 MapReduce 的局限性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-来一个Hello-world"><span class="nav-number">7.</span> <span class="nav-text">6 来一个Hello world</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-MapReduce的运行过程深入了解"><span class="nav-number">8.</span> <span class="nav-text">7 MapReduce的运行过程深入了解</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#7-1-从输入到输出的状态"><span class="nav-number">8.1.</span> <span class="nav-text">7.1 从输入到输出的状态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-2-input过程"><span class="nav-number">8.2.</span> <span class="nav-text">7.2 input过程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-3-Map及中间结果的输出"><span class="nav-number">8.3.</span> <span class="nav-text">7.3 Map及中间结果的输出</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-4-shuffle"><span class="nav-number">8.4.</span> <span class="nav-text">7.4 shuffle</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-5-sort"><span class="nav-number">8.5.</span> <span class="nav-text">7.5 sort</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-mapreduce的编程思想"><span class="nav-number">1.</span> <span class="nav-text"> 1 MapReduce的编程思想</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-mapreduce的运行环境"><span class="nav-number">2.</span> <span class="nav-text"> 2 MapReduce的运行环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#21-jobtracker"><span class="nav-number">3.</span> <span class="nav-text"> 2.1 JobTracker</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#22-tasktracker"><span class="nav-number">3.1.</span> <span class="nav-text"> 2.2 TaskTracker</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#23-客户端"><span class="nav-number">3.2.</span> <span class="nav-text"> 2.3 客户端</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-mapreduce-作业和任务"><span class="nav-number">4.</span> <span class="nav-text"> 3 MapReduce 作业和任务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-mapreduce-的计算资源划分"><span class="nav-number">5.</span> <span class="nav-text"> 4 MapReduce 的计算资源划分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-mapreduce-的局限性"><span class="nav-number">6.</span> <span class="nav-text"> 5 MapReduce 的局限性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-来一个hello-world"><span class="nav-number">7.</span> <span class="nav-text"> 6 来一个Hello world</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-mapreduce的运行过程深入了解"><span class="nav-number">8.</span> <span class="nav-text"> 7 MapReduce的运行过程深入了解</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#71-从输入到输出的状态"><span class="nav-number">8.1.</span> <span class="nav-text"> 7.1 从输入到输出的状态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#72-input过程"><span class="nav-number">8.2.</span> <span class="nav-text"> 7.2 input过程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#73-map及中间结果的输出"><span class="nav-number">8.3.</span> <span class="nav-text"> 7.3 Map及中间结果的输出</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#74-shuffle"><span class="nav-number">8.4.</span> <span class="nav-text"> 7.4 shuffle</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#75-sort"><span class="nav-number">8.5.</span> <span class="nav-text"> 7.5 sort</span></a></li></ol></li></ol></div>
             
 
           </div>
-        </section>
+        </div>
       <!--/noindex-->
       
 
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
       
 
     </div>
@@ -1027,39 +1232,50 @@ var jiathis_config={
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2019</span>
-  <span class="with-love">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Rickiyang</span>
 
   
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="Symbols count total">752k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="Reading time total">11:24</span>
+  
 </div>
 
-<div class="powered-by">
+<!--<div class="powered-by">
 <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
   本站访客数:<span id="busuanzi_value_site_uv"></span>
 </span>
-</div>
-
-<!--
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
--->
-
-
-  <span class="post-meta-divider">|</span>
+</div>-->
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+  <div class="theme-info">Theme – <span class="exturl theme-link" data-url="aHR0cHM6Ly90aGVtZS1uZXh0Lm9yZw==">NexT.Gemini</span> v6.7.0</div>
 
 
 
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共231.6k字</span>
+  <span class="post-count">博客全站共231.9k字</span>
 </div>
 
 <script>
@@ -1079,24 +1295,23 @@ var jiathis_config={
 
         
 <div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
   
-    <span class="site-uv">
+    <span class="site-uv" title="Total Visitors">
       <i class="fa fa-user"></i>
       <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-      人次
     </span>
   
 
   
-    <span class="site-pv">
+    <span class="site-pv" title="Total Views">
       <i class="fa fa-eye"></i>
       <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-      次
     </span>
   
 </div>
+
 
 
 
@@ -1110,21 +1325,17 @@ var jiathis_config={
     </footer>
 
     
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-          <span id="scrollpercent"><span>0</span>%</span>
-        
-      </div>
+
     
 
     
 
+    
   </div>
 
   
 
-<script type="text/javascript">
+<script>
   if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
     window.Promise = null;
   }
@@ -1138,117 +1349,6 @@ var jiathis_config={
 
 
 
-  
-
-
-
-
-
-
-  
-  
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/three.min.js"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
 
 
 
@@ -1261,8 +1361,111 @@ var jiathis_config={
 
 
   
+  
 
-  <script type="text/javascript">
+
+
+  
+  
+  <script id="ribbon" size="300" alpha="0.6" zindex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/three/three.min.js"></script>
+
+  
+  <script src="/lib/three/canvas_sphere.min.js"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script>
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+      el: '#comments' ,
+      verify: false,
+      notify: false,
+      appId: 'X5fy0b9Gknu0SAse5areilGR-gzGzoHsz',
+      appKey: 'URk4cyPQ8Ttqtwhop5t26kok',
+      placeholder: 'Just go go',
+      avatar: 'mm',
+      meta:guest,
+      pageSize: '10' || 10,
+      visitor: false
+    });
+  </script>
+
+
+
+
+  
+
+  <script>
     // Popup Window;
     var isfetched = false;
     var isXml = true;
@@ -1311,6 +1514,8 @@ var jiathis_config={
         .css('overflow', 'hidden');
       $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
 
+      
+
       $.ajax({
         url: path,
         dataType: isXml ? "xml" : "json",
@@ -1344,8 +1549,9 @@ var jiathis_config={
                 var title = data.title.trim();
                 var titleInLowerCase = title.toLowerCase();
                 var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
                 var contentInLowerCase = content.toLowerCase();
-                var articleUrl = decodeURIComponent(data.url);
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
                 var indexOfTitle = [];
                 var indexOfContent = [];
                 // only match articles with not empty titles
@@ -1514,9 +1720,9 @@ var jiathis_config={
               })
             };
             if (keywords.length === 1 && keywords[0] === "") {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
             } else if (resultItems.length === 0) {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
             } else {
               resultItems.sort(function (resultLeft, resultRight) {
                 if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
@@ -1586,107 +1792,66 @@ var jiathis_config={
   
 
   
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("X5fy0b9Gknu0SAse5areilGR-gzGzoHsz", "URk4cyPQ8Ttqtwhop5t26kok");</script>
   <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
-            }
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
+    
     function addCount(Counter) {
       var $visitors = $(".leancloud_visitors");
       var url = $visitors.attr('id').trim();
       var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
 
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function ({ results }) {
           if (results.length > 0) {
             var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
+            
+            Counter('put', `/classes/Counter/${counter.objectId}`, JSON.stringify({ time: { "__op":"Increment", "amount":1 } }))
+            
+            .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.time + 1);
+            })
+            
+            .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+            })
           } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1}))
+                .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function () {
+                  console.log('Failed to create');
+                });
+            
           }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
+        })
+      .fail(function ({ responseJSON }) {
+        console.log('LeanCloud Counter Error:' + responseJSON.code + " " + responseJSON.error);
       });
     }
+    
 
     $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + "X5fy0b9Gknu0SAse5areilGR-gzGzoHsz")
+        .done(function ({ api_server }) {
+          var Counter = function (method, url, data) {
+            return $.ajax({
+              method: method,
+              url: `https://${api_server}/1.1${url}`,
+              headers: {
+                'X-LC-Id': "X5fy0b9Gknu0SAse5areilGR-gzGzoHsz",
+                'X-LC-Key': "URk4cyPQ8Ttqtwhop5t26kok",
+                'Content-Type': 'application/json',
+              },
+              data: data,
+            });
+          };
+          
+          addCount(Counter);
+          
+        })
     });
   </script>
 
@@ -1695,9 +1860,45 @@ var jiathis_config={
   
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+      }
+      else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
 
   
   
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+  <script>
+    
+    
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+  <script src="/js/src/exturl.js?v=6.7.0"></script>
+
 
   
 
@@ -1707,7 +1908,7 @@ var jiathis_config={
 
 
   <!-- 页面点击小红心 -->
-  <script type="text/javascript" src="/js/src/love.js"></script>
-  <!---->
+    <script type="text/javascript" src="/js/src/love.js"></script>
+    <!---->
 </body>
 </html>

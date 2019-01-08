@@ -2,6 +2,15 @@
 
 
 
+
+
+
+
+
+
+
+
+
   
 
 
@@ -9,38 +18,38 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
 
 
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-center-circle.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -64,12 +73,6 @@
   
 
   
-    
-      
-    
-
-    
-  
 
   
     
@@ -90,7 +93,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|FZSongKeBenXiuKai:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
   
 
 
@@ -98,70 +101,40 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
 
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/adele.ico?v=5.1.4">
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/adele.ico?v=5.1.4">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/adele.ico?v=6.7.0">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/adele.ico?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/adele.ico?v=6.7.0">
 
 
-  <link rel="mask-icon" href="/images/adele.ico?v=5.1.4" color="#222">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/adele.ico?v=6.7.0">
 
 
-
-
-
-  <meta name="keywords" content="spark学习,">
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="Rickiyang's blog" type="application/atom+xml">
+  <link rel="mask-icon" href="/images/adele.ico?v=6.7.0" color="#222">
 
 
 
 
 
 
-<meta name="description" content="1.数据倾斜是怎么出现的在执行shuffle操作的时候，是按照key，来进行values的数据的输出、拉取和聚合的。同一个key的values，一定是分配到一个reduce task进行处理的。多个key对应的values，比如一共是100万。可能某个key对应了98万数据，被分配到一个task上去面去执行，另外两个task，可能各分配到了1万数据，可能是数百个key，对应的1万条数据，这样就会出">
-<meta name="keywords" content="spark学习">
-<meta property="og:type" content="article">
-<meta property="og:title" content="数据倾斜的解决方案">
-<meta property="og:url" content="https://blog.rickiyang.cn/posts/d4452255.html">
-<meta property="og:site_name" content="Rickiyang&#39;s blog">
-<meta property="og:description" content="1.数据倾斜是怎么出现的在执行shuffle操作的时候，是按照key，来进行values的数据的输出、拉取和聚合的。同一个key的values，一定是分配到一个reduce task进行处理的。多个key对应的values，比如一共是100万。可能某个key对应了98万数据，被分配到一个task上去面去执行，另外两个task，可能各分配到了1万数据，可能是数百个key，对应的1万条数据，这样就会出">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://i.imgur.com/r1UN2Vw.jpg">
-<meta property="og:updated_time" content="2018-12-13T02:14:20.614Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数据倾斜的解决方案">
-<meta name="twitter:description" content="1.数据倾斜是怎么出现的在执行shuffle操作的时候，是按照key，来进行values的数据的输出、拉取和聚合的。同一个key的values，一定是分配到一个reduce task进行处理的。多个key对应的values，比如一共是100万。可能某个key对应了98万数据，被分配到一个task上去面去执行，另外两个task，可能各分配到了1万数据，可能是数百个key，对应的1万条数据，这样就会出">
-<meta name="twitter:image" content="https://i.imgur.com/r1UN2Vw.jpg">
 
-
-
-<script type="text/javascript" id="hexo.configurations">
+<script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
     scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
-    fancybox: true,
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
     algolia: {
       applicationID: '',
       apiKey: '',
@@ -173,12 +146,42 @@
 </script>
 
 
-
-  <link rel="canonical" href="https://blog.rickiyang.cn/posts/d4452255.html">
-
+  
 
 
 
+
+  <meta name="description" content="1.数据倾斜是怎么出现的 在执行shuffle操作的时候，是按照key，来进行values的数据的输出、拉取和聚合的。同一个key的values，一定是分配到一个reduce task进行处理的。多个key对应的values，比如一共是100万。可能某个key对应了98万数据，被分配到一个task上去面去执行，另外两个task，可能各分配到了1万数据，可能是数百个key，对应的1万条数据，这样就">
+<meta name="keywords" content="spark学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据倾斜的解决方案">
+<meta property="og:url" content="http://blog.rickiyang.cn/posts/d4452255.html">
+<meta property="og:site_name" content="Rickiyang&#39;s blog">
+<meta property="og:description" content="1.数据倾斜是怎么出现的 在执行shuffle操作的时候，是按照key，来进行values的数据的输出、拉取和聚合的。同一个key的values，一定是分配到一个reduce task进行处理的。多个key对应的values，比如一共是100万。可能某个key对应了98万数据，被分配到一个task上去面去执行，另外两个task，可能各分配到了1万数据，可能是数百个key，对应的1万条数据，这样就">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.imgur.com/r1UN2Vw.jpg">
+<meta property="og:updated_time" content="2018-12-13T02:14:20.614Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据倾斜的解决方案">
+<meta name="twitter:description" content="1.数据倾斜是怎么出现的 在执行shuffle操作的时候，是按照key，来进行values的数据的输出、拉取和聚合的。同一个key的values，一定是分配到一个reduce task进行处理的。多个key对应的values，比如一共是100万。可能某个key对应了98万数据，被分配到一个task上去面去执行，另外两个task，可能各分配到了1万数据，可能是数百个key，对应的1万条数据，这样就">
+<meta name="twitter:image" content="https://i.imgur.com/r1UN2Vw.jpg">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Rickiyang's blog" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://blog.rickiyang.cn/posts/d4452255.html">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
 
   <title>数据倾斜的解决方案 | Rickiyang's blog</title>
   
@@ -189,6 +192,35 @@
 
 
 
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
 </head>
 
@@ -204,7 +236,7 @@
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
+  <div class="site-meta">
     
 
     <div class="custom-logo-site-title">
@@ -214,13 +246,16 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
+    
       
-        <h1 class="site-subtitle" itemprop="description"></h1>
+        <h1 class="site-subtitle" itemprop="description">java,大数据,分布式组件</h1>
       
+    
+    
   </div>
 
   <div class="site-nav-toggle">
-    <button>
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -228,66 +263,94 @@
   </div>
 </div>
 
-<nav class="site-nav">
-  
 
+
+<nav class="site-nav">
   
     <ul id="menu" class="menu">
       
         
-        <li class="menu-item menu-item-首页">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            首页
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-标签">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
-            
-            标签
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-分类">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
-            
-            分类
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-归档">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            归档
-          </a>
-        </li>
-      
+          
+          <li class="menu-item menu-item-首页">
 
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
       
         <li class="menu-item menu-item-search">
           
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
-            
-            搜索
-          </a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
         </li>
       
     </ul>
+  
+
   
 
   
@@ -302,7 +365,7 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -316,12 +379,23 @@
 
 
 
- </div>
+  
+
+
+
+</div>
     </header>
+
+    
+
 
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+          
+            
+
+          
           <div id="content" class="content">
             
 
@@ -334,16 +408,18 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/d4452255.html">
+    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/d4452255.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="分享对coding生活的见解">
       <meta itemprop="image" content="/images/adele.png">
     </span>
 
@@ -356,11 +432,20 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">数据倾斜的解决方案</h2>
+          <h2 class="post-title" itemprop="name headline">数据倾斜的解决方案
+
+              
+            
+          </h2>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -368,13 +453,30 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-22T22:41:13+08:00">
-                2018-09-22
-              </time>
+
+              
+                
+              
+
+              <time title="创建于: 2018-09-22 22:41:13" itemprop="dateCreated datePublished" datetime="2018-09-22T22:41:13+08:00">2018-09-22</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">编辑于</span>
+                
+                <time title="Modified: 2018-12-13 10:14:20" itemprop="dateModified" datetime="2018-12-13T10:14:20+08:00">2018-12-13</time>
+              
             
           </span>
 
@@ -390,22 +492,14 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/大数据学习/" itemprop="url" rel="index">
-                    <span itemprop="name">大数据学习</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/大数据学习/" itemprop="url" rel="index"><span itemprop="name">大数据学习</span></a></span>
 
                 
                 
-                  ， 
+                  , 
                 
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/大数据学习/spark/" itemprop="url" rel="index">
-                    <span itemprop="name">spark</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/大数据学习/spark/" itemprop="url" rel="index"><span itemprop="name">spark</span></a></span>
 
                 
                 
@@ -414,6 +508,16 @@
           
 
           
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/posts/d4452255.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/d4452255.html" itemprop="commentCount"></span>
+                </a>
+              </span>
             
           
 
@@ -425,7 +529,7 @@
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">热度&#58;</span>
+                 <span class="post-meta-item-text">热度: </span>
                
                  <span class="leancloud-visitors-count"></span>
                  <span>℃</span>
@@ -433,27 +537,19 @@
           
 
           
-            <span class="post-meta-divider">|</span>
-            <span class="page-pv"><i class="fa fa-file-o"></i>
-            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
-            </span>
-          
 
           
-            <div class="post-wordcount">
+            <div class="post-symbolscount">
               
-                
-                  <span class="post-meta-divider">|</span>
-                
+
+              
                 <span class="post-meta-item-icon">
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">字数统计&#58;</span>
+                  <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="字数统计">
-                  7.7k
-                </span>
+                <span title="Symbols count in article">18k</span>
               
 
               
@@ -465,11 +561,9 @@
                   <i class="fa fa-clock-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="阅读时长">
-                  30
-                </span>
+                <span title="Reading time">17 mins.</span>
               
             </div>
           
@@ -489,16 +583,21 @@
       
 
       
-        <h4 id="1-数据倾斜是怎么出现的"><a href="#1-数据倾斜是怎么出现的" class="headerlink" title="1.数据倾斜是怎么出现的"></a>1.数据倾斜是怎么出现的</h4><p>在执行shuffle操作的时候，是按照key，来进行values的数据的输出、拉取和聚合的。同一个key的values，一定是分配到一个reduce task进行处理的。多个key对应的values，比如一共是100万。可能某个key对应了98万数据，被分配到一个task上去面去执行，另外两个task，可能各分配到了1万数据，可能是数百个key，对应的1万条数据，这样就会出现数据倾斜问题。</p>
-<p>这两个task，各分配到了1万数据，可能同时在10分钟内都运行完了。另外一个task有98万条，98 * 10 =  980分钟 = 16.3个小时。</p>
+        <h4 id="1数据倾斜是怎么出现的"><a class="markdownIt-Anchor" href="#1数据倾斜是怎么出现的"></a> 1.数据倾斜是怎么出现的</h4>
+<p>在执行shuffle操作的时候，是按照key，来进行values的数据的输出、拉取和聚合的。同一个key的values，一定是分配到一个reduce task进行处理的。多个key对应的values，比如一共是100万。可能某个key对应了98万数据，被分配到一个task上去面去执行，另外两个task，可能各分配到了1万数据，可能是数百个key，对应的1万条数据，这样就会出现数据倾斜问题。</p>
+<p>这两个task，各分配到了1万数据，可能同时在10分钟内都运行完了。另外一个task有98万条，98 * 10 =  980分钟 = 16.3个小时。</p>
 <p>大家看，本来另外两个task很快就运行完毕了（10分钟），但是由于一个拖后腿的家伙，第三个task，要16.3个小时才能运行完，就导致整个spark作业，也得16.3个小时才能运行完。所以一旦出现数据倾斜后果是很可怕的。解决数据倾斜问题类似与性能调优哈。</p>
-<h4 id="2-数据倾斜发生的表象"><a href="#2-数据倾斜发生的表象" class="headerlink" title="2.数据倾斜发生的表象"></a>2.数据倾斜发生的表象</h4><ul>
-<li><p>绝大多数task执行得都非常快，但个别task执行极慢(你要用client模式，standalone client，yarn client，本地机器一执行spark-submit脚本，就会开始打印log）。比如，总共有1000个task，997个task都在1分钟之内执行完了，但是剩余两三个task却要一两个小时。这种情况很常见。</p>
+<h4 id="2数据倾斜发生的表象"><a class="markdownIt-Anchor" href="#2数据倾斜发生的表象"></a> 2.数据倾斜发生的表象</h4>
+<ul>
+<li>
+<p>绝大多数task执行得都非常快，但个别task执行极慢(你要用client模式，standalone client，yarn client，本地机器一执行spark-submit脚本，就会开始打印log）。比如，总共有1000个task，997个task都在1分钟之内执行完了，但是剩余两三个task却要一两个小时。这种情况很常见。</p>
 </li>
-<li><p>原本能够正常执行的Spark作业，某天突然报出OOM（内存溢出）异常，观察异常栈，是我们写的业务代码造成的。这种情况比较少见。</p>
+<li>
+<p>原本能够正常执行的Spark作业，某天突然报出OOM（内存溢出）异常，观察异常栈，是我们写的业务代码造成的。这种情况比较少见。</p>
 </li>
 </ul>
-<h4 id="3-定位数据倾斜出现的原因与出现问题的位置"><a href="#3-定位数据倾斜出现的原因与出现问题的位置" class="headerlink" title="3.定位数据倾斜出现的原因与出现问题的位置"></a>3.定位数据倾斜出现的原因与出现问题的位置</h4><p>出现数据倾斜的原因，基本只可能是因为发生了shuffle操作，在shuffle的过程中，出现了数据倾斜的问题。因为某个或者某些key对应的数据，远远的高于其他的key。</p>
+<h4 id="3定位数据倾斜出现的原因与出现问题的位置"><a class="markdownIt-Anchor" href="#3定位数据倾斜出现的原因与出现问题的位置"></a> 3.定位数据倾斜出现的原因与出现问题的位置</h4>
+<p>出现数据倾斜的原因，基本只可能是因为发生了shuffle操作，在shuffle的过程中，出现了数据倾斜的问题。因为某个或者某些key对应的数据，远远的高于其他的key。</p>
 <ol>
 <li>数据倾斜只会发生在shuffle过程中。这里给大家罗列一些常用的并且可能会触发shuffle操作的算子：distinct、groupByKey、reduceByKey、aggregateByKey、join、cogroup、repartition等。出现数据倾斜时，可能就是你的代码中使用了这些算子中的某一个所导致的；</li>
 <li>看log；</li>
@@ -513,7 +612,8 @@
 </ol>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> conf = <span class="keyword">new</span> <span class="type">SparkConf</span>()</span><br><span class="line"><span class="keyword">val</span> sc = <span class="keyword">new</span> <span class="type">SparkContext</span>(conf)</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> lines = sc.textFile(<span class="string">"hdfs://..."</span>)</span><br><span class="line"><span class="keyword">val</span> words = lines.flatMap(_.split(<span class="string">" "</span>))</span><br><span class="line"><span class="keyword">val</span> pairs = words.map((_, <span class="number">1</span>))</span><br><span class="line"><span class="keyword">val</span> wordCounts = pairs.reduceByKey(_ + _)</span><br><span class="line"></span><br><span class="line">wordCounts.collect().foreach(println(_))</span><br></pre></td></tr></table></figure>
 <p>通过对单词计数程序的分析，希望能够让大家了解最基本的stage划分的原理，以及stage划分后shuffle操作是如何在两个stage的边界处执行的。然后我们就知道如何快速定位出发生数据倾斜的stage对应代码的哪一个部分了。比如我们在Spark Web UI或者本地log中发现，stage1的某几个task执行得特别慢，判定stage1出现了数据倾斜，那么就可以回到代码中定位出stage1主要包括了reduceByKey这个shuffle类算子，此时基本就可以确定是由educeByKey算子导致的数据倾斜问题。比如某个单词出现了100万次，其他单词才出现10次，那么stage1的某个task就要处理100万数据，整个stage的速度就会被这个task拖慢。</p>
-<h4 id="4-查看导致数据倾斜的key的数据分布情况"><a href="#4-查看导致数据倾斜的key的数据分布情况" class="headerlink" title="4.查看导致数据倾斜的key的数据分布情况"></a>4.查看导致数据倾斜的key的数据分布情况</h4><p>知道了数据倾斜发生在哪里之后，通常需要分析一下那个执行了shuffle操作并且导致了数据倾斜的RDD/Hive表，查看一下其中key的分布情况。这主要是为之后选择哪一种技术方案提供依据。针对不同的key分布与不同的shuffle算子组合起来的各种情况，可能需要选择不同的技术方案来解决。</p>
+<h4 id="4查看导致数据倾斜的key的数据分布情况"><a class="markdownIt-Anchor" href="#4查看导致数据倾斜的key的数据分布情况"></a> 4.查看导致数据倾斜的key的数据分布情况</h4>
+<p>知道了数据倾斜发生在哪里之后，通常需要分析一下那个执行了shuffle操作并且导致了数据倾斜的RDD/Hive表，查看一下其中key的分布情况。这主要是为之后选择哪一种技术方案提供依据。针对不同的key分布与不同的shuffle算子组合起来的各种情况，可能需要选择不同的技术方案来解决。</p>
 <p>此时根据你执行操作的情况不同，可以有很多种查看key分布的方式：</p>
 <ol>
 <li>如果是Spark SQL中的group by、join语句导致的数据倾斜，那么就查询一下SQL中使用的表的key分布情况。</li>
@@ -521,38 +621,46 @@
 </ol>
 <p>举例来说，对于上面所说的单词计数程序，如果确定了是stage1的reduceByKey算子导致了数据倾斜，那么就应该看看进行reduceByKey操作的RDD中的key分布情况，在这个例子中指的就是pairs RDD。如下示例，我们可以先对pairs采样10%的样本数据，然后使用countByKey算子统计出每个key出现的次数，最后在客户端遍历和打印样本数据中各个key的出现次数。</p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> sampledPairs = pairs.sample(<span class="literal">false</span>, <span class="number">0.1</span>)</span><br><span class="line"><span class="keyword">val</span> sampledWordCounts = sampledPairs.countByKey()</span><br><span class="line">sampledWordCounts.foreach(println(_))</span><br></pre></td></tr></table></figure>
-<h4 id="5-数据倾斜的解决方案"><a href="#5-数据倾斜的解决方案" class="headerlink" title="5.数据倾斜的解决方案"></a>5.数据倾斜的解决方案</h4><h5 id="5-1-方案一：使用Hive-ETL预处理数据"><a href="#5-1-方案一：使用Hive-ETL预处理数据" class="headerlink" title="5.1 方案一：使用Hive ETL预处理数据"></a>5.1 方案一：使用Hive ETL预处理数据</h5><p>方案适用场景：导致数据倾斜的是Hive表。如果该Hive表中的数据本身很不均匀（比如某个key对应了100万数据，其他key才对应了10条数据），而且业务场景需要频繁使用Spark对Hive表执行某个分析操作，那么比较适合使用这种技术方案。</p>
+<h4 id="5数据倾斜的解决方案"><a class="markdownIt-Anchor" href="#5数据倾斜的解决方案"></a> 5.数据倾斜的解决方案</h4>
+<h5 id="51-方案一使用hive-etl预处理数据"><a class="markdownIt-Anchor" href="#51-方案一使用hive-etl预处理数据"></a> 5.1 方案一：使用Hive ETL预处理数据</h5>
+<p>方案适用场景：导致数据倾斜的是Hive表。如果该Hive表中的数据本身很不均匀（比如某个key对应了100万数据，其他key才对应了10条数据），而且业务场景需要频繁使用Spark对Hive表执行某个分析操作，那么比较适合使用这种技术方案。</p>
 <p>方案实现思路：此时可以评估一下，是否可以通过Hive来进行数据预处理（即通过Hive ETL预先对数据按照key进行聚合，或者是预先和其他表进行join），然后在Spark作业中针对的数据源就不是原来的Hive表了，而是预处理后的Hive表。此时由于数据已经预先进行过聚合或join操作了，那么在Spark作业中也就不需要使用原先的shuffle类算子执行这类操作了。</p>
 <p>方案实现原理：这种方案从根源上解决了数据倾斜，因为彻底避免了在Spark中执行shuffle类算子，那么肯定就不会有数据倾斜的问题了。但是这里也要提醒一下大家，这种方式属于治标不治本。因为毕竟数据本身就存在分布不均匀的问题，所以Hive ETL中进行group by或者join等shuffle操作时，还是会出现数据倾斜，导致Hive ETL的速度很慢。我们只是把数据倾斜的发生提前到了Hive ETL中，避免Spark程序发生数据倾斜而已。</p>
 <p>方案优点：实现起来简单便捷，效果还非常好，完全规避掉了数据倾斜，Spark作业的性能会大幅度提升。</p>
 <p>方案缺点：治标不治本，Hive ETL中还是会发生数据倾斜。</p>
 <p>方案实践经验：在一些Java系统与Spark结合使用的项目中，会出现Java代码频繁调用Spark作业的场景，而且对Spark作业的执行性能要求很高，就比较适合使用这种方案。将数据倾斜提前到上游的Hive ETL，每天仅执行一次，只有那一次是比较慢的，而之后每次Java调用Spark作业时，执行速度都会很快，能够提供更好的用户体验。</p>
-<h5 id="5-2-方案二：过滤少数导致倾斜的key"><a href="#5-2-方案二：过滤少数导致倾斜的key" class="headerlink" title="5.2 方案二：过滤少数导致倾斜的key"></a>5.2 方案二：过滤少数导致倾斜的key</h5><p>方案适用场景：如果发现导致倾斜的key就少数几个，而且对计算本身的影响并不大的话，那么很适合使用这种方案。比如99%的key就对应10条数据，但是只有一个key对应了100万数据，从而导致了数据倾斜。</p>
+<h5 id="52-方案二过滤少数导致倾斜的key"><a class="markdownIt-Anchor" href="#52-方案二过滤少数导致倾斜的key"></a> 5.2 方案二：过滤少数导致倾斜的key</h5>
+<p>方案适用场景：如果发现导致倾斜的key就少数几个，而且对计算本身的影响并不大的话，那么很适合使用这种方案。比如99%的key就对应10条数据，但是只有一个key对应了100万数据，从而导致了数据倾斜。</p>
 <p>方案实现思路：如果我们判断那少数几个数据量特别多的key，对作业的执行和计算结果不是特别重要的话，那么干脆就直接过滤掉那少数几个key。比如，在Spark SQL中可以使用where子句过滤掉这些key或者在Spark Core中对RDD执行filter算子过滤掉这些key。如果需要每次作业执行时，动态判定哪些key的数据量最多然后再进行过滤，那么可以使用sample算子对RDD进行采样，然后计算出每个key的数量，取数据量最多的key过滤掉即可。</p>
 <p>方案实现原理：将导致数据倾斜的key给过滤掉之后，这些key就不会参与计算了，自然不可能产生数据倾斜。</p>
 <p>方案优点：实现简单，而且效果也很好，可以完全规避掉数据倾斜。</p>
 <p>方案缺点：适用场景不多，大多数情况下，导致倾斜的key还是很多的，并不是只有少数几个。</p>
 <p>方案实践经验：在项目中我们也采用过这种方案解决数据倾斜。有一次发现某一天Spark作业在运行的时候突然OOM了，追查之后发现，是Hive表中的某一个key在那天数据异常，导致数据量暴增。因此就采取每次执行前先进行采样，计算出样本中数据量最大的几个key之后，直接在程序中将那些key给过滤掉。</p>
-<h5 id="5-3-方案三：提高shuffle操作的并行度"><a href="#5-3-方案三：提高shuffle操作的并行度" class="headerlink" title="5.3 方案三：提高shuffle操作的并行度"></a>5.3 方案三：提高shuffle操作的并行度</h5><p>方案适用场景：如果我们必须要对数据倾斜迎难而上，那么建议优先使用这种方案，因为这是处理数据倾斜最简单的一种方案。</p>
+<h5 id="53-方案三提高shuffle操作的并行度"><a class="markdownIt-Anchor" href="#53-方案三提高shuffle操作的并行度"></a> 5.3 方案三：提高shuffle操作的并行度</h5>
+<p>方案适用场景：如果我们必须要对数据倾斜迎难而上，那么建议优先使用这种方案，因为这是处理数据倾斜最简单的一种方案。</p>
 <p>方案实现思路：在对RDD执行shuffle算子时，给shuffle算子传入一个参数，比如reduceByKey(1000)，该参数就设置了这个shuffle算子执行时shuffle read task的数量。对于Spark SQL中的shuffle类语句，比如group by、join等，需要设置一个参数，即spark.sql.shuffle.partitions，该参数代表了shuffle read task的并行度，该值默认是200，对于很多场景来说都有点过小。</p>
 <p>方案实现原理：增加shuffle read task的数量，可以让原本分配给一个task的多个key分配给多个task，从而让每个task处理比原来更少的数据。举例来说，如果原本有5个key，每个key对应10条数据，这5个key都是分配给一个task的，那么这个task就要处理50条数据。而增加了shuffle read task以后，每个task就分配到一个key，即每个task就处理10条数据，那么自然每个task的执行时间都会变短了。</p>
 <p>方案优点：实现起来比较简单，可以有效缓解和减轻数据倾斜的影响。</p>
 <p>方案缺点：只是缓解了数据倾斜而已，没有彻底根除问题，根据实践经验来看，其效果有限。</p>
 <p>方案实践经验：该方案通常无法彻底解决数据倾斜，因为如果出现一些极端情况，比如某个key对应的数据量有100万，那么无论你的task数量增加到多少，这个对应着100万数据的key肯定还是会分配到一个task中去处理，因此注定还是会发生数据倾斜的。所以这种方案只能说是在发现数据倾斜时尝试使用的第一种手段，尝试去用最简单的方法缓解数据倾斜而已，或者是和其他方案结合起来使用。</p>
-<h5 id="5-4-方案四：两阶段聚合（局部聚合-全局聚合）"><a href="#5-4-方案四：两阶段聚合（局部聚合-全局聚合）" class="headerlink" title="5.4 方案四：两阶段聚合（局部聚合+全局聚合）"></a>5.4 方案四：两阶段聚合（局部聚合+全局聚合）</h5><p>方案适用场景：对RDD执行reduceByKey等聚合类shuffle算子或者在Spark SQL中使用group by语句进行分组聚合时，比较适用这种方案。</p>
+<h5 id="54-方案四两阶段聚合局部聚合全局聚合"><a class="markdownIt-Anchor" href="#54-方案四两阶段聚合局部聚合全局聚合"></a> 5.4 方案四：两阶段聚合（局部聚合+全局聚合）</h5>
+<p>方案适用场景：对RDD执行reduceByKey等聚合类shuffle算子或者在Spark SQL中使用group by语句进行分组聚合时，比较适用这种方案。</p>
 <p>方案实现思路：这个方案的核心实现思路就是进行两阶段聚合。第一次是局部聚合，先给每个key都打上一个随机数，比如10以内的随机数，此时原先一样的key就变成不一样的了，比如(hello, 1) (hello, 1) (hello, 1) (hello, 1)，就会变成(1_hello, 1) (1_hello, 1) (2_hello, 1) (2_hello, 1)。接着对打上随机数后的数据，执行reduceByKey等聚合操作，进行局部聚合，那么局部聚合结果，就会变成了(1_hello, 2) (2_hello, 2)。然后将各个key的前缀给去掉，就会变成(hello,2)(hello,2)，再次进行全局聚合操作，就可以得到最终结果了，比如(hello, 4)。</p>
 <p>方案实现原理：将原本相同的key通过附加随机前缀的方式，变成多个不同的key，就可以让原本被一个task处理的数据分散到多个task上去做局部聚合，进而解决单个task处理数据量过多的问题。接着去除掉随机前缀，再次进行全局聚合，就可以得到最终的结果。具体原理见下图。</p>
 <p>方案优点：对于聚合类的shuffle操作导致的数据倾斜，效果是非常不错的。通常都可以解决掉数据倾斜，或者至少是大幅度缓解数据倾斜，将Spark作业的性能提升数倍以上。</p>
 <p>方案缺点：仅仅适用于聚合类的shuffle操作，适用范围相对较窄。如果是join类的shuffle操作，还得用其他的解决方案。</p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 第一步，给RDD中的每个key都打上一个随机前缀。</span></span><br><span class="line"><span class="type">JavaPairRDD</span>&lt;<span class="type">String</span>, <span class="type">Long</span>&gt; randomPrefixRdd = rdd.mapToPair(</span><br><span class="line"><span class="keyword">new</span> <span class="type">PairFunction</span>&lt;<span class="type">Tuple2</span>&lt;<span class="type">Long</span>,<span class="type">Long</span>&gt;, <span class="type">String</span>, <span class="type">Long</span>&gt;() &#123;</span><br><span class="line">    <span class="keyword">private</span> static <span class="keyword">final</span> long serialVersionUID = <span class="number">1</span>L;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    public <span class="type">Tuple2</span>&lt;<span class="type">String</span>, <span class="type">Long</span>&gt; call(<span class="type">Tuple2</span>&lt;<span class="type">Long</span>, <span class="type">Long</span>&gt; tuple)</span><br><span class="line">            <span class="keyword">throws</span> <span class="type">Exception</span> &#123;</span><br><span class="line">        <span class="type">Random</span> random = <span class="keyword">new</span> <span class="type">Random</span>();</span><br><span class="line">        int prefix = random.nextInt(<span class="number">10</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="type">Tuple2</span>&lt;<span class="type">String</span>, <span class="type">Long</span>&gt;(prefix + <span class="string">"_"</span> + tuple._1, tuple._2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第二步，对打上随机前缀的key进行局部聚合。</span></span><br><span class="line"><span class="type">JavaPairRDD</span>&lt;<span class="type">String</span>, <span class="type">Long</span>&gt; localAggrRdd = randomPrefixRdd.reduceByKey(</span><br><span class="line"><span class="keyword">new</span> <span class="type">Function2</span>&lt;<span class="type">Long</span>, <span class="type">Long</span>, <span class="type">Long</span>&gt;() &#123;</span><br><span class="line">    <span class="keyword">private</span> static <span class="keyword">final</span> long serialVersionUID = <span class="number">1</span>L;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    public <span class="type">Long</span> call(<span class="type">Long</span> v1, <span class="type">Long</span> v2) <span class="keyword">throws</span> <span class="type">Exception</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> v1 + v2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第三步，去除RDD中每个key的随机前缀。</span></span><br><span class="line"><span class="type">JavaPairRDD</span>&lt;<span class="type">Long</span>, <span class="type">Long</span>&gt; removedRandomPrefixRdd = localAggrRdd.mapToPair(</span><br><span class="line"><span class="keyword">new</span> <span class="type">PairFunction</span>&lt;<span class="type">Tuple2</span>&lt;<span class="type">String</span>,<span class="type">Long</span>&gt;, <span class="type">Long</span>, <span class="type">Long</span>&gt;() &#123;</span><br><span class="line">    <span class="keyword">private</span> static <span class="keyword">final</span> long serialVersionUID = <span class="number">1</span>L;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    public <span class="type">Tuple2</span>&lt;<span class="type">Long</span>, <span class="type">Long</span>&gt; call(<span class="type">Tuple2</span>&lt;<span class="type">String</span>, <span class="type">Long</span>&gt; tuple)</span><br><span class="line">            <span class="keyword">throws</span> <span class="type">Exception</span> &#123;</span><br><span class="line">        long originalKey = <span class="type">Long</span>.valueOf(tuple._1.split(<span class="string">"_"</span>)[<span class="number">1</span>]);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="type">Tuple2</span>&lt;<span class="type">Long</span>, <span class="type">Long</span>&gt;(originalKey, tuple._2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第四步，对去除了随机前缀的RDD进行全局聚合。</span></span><br><span class="line"><span class="type">JavaPairRDD</span>&lt;<span class="type">Long</span>, <span class="type">Long</span>&gt; globalAggrRdd = removedRandomPrefixRdd.reduceByKey(</span><br><span class="line"><span class="keyword">new</span> <span class="type">Function2</span>&lt;<span class="type">Long</span>, <span class="type">Long</span>, <span class="type">Long</span>&gt;() &#123;</span><br><span class="line">    <span class="keyword">private</span> static <span class="keyword">final</span> long serialVersionUID = <span class="number">1</span>L;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    public <span class="type">Long</span> call(<span class="type">Long</span> v1, <span class="type">Long</span> v2) <span class="keyword">throws</span> <span class="type">Exception</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> v1 + v2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<h5 id="5-5-方案五：将reduce-join转为map-join"><a href="#5-5-方案五：将reduce-join转为map-join" class="headerlink" title="5.5 方案五：将reduce join转为map join"></a>5.5 方案五：将reduce join转为map join</h5><p>方案适用场景：<br>如果两个RDD要进行join，其中一个RDD是比较小的。比如一个RDD是100万数据，一个RDD是1万数据。（一个RDD是1亿数据，一个RDD是100万数据）。</p>
+<h5 id="55-方案五将reduce-join转为map-join"><a class="markdownIt-Anchor" href="#55-方案五将reduce-join转为map-join"></a> 5.5 方案五：将reduce join转为map join</h5>
+<p>方案适用场景：<br>
+如果两个RDD要进行join，其中一个RDD是比较小的。比如一个RDD是100万数据，一个RDD是1万数据。（一个RDD是1亿数据，一个RDD是100万数据）。</p>
 <p>其中一个RDD必须是比较小的，broadcast出去那个小RDD的数据以后，就会在每个executor的block manager中都保存一份。要确保你的内存足够存放那个小RDD中的数据。这种方式下，根本不会发生shuffle操作，肯定也不会发生数据倾斜。从根本上杜绝了join操作可能导致的数据倾斜的问题。</p>
 <p>方案实现思路：不使用join算子进行连接操作，而使用Broadcast变量与map类算子实现join操作，进而完全规避掉shuffle类的操作，彻底避免数据倾斜的发生和出现。将较小RDD中的数据直接通过collect算子拉取到Driver端的内存中来，然后对其创建一个Broadcast变量；接着对另外一个RDD执行map类算子，在算子函数内，从Broadcast变量中获取较小RDD的全量数据，与当前RDD的每一条数据按照连接key进行比对，如果连接key相同的话，那么就将两个RDD的数据用你需要的方式连接起来。</p>
 <p>方案实现原理：普通的join是会走shuffle过程的，而一旦shuffle，就相当于会将相同key的数据拉取到一个shuffle read task中再进行join，此时就是reduce join。但是如果一个RDD是比较小的，则可以采用广播小RDD全量数据+map算子来实现与join同样的效果，也就是map join，此时就不会发生shuffle操作，也就不会发生数据倾斜。具体原理如下图所示。</p>
 <p>方案优点：对join操作导致的数据倾斜，效果非常好，因为根本就不会发生shuffle，也就根本不会发生数据倾斜。</p>
 <p>方案缺点：适用场景较少，因为这个方案只适用于一个大表和一个小表的情况。毕竟我们需要将小表进行广播，此时会比较消耗内存资源，driver和每个Executor内存中都会驻留一份小RDD的全量数据。如果我们广播出去的RDD数据比较大，比如10G以上，那么就可能发生内存溢出了。因此并不适合两个都是大表的情况。</p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 首先将数据量比较小的RDD的数据，collect到Driver中来。  </span></span><br><span class="line"><span class="type">List</span>&lt;<span class="type">Tuple2</span>&lt;<span class="type">Long</span>, <span class="type">Row</span>&gt;&gt; rdd1Data = rdd1.collect()</span><br><span class="line"><span class="comment">// 然后使用Spark的广播功能，将小RDD的数据转换成广播变量，这样每个Executor就只有一份RDD的数据。  </span></span><br><span class="line"><span class="comment">// 可以尽可能节省内存空间，并且减少网络传输性能开销。  </span></span><br><span class="line"><span class="keyword">final</span> <span class="type">Broadcast</span>&lt;<span class="type">List</span>&lt;<span class="type">Tuple2</span>&lt;<span class="type">Long</span>, <span class="type">Row</span>&gt;&gt;&gt; rdd1DataBroadcast = sc.broadcast(rdd1Data);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 对另外一个RDD执行map类操作，而不再是join类操作。  </span></span><br><span class="line"><span class="type">JavaPairRDD</span>&lt;<span class="type">String</span>, <span class="type">Tuple2</span>&lt;<span class="type">String</span>, <span class="type">Row</span>&gt;&gt; joinedRdd = rdd2.mapToPair(</span><br><span class="line"><span class="keyword">new</span> <span class="type">PairFunction</span>&lt;<span class="type">Tuple2</span>&lt;<span class="type">Long</span>,<span class="type">String</span>&gt;, <span class="type">String</span>, <span class="type">Tuple2</span>&lt;<span class="type">String</span>, <span class="type">Row</span>&gt;&gt;() &#123;</span><br><span class="line">    <span class="keyword">private</span> static <span class="keyword">final</span> long serialVersionUID = <span class="number">1</span>L;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    public <span class="type">Tuple2</span>&lt;<span class="type">String</span>, <span class="type">Tuple2</span>&lt;<span class="type">String</span>, <span class="type">Row</span>&gt;&gt; call(<span class="type">Tuple2</span>&lt;<span class="type">Long</span>, <span class="type">String</span>&gt; tuple)</span><br><span class="line">            <span class="keyword">throws</span> <span class="type">Exception</span> &#123;</span><br><span class="line">        <span class="comment">// 在算子函数中，通过广播变量，获取到本地Executor中的rdd1数据。  </span></span><br><span class="line">        <span class="type">List</span>&lt;<span class="type">Tuple2</span>&lt;<span class="type">Long</span>, <span class="type">Row</span>&gt;&gt; rdd1Data = rdd1DataBroadcast.value();</span><br><span class="line">        <span class="comment">// 可以将rdd1的数据转换为一个Map，便于后面进行join操作。  </span></span><br><span class="line">        <span class="type">Map</span>&lt;<span class="type">Long</span>, <span class="type">Row</span>&gt; rdd1DataMap = <span class="keyword">new</span> <span class="type">HashMap</span>&lt;<span class="type">Long</span>, <span class="type">Row</span>&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">Tuple2</span>&lt;<span class="type">Long</span>, <span class="type">Row</span>&gt; data : rdd1Data) &#123;</span><br><span class="line">            rdd1DataMap.put(data._1, data._2);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 获取当前RDD数据的key以及value。  </span></span><br><span class="line">        <span class="type">String</span> key = tuple._1;</span><br><span class="line">        <span class="type">String</span> value = tuple._2;</span><br><span class="line">        <span class="comment">// 从rdd1数据Map中，根据key获取到可以join到的数据。  </span></span><br><span class="line">        <span class="type">Row</span> rdd1Value = rdd1DataMap.get(key);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="type">Tuple2</span>&lt;<span class="type">String</span>, <span class="type">String</span>&gt;(key, <span class="keyword">new</span> <span class="type">Tuple2</span>&lt;<span class="type">String</span>, <span class="type">Row</span>&gt;(value, rdd1Value));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这里得提示一下。  </span></span><br><span class="line"><span class="comment">// 上面的做法，仅仅适用于rdd1中的key没有重复，全部是唯一的场景。  </span></span><br><span class="line"><span class="comment">// 如果rdd1中有多个相同的key，那么就得用flatMap类的操作，在进行join的时候不能用map，而是得遍历rdd1所有数据进行join。  </span></span><br><span class="line"><span class="comment">// rdd2中每条数据都可能会返回多条join后的数据。</span></span><br></pre></td></tr></table></figure>
-<h5 id="5-6-方案六：采样倾斜key并分拆join操作"><a href="#5-6-方案六：采样倾斜key并分拆join操作" class="headerlink" title="5.6 方案六：采样倾斜key并分拆join操作"></a>5.6 方案六：采样倾斜key并分拆join操作</h5><p>方案适用场景：两个RDD/Hive表进行join的时候，如果数据量都比较大，无法采用“解决方案五”，那么此时可以看一下两个RDD/Hive表中的key分布情况。如果出现数据倾斜，是因为其中某一个RDD/Hive表中的少数几个key的数据量过大，而另一个RDD/Hive表中的所有key都分布比较均匀，那么采用这个解决方案是比较合适的。</p>
+<h5 id="56-方案六采样倾斜key并分拆join操作"><a class="markdownIt-Anchor" href="#56-方案六采样倾斜key并分拆join操作"></a> 5.6 方案六：采样倾斜key并分拆join操作</h5>
+<p>方案适用场景：两个RDD/Hive表进行join的时候，如果数据量都比较大，无法采用“解决方案五”，那么此时可以看一下两个RDD/Hive表中的key分布情况。如果出现数据倾斜，是因为其中某一个RDD/Hive表中的少数几个key的数据量过大，而另一个RDD/Hive表中的所有key都分布比较均匀，那么采用这个解决方案是比较合适的。</p>
 <p>方案实现思路：</p>
 <ul>
 <li>对包含少数几个数据量过大的key的那个RDD，通过sample算子采样出一份样本来，然后统计一下每个key的数量，计算出来数据量最大的是哪几个key。</li>
@@ -567,7 +675,8 @@
 <p>方案缺点：如果导致倾斜的key特别多的话，比如成千上万个key都导致数据倾斜，那么这种方式也不适合。</p>
 <p><img src="https://i.imgur.com/r1UN2Vw.jpg" alt=""></p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 首先从包含了少数几个导致数据倾斜key的rdd1中，采样10%的样本数据。  </span></span><br><span class="line"><span class="type">JavaPairRDD</span>&lt;<span class="type">Long</span>, <span class="type">String</span>&gt; sampledRDD = rdd1.sample(<span class="literal">false</span>, <span class="number">0.1</span>);</span><br><span class="line"><span class="comment">// 对样本数据RDD统计出每个key的出现次数，并按出现次数降序排序。  </span></span><br><span class="line"><span class="comment">// 对降序排序后的数据，取出top 1或者top 100的数据，也就是key最多的前n个数据。  </span></span><br><span class="line"><span class="comment">// 具体取出多少个数据量最多的key，由大家自己决定，我们这里就取1个作为示范。  </span></span><br><span class="line"><span class="type">JavaPairRDD</span>&lt;<span class="type">Long</span>, <span class="type">Long</span>&gt; mappedSampledRDD = sampledRDD.mapToPair(</span><br><span class="line"><span class="keyword">new</span> <span class="type">PairFunction</span>&lt;<span class="type">Tuple2</span>&lt;<span class="type">Long</span>,<span class="type">String</span>&gt;, <span class="type">Long</span>, <span class="type">Long</span>&gt;() &#123;</span><br><span class="line">    <span class="keyword">private</span> static <span class="keyword">final</span> long serialVersionUID = <span class="number">1</span>L;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    public <span class="type">Tuple2</span>&lt;<span class="type">Long</span>, <span class="type">Long</span>&gt; call(<span class="type">Tuple2</span>&lt;<span class="type">Long</span>, <span class="type">String</span>&gt; tuple)</span><br><span class="line">            <span class="keyword">throws</span> <span class="type">Exception</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="type">Tuple2</span>&lt;<span class="type">Long</span>, <span class="type">Long</span>&gt;(tuple._1, <span class="number">1</span>L);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="type">JavaPairRDD</span>&lt;<span class="type">Long</span>, <span class="type">Long</span>&gt; countedSampledRDD = mappedSampledRDD.reduceByKey(</span><br><span class="line"><span class="keyword">new</span> <span class="type">Function2</span>&lt;<span class="type">Long</span>, <span class="type">Long</span>, <span class="type">Long</span>&gt;() &#123;</span><br><span class="line">    <span class="keyword">private</span> static <span class="keyword">final</span> long serialVersionUID = <span class="number">1</span>L;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    public <span class="type">Long</span> call(<span class="type">Long</span> v1, <span class="type">Long</span> v2) <span class="keyword">throws</span> <span class="type">Exception</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> v1 + v2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="type">JavaPairRDD</span>&lt;<span class="type">Long</span>, <span class="type">Long</span>&gt; reversedSampledRDD = countedSampledRDD.mapToPair(</span><br><span class="line"><span class="keyword">new</span> <span class="type">PairFunction</span>&lt;<span class="type">Tuple2</span>&lt;<span class="type">Long</span>,<span class="type">Long</span>&gt;, <span class="type">Long</span>, <span class="type">Long</span>&gt;() &#123;</span><br><span class="line">    <span class="keyword">private</span> static <span class="keyword">final</span> long serialVersionUID = <span class="number">1</span>L;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    public <span class="type">Tuple2</span>&lt;<span class="type">Long</span>, <span class="type">Long</span>&gt; call(<span class="type">Tuple2</span>&lt;<span class="type">Long</span>, <span class="type">Long</span>&gt; tuple)</span><br><span class="line">            <span class="keyword">throws</span> <span class="type">Exception</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="type">Tuple2</span>&lt;<span class="type">Long</span>, <span class="type">Long</span>&gt;(tuple._2, tuple._1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">final</span> <span class="type">Long</span> skewedUserid = reversedSampledRDD.sortByKey(<span class="literal">false</span>).take(<span class="number">1</span>).get(<span class="number">0</span>)._2;</span><br><span class="line"><span class="comment">// 从rdd1中分拆出导致数据倾斜的key，形成独立的RDD。  </span></span><br><span class="line"><span class="type">JavaPairRDD</span>&lt;<span class="type">Long</span>, <span class="type">String</span>&gt; skewedRDD = rdd1.filter(</span><br><span class="line"><span class="keyword">new</span> <span class="type">Function</span>&lt;<span class="type">Tuple2</span>&lt;<span class="type">Long</span>,<span class="type">String</span>&gt;, <span class="type">Boolean</span>&gt;() &#123;</span><br><span class="line">    <span class="keyword">private</span> static <span class="keyword">final</span> long serialVersionUID = <span class="number">1</span>L;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    public <span class="type">Boolean</span> call(<span class="type">Tuple2</span>&lt;<span class="type">Long</span>, <span class="type">String</span>&gt; tuple) <span class="keyword">throws</span> <span class="type">Exception</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> tuple._1.equals(skewedUserid);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 从rdd1中分拆出不导致数据倾斜的普通key，形成独立的RDD。  </span></span><br><span class="line"><span class="type">JavaPairRDD</span>&lt;<span class="type">Long</span>, <span class="type">String</span>&gt; commonRDD = rdd1.filter(</span><br><span class="line"><span class="keyword">new</span> <span class="type">Function</span>&lt;<span class="type">Tuple2</span>&lt;<span class="type">Long</span>,<span class="type">String</span>&gt;, <span class="type">Boolean</span>&gt;() &#123;</span><br><span class="line">    <span class="keyword">private</span> static <span class="keyword">final</span> long serialVersionUID = <span class="number">1</span>L;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    public <span class="type">Boolean</span> call(<span class="type">Tuple2</span>&lt;<span class="type">Long</span>, <span class="type">String</span>&gt; tuple) <span class="keyword">throws</span> <span class="type">Exception</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> !tuple._1.equals(skewedUserid);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// rdd2，就是那个所有key的分布相对较为均匀的rdd。  </span></span><br><span class="line"><span class="comment">// 这里将rdd2中，前面获取到的key对应的数据，过滤出来，分拆成单独的rdd，并对rdd中的数据使用flatMap算子都扩容100倍。  </span></span><br><span class="line"><span class="comment">// 对扩容的每条数据，都打上0～100的前缀。  </span></span><br><span class="line"><span class="type">JavaPairRDD</span>&lt;<span class="type">String</span>, <span class="type">Row</span>&gt; skewedRdd2 = rdd2.filter(</span><br><span class="line"><span class="keyword">new</span> <span class="type">Function</span>&lt;<span class="type">Tuple2</span>&lt;<span class="type">Long</span>,<span class="type">Row</span>&gt;, <span class="type">Boolean</span>&gt;() &#123;</span><br><span class="line">    <span class="keyword">private</span> static <span class="keyword">final</span> long serialVersionUID = <span class="number">1</span>L;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    public <span class="type">Boolean</span> call(<span class="type">Tuple2</span>&lt;<span class="type">Long</span>, <span class="type">Row</span>&gt; tuple) <span class="keyword">throws</span> <span class="type">Exception</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> tuple._1.equals(skewedUserid);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;).flatMapToPair(<span class="keyword">new</span> <span class="type">PairFlatMapFunction</span>&lt;<span class="type">Tuple2</span>&lt;<span class="type">Long</span>,<span class="type">Row</span>&gt;, <span class="type">String</span>, <span class="type">Row</span>&gt;() &#123;</span><br><span class="line"><span class="keyword">private</span> static <span class="keyword">final</span> long serialVersionUID = <span class="number">1</span>L;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line">public <span class="type">Iterable</span>&lt;<span class="type">Tuple2</span>&lt;<span class="type">String</span>, <span class="type">Row</span>&gt;&gt; call(</span><br><span class="line">    <span class="type">Tuple2</span>&lt;<span class="type">Long</span>, <span class="type">Row</span>&gt; tuple) <span class="keyword">throws</span> <span class="type">Exception</span> &#123;</span><br><span class="line"><span class="type">Random</span> random = <span class="keyword">new</span> <span class="type">Random</span>();</span><br><span class="line"><span class="type">List</span>&lt;<span class="type">Tuple2</span>&lt;<span class="type">String</span>, <span class="type">Row</span>&gt;&gt; list = <span class="keyword">new</span> <span class="type">ArrayList</span>&lt;<span class="type">Tuple2</span>&lt;<span class="type">String</span>, <span class="type">Row</span>&gt;&gt;();</span><br><span class="line"><span class="keyword">for</span>(int i = <span class="number">0</span>; i &lt; <span class="number">100</span>; i++) &#123;</span><br><span class="line">    list.add(<span class="keyword">new</span> <span class="type">Tuple2</span>&lt;<span class="type">String</span>, <span class="type">Row</span>&gt;(i + <span class="string">"_"</span> + tuple._1, tuple._2));</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> list;</span><br><span class="line">&#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 将rdd1中分拆出来的导致倾斜的key的独立rdd，每条数据都打上100以内的随机前缀。  </span></span><br><span class="line"><span class="comment">// 然后将这个rdd1中分拆出来的独立rdd，与上面rdd2中分拆出来的独立rdd，进行join。  </span></span><br><span class="line"><span class="type">JavaPairRDD</span>&lt;<span class="type">Long</span>, <span class="type">Tuple2</span>&lt;<span class="type">String</span>, <span class="type">Row</span>&gt;&gt; joinedRDD1 = skewedRDD.mapToPair(</span><br><span class="line"><span class="keyword">new</span> <span class="type">PairFunction</span>&lt;<span class="type">Tuple2</span>&lt;<span class="type">Long</span>,<span class="type">String</span>&gt;, <span class="type">String</span>, <span class="type">String</span>&gt;() &#123;</span><br><span class="line">    <span class="keyword">private</span> static <span class="keyword">final</span> long serialVersionUID = <span class="number">1</span>L;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    public <span class="type">Tuple2</span>&lt;<span class="type">String</span>, <span class="type">String</span>&gt; call(<span class="type">Tuple2</span>&lt;<span class="type">Long</span>, <span class="type">String</span>&gt; tuple)</span><br><span class="line">            <span class="keyword">throws</span> <span class="type">Exception</span> &#123;</span><br><span class="line">        <span class="type">Random</span> random = <span class="keyword">new</span> <span class="type">Random</span>();</span><br><span class="line">        int prefix = random.nextInt(<span class="number">100</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="type">Tuple2</span>&lt;<span class="type">String</span>, <span class="type">String</span>&gt;(prefix + <span class="string">"_"</span> + tuple._1, tuple._2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">.join(skewedUserid2infoRDD)</span><br><span class="line">.mapToPair(<span class="keyword">new</span> <span class="type">PairFunction</span>&lt;<span class="type">Tuple2</span>&lt;<span class="type">String</span>,<span class="type">Tuple2</span>&lt;<span class="type">String</span>,<span class="type">Row</span>&gt;&gt;, <span class="type">Long</span>, <span class="type">Tuple2</span>&lt;<span class="type">String</span>, <span class="type">Row</span>&gt;&gt;() &#123;</span><br><span class="line">    <span class="keyword">private</span> static <span class="keyword">final</span> long serialVersionUID = <span class="number">1</span>L;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    public <span class="type">Tuple2</span>&lt;<span class="type">Long</span>, <span class="type">Tuple2</span>&lt;<span class="type">String</span>, <span class="type">Row</span>&gt;&gt; call(</span><br><span class="line">            <span class="type">Tuple2</span>&lt;<span class="type">String</span>, <span class="type">Tuple2</span>&lt;<span class="type">String</span>, <span class="type">Row</span>&gt;&gt; tuple)</span><br><span class="line">            <span class="keyword">throws</span> <span class="type">Exception</span> &#123;</span><br><span class="line">        long key = <span class="type">Long</span>.valueOf(tuple._1.split(<span class="string">"_"</span>)[<span class="number">1</span>]);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="type">Tuple2</span>&lt;<span class="type">Long</span>, <span class="type">Tuple2</span>&lt;<span class="type">String</span>, <span class="type">Row</span>&gt;&gt;(key, tuple._2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 将rdd1中分拆出来的包含普通key的独立rdd，直接与rdd2进行join。  </span></span><br><span class="line"><span class="type">JavaPairRDD</span>&lt;<span class="type">Long</span>, <span class="type">Tuple2</span>&lt;<span class="type">String</span>, <span class="type">Row</span>&gt;&gt; joinedRDD2 = commonRDD.join(rdd2);</span><br><span class="line"><span class="comment">// 将倾斜key join后的结果与普通key join后的结果，uinon起来。  </span></span><br><span class="line"><span class="comment">// 就是最终的join结果。  </span></span><br><span class="line"><span class="type">JavaPairRDD</span>&lt;<span class="type">Long</span>, <span class="type">Tuple2</span>&lt;<span class="type">String</span>, <span class="type">Row</span>&gt;&gt; joinedRDD = joinedRDD1.union(joinedRDD2);</span><br></pre></td></tr></table></figure>
-<h5 id="5-7-方案七：使用随机前缀和扩容RDD进行join"><a href="#5-7-方案七：使用随机前缀和扩容RDD进行join" class="headerlink" title="5.7 方案七：使用随机前缀和扩容RDD进行join"></a>5.7 方案七：使用随机前缀和扩容RDD进行join</h5><p>方案适用场景：如果在进行join操作时，RDD中有大量的key导致数据倾斜，那么进行分拆key也没什么意义，此时就只能使用最后一种方案来解决问题了。</p>
+<h5 id="57-方案七使用随机前缀和扩容rdd进行join"><a class="markdownIt-Anchor" href="#57-方案七使用随机前缀和扩容rdd进行join"></a> 5.7 方案七：使用随机前缀和扩容RDD进行join</h5>
+<p>方案适用场景：如果在进行join操作时，RDD中有大量的key导致数据倾斜，那么进行分拆key也没什么意义，此时就只能使用最后一种方案来解决问题了。</p>
 <p>方案实现思路：</p>
 <ul>
 <li>该方案的实现思路基本和“解决方案六”类似，首先查看RDD/Hive表中的数据分布情况，找到那个造成数据倾斜的RDD/Hive表，比如有多个key都对应了超过1万条数据。</li>
@@ -582,6 +691,9 @@
 
       
     </div>
+
+    
+
     
     
     
@@ -599,8 +711,8 @@
   <p><span>文章作者:</span><a href="/" title="访问 Rickiyang 的个人博客">Rickiyang</a></p>
   <p><span>发布时间:</span>2018年09月22日 - 22:41</p>
   <p><span>最后更新:</span>2018年12月13日 - 10:14</p>
-  <p><span>原始链接:</span><a href="/posts/d4452255.html" title="数据倾斜的解决方案">https://blog.rickiyang.cn/posts/d4452255.html</a>
-    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.rickiyang.cn/posts/d4452255.html" aria-label="复制成功！"></i></span>
+  <p><span>原始链接:</span><a href="/posts/d4452255.html" title="数据倾斜的解决方案">http://blog.rickiyang.cn/posts/d4452255.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://blog.rickiyang.cn/posts/d4452255.html" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
 </div>
@@ -621,9 +733,7 @@
 
       
     </div>
-
     
-
     <div>
       
         <div>
@@ -635,6 +745,10 @@
       
     </div>
 
+
+    
+      
+    
     
 
     
@@ -643,7 +757,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/spark学习/" rel="tag"> <i class="”fa" fa-tag”=""></i> spark学习</a>
+            <a href="/tags/spark学习/" rel="tag"># spark学习</a>
           
         </div>
       
@@ -684,44 +798,15 @@
   </article>
 
 
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript">
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
   </div>
 
 
           </div>
           
 
-
-          
+  
+    <div class="comments" id="comments">
+    </div>
 
   
 
@@ -748,60 +833,124 @@ var jiathis_config={
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
+            Table of Contents
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
+            Overview
           </li>
         </ul>
       
 
-      <section class="site-overview-wrap sidebar-panel">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image" src="/images/adele.png" alt="Rickiyang">
             
               <p class="site-author-name" itemprop="name">Rickiyang</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-description motion-element" itemprop="description">分享对coding生活的见解</p>
           </div>
 
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
+          
+            <nav class="site-state motion-element">
               
-                <a href="/archives">
-              
-                  <span class="site-state-item-count">99</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">19</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
+                <div class="site-state-item site-state-posts">
                 
-                  <span class="site-state-item-count">11</span>
-                  <span class="site-state-item-name">标签</span>
+                  <a href="/archives">
                 
-              </div>
-            
+                    <span class="site-state-item-count">99</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
 
-          </nav>
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
 
           
             <div class="feed-link motion-element">
@@ -814,63 +963,93 @@ var jiathis_config={
 
           
             <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/rickiyang" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:medee1320@gmail.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://blog.csdn.net/a953713428" target="_blank" title="CSDN">
-                      
-                        <i class="fa fa-fw fa-google"></i>CSDN</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="953713428" target="_blank" title="QQ">
-                      
-                        <i class="fa fa-fw fa-twitter"></i>QQ</a>
-                  </span>
-                
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3JpY2tpeWFuZw==" title="GitHub &rarr; https://github.com/rickiyang"><i class="fa fa-fw fa-github"></i>GitHub</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="bWFpbHRvOm1lZGVlMTMyMEBnbWFpbC5jb20=" title="E-Mail &rarr; mailto:medee1320@gmail.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2E5NTM3MTM0Mjg=" title="CSDN &rarr; https://blog.csdn.net/a953713428"><i class="fa fa-fw fa-google"></i>CSDN</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="/953713428" title="QQ &rarr; 953713428"><i class="fa fa-fw fa-twitter"></i>QQ</a>
+                </span>
+              
             </div>
           
 
           
-          
 
           
           
 
+          
+            
+          
           
 
         </div>
-      </section>
+      </div>
 
       
       <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
           <div class="post-toc">
 
             
-              
+            
+            
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-数据倾斜是怎么出现的"><span class="nav-number">1.</span> <span class="nav-text">1.数据倾斜是怎么出现的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-数据倾斜发生的表象"><span class="nav-number">2.</span> <span class="nav-text">2.数据倾斜发生的表象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-定位数据倾斜出现的原因与出现问题的位置"><span class="nav-number">3.</span> <span class="nav-text">3.定位数据倾斜出现的原因与出现问题的位置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-查看导致数据倾斜的key的数据分布情况"><span class="nav-number">4.</span> <span class="nav-text">4.查看导致数据倾斜的key的数据分布情况</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-数据倾斜的解决方案"><span class="nav-number">5.</span> <span class="nav-text">5.数据倾斜的解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#5-1-方案一：使用Hive-ETL预处理数据"><span class="nav-number">5.1.</span> <span class="nav-text">5.1 方案一：使用Hive ETL预处理数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-2-方案二：过滤少数导致倾斜的key"><span class="nav-number">5.2.</span> <span class="nav-text">5.2 方案二：过滤少数导致倾斜的key</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-3-方案三：提高shuffle操作的并行度"><span class="nav-number">5.3.</span> <span class="nav-text">5.3 方案三：提高shuffle操作的并行度</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-4-方案四：两阶段聚合（局部聚合-全局聚合）"><span class="nav-number">5.4.</span> <span class="nav-text">5.4 方案四：两阶段聚合（局部聚合+全局聚合）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-5-方案五：将reduce-join转为map-join"><span class="nav-number">5.5.</span> <span class="nav-text">5.5 方案五：将reduce join转为map join</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-6-方案六：采样倾斜key并分拆join操作"><span class="nav-number">5.6.</span> <span class="nav-text">5.6 方案六：采样倾斜key并分拆join操作</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-7-方案七：使用随机前缀和扩容RDD进行join"><span class="nav-number">5.7.</span> <span class="nav-text">5.7 方案七：使用随机前缀和扩容RDD进行join</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1数据倾斜是怎么出现的"><span class="nav-number">1.</span> <span class="nav-text"> 1.数据倾斜是怎么出现的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2数据倾斜发生的表象"><span class="nav-number">2.</span> <span class="nav-text"> 2.数据倾斜发生的表象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3定位数据倾斜出现的原因与出现问题的位置"><span class="nav-number">3.</span> <span class="nav-text"> 3.定位数据倾斜出现的原因与出现问题的位置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4查看导致数据倾斜的key的数据分布情况"><span class="nav-number">4.</span> <span class="nav-text"> 4.查看导致数据倾斜的key的数据分布情况</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5数据倾斜的解决方案"><span class="nav-number">5.</span> <span class="nav-text"> 5.数据倾斜的解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#51-方案一使用hive-etl预处理数据"><span class="nav-number">5.1.</span> <span class="nav-text"> 5.1 方案一：使用Hive ETL预处理数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#52-方案二过滤少数导致倾斜的key"><span class="nav-number">5.2.</span> <span class="nav-text"> 5.2 方案二：过滤少数导致倾斜的key</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#53-方案三提高shuffle操作的并行度"><span class="nav-number">5.3.</span> <span class="nav-text"> 5.3 方案三：提高shuffle操作的并行度</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#54-方案四两阶段聚合局部聚合全局聚合"><span class="nav-number">5.4.</span> <span class="nav-text"> 5.4 方案四：两阶段聚合（局部聚合+全局聚合）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#55-方案五将reduce-join转为map-join"><span class="nav-number">5.5.</span> <span class="nav-text"> 5.5 方案五：将reduce join转为map join</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#56-方案六采样倾斜key并分拆join操作"><span class="nav-number">5.6.</span> <span class="nav-text"> 5.6 方案六：采样倾斜key并分拆join操作</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#57-方案七使用随机前缀和扩容rdd进行join"><span class="nav-number">5.7.</span> <span class="nav-text"> 5.7 方案七：使用随机前缀和扩容RDD进行join</span></a></li></ol></li></ol></div>
             
 
           </div>
-        </section>
+        </div>
       <!--/noindex-->
       
 
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
       
 
     </div>
@@ -883,39 +1062,50 @@ var jiathis_config={
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2019</span>
-  <span class="with-love">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Rickiyang</span>
 
   
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="Symbols count total">752k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="Reading time total">11:24</span>
+  
 </div>
 
-<div class="powered-by">
+<!--<div class="powered-by">
 <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
   本站访客数:<span id="busuanzi_value_site_uv"></span>
 </span>
-</div>
-
-<!--
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
--->
-
-
-  <span class="post-meta-divider">|</span>
+</div>-->
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+  <div class="theme-info">Theme – <span class="exturl theme-link" data-url="aHR0cHM6Ly90aGVtZS1uZXh0Lm9yZw==">NexT.Gemini</span> v6.7.0</div>
 
 
 
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共231.6k字</span>
+  <span class="post-count">博客全站共231.9k字</span>
 </div>
 
 <script>
@@ -935,24 +1125,23 @@ var jiathis_config={
 
         
 <div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
   
-    <span class="site-uv">
+    <span class="site-uv" title="Total Visitors">
       <i class="fa fa-user"></i>
       <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-      人次
     </span>
   
 
   
-    <span class="site-pv">
+    <span class="site-pv" title="Total Views">
       <i class="fa fa-eye"></i>
       <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-      次
     </span>
   
 </div>
+
 
 
 
@@ -966,21 +1155,17 @@ var jiathis_config={
     </footer>
 
     
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-          <span id="scrollpercent"><span>0</span>%</span>
-        
-      </div>
+
     
 
     
 
+    
   </div>
 
   
 
-<script type="text/javascript">
+<script>
   if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
     window.Promise = null;
   }
@@ -994,117 +1179,6 @@ var jiathis_config={
 
 
 
-  
-
-
-
-
-
-
-  
-  
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/three.min.js"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
 
 
 
@@ -1117,8 +1191,111 @@ var jiathis_config={
 
 
   
+  
 
-  <script type="text/javascript">
+
+
+  
+  
+  <script id="ribbon" size="300" alpha="0.6" zindex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/three/three.min.js"></script>
+
+  
+  <script src="/lib/three/canvas_sphere.min.js"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script>
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+      el: '#comments' ,
+      verify: false,
+      notify: false,
+      appId: 'X5fy0b9Gknu0SAse5areilGR-gzGzoHsz',
+      appKey: 'URk4cyPQ8Ttqtwhop5t26kok',
+      placeholder: 'Just go go',
+      avatar: 'mm',
+      meta:guest,
+      pageSize: '10' || 10,
+      visitor: false
+    });
+  </script>
+
+
+
+
+  
+
+  <script>
     // Popup Window;
     var isfetched = false;
     var isXml = true;
@@ -1167,6 +1344,8 @@ var jiathis_config={
         .css('overflow', 'hidden');
       $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
 
+      
+
       $.ajax({
         url: path,
         dataType: isXml ? "xml" : "json",
@@ -1200,8 +1379,9 @@ var jiathis_config={
                 var title = data.title.trim();
                 var titleInLowerCase = title.toLowerCase();
                 var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
                 var contentInLowerCase = content.toLowerCase();
-                var articleUrl = decodeURIComponent(data.url);
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
                 var indexOfTitle = [];
                 var indexOfContent = [];
                 // only match articles with not empty titles
@@ -1370,9 +1550,9 @@ var jiathis_config={
               })
             };
             if (keywords.length === 1 && keywords[0] === "") {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
             } else if (resultItems.length === 0) {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
             } else {
               resultItems.sort(function (resultLeft, resultRight) {
                 if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
@@ -1442,107 +1622,66 @@ var jiathis_config={
   
 
   
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("X5fy0b9Gknu0SAse5areilGR-gzGzoHsz", "URk4cyPQ8Ttqtwhop5t26kok");</script>
   <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
-            }
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
+    
     function addCount(Counter) {
       var $visitors = $(".leancloud_visitors");
       var url = $visitors.attr('id').trim();
       var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
 
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function ({ results }) {
           if (results.length > 0) {
             var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
+            
+            Counter('put', `/classes/Counter/${counter.objectId}`, JSON.stringify({ time: { "__op":"Increment", "amount":1 } }))
+            
+            .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.time + 1);
+            })
+            
+            .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+            })
           } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1}))
+                .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function () {
+                  console.log('Failed to create');
+                });
+            
           }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
+        })
+      .fail(function ({ responseJSON }) {
+        console.log('LeanCloud Counter Error:' + responseJSON.code + " " + responseJSON.error);
       });
     }
+    
 
     $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + "X5fy0b9Gknu0SAse5areilGR-gzGzoHsz")
+        .done(function ({ api_server }) {
+          var Counter = function (method, url, data) {
+            return $.ajax({
+              method: method,
+              url: `https://${api_server}/1.1${url}`,
+              headers: {
+                'X-LC-Id': "X5fy0b9Gknu0SAse5areilGR-gzGzoHsz",
+                'X-LC-Key': "URk4cyPQ8Ttqtwhop5t26kok",
+                'Content-Type': 'application/json',
+              },
+              data: data,
+            });
+          };
+          
+          addCount(Counter);
+          
+        })
     });
   </script>
 
@@ -1551,9 +1690,45 @@ var jiathis_config={
   
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+      }
+      else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
 
   
   
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+  <script>
+    
+    
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+  <script src="/js/src/exturl.js?v=6.7.0"></script>
+
 
   
 
@@ -1563,7 +1738,7 @@ var jiathis_config={
 
 
   <!-- 页面点击小红心 -->
-  <script type="text/javascript" src="/js/src/love.js"></script>
-  <!---->
+    <script type="text/javascript" src="/js/src/love.js"></script>
+    <!---->
 </body>
 </html>

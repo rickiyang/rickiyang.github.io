@@ -2,6 +2,15 @@
 
 
 
+
+
+
+
+
+
+
+
+
   
 
 
@@ -9,38 +18,38 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
 
 
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-center-circle.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -64,12 +73,6 @@
   
 
   
-    
-      
-    
-
-    
-  
 
   
     
@@ -90,7 +93,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|FZSongKeBenXiuKai:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
   
 
 
@@ -98,46 +101,63 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
 
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/adele.ico?v=5.1.4">
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/adele.ico?v=5.1.4">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/adele.ico?v=6.7.0">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/adele.ico?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/adele.ico?v=6.7.0">
 
 
-  <link rel="mask-icon" href="/images/adele.ico?v=5.1.4" color="#222">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/adele.ico?v=6.7.0">
 
 
-
-
-
-  <meta name="keywords" content="学习,">
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="Rickiyang's blog" type="application/atom+xml">
+  <link rel="mask-icon" href="/images/adele.ico?v=6.7.0" color="#222">
 
 
 
 
 
 
-<meta name="description" content="1 git配置文件1.1 git权限控制git有三个不同的权限控制文件，高优先权的设置会覆盖低优先权的设置项，以下按照优先权从高到低介绍：  文件夹中”.git” 子文件夹中的confiig文件，这个配置具有最高优先权，但是这个配置文件只对他所在的文档有效。 登录账的home directory中的.gitconfig文件。这个配置文件只对此登陆账号有效。 git程序按照目录中的etc/gitco">
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="1 git配置文件  1.1 git权限控制 git有三个不同的权限控制文件，高优先权的设置会覆盖低优先权的设置项，以下按照优先权从高到低介绍：  文件夹中&amp;quot;.git&amp;quot; 子文件夹中的confiig文件，这个配置具有最高优先权，但是这个配置文件只对他所在的文档有效。 登录账的home directory中的.gitconfig文件。这个配置文件只对此登陆账号有效。 git程序按">
 <meta name="keywords" content="学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="git学习（1）">
-<meta property="og:url" content="https://blog.rickiyang.cn/posts/fc63c959.html">
+<meta property="og:url" content="http://blog.rickiyang.cn/posts/fc63c959.html">
 <meta property="og:site_name" content="Rickiyang&#39;s blog">
-<meta property="og:description" content="1 git配置文件1.1 git权限控制git有三个不同的权限控制文件，高优先权的设置会覆盖低优先权的设置项，以下按照优先权从高到低介绍：  文件夹中”.git” 子文件夹中的confiig文件，这个配置具有最高优先权，但是这个配置文件只对他所在的文档有效。 登录账的home directory中的.gitconfig文件。这个配置文件只对此登陆账号有效。 git程序按照目录中的etc/gitco">
+<meta property="og:description" content="1 git配置文件  1.1 git权限控制 git有三个不同的权限控制文件，高优先权的设置会覆盖低优先权的设置项，以下按照优先权从高到低介绍：  文件夹中&amp;quot;.git&amp;quot; 子文件夹中的confiig文件，这个配置具有最高优先权，但是这个配置文件只对他所在的文档有效。 登录账的home directory中的.gitconfig文件。这个配置文件只对此登陆账号有效。 git程序按">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.imgur.com/0IdVPfL.jpg">
 <meta property="og:image" content="https://i.imgur.com/BTccOtX.jpg">
@@ -151,42 +171,25 @@
 <meta property="og:updated_time" content="2018-12-06T02:53:23.040Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git学习（1）">
-<meta name="twitter:description" content="1 git配置文件1.1 git权限控制git有三个不同的权限控制文件，高优先权的设置会覆盖低优先权的设置项，以下按照优先权从高到低介绍：  文件夹中”.git” 子文件夹中的confiig文件，这个配置具有最高优先权，但是这个配置文件只对他所在的文档有效。 登录账的home directory中的.gitconfig文件。这个配置文件只对此登陆账号有效。 git程序按照目录中的etc/gitco">
+<meta name="twitter:description" content="1 git配置文件  1.1 git权限控制 git有三个不同的权限控制文件，高优先权的设置会覆盖低优先权的设置项，以下按照优先权从高到低介绍：  文件夹中&amp;quot;.git&amp;quot; 子文件夹中的confiig文件，这个配置具有最高优先权，但是这个配置文件只对他所在的文档有效。 登录账的home directory中的.gitconfig文件。这个配置文件只对此登陆账号有效。 git程序按">
 <meta name="twitter:image" content="https://i.imgur.com/0IdVPfL.jpg">
 
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+  <link rel="alternate" href="/atom.xml" title="Rickiyang's blog" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://blog.rickiyang.cn/posts/fc63c959.html">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
   };
 </script>
-
-
-
-  <link rel="canonical" href="https://blog.rickiyang.cn/posts/fc63c959.html">
-
-
-
-
 
   <title>git学习（1） | Rickiyang's blog</title>
   
@@ -197,6 +200,35 @@
 
 
 
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
 </head>
 
@@ -212,7 +244,7 @@
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
+  <div class="site-meta">
     
 
     <div class="custom-logo-site-title">
@@ -222,13 +254,16 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
+    
       
-        <h1 class="site-subtitle" itemprop="description"></h1>
+        <h1 class="site-subtitle" itemprop="description">java,大数据,分布式组件</h1>
       
+    
+    
   </div>
 
   <div class="site-nav-toggle">
-    <button>
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -236,66 +271,94 @@
   </div>
 </div>
 
-<nav class="site-nav">
-  
 
+
+<nav class="site-nav">
   
     <ul id="menu" class="menu">
       
         
-        <li class="menu-item menu-item-首页">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            首页
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-标签">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
-            
-            标签
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-分类">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
-            
-            分类
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-归档">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            归档
-          </a>
-        </li>
-      
+          
+          <li class="menu-item menu-item-首页">
 
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
       
         <li class="menu-item menu-item-search">
           
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
-            
-            搜索
-          </a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
         </li>
       
     </ul>
+  
+
   
 
   
@@ -310,7 +373,7 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -324,12 +387,23 @@
 
 
 
- </div>
+  
+
+
+
+</div>
     </header>
+
+    
+
 
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+          
+            
+
+          
           <div id="content" class="content">
             
 
@@ -342,16 +416,18 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/fc63c959.html">
+    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/fc63c959.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="分享对coding生活的见解">
       <meta itemprop="image" content="/images/adele.png">
     </span>
 
@@ -364,11 +440,20 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">git学习（1）</h2>
+          <h2 class="post-title" itemprop="name headline">git学习（1）
+
+              
+            
+          </h2>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -376,13 +461,30 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-29T22:15:23+08:00">
-                2017-11-29
-              </time>
+
+              
+                
+              
+
+              <time title="创建于: 2017-11-29 22:15:23" itemprop="dateCreated datePublished" datetime="2017-11-29T22:15:23+08:00">2017-11-29</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">编辑于</span>
+                
+                <time title="Modified: 2018-12-06 10:53:23" itemprop="dateModified" datetime="2018-12-06T10:53:23+08:00">2018-12-06</time>
+              
             
           </span>
 
@@ -398,11 +500,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/git/" itemprop="url" rel="index">
-                    <span itemprop="name">git</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/git/" itemprop="url" rel="index"><span itemprop="name">git</span></a></span>
 
                 
                 
@@ -411,6 +509,16 @@
           
 
           
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/posts/fc63c959.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/fc63c959.html" itemprop="commentCount"></span>
+                </a>
+              </span>
             
           
 
@@ -422,7 +530,7 @@
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">热度&#58;</span>
+                 <span class="post-meta-item-text">热度: </span>
                
                  <span class="leancloud-visitors-count"></span>
                  <span>℃</span>
@@ -430,27 +538,19 @@
           
 
           
-            <span class="post-meta-divider">|</span>
-            <span class="page-pv"><i class="fa fa-file-o"></i>
-            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
-            </span>
-          
 
           
-            <div class="post-wordcount">
+            <div class="post-symbolscount">
               
-                
-                  <span class="post-meta-divider">|</span>
-                
+
+              
                 <span class="post-meta-item-icon">
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">字数统计&#58;</span>
+                  <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="字数统计">
-                  3.6k
-                </span>
+                <span title="Symbols count in article">6.4k</span>
               
 
               
@@ -462,11 +562,9 @@
                   <i class="fa fa-clock-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="阅读时长">
-                  13
-                </span>
+                <span title="Reading time">6 mins.</span>
               
             </div>
           
@@ -486,79 +584,101 @@
       
 
       
-        <h3 id="1-git配置文件"><a href="#1-git配置文件" class="headerlink" title="1 git配置文件"></a>1 git配置文件</h3><h4 id="1-1-git权限控制"><a href="#1-1-git权限控制" class="headerlink" title="1.1 git权限控制"></a>1.1 git权限控制</h4><p>git有三个不同的权限控制文件，高优先权的设置会覆盖低优先权的设置项，以下按照优先权从高到低介绍：</p>
+        <h3 id="1-git配置文件"><a class="markdownIt-Anchor" href="#1-git配置文件"></a> 1 git配置文件</h3>
+<h4 id="11-git权限控制"><a class="markdownIt-Anchor" href="#11-git权限控制"></a> 1.1 git权限控制</h4>
+<p>git有三个不同的权限控制文件，高优先权的设置会覆盖低优先权的设置项，以下按照优先权从高到低介绍：</p>
 <ol>
-<li>文件夹中”.git” 子文件夹中的confiig文件，这个配置具有最高优先权，<font color="#DC143C" size="3">但是这个配置文件只对他所在的文档有效。</font></li>
+<li>文件夹中&quot;.git&quot; 子文件夹中的confiig文件，这个配置具有最高优先权，<font color="#DC143C" size="3">但是这个配置文件只对他所在的文档有效。</font></li>
 <li>登录账的home directory中的.gitconfig文件。这个配置文件只对此登陆账号有效。</li>
 <li>git程序按照目录中的etc/gitconfig文件。</li>
 </ol>
 <p>只有在前两个配置文件中没有设置的项这个配置传文件才会生效。这是公用的配置传文件，它对所有登录账号和所有git文档库都有效。</p>
-<h4 id="1-2-git-config-指令的用法"><a href="#1-2-git-config-指令的用法" class="headerlink" title="1.2 git config 指令的用法"></a>1.2 git config 指令的用法</h4><p>要显示当前git的设置可以执行下面的指令：</p>
+<h4 id="12-git-config-指令的用法"><a class="markdownIt-Anchor" href="#12-git-config-指令的用法"></a> 1.2 git config 指令的用法</h4>
+<p>要显示当前git的设置可以执行下面的指令：</p>
 <pre><code>gitconfig -l
-</code></pre><p>这个指令会显示三个配置文件中的所有设置项。他的顺序是先显示优先权最低的设置然后再显示高的。</p>
+</code></pre>
+<p>这个指令会显示三个配置文件中的所有设置项。他的顺序是先显示优先权最低的设置然后再显示高的。</p>
 <p>当然我们也可以设置指定显示单一配置文件的内容：</p>
 <pre><code>git config --system -l #显示git安装目录中的etc/gitconfig的设置
 git config --global -l #显示登录账号 home directory 中的.gitconfig文件的配置
-</code></pre><p>我们可以在配置文件中增加配置项，比如在执行”git commit” 的时候会提示你输入操作者的姓名和email，我们可以通过配置文件来设置以后就不用再输入，如果要记录在文档库中的配置文件，可以使用如下命令：</p>
-<pre><code>git config user.name &apos;your name&apos;
-git config user.email &apos;your email&apos;
-</code></pre><p>如果要记录在登录账号的home directory中的.gitconfig文件内可以使用如下指令：</p>
-<pre><code>git config --global user.name &apos;your name&apos;
-git config --global user.email &apos;your email&apos;
-</code></pre><p>如果要记录在git安装目录etc/gitconfig内可以执行如下指令：</p>
-<pre><code>git config --system user.name &apos;your name&apos;
-git config --system user.email &apos;your email&apos;
-</code></pre><p>如果要删除配置传文件中的配置项可以使用“–unset”命令:</p>
+</code></pre>
+<p>我们可以在配置文件中增加配置项，比如在执行&quot;git commit&quot; 的时候会提示你输入操作者的姓名和email，我们可以通过配置文件来设置以后就不用再输入，如果要记录在文档库中的配置文件，可以使用如下命令：</p>
+<pre><code>git config user.name 'your name'
+git config user.email 'your email'
+</code></pre>
+<p>如果要记录在登录账号的home directory中的.gitconfig文件内可以使用如下指令：</p>
+<pre><code>git config --global user.name 'your name'
+git config --global user.email 'your email'
+</code></pre>
+<p>如果要记录在git安装目录etc/gitconfig内可以执行如下指令：</p>
+<pre><code>git config --system user.name 'your name'
+git config --system user.email 'your email'
+</code></pre>
+<p>如果要删除配置传文件中的配置项可以使用“–unset”命令:</p>
 <pre><code>git config --unset user.name
-</code></pre><p>如果要删除的是其他配置文件中的设置项，则视情况加入”–global”或者”system”选项。</p>
-<font face="微软雅黑" color="#D2691E" size="5">补充说明：git指令的长和短</font>
-
-<font color="#778899" size="4"><em>我们会发现有的指令使用一个连字符比如：”-m”有的却是两个，比如：”–author”，这是为啥呢。<br>其实使用一个连字符是简单表达形式的意思。我们也可以把它换成完整形式。比如”git commit -m    ‘comment’”的完整形式是”git commit –message=’comment’”。”git config –list”的完整形式是”git config –list”。</em></font>
-
-
-<h3 id="2-把git文件存入仓库"><a href="#2-把git文件存入仓库" class="headerlink" title="2 把git文件存入仓库"></a>2 把git文件存入仓库</h3><h4 id="2-1-排除不需要加入文档库的文件"><a href="#2-1-排除不需要加入文档库的文件" class="headerlink" title="2.1 排除不需要加入文档库的文件"></a>2.1 排除不需要加入文档库的文件</h4><p>我们在上传文件到git仓库的时候并不能保证所有上传的文件都是我们需要的，比如编译器编译的文件以及一些资源文件，那么如何保证不把这些文件上传到git仓库呢。git为我们提供了一个文件:.gitignore。我们把需要忽略的文件一一列在这里即可。</p>
-<p>比如我们不想上传.txt为结尾的文件到仓库，那么在.gitignore文件中写入”.txt”即可。.gitignore文件可以使用“#”表示注释，文件夹路径使用“/”，文件名可以使用通配符”*”。使用”!”表示排除。比如以下设置表示排除所有txt文件但是不包含note.txt 文件。</p>
+</code></pre>
+<p>如果要删除的是其他配置文件中的设置项，则视情况加入&quot;–global&quot;或者&quot;system&quot;选项。</p>
+<p><font face="微软雅黑" color="#D2691E" size="5">补充说明：git指令的长和短</font></p>
+<p><font color="#778899" size="4"><em>我们会发现有的指令使用一个连字符比如：&quot;-m&quot;有的却是两个，比如：&quot;–author&quot;，这是为啥呢。<br>
+其实使用一个连字符是简单表达形式的意思。我们也可以把它换成完整形式。比如&quot;git commit -m    ‘comment’“的完整形式是&quot;git commit --message=‘comment’”。“git config --list&quot;的完整形式是&quot;git config --list”。</em></font></p>
+<h3 id="2-把git文件存入仓库"><a class="markdownIt-Anchor" href="#2-把git文件存入仓库"></a> 2 把git文件存入仓库</h3>
+<h4 id="21-排除不需要加入文档库的文件"><a class="markdownIt-Anchor" href="#21-排除不需要加入文档库的文件"></a> 2.1 排除不需要加入文档库的文件</h4>
+<p>我们在上传文件到git仓库的时候并不能保证所有上传的文件都是我们需要的，比如编译器编译的文件以及一些资源文件，那么如何保证不把这些文件上传到git仓库呢。git为我们提供了一个文件:.gitignore。我们把需要忽略的文件一一列在这里即可。</p>
+<p>比如我们不想上传.txt为结尾的文件到仓库，那么在.gitignore文件中写入&quot;.txt&quot;即可。.gitignore文件可以使用“#”表示注释，文件夹路径使用“/”，文件名可以使用通配符&quot;*&quot;。使用&quot;!&quot;表示排除。比如以下设置表示排除所有txt文件但是不包含note.txt 文件。</p>
 <pre><code>*.txt
 !note.txt
-</code></pre><h4 id="2-2-控制commit"><a href="#2-2-控制commit" class="headerlink" title="2.2 控制commit"></a>2.2 控制commit</h4><p>我们知道在本地仓库修改完文件之后提交仓库有两个步骤：</p>
+</code></pre>
+<h4 id="22-控制commit"><a class="markdownIt-Anchor" href="#22-控制commit"></a> 2.2 控制commit</h4>
+<p>我们知道在本地仓库修改完文件之后提交仓库有两个步骤：</p>
 <pre><code>git add #提交修改文件到git索引
 git commit #从本地git索引推到git仓库
-</code></pre><p>但是如果我们在执行git add之后反悔了怎么办呢。这时候我们的分两种情况采取以下操作：</p>
+</code></pre>
+<p>但是如果我们在执行git add之后反悔了怎么办呢。这时候我们的分两种情况采取以下操作：</p>
 <ol>
-<li><p>文档库中还没有任何文件，即执行”git init”之后没有执行过”git commit”：</p>
-<p> <code>使用git rm --cached 文件名</code></p>
+<li>
+<p>文档库中还没有任何文件，即执行&quot;git init&quot;之后没有执行过&quot;git commit&quot;：</p>
+<p><code>使用git rm --cached 文件名</code></p>
+</li>
+<li>
+<p>文档库中已经有文件，即我们已经执行过&quot;git commit&quot;命令：</p>
+<p><code>git reset HEAD 文件名</code></p>
 </li>
 </ol>
-<ol>
-<li><p>文档库中已经有文件，即我们已经执行过”git commit”命令：</p>
-<p>   <code>git reset HEAD 文件名</code></p>
-</li>
-</ol>
-<h4 id="2-3-查看commit节点"><a href="#2-3-查看commit节点" class="headerlink" title="2.3 查看commit节点"></a>2.3 查看commit节点</h4><pre><code>git #启动图形查看模式
-</code></pre><p><img src="https://i.imgur.com/0IdVPfL.jpg" alt=""></p>
-<p>除了使用gitk查看commit节点信息，也可以使用”git log”命令达到同样目的。如果再加上”–graph”选项，会使用文本模式排列出commit节点的演进图。</p>
+<h4 id="23-查看commit节点"><a class="markdownIt-Anchor" href="#23-查看commit节点"></a> 2.3 查看commit节点</h4>
+<pre><code>git #启动图形查看模式
+</code></pre>
+<p><img src="https://i.imgur.com/0IdVPfL.jpg" alt=""></p>
+<p>除了使用gitk查看commit节点信息，也可以使用&quot;git log&quot;命令达到同样目的。如果再加上&quot;–graph&quot;选项，会使用文本模式排列出commit节点的演进图。</p>
 <p>显示最近一次代码提交记录：</p>
 <pre><code>git show head
-</code></pre><h3 id="3-比较文件的差异和从git文档库取回文件"><a href="#3-比较文件的差异和从git文档库取回文件" class="headerlink" title="3 比较文件的差异和从git文档库取回文件"></a>3 比较文件的差异和从git文档库取回文件</h3><h4 id="3-1-取出指定文件"><a href="#3-1-取出指定文件" class="headerlink" title="3.1 取出指定文件"></a>3.1 取出指定文件</h4><pre><code>git checkout commit 节点标识符或标签 文件名1 文件名2 #从文档库的任何一个节点取出指定文件
-</code></pre><font color="#A52A2A" size="5">Tips：</font>
-
-<font color="#A52A2A" size="4">文件夹中的文件会被取出的文件覆盖</font>
-
+</code></pre>
+<h3 id="3-比较文件的差异和从git文档库取回文件"><a class="markdownIt-Anchor" href="#3-比较文件的差异和从git文档库取回文件"></a> 3 比较文件的差异和从git文档库取回文件</h3>
+<h4 id="31-取出指定文件"><a class="markdownIt-Anchor" href="#31-取出指定文件"></a> 3.1 取出指定文件</h4>
+<pre><code>git checkout commit 节点标识符或标签 文件名1 文件名2 #从文档库的任何一个节点取出指定文件
+</code></pre>
+<p><font color="#A52A2A" size="5">Tips：</font></p>
+<p><font color="#A52A2A" size="4">文件夹中的文件会被取出的文件覆盖</font></p>
 <p><strong>注意：</strong></p>
-<p>如果执行 git checkout 的文件与当前库中最新commit的文件内容不同，那么这个文件会自动记录在git索引中。稍后如果我们执行了git commit命令，那么这个取出的文件会成为新的版本被存入仓库中。为了避免这种情况的发生我们在执行git checkout之后立刻执行”git reset head”命令清除git索引。</p>
-<h4 id="3-2-使用git-mv命令改变文件或文件夹名字"><a href="#3-2-使用git-mv命令改变文件或文件夹名字" class="headerlink" title="3.2 使用git mv命令改变文件或文件夹名字"></a>3.2 使用git mv命令改变文件或文件夹名字</h4><pre><code>git mv 原来的文件名 新文件名
-</code></pre><h3 id="4-获取git文档库的统计数据"><a href="#4-获取git文档库的统计数据" class="headerlink" title="4 获取git文档库的统计数据"></a>4 获取git文档库的统计数据</h3><h4 id="4-1-git-log-指令"><a href="#4-1-git-log-指令" class="headerlink" title="4.1 git log 指令"></a>4.1 git log 指令</h4><p>这个指令会按照时间顺序从最近一次的commit接单开始往前列出每一次commit的数据，包括标识符、执行人、日期以及说明。该指令后面可以接参数，比如：–author=’A’,即只列出提交人为A的提交记录。</p>
+<p>如果执行 git checkout 的文件与当前库中最新commit的文件内容不同，那么这个文件会自动记录在git索引中。稍后如果我们执行了git commit命令，那么这个取出的文件会成为新的版本被存入仓库中。为了避免这种情况的发生我们在执行git checkout之后立刻执行&quot;git reset head&quot;命令清除git索引。</p>
+<h4 id="32-使用git-mv命令改变文件或文件夹名字"><a class="markdownIt-Anchor" href="#32-使用git-mv命令改变文件或文件夹名字"></a> 3.2 使用git mv命令改变文件或文件夹名字</h4>
+<pre><code>git mv 原来的文件名 新文件名
+</code></pre>
+<h3 id="4-获取git文档库的统计数据"><a class="markdownIt-Anchor" href="#4-获取git文档库的统计数据"></a> 4 获取git文档库的统计数据</h3>
+<h4 id="41-git-log-指令"><a class="markdownIt-Anchor" href="#41-git-log-指令"></a> 4.1 git log 指令</h4>
+<p>这个指令会按照时间顺序从最近一次的commit接单开始往前列出每一次commit的数据，包括标识符、执行人、日期以及说明。该指令后面可以接参数，比如：–author=‘A’,即只列出提交人为A的提交记录。</p>
 <pre><code>指定显示某位提交者的提交信息：
-git log --author=&apos;A&apos;
+git log --author='A'
 
 指定显示某一段时间内的提交信息：
-$ git log --after=&apos;2017-10-01 00:00:00&apos; --before=&apos;2017-11-01 00:00:00&apos;
+$ git log --after='2017-10-01 00:00:00' --before='2017-11-01 00:00:00'
 after表示指定的日期之后，before表示指定的日期之前，注意使用方式！
-</code></pre><p><img src="https://i.imgur.com/BTccOtX.jpg" alt=""></p>
-<p>以上指令只会显示指定日期期间的commit，如果加上”–stat”,或者”–numstat”或者”–shortstat”还可以显示每一个commit变更的情况。</p>
+</code></pre>
+<p><img src="https://i.imgur.com/BTccOtX.jpg" alt=""></p>
+<p>以上指令只会显示指定日期期间的commit，如果加上&quot;–stat&quot;,或者&quot;–numstat&quot;或者&quot;–shortstat&quot;还可以显示每一个commit变更的情况。</p>
 <p>比如我们执行：</p>
 <pre><code>git log shortstat
-</code></pre><p><img src="https://i.imgur.com/tpcjfwr.jpg" alt=""></p>
+</code></pre>
+<p><img src="https://i.imgur.com/tpcjfwr.jpg" alt=""></p>
 <p>可以看到会显示该次提交变更的基本信息。</p>
 <p><strong>Tips：</strong></p>
 <p>如果git指令显示的信息炒过了屏幕大小，屏幕会自动暂停，这时候可以使用如下按键继续操作：</p>
@@ -568,62 +688,90 @@ after表示指定的日期之后，before表示指定的日期之前，注意使
 <li>按键 h 表示显示操作说明；</li>
 <li>按键 q 表示结束。</li>
 </ol>
-<h4 id="4-2-git-shortlog指令"><a href="#4-2-git-shortlog指令" class="headerlink" title="4.2 git shortlog指令"></a>4.2 git shortlog指令</h4><p>这个指令会按照名字的字母顺序，列出每一个人执行commit的次数和说明。</p>
+<h4 id="42-git-shortlog指令"><a class="markdownIt-Anchor" href="#42-git-shortlog指令"></a> 4.2 git shortlog指令</h4>
+<p>这个指令会按照名字的字母顺序，列出每一个人执行commit的次数和说明。</p>
 <p><img src="https://i.imgur.com/EaE6rdB.jpg" alt=""></p>
-<p>我们也可以按照commit的次数从高到低排列，只要加上”–commit”或者是使用缩写：”-n” 即可。如果不需要显示commit说明可以再加上”–summary”或者是使用缩写:”-s”。</p>
+<p>我们也可以按照commit的次数从高到低排列，只要加上&quot;–commit&quot;或者是使用缩写：&quot;-n&quot; 即可。如果不需要显示commit说明可以再加上&quot;–summary&quot;或者是使用缩写:&quot;-s&quot;。</p>
 <p>git shortlog -n -s</p>
 <p><img src="https://i.imgur.com/uFP0d8p.jpg" alt=""></p>
-<h4 id="4-3-git-ls-files-指令"><a href="#4-3-git-ls-files-指令" class="headerlink" title="4.3 git ls-files 指令"></a>4.3 git ls-files 指令</h4><p>这个指令会列出当前git文档库中的文件列表：</p>
+<h4 id="43-git-ls-files-指令"><a class="markdownIt-Anchor" href="#43-git-ls-files-指令"></a> 4.3 git ls-files 指令</h4>
+<p>这个指令会列出当前git文档库中的文件列表：</p>
 <p><img src="https://i.imgur.com/l5mshTr.jpg" alt=""></p>
-<p>我们也可以搭配”xargs”和”wc”这两个指令来计算程序中的代码行数：</p>
+<p>我们也可以搭配&quot;xargs&quot;和&quot;wc&quot;这两个指令来计算程序中的代码行数：</p>
 <pre><code>git ls-files | xargs wc -l
-</code></pre><p><img src="https://i.imgur.com/yivp80J.jpg" alt=""></p>
+</code></pre>
+<p><img src="https://i.imgur.com/yivp80J.jpg" alt=""></p>
 <p>前面的数字就是该文件中的代码行数，如果你要计算行数总和可以使用如下指令：</p>
 <pre><code>git ls-files | xargs cat | wc -l
-</code></pre><h3 id="5-建立分支和解决冲突"><a href="#5-建立分支和解决冲突" class="headerlink" title="5 建立分支和解决冲突"></a>5 建立分支和解决冲突</h3><h4 id="5-1-创立分支"><a href="#5-1-创立分支" class="headerlink" title="5.1 创立分支"></a>5.1 创立分支</h4><p>创立分支使用git branch 指令：</p>
+</code></pre>
+<h3 id="5-建立分支和解决冲突"><a class="markdownIt-Anchor" href="#5-建立分支和解决冲突"></a> 5 建立分支和解决冲突</h3>
+<h4 id="51-创立分支"><a class="markdownIt-Anchor" href="#51-创立分支"></a> 5.1 创立分支</h4>
+<p>创立分支使用git branch 指令：</p>
 <pre><code>git branch &lt;new branch name&gt; commit &lt;节点标识符或者是标签&gt;
-</code></pre><p>这个指令会根据后边参数的不同发挥不同的作用：</p>
+</code></pre>
+<p>这个指令会根据后边参数的不同发挥不同的作用：</p>
 <ul>
 <li>如果最后指定了commit节点标识符或者是标签就会从该节点开始的位置长出分支，即该节点之前提交的代码新分支都有，之后的代码新分支是没有的。如果没有指定commit标签那么默认是从最新节点的位置创立分支。</li>
 <li>“git branch” 指令后面没有任何参数的时候会列出当前文档库中正在开发的所有分支。</li>
 </ul>
-<p>建立分支之后可以使用”git checkout &lt;分支名&gt;” 这个指令来切换当前操作的分支。</p>
-<h4 id="5-2-删除分支"><a href="#5-2-删除分支" class="headerlink" title="5.2 删除分支"></a>5.2 删除分支</h4><p>删除分支我们要注意的是在删除当前分支之前<strong><em>必须先切换到另外的分支</em></strong>，不然不能删除当前分支，删除分支使用如下指令：</p>
+<p>建立分支之后可以使用&quot;git checkout &lt;分支名&gt;&quot; 这个指令来切换当前操作的分支。</p>
+<h4 id="52-删除分支"><a class="markdownIt-Anchor" href="#52-删除分支"></a> 5.2 删除分支</h4>
+<p>删除分支我们要注意的是在删除当前分支之前***必须先切换到另外的分支***，不然不能删除当前分支，删除分支使用如下指令：</p>
 <pre><code>git branch -d &lt;要删除的分支&gt;
 使用该命令需要保证要删除的分支已经合并到别的分支过，不然会报错
-</code></pre><p><strong>值得注意的是：</strong></p>
-<p><strong>我们知道如果我们新建了一个分支一般都是为了方便多人协作，开发者分别在自己的dev分支上开发然后合并到master，上面这个命令有些反人类，如果当前要删除的分支没有合并到另一个分支，使用上面的命令会报错。需要把”-d”换成”-D”。</strong></p>
-<h4 id="5-3-修改分支名"><a href="#5-3-修改分支名" class="headerlink" title="5.3 修改分支名"></a>5.3 修改分支名</h4><p>修改分支名需要注意的是<strong>你必须的先切换到要修改的分支</strong>之后才能操作：</p>
+</code></pre>
+<p><strong>值得注意的是：</strong></p>
+<p><strong>我们知道如果我们新建了一个分支一般都是为了方便多人协作，开发者分别在自己的dev分支上开发然后合并到master，上面这个命令有些反人类，如果当前要删除的分支没有合并到另一个分支，使用上面的命令会报错。需要把&quot;-d&quot;换成&quot;-D&quot;。</strong></p>
+<h4 id="53-修改分支名"><a class="markdownIt-Anchor" href="#53-修改分支名"></a> 5.3 修改分支名</h4>
+<p>修改分支名需要注意的是<strong>你必须的先切换到要修改的分支</strong>之后才能操作：</p>
 <pre><code>git branch -m &lt;新的分支出名&gt;
-</code></pre><h4 id="5-4-合并分支"><a href="#5-4-合并分支" class="headerlink" title="5.4 合并分支"></a>5.4 合并分支</h4><p>合并分支使用如下命令：</p>
+</code></pre>
+<h4 id="54-合并分支"><a class="markdownIt-Anchor" href="#54-合并分支"></a> 5.4 合并分支</h4>
+<p>合并分支使用如下命令：</p>
 <pre><code>git merge 分支名
-</code></pre><p>该命令会把指定的分支合并到当前分支。比如当前在master分支，想把A分支的代码合并到master使用命令：</p>
+</code></pre>
+<p>该命令会把指定的分支合并到当前分支。比如当前在master分支，想把A分支的代码合并到master使用命令：</p>
 <pre><code>git merge A
-</code></pre><p>即可。</p>
-<p>如果合并之后你后悔了，想撤回可以使用”git reset”命令。我们想恢复到合并之前的状态执行如下操作：</p>
+</code></pre>
+<p>即可。</p>
+<p>如果合并之后你后悔了，想撤回可以使用&quot;git reset&quot;命令。我们想恢复到合并之前的状态执行如下操作：</p>
 <pre><code>git reset --hard HEAD^
-</code></pre><p>“–hard” 选项表示文件夹中的文件也要一起恢复。</p>
-<h4 id="5-5-解决冲突"><a href="#5-5-解决冲突" class="headerlink" title="5.5 解决冲突"></a>5.5 解决冲突</h4><p>我们先来想一下什么情况会发生冲突：</p>
+</code></pre>
+<p>“–hard” 选项表示文件夹中的文件也要一起恢复。</p>
+<h4 id="55-解决冲突"><a class="markdownIt-Anchor" href="#55-解决冲突"></a> 5.5 解决冲突</h4>
+<p>我们先来想一下什么情况会发生冲突：</p>
 <ol>
-<li>假如有个一master分支，你在master节点的最新节点新建了一个分支branch1；</li>
-<li>然后你在branch1分支上新增了一个文件：1.txt,修改了一个文件：test.txt；</li>
-<li>在你准备合并branch1到master之前，你的工友小B合并了他的分支branch2到master，新增了4个文件，也修改了test.txt文件；</li>
-<li>然而你并不知情，你也提交了你的分支到master，这时候系统会告诉你你合并不了，因为检测目前的master和你当时新建分支branch1的时候从master最新节点上得到的那一版不一样，这个时候就代表你发生冲突了，需要手动合并。</li>
+<li>
+<p>假如有个一master分支，你在master节点的最新节点新建了一个分支branch1；</p>
+</li>
+<li>
+<p>然后你在branch1分支上新增了一个文件：1.txt,修改了一个文件：test.txt；</p>
+</li>
+<li>
+<p>在你准备合并branch1到master之前，你的工友小B合并了他的分支branch2到master，新增了4个文件，也修改了test.txt文件；</p>
+</li>
+<li>
+<p>然而你并不知情，你也提交了你的分支到master，这时候系统会告诉你你合并不了，因为检测目前的master和你当时新建分支branch1的时候从master最新节点上得到的那一版不一样，这个时候就代表你发生冲突了，需要手动合并。</p>
+<p>git checkout master<br>
+git merge branch1</p>
+</li>
 </ol>
-<pre><code>git checkout master
-git merge branch1
-</code></pre><p>然后就会提示代码冲突了。</p>
+<p>然后就会提示代码冲突了。</p>
 <p>一般冲突的部分会用:</p>
 <pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;HEAD
 冲突内容
 =======
 &gt;&gt;&gt;&gt;&gt;&gt;&gt;draft
-</code></pre><p>来表示，所以需要你手动的去合并冲突，解决完了冲突之后执行如下指令提交代码：</p>
+</code></pre>
+<p>来表示，所以需要你手动的去合并冲突，解决完了冲突之后执行如下指令提交代码：</p>
 <pre><code>git diff
-</code></pre><p>执行完成如果没有报错说明已经解决冲突。之后我们可以执行如下指令把我们的代码提交到master分支：</p>
+</code></pre>
+<p>执行完成如果没有报错说明已经解决冲突。之后我们可以执行如下指令把我们的代码提交到master分支：</p>
 <pre><code>git add .
-git commit -m &apos;合并branch1到master&apos;
-</code></pre><h3 id="6-使用Rebase指令更新分支的起始点"><a href="#6-使用Rebase指令更新分支的起始点" class="headerlink" title="6 使用Rebase指令更新分支的起始点"></a>6 使用Rebase指令更新分支的起始点</h3><p>之前我们说的合并分支的时候都在说这样的情况：</p>
+git commit -m '合并branch1到master'
+</code></pre>
+<h3 id="6-使用rebase指令更新分支的起始点"><a class="markdownIt-Anchor" href="#6-使用rebase指令更新分支的起始点"></a> 6 使用Rebase指令更新分支的起始点</h3>
+<p>之前我们说的合并分支的时候都在说这样的情况：</p>
 <ol>
 <li>有主分支master，我们在master的最新节点上创建了新分支AAA。</li>
 <li>我们在AAA分支上做了更新，然后推送到master节点与master节点合并。</li>
@@ -640,26 +788,34 @@ git commit -m &apos;合并branch1到master&apos;
 <p>我们执行如下命令将master合并到AAA：</p>
 <pre><code># git checkout AAA
 # git merge master
-</code></pre><p>执行合并以后可能master会继续有更新，而我们的AAA分支也一直在开发，那么我们的节点图可能一直跟上图这样不停的交叉，到最后可能会看起来越来越复杂。当然这样并没有错，只是看起来不是那么简洁。我们可以用另一种方式让我们的节点图看起来更加简洁和直观：用rebase指令取代merge指令。</p>
+</code></pre>
+<p>执行合并以后可能master会继续有更新，而我们的AAA分支也一直在开发，那么我们的节点图可能一直跟上图这样不停的交叉，到最后可能会看起来越来越复杂。当然这样并没有错，只是看起来不是那么简洁。我们可以用另一种方式让我们的节点图看起来更加简洁和直观：用rebase指令取代merge指令。</p>
 <p>rebase指令的功能和merge一样，但是他在节点的处理上略有不同，我们用一个图来说明：</p>
 <p><img src="https://i.imgur.com/4kIc3Y5.jpg" alt=""></p>
 <p>这幅图我们对比上一幅可以看出：</p>
-<p>rebase指令执行的合并会把以前从commit节点长出来的分支AAA合并到master的最新节点，然后从master的最新节点长出来。但是master和AAA节点的代码其实还是各自不同，AAA包含master的所有代码，master不包含AAA从master最新节点”长出来”之后的代码。图虽然不同，但是功能没有任何区别。</p>
+<p>rebase指令执行的合并会把以前从commit节点长出来的分支AAA合并到master的最新节点，然后从master的最新节点长出来。但是master和AAA节点的代码其实还是各自不同，AAA包含master的所有代码，master不包含AAA从master最新节点&quot;长出来&quot;之后的代码。图虽然不同，但是功能没有任何区别。</p>
 <p>通过上面这两幅图大家是不是更加清楚这两个指定的区别。下面我们来说一下rebase指令的用法。</p>
 <p>使用rebase很简单，就把以前使用merge的地方换成rebase即可：</p>
 <pre><code># git checkout AAA
 # git rebase master
-</code></pre><p>与merge一样rebase也会面临发生冲突的情况，你可以使用上面提供的方法手动修改冲突然后执行 “git diff” 检测是否修改完成所有的冲突，最后提交合并。</p>
+</code></pre>
+<p>与merge一样rebase也会面临发生冲突的情况，你可以使用上面提供的方法手动修改冲突然后执行 “git diff” 检测是否修改完成所有的冲突，最后提交合并。</p>
 <p>假如你在使用rebase提交合并的时候发生冲突，这时候你决定取消合并，你可以执行如下命令：</p>
 <pre><code># git rebase --abort
-</code></pre><p>执行如上命令一定是在还没有完成rebase之前，如果你提交合并成功了执行上述命令是不生效的。</p>
+</code></pre>
+<p>执行如上命令一定是在还没有完成rebase之前，如果你提交合并成功了执行上述命令是不生效的。</p>
 <p>接下来我们说如果执行rebase完全没有错误但是你又反悔了该如何操作。</p>
-<p>如果是上述情况，我们可以使用”git reset”命令来恢复，但是有一个条件是:我们必须先找到执行rebase指令之前head所在的commit节点。我们知道head表示当前工作分支的最新commit节点，那我们如何找到历史的那个head节点呢？<br>git提供了一个指令：</p>
+<p>如果是上述情况，我们可以使用&quot;git reset&quot;命令来恢复，但是有一个条件是:我们必须先找到执行rebase指令之前head所在的commit节点。我们知道head表示当前工作分支的最新commit节点，那我们如何找到历史的那个head节点呢？<br>
+git提供了一个指令：</p>
 <pre><code># git reflog head或者是任何分支的分支名
-</code></pre><p>我们可以使用这个指令查询head或是任何分支的变动情况。该命令得出的结果是按照时间倒序排列。</p>
+</code></pre>
+<p>我们可以使用这个指令查询head或是任何分支的变动情况。该命令得出的结果是按照时间倒序排列。</p>
 
       
     </div>
+
+    
+
     
     
     
@@ -677,8 +833,8 @@ git commit -m &apos;合并branch1到master&apos;
   <p><span>文章作者:</span><a href="/" title="访问 Rickiyang 的个人博客">Rickiyang</a></p>
   <p><span>发布时间:</span>2017年11月29日 - 22:15</p>
   <p><span>最后更新:</span>2018年12月06日 - 10:53</p>
-  <p><span>原始链接:</span><a href="/posts/fc63c959.html" title="git学习（1）">https://blog.rickiyang.cn/posts/fc63c959.html</a>
-    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.rickiyang.cn/posts/fc63c959.html" aria-label="复制成功！"></i></span>
+  <p><span>原始链接:</span><a href="/posts/fc63c959.html" title="git学习（1）">http://blog.rickiyang.cn/posts/fc63c959.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://blog.rickiyang.cn/posts/fc63c959.html" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
 </div>
@@ -699,9 +855,7 @@ git commit -m &apos;合并branch1到master&apos;
 
       
     </div>
-
     
-
     <div>
       
         <div>
@@ -713,6 +867,10 @@ git commit -m &apos;合并branch1到master&apos;
       
     </div>
 
+
+    
+      
+    
     
 
     
@@ -721,7 +879,7 @@ git commit -m &apos;合并branch1到master&apos;
       
         <div class="post-tags">
           
-            <a href="/tags/学习/" rel="tag"> <i class="”fa" fa-tag”=""></i> 学习</a>
+            <a href="/tags/学习/" rel="tag"># 学习</a>
           
         </div>
       
@@ -762,44 +920,15 @@ git commit -m &apos;合并branch1到master&apos;
   </article>
 
 
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript">
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
   </div>
 
 
           </div>
           
 
-
-          
+  
+    <div class="comments" id="comments">
+    </div>
 
   
 
@@ -826,60 +955,124 @@ var jiathis_config={
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
+            Table of Contents
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
+            Overview
           </li>
         </ul>
       
 
-      <section class="site-overview-wrap sidebar-panel">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image" src="/images/adele.png" alt="Rickiyang">
             
               <p class="site-author-name" itemprop="name">Rickiyang</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-description motion-element" itemprop="description">分享对coding生活的见解</p>
           </div>
 
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
+          
+            <nav class="site-state motion-element">
               
-                <a href="/archives">
-              
-                  <span class="site-state-item-count">99</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">19</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
+                <div class="site-state-item site-state-posts">
                 
-                  <span class="site-state-item-count">11</span>
-                  <span class="site-state-item-name">标签</span>
+                  <a href="/archives">
                 
-              </div>
-            
+                    <span class="site-state-item-count">99</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
 
-          </nav>
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
 
           
             <div class="feed-link motion-element">
@@ -892,63 +1085,93 @@ var jiathis_config={
 
           
             <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/rickiyang" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:medee1320@gmail.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://blog.csdn.net/a953713428" target="_blank" title="CSDN">
-                      
-                        <i class="fa fa-fw fa-google"></i>CSDN</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="953713428" target="_blank" title="QQ">
-                      
-                        <i class="fa fa-fw fa-twitter"></i>QQ</a>
-                  </span>
-                
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3JpY2tpeWFuZw==" title="GitHub &rarr; https://github.com/rickiyang"><i class="fa fa-fw fa-github"></i>GitHub</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="bWFpbHRvOm1lZGVlMTMyMEBnbWFpbC5jb20=" title="E-Mail &rarr; mailto:medee1320@gmail.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2E5NTM3MTM0Mjg=" title="CSDN &rarr; https://blog.csdn.net/a953713428"><i class="fa fa-fw fa-google"></i>CSDN</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="/953713428" title="QQ &rarr; 953713428"><i class="fa fa-fw fa-twitter"></i>QQ</a>
+                </span>
+              
             </div>
           
 
           
-          
 
           
           
 
+          
+            
+          
           
 
         </div>
-      </section>
+      </div>
 
       
       <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
           <div class="post-toc">
 
             
-              
+            
+            
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-git配置文件"><span class="nav-number">1.</span> <span class="nav-text">1 git配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-git权限控制"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 git权限控制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-git-config-指令的用法"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 git config 指令的用法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-把git文件存入仓库"><span class="nav-number">2.</span> <span class="nav-text">2 把git文件存入仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-排除不需要加入文档库的文件"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 排除不需要加入文档库的文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-控制commit"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 控制commit</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-查看commit节点"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 查看commit节点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-比较文件的差异和从git文档库取回文件"><span class="nav-number">3.</span> <span class="nav-text">3 比较文件的差异和从git文档库取回文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-取出指定文件"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 取出指定文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-使用git-mv命令改变文件或文件夹名字"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 使用git mv命令改变文件或文件夹名字</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-获取git文档库的统计数据"><span class="nav-number">4.</span> <span class="nav-text">4 获取git文档库的统计数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-git-log-指令"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 git log 指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-git-shortlog指令"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 git shortlog指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-git-ls-files-指令"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 git ls-files 指令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-建立分支和解决冲突"><span class="nav-number">5.</span> <span class="nav-text">5 建立分支和解决冲突</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-1-创立分支"><span class="nav-number">5.1.</span> <span class="nav-text">5.1 创立分支</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-删除分支"><span class="nav-number">5.2.</span> <span class="nav-text">5.2 删除分支</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-修改分支名"><span class="nav-number">5.3.</span> <span class="nav-text">5.3 修改分支名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-4-合并分支"><span class="nav-number">5.4.</span> <span class="nav-text">5.4 合并分支</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-5-解决冲突"><span class="nav-number">5.5.</span> <span class="nav-text">5.5 解决冲突</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-使用Rebase指令更新分支的起始点"><span class="nav-number">6.</span> <span class="nav-text">6 使用Rebase指令更新分支的起始点</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-git配置文件"><span class="nav-number">1.</span> <span class="nav-text"> 1 git配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#11-git权限控制"><span class="nav-number">1.1.</span> <span class="nav-text"> 1.1 git权限控制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-git-config-指令的用法"><span class="nav-number">1.2.</span> <span class="nav-text"> 1.2 git config 指令的用法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-把git文件存入仓库"><span class="nav-number">2.</span> <span class="nav-text"> 2 把git文件存入仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#21-排除不需要加入文档库的文件"><span class="nav-number">2.1.</span> <span class="nav-text"> 2.1 排除不需要加入文档库的文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#22-控制commit"><span class="nav-number">2.2.</span> <span class="nav-text"> 2.2 控制commit</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#23-查看commit节点"><span class="nav-number">2.3.</span> <span class="nav-text"> 2.3 查看commit节点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-比较文件的差异和从git文档库取回文件"><span class="nav-number">3.</span> <span class="nav-text"> 3 比较文件的差异和从git文档库取回文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#31-取出指定文件"><span class="nav-number">3.1.</span> <span class="nav-text"> 3.1 取出指定文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#32-使用git-mv命令改变文件或文件夹名字"><span class="nav-number">3.2.</span> <span class="nav-text"> 3.2 使用git mv命令改变文件或文件夹名字</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-获取git文档库的统计数据"><span class="nav-number">4.</span> <span class="nav-text"> 4 获取git文档库的统计数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#41-git-log-指令"><span class="nav-number">4.1.</span> <span class="nav-text"> 4.1 git log 指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#42-git-shortlog指令"><span class="nav-number">4.2.</span> <span class="nav-text"> 4.2 git shortlog指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#43-git-ls-files-指令"><span class="nav-number">4.3.</span> <span class="nav-text"> 4.3 git ls-files 指令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-建立分支和解决冲突"><span class="nav-number">5.</span> <span class="nav-text"> 5 建立分支和解决冲突</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#51-创立分支"><span class="nav-number">5.1.</span> <span class="nav-text"> 5.1 创立分支</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#52-删除分支"><span class="nav-number">5.2.</span> <span class="nav-text"> 5.2 删除分支</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#53-修改分支名"><span class="nav-number">5.3.</span> <span class="nav-text"> 5.3 修改分支名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#54-合并分支"><span class="nav-number">5.4.</span> <span class="nav-text"> 5.4 合并分支</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#55-解决冲突"><span class="nav-number">5.5.</span> <span class="nav-text"> 5.5 解决冲突</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-使用rebase指令更新分支的起始点"><span class="nav-number">6.</span> <span class="nav-text"> 6 使用Rebase指令更新分支的起始点</span></a></li></ol></div>
             
 
           </div>
-        </section>
+        </div>
       <!--/noindex-->
       
 
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
       
 
     </div>
@@ -961,39 +1184,50 @@ var jiathis_config={
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2019</span>
-  <span class="with-love">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Rickiyang</span>
 
   
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="Symbols count total">752k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="Reading time total">11:24</span>
+  
 </div>
 
-<div class="powered-by">
+<!--<div class="powered-by">
 <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
   本站访客数:<span id="busuanzi_value_site_uv"></span>
 </span>
-</div>
-
-<!--
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
--->
-
-
-  <span class="post-meta-divider">|</span>
+</div>-->
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+  <div class="theme-info">Theme – <span class="exturl theme-link" data-url="aHR0cHM6Ly90aGVtZS1uZXh0Lm9yZw==">NexT.Gemini</span> v6.7.0</div>
 
 
 
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共231.6k字</span>
+  <span class="post-count">博客全站共231.9k字</span>
 </div>
 
 <script>
@@ -1013,24 +1247,23 @@ var jiathis_config={
 
         
 <div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
   
-    <span class="site-uv">
+    <span class="site-uv" title="Total Visitors">
       <i class="fa fa-user"></i>
       <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-      人次
     </span>
   
 
   
-    <span class="site-pv">
+    <span class="site-pv" title="Total Views">
       <i class="fa fa-eye"></i>
       <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-      次
     </span>
   
 </div>
+
 
 
 
@@ -1044,21 +1277,17 @@ var jiathis_config={
     </footer>
 
     
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-          <span id="scrollpercent"><span>0</span>%</span>
-        
-      </div>
+
     
 
     
 
+    
   </div>
 
   
 
-<script type="text/javascript">
+<script>
   if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
     window.Promise = null;
   }
@@ -1072,117 +1301,6 @@ var jiathis_config={
 
 
 
-  
-
-
-
-
-
-
-  
-  
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/three.min.js"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
 
 
 
@@ -1195,8 +1313,111 @@ var jiathis_config={
 
 
   
+  
 
-  <script type="text/javascript">
+
+
+  
+  
+  <script id="ribbon" size="300" alpha="0.6" zindex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/three/three.min.js"></script>
+
+  
+  <script src="/lib/three/canvas_sphere.min.js"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script>
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+      el: '#comments' ,
+      verify: false,
+      notify: false,
+      appId: 'X5fy0b9Gknu0SAse5areilGR-gzGzoHsz',
+      appKey: 'URk4cyPQ8Ttqtwhop5t26kok',
+      placeholder: 'Just go go',
+      avatar: 'mm',
+      meta:guest,
+      pageSize: '10' || 10,
+      visitor: false
+    });
+  </script>
+
+
+
+
+  
+
+  <script>
     // Popup Window;
     var isfetched = false;
     var isXml = true;
@@ -1245,6 +1466,8 @@ var jiathis_config={
         .css('overflow', 'hidden');
       $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
 
+      
+
       $.ajax({
         url: path,
         dataType: isXml ? "xml" : "json",
@@ -1278,8 +1501,9 @@ var jiathis_config={
                 var title = data.title.trim();
                 var titleInLowerCase = title.toLowerCase();
                 var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
                 var contentInLowerCase = content.toLowerCase();
-                var articleUrl = decodeURIComponent(data.url);
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
                 var indexOfTitle = [];
                 var indexOfContent = [];
                 // only match articles with not empty titles
@@ -1448,9 +1672,9 @@ var jiathis_config={
               })
             };
             if (keywords.length === 1 && keywords[0] === "") {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
             } else if (resultItems.length === 0) {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
             } else {
               resultItems.sort(function (resultLeft, resultRight) {
                 if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
@@ -1520,107 +1744,66 @@ var jiathis_config={
   
 
   
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("X5fy0b9Gknu0SAse5areilGR-gzGzoHsz", "URk4cyPQ8Ttqtwhop5t26kok");</script>
   <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
-            }
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
+    
     function addCount(Counter) {
       var $visitors = $(".leancloud_visitors");
       var url = $visitors.attr('id').trim();
       var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
 
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function ({ results }) {
           if (results.length > 0) {
             var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
+            
+            Counter('put', `/classes/Counter/${counter.objectId}`, JSON.stringify({ time: { "__op":"Increment", "amount":1 } }))
+            
+            .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.time + 1);
+            })
+            
+            .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+            })
           } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1}))
+                .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function () {
+                  console.log('Failed to create');
+                });
+            
           }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
+        })
+      .fail(function ({ responseJSON }) {
+        console.log('LeanCloud Counter Error:' + responseJSON.code + " " + responseJSON.error);
       });
     }
+    
 
     $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + "X5fy0b9Gknu0SAse5areilGR-gzGzoHsz")
+        .done(function ({ api_server }) {
+          var Counter = function (method, url, data) {
+            return $.ajax({
+              method: method,
+              url: `https://${api_server}/1.1${url}`,
+              headers: {
+                'X-LC-Id': "X5fy0b9Gknu0SAse5areilGR-gzGzoHsz",
+                'X-LC-Key': "URk4cyPQ8Ttqtwhop5t26kok",
+                'Content-Type': 'application/json',
+              },
+              data: data,
+            });
+          };
+          
+          addCount(Counter);
+          
+        })
     });
   </script>
 
@@ -1629,9 +1812,45 @@ var jiathis_config={
   
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+      }
+      else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
 
   
   
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+  <script>
+    
+    
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+  <script src="/js/src/exturl.js?v=6.7.0"></script>
+
 
   
 
@@ -1641,7 +1860,7 @@ var jiathis_config={
 
 
   <!-- 页面点击小红心 -->
-  <script type="text/javascript" src="/js/src/love.js"></script>
-  <!---->
+    <script type="text/javascript" src="/js/src/love.js"></script>
+    <!---->
 </body>
 </html>

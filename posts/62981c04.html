@@ -2,6 +2,15 @@
 
 
 
+
+
+
+
+
+
+
+
+
   
 
 
@@ -9,38 +18,38 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
 
 
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-center-circle.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -64,12 +73,6 @@
   
 
   
-    
-      
-    
-
-    
-  
 
   
     
@@ -90,7 +93,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|FZSongKeBenXiuKai:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
   
 
 
@@ -98,68 +101,40 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
 
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/adele.ico?v=5.1.4">
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/adele.ico?v=5.1.4">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/adele.ico?v=6.7.0">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/adele.ico?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/adele.ico?v=6.7.0">
 
 
-  <link rel="mask-icon" href="/images/adele.ico?v=5.1.4" color="#222">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/adele.ico?v=6.7.0">
 
 
-
-
-
-  <meta name="keywords" content="学习,">
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="Rickiyang's blog" type="application/atom+xml">
+  <link rel="mask-icon" href="/images/adele.ico?v=6.7.0" color="#222">
 
 
 
 
 
 
-<meta name="description" content="avroAvro是一种序列化的方法。常见的序列化有Java的Serializable,google的protobuf，以及Doug Cutting的Avro。 Avro的SchemaAvro的Schema用JSON表示。Schema定义了简单数据类型和复杂数据类型。 Avro基本数据类型   类型 含义     null 没有值   boolean 布尔值   int 32位有符号整数   lon">
-<meta name="keywords" content="学习">
-<meta property="og:type" content="article">
-<meta property="og:title" content="序列化--Avro">
-<meta property="og:url" content="https://blog.rickiyang.cn/posts/62981c04.html">
-<meta property="og:site_name" content="Rickiyang&#39;s blog">
-<meta property="og:description" content="avroAvro是一种序列化的方法。常见的序列化有Java的Serializable,google的protobuf，以及Doug Cutting的Avro。 Avro的SchemaAvro的Schema用JSON表示。Schema定义了简单数据类型和复杂数据类型。 Avro基本数据类型   类型 含义     null 没有值   boolean 布尔值   int 32位有符号整数   lon">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-07T01:55:42.456Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="序列化--Avro">
-<meta name="twitter:description" content="avroAvro是一种序列化的方法。常见的序列化有Java的Serializable,google的protobuf，以及Doug Cutting的Avro。 Avro的SchemaAvro的Schema用JSON表示。Schema定义了简单数据类型和复杂数据类型。 Avro基本数据类型   类型 含义     null 没有值   boolean 布尔值   int 32位有符号整数   lon">
 
-
-
-<script type="text/javascript" id="hexo.configurations">
+<script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
     scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
-    fancybox: true,
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
     algolia: {
       applicationID: '',
       apiKey: '',
@@ -171,12 +146,40 @@
 </script>
 
 
-
-  <link rel="canonical" href="https://blog.rickiyang.cn/posts/62981c04.html">
-
+  
 
 
 
+
+  <meta name="description" content="avro Avro是一种序列化的方法。常见的序列化有Java的Serializable,google的protobuf，以及Doug Cutting的Avro。  Avro的Schema Avro的Schema用JSON表示。Schema定义了简单数据类型和复杂数据类型。  Avro基本数据类型    类型 含义     null 没有值   boolean 布尔值   int 32位有符号整数">
+<meta name="keywords" content="学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="序列化--Avro">
+<meta property="og:url" content="http://blog.rickiyang.cn/posts/62981c04.html">
+<meta property="og:site_name" content="Rickiyang&#39;s blog">
+<meta property="og:description" content="avro Avro是一种序列化的方法。常见的序列化有Java的Serializable,google的protobuf，以及Doug Cutting的Avro。  Avro的Schema Avro的Schema用JSON表示。Schema定义了简单数据类型和复杂数据类型。  Avro基本数据类型    类型 含义     null 没有值   boolean 布尔值   int 32位有符号整数">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-01-07T01:55:42.456Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="序列化--Avro">
+<meta name="twitter:description" content="avro Avro是一种序列化的方法。常见的序列化有Java的Serializable,google的protobuf，以及Doug Cutting的Avro。  Avro的Schema Avro的Schema用JSON表示。Schema定义了简单数据类型和复杂数据类型。  Avro基本数据类型    类型 含义     null 没有值   boolean 布尔值   int 32位有符号整数">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Rickiyang's blog" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://blog.rickiyang.cn/posts/62981c04.html">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
 
   <title>序列化--Avro | Rickiyang's blog</title>
   
@@ -187,6 +190,35 @@
 
 
 
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
 </head>
 
@@ -202,7 +234,7 @@
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
+  <div class="site-meta">
     
 
     <div class="custom-logo-site-title">
@@ -212,13 +244,16 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
+    
       
-        <h1 class="site-subtitle" itemprop="description"></h1>
+        <h1 class="site-subtitle" itemprop="description">java,大数据,分布式组件</h1>
       
+    
+    
   </div>
 
   <div class="site-nav-toggle">
-    <button>
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -226,66 +261,94 @@
   </div>
 </div>
 
-<nav class="site-nav">
-  
 
+
+<nav class="site-nav">
   
     <ul id="menu" class="menu">
       
         
-        <li class="menu-item menu-item-首页">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            首页
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-标签">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
-            
-            标签
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-分类">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
-            
-            分类
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-归档">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            归档
-          </a>
-        </li>
-      
+          
+          <li class="menu-item menu-item-首页">
 
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
       
         <li class="menu-item menu-item-search">
           
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
-            
-            搜索
-          </a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
         </li>
       
     </ul>
+  
+
   
 
   
@@ -300,7 +363,7 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -314,12 +377,23 @@
 
 
 
- </div>
+  
+
+
+
+</div>
     </header>
+
+    
+
 
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+          
+            
+
+          
           <div id="content" class="content">
             
 
@@ -332,16 +406,18 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/62981c04.html">
+    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/62981c04.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="分享对coding生活的见解">
       <meta itemprop="image" content="/images/adele.png">
     </span>
 
@@ -354,11 +430,20 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">序列化--Avro</h2>
+          <h2 class="post-title" itemprop="name headline">序列化--Avro
+
+              
+            
+          </h2>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -366,13 +451,30 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-20T16:23:08+08:00">
-                2018-11-20
-              </time>
+
+              
+                
+              
+
+              <time title="创建于: 2018-11-20 16:23:08" itemprop="dateCreated datePublished" datetime="2018-11-20T16:23:08+08:00">2018-11-20</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">编辑于</span>
+                
+                <time title="Modified: 2019-01-07 09:55:42" itemprop="dateModified" datetime="2019-01-07T09:55:42+08:00">2019-01-07</time>
+              
             
           </span>
 
@@ -388,11 +490,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/kafka/" itemprop="url" rel="index">
-                    <span itemprop="name">kafka</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/kafka/" itemprop="url" rel="index"><span itemprop="name">kafka</span></a></span>
 
                 
                 
@@ -401,6 +499,16 @@
           
 
           
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/posts/62981c04.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/62981c04.html" itemprop="commentCount"></span>
+                </a>
+              </span>
             
           
 
@@ -412,7 +520,7 @@
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">热度&#58;</span>
+                 <span class="post-meta-item-text">热度: </span>
                
                  <span class="leancloud-visitors-count"></span>
                  <span>℃</span>
@@ -420,27 +528,19 @@
           
 
           
-            <span class="post-meta-divider">|</span>
-            <span class="page-pv"><i class="fa fa-file-o"></i>
-            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
-            </span>
-          
 
           
-            <div class="post-wordcount">
+            <div class="post-symbolscount">
               
-                
-                  <span class="post-meta-divider">|</span>
-                
+
+              
                 <span class="post-meta-item-icon">
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">字数统计&#58;</span>
+                  <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="字数统计">
-                  2.8k
-                </span>
+                <span title="Symbols count in article">17k</span>
               
 
               
@@ -452,11 +552,9 @@
                   <i class="fa fa-clock-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="阅读时长">
-                  14
-                </span>
+                <span title="Reading time">15 mins.</span>
               
             </div>
           
@@ -476,9 +574,12 @@
       
 
       
-        <h1 id="avro"><a href="#avro" class="headerlink" title="avro"></a>avro</h1><p>Avro是一种序列化的方法。常见的序列化有Java的Serializable,google的protobuf，以及Doug Cutting的Avro。</p>
-<h4 id="Avro的Schema"><a href="#Avro的Schema" class="headerlink" title="Avro的Schema"></a>Avro的Schema</h4><p>Avro的Schema用JSON表示。Schema定义了简单数据类型和复杂数据类型。</p>
-<h4 id="Avro基本数据类型"><a href="#Avro基本数据类型" class="headerlink" title="Avro基本数据类型"></a>Avro基本数据类型</h4><table>
+        <h1 id="avro"><a class="markdownIt-Anchor" href="#avro"></a> avro</h1>
+<p>Avro是一种序列化的方法。常见的序列化有Java的Serializable,google的protobuf，以及Doug Cutting的Avro。</p>
+<h4 id="avro的schema"><a class="markdownIt-Anchor" href="#avro的schema"></a> Avro的Schema</h4>
+<p>Avro的Schema用JSON表示。Schema定义了简单数据类型和复杂数据类型。</p>
+<h4 id="avro基本数据类型"><a class="markdownIt-Anchor" href="#avro基本数据类型"></a> Avro基本数据类型</h4>
+<table>
 <thead>
 <tr>
 <th>类型</th>
@@ -522,21 +623,44 @@
 </table>
 <p>基本类型没有属性，基本类型的名字也就是类型的名字，比如：</p>
 <pre><code>{&quot;type&quot;: &quot;string&quot;}
-</code></pre><p>​    </p>
-<h4 id="复杂类型"><a href="#复杂类型" class="headerlink" title="复杂类型"></a>复杂类型</h4><p>Avro提供了6种复杂类型。分别是Record，Enum，Array，Map，Union和Fixed。<br>​    </p>
-<h5 id="Record"><a href="#Record" class="headerlink" title="Record"></a>Record</h5><p>Record类型使用的类型名字是 “record”，还支持其它属性的设置：</p>
+</code></pre>
+<p>​</p>
+<h4 id="复杂类型"><a class="markdownIt-Anchor" href="#复杂类型"></a> 复杂类型</h4>
+<p>Avro提供了6种复杂类型。分别是Record，Enum，Array，Map，Union和Fixed。<br>
+​</p>
+<h5 id="record"><a class="markdownIt-Anchor" href="#record"></a> Record</h5>
+<p>Record类型使用的类型名字是 “record”，还支持其它属性的设置：</p>
 <ol>
 <li>name：record类型的名字(必填)</li>
 <li>namespace：命名空间(可选)</li>
 <li>doc：这个类型的文档说明(可选)</li>
 <li>aliases：record类型的别名，是个字符串数组(可选)</li>
-<li>fields：record类型中的字段，是个对象数组(必填)。每个字段需要以下属性：<ul>
-<li>name：字段名字(必填)</li>
-<li>doc：字段说明文档(可选)</li>
-<li>type：一个schema的json对象或者一个类型名字(必填)</li>
-<li>default：默认值(可选)</li>
-<li>order：排序(可选)，只有3个值ascending(默认)，descending或ignore</li>
-<li>aliases：别名，字符串数组(可选)</li>
+<li>fields：record类型中的字段，是个对象数组(必填)。每个字段需要以下属性：
+<ul>
+<li>
+<pre><code>name：字段名字(必填)
+</code></pre>
+</li>
+<li>
+<pre><code>doc：字段说明文档(可选)
+</code></pre>
+</li>
+<li>
+<pre><code>type：一个schema的json对象或者一个类型名字(必填)
+</code></pre>
+</li>
+<li>
+<pre><code>default：默认值(可选)
+</code></pre>
+</li>
+<li>
+<pre><code>order：排序(可选)，只有3个值ascending(默认)，descending或ignore
+</code></pre>
+</li>
+<li>
+<pre><code>aliases：别名，字符串数组(可选)
+</code></pre>
+</li>
 </ul>
 </li>
 </ol>
@@ -549,9 +673,11 @@
     {&quot;name&quot;: &quot;value&quot;, &quot;type&quot;: &quot;long&quot;},             // each element has a long
     {&quot;name&quot;: &quot;next&quot;, &quot;type&quot;: [&quot;null&quot;, &quot;LongList&quot;]} // optional next element
   ]
-}    
-</code></pre><p>​    </p>
-<h5 id="Enum"><a href="#Enum" class="headerlink" title="Enum"></a>Enum</h5><p>枚举类型的类型名字是”enum”，还支持其它属性的设置：</p>
+}	
+</code></pre>
+<p>​</p>
+<h5 id="enum"><a class="markdownIt-Anchor" href="#enum"></a> Enum</h5>
+<p>枚举类型的类型名字是”enum”，还支持其它属性的设置：</p>
 <ol>
 <li>name：枚举类型的名字(必填)</li>
 <li>namespace：命名空间(可选)</li>
@@ -564,20 +690,27 @@
   &quot;name&quot;: &quot;Suit&quot;,
   &quot;symbols&quot; : [&quot;SPADES&quot;, &quot;HEARTS&quot;, &quot;DIAMONDS&quot;, &quot;CLUBS&quot;]
 }
-</code></pre><h5 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h5><p>数组类型的类型名字是”array”并且只支持一个属性：</p>
+</code></pre>
+<h5 id="array"><a class="markdownIt-Anchor" href="#array"></a> Array</h5>
+<p>数组类型的类型名字是”array”并且只支持一个属性：</p>
 <p>items：数组元素的schema</p>
 <p>一个数组例子：</p>
 <pre><code>{&quot;type&quot;: &quot;array&quot;, &quot;items&quot;: &quot;string&quot;}
-</code></pre><h5 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h5><p>Map类型的类型名字是”map”并且只支持一个属性：</p>
+</code></pre>
+<h5 id="map"><a class="markdownIt-Anchor" href="#map"></a> Map</h5>
+<p>Map类型的类型名字是”map”并且只支持一个属性：</p>
 <p>values：map值的schema</p>
 <p>Map的key必须是字符串。</p>
 <p>一个Map例子：</p>
 <pre><code>{&quot;type&quot;: &quot;map&quot;, &quot;values&quot;: &quot;long&quot;}
-</code></pre><h5 id="Union"><a href="#Union" class="headerlink" title="Union"></a>Union</h5><p>组合类型，表示各种类型的组合，使用数组进行组合。比如[“null”, “string”]表示类型可以为null或者string。</p>
+</code></pre>
+<h5 id="union"><a class="markdownIt-Anchor" href="#union"></a> Union</h5>
+<p>组合类型，表示各种类型的组合，使用数组进行组合。比如[“null”, “string”]表示类型可以为null或者string。</p>
 <p>组合类型的默认值是看组合类型的第一个元素，因此如果一个组合类型包括null类型，那么null类型一般都会放在第一个位置，这样子的话这个组合类型的默认值就是null。</p>
 <p>组合类型中不允许同一种类型的元素的个数不会超过1个，除了record，fixed和enum。比如组合类中有2个array类型或者2个map类型，这是不允许的。</p>
 <p>组合类型不允许嵌套组合类型。</p>
-<h5 id="Fixed"><a href="#Fixed" class="headerlink" title="Fixed"></a>Fixed</h5><p>混合类型的类型名字是fixed，支持以下属性：</p>
+<h5 id="fixed"><a class="markdownIt-Anchor" href="#fixed"></a> Fixed</h5>
+<p>混合类型的类型名字是fixed，支持以下属性：</p>
 <ol>
 <li>name：名字(必填)</li>
 <li>namespace：命名空间(可选)</li>
@@ -586,8 +719,11 @@
 </ol>
 <p>比如16个字节数的fixed类型例子如下：</p>
 <pre><code>{&quot;type&quot;: &quot;fixed&quot;, &quot;size&quot;: 16, &quot;name&quot;: &quot;md5&quot;}
-</code></pre><h4 id="Avro序列化方式"><a href="#Avro序列化方式" class="headerlink" title="Avro序列化方式"></a>Avro序列化方式</h4><p>Avro使用Json来声明Schema，这个预先定义的模式作为通信两端数据协议，在网络传输前后对目标数据进行二进制处理。</p>
-<h5 id="定义schema"><a href="#定义schema" class="headerlink" title="定义schema"></a>定义schema</h5><p>首先定义一个schema，user.avsc：</p>
+</code></pre>
+<h4 id="avro序列化方式"><a class="markdownIt-Anchor" href="#avro序列化方式"></a> Avro序列化方式</h4>
+<p>Avro使用Json来声明Schema，这个预先定义的模式作为通信两端数据协议，在网络传输前后对目标数据进行二进制处理。</p>
+<h5 id="定义schema"><a class="markdownIt-Anchor" href="#定义schema"></a> 定义schema</h5>
+<p>首先定义一个schema，user.avsc：</p>
 <pre><code>{&quot;namespace&quot;: &quot;com.rickiyang.avro&quot;,
  &quot;type&quot;: &quot;record&quot;,
  &quot;name&quot;: &quot;User&quot;,
@@ -597,18 +733,25 @@
      {&quot;name&quot;: &quot;sex&quot;, &quot;type&quot;: [&quot;int&quot;, &quot;null&quot;]}
  ]
 }
-</code></pre><p>上面schema中使用的是record类型，里面的各个字段上面都有解释。</p>
-<h5 id="编译schema"><a href="#编译schema" class="headerlink" title="编译schema"></a>编译schema</h5><p>根据schema生成相应的java类对象，用户set值。</p>
+</code></pre>
+<p>上面schema中使用的是record类型，里面的各个字段上面都有解释。</p>
+<h5 id="编译schema"><a class="markdownIt-Anchor" href="#编译schema"></a> 编译schema</h5>
+<p>根据schema生成相应的java类对象，用户set值。</p>
 <p>编译schema有两种方式，一种是通过maven插件生成，一种是命令行的方式。</p>
-<p>命令行方式：<br>需要额外的jar包：avro-tools-1.8.1.jar,(<a href="https://mvnrepository.com/artifact/org.apache.avro/avro-maven-plugin" target="_blank" rel="noopener">https://mvnrepository.com/artifact/org.apache.avro/avro-maven-plugin</a>)</p>
+<p>命令行方式：<br>
+需要额外的jar包：avro-tools-1.8.1.jar,(<span class="exturl" data-url="aHR0cHM6Ly9tdm5yZXBvc2l0b3J5LmNvbS9hcnRpZmFjdC9vcmcuYXBhY2hlLmF2cm8vYXZyby1tYXZlbi1wbHVnaW4=" title="https://mvnrepository.com/artifact/org.apache.avro/avro-maven-plugin">https://mvnrepository.com/artifact/org.apache.avro/avro-maven-plugin<i class="fa fa-external-link"></i></span>)</p>
 <p>将该jar包和user.avsc文件放在同一目录下，执行如下命令：</p>
 <pre><code>java -jar avro-tools-1.8.1.jar compile schema user.avsc .
-</code></pre><p>注意最后有个“.”,表示在当前目录下生成java文件。</p>
-<p>执行完之后在当前目录下就会生成User类。接下来我们就可以使用刚才定义的对象去set值了。关于maven插件的方式就不多做说明，请参考这一篇博文(<a href="https://www.baeldung.com/java-apache-avro)，在你的IDE中安装maven插件，set" target="_blank" rel="noopener">https://www.baeldung.com/java-apache-avro)，在你的IDE中安装maven插件，set</a> source path 和 target path，然后执行“mvn clean install” 即可。</p>
-<h4 id="序列化和反序列化"><a href="#序列化和反序列化" class="headerlink" title="序列化和反序列化"></a>序列化和反序列化</h4><p>上面编译schema生成java对象，我们拿到java对象可以去set相应的值。当然也有一种不通过使用生成的User对象的方式去序列化，我们一一介绍。</p>
+</code></pre>
+<p>注意最后有个“.”,表示在当前目录下生成java文件。</p>
+<p>执行完之后在当前目录下就会生成User类。接下来我们就可以使用刚才定义的对象去set值了。关于maven插件的方式就不多做说明，请参考这一篇博文(<span class="exturl" data-url="aHR0cHM6Ly93d3cuYmFlbGR1bmcuY29tL2phdmEtYXBhY2hlLWF2cm8=" title="https://www.baeldung.com/java-apache-avro">https://www.baeldung.com/java-apache-avro<i class="fa fa-external-link"></i></span>)，在你的IDE中安装maven插件，set source path 和 target path，然后执行“mvn clean install” 即可。</p>
+<h4 id="序列化和反序列化"><a class="markdownIt-Anchor" href="#序列化和反序列化"></a> 序列化和反序列化</h4>
+<p>上面编译schema生成java对象，我们拿到java对象可以去set相应的值。当然也有一种不通过使用生成的User对象的方式去序列化，我们一一介绍。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.avro.Schema;</span><br><span class="line"><span class="keyword">import</span> org.apache.avro.file.DataFileReader;</span><br><span class="line"><span class="keyword">import</span> org.apache.avro.file.DataFileWriter;</span><br><span class="line"><span class="keyword">import</span> org.apache.avro.generic.GenericData;</span><br><span class="line"><span class="keyword">import</span> org.apache.avro.generic.GenericDatumReader;</span><br><span class="line"><span class="keyword">import</span> org.apache.avro.generic.GenericDatumWriter;</span><br><span class="line"><span class="keyword">import</span> org.apache.avro.generic.GenericRecord;</span><br><span class="line"><span class="keyword">import</span> org.apache.avro.io.DatumReader;</span><br><span class="line"><span class="keyword">import</span> org.apache.avro.io.DatumWriter;</span><br><span class="line"><span class="keyword">import</span> org.apache.avro.specific.SpecificDatumReader;</span><br><span class="line"><span class="keyword">import</span> org.apache.avro.specific.SpecificDatumWriter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> yangyue</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> Created in 上午10:20 2018/11/21</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Modified</span> by:</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>:</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Serialization</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        encode();</span><br><span class="line">        decode();</span><br><span class="line">        nonCoding();</span><br><span class="line">        nonCodingDecode();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 序列化</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">encode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            User user1 = <span class="keyword">new</span> User();</span><br><span class="line">            user1.setName(<span class="string">"Tom"</span>);</span><br><span class="line">            user1.setAge(<span class="number">7</span>);</span><br><span class="line">            user1.setSex(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">            DatumWriter&lt;User&gt; userDatumWriter = <span class="keyword">new</span> SpecificDatumWriter&lt;&gt;(User.class);</span><br><span class="line">            DataFileWriter&lt;User&gt; dataFileWriter = <span class="keyword">new</span> DataFileWriter&lt;&gt;(userDatumWriter);</span><br><span class="line">            dataFileWriter.create(user1.getSchema(), <span class="keyword">new</span> File(<span class="string">"user.avro"</span>));</span><br><span class="line">            dataFileWriter.append(user1);</span><br><span class="line">            dataFileWriter.close();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">​    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 反序列化</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">decode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            DatumReader&lt;User&gt; userDatumReader = <span class="keyword">new</span> SpecificDatumReader&lt;&gt;(User.class);</span><br><span class="line">            DataFileReader&lt;User&gt; dataFileReader = <span class="keyword">new</span> DataFileReader&lt;&gt;(<span class="keyword">new</span> File(<span class="string">"user.avro"</span>), userDatumReader);</span><br><span class="line">            User user = <span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">while</span> (dataFileReader.hasNext()) &#123;</span><br><span class="line">                user = dataFileReader.next(user);</span><br><span class="line">                System.out.println(user);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 不使用对象的序列化</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">nonCoding</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            ClassLoader classLoader = Serialization.class.getClassLoader();</span><br><span class="line">            String avscFilePath = classLoader.getClass().getResource(<span class="string">"/user.avsc"</span>).getPath();</span><br><span class="line">            Schema schema = <span class="keyword">new</span> Schema.Parser().parse(<span class="keyword">new</span> File(avscFilePath));</span><br><span class="line"></span><br><span class="line">            GenericRecord user1 = <span class="keyword">new</span> GenericData.Record(schema);</span><br><span class="line">            user1.put(<span class="string">"name"</span>, <span class="string">"Tony"</span>);</span><br><span class="line">            user1.put(<span class="string">"age"</span>, <span class="number">18</span>);</span><br><span class="line"></span><br><span class="line">            GenericRecord user2 = <span class="keyword">new</span> GenericData.Record(schema);</span><br><span class="line">            user2.put(<span class="string">"name"</span>, <span class="string">"Ben"</span>);</span><br><span class="line">            user2.put(<span class="string">"age"</span>, <span class="number">3</span>);</span><br><span class="line">            user2.put(<span class="string">"sex"</span>, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">            File file = <span class="keyword">new</span> File(<span class="string">"user.avro"</span>);</span><br><span class="line">            DatumWriter&lt;GenericRecord&gt; datumWriter = <span class="keyword">new</span> GenericDatumWriter&lt;&gt;(schema);</span><br><span class="line">            DataFileWriter&lt;GenericRecord&gt; dataFileWriter = <span class="keyword">new</span> DataFileWriter&lt;&gt;(datumWriter);</span><br><span class="line">            dataFileWriter.create(schema, file);</span><br><span class="line">            dataFileWriter.append(user1);</span><br><span class="line">            dataFileWriter.append(user2);</span><br><span class="line">            dataFileWriter.close();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 不使用对象的反序列化</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">nonCodingDecode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            ClassLoader classLoader = Serialization.class.getClassLoader();</span><br><span class="line">            String avscFilePath = classLoader.getClass().getResource(<span class="string">"/user.avsc"</span>).getPath();</span><br><span class="line">            Schema schema = <span class="keyword">new</span> Schema.Parser().parse(<span class="keyword">new</span> File(avscFilePath));</span><br><span class="line">            File file = <span class="keyword">new</span> File(<span class="string">"user.avro"</span>);</span><br><span class="line">            DatumReader&lt;GenericRecord&gt; datumReader = <span class="keyword">new</span> GenericDatumReader&lt;&gt;(schema);</span><br><span class="line">            DataFileReader&lt;GenericRecord&gt; dataFileReader = <span class="keyword">new</span> DataFileReader&lt;&gt;(file, datumReader);</span><br><span class="line">            GenericRecord user = <span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">while</span> (dataFileReader.hasNext()) &#123;</span><br><span class="line">                user = dataFileReader.next(user);</span><br><span class="line">                System.out.println(user);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>以上为序列化和反序列化的两种方式，注意到序列化的文件都输出到根目录下的user.avro这个文件中，输出序列化文件，使用于写数据到HDFS中存储使用。</p>
-<h4 id="Avro实战"><a href="#Avro实战" class="headerlink" title="Avro实战"></a>Avro实战</h4><h5 id="Kafka与Avro"><a href="#Kafka与Avro" class="headerlink" title="Kafka与Avro"></a>Kafka与Avro</h5><p>上面已经生成User类，我们可以用该对象去发送avro消息。</p>
+<h4 id="avro实战"><a class="markdownIt-Anchor" href="#avro实战"></a> Avro实战</h4>
+<h5 id="kafka与avro"><a class="markdownIt-Anchor" href="#kafka与avro"></a> Kafka与Avro</h5>
+<p>上面已经生成User类，我们可以用该对象去发送avro消息。</p>
 <p>引进pom：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.kafka<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>kafka-clients<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.10.2.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>创建Consumer:</p>
@@ -617,7 +760,8 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> yangyue</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> Created in 下午4:17 2018/11/23</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Modified</span> by:</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>:</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">import</span> com.sun.xml.internal.ws.encoding.soap.DeserializationException;</span><br><span class="line"><span class="keyword">import</span> org.apache.avro.io.BinaryDecoder;</span><br><span class="line"><span class="keyword">import</span> org.apache.avro.io.DatumReader;</span><br><span class="line"><span class="keyword">import</span> org.apache.avro.io.DecoderFactory;</span><br><span class="line"><span class="keyword">import</span> org.apache.avro.specific.SpecificDatumReader;</span><br><span class="line"><span class="keyword">import</span> org.apache.avro.specific.SpecificRecordBase;</span><br><span class="line"><span class="keyword">import</span> org.apache.kafka.common.serialization.Deserializer;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.ByteArrayInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AvroDeserializer</span>&lt;<span class="title">T</span> <span class="keyword">extends</span> <span class="title">SpecificRecordBase</span>&gt; <span class="keyword">implements</span> <span class="title">Deserializer</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(Map&lt;String, ?&gt; configs, <span class="keyword">boolean</span> isKey)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">deserialize</span><span class="params">(String topic, <span class="keyword">byte</span>[] data)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        DatumReader&lt;T&gt; userDatumReader = <span class="keyword">new</span> SpecificDatumReader&lt;&gt;(Topic.matchFor(topic).topicType.getSchema());</span><br><span class="line">        BinaryDecoder binaryEncoder = DecoderFactory.get().directBinaryDecoder(<span class="keyword">new</span> ByteArrayInputStream(data), <span class="keyword">null</span>);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> userDatumReader.read(<span class="keyword">null</span>, binaryEncoder);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> DeserializationException(e.getMessage());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>创建Consumer：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> yangyue</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> Created in 下午4:17 2018/11/23</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Modified</span> by:</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>:</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">import</span> org.apache.avro.specific.SpecificRecordBase;</span><br><span class="line"><span class="keyword">import</span> org.apache.kafka.clients.consumer.ConsumerConfig;</span><br><span class="line"><span class="keyword">import</span> org.apache.kafka.clients.consumer.ConsumerRecord;</span><br><span class="line"><span class="keyword">import</span> org.apache.kafka.clients.consumer.ConsumerRecords;</span><br><span class="line"><span class="keyword">import</span> org.apache.kafka.clients.consumer.KafkaConsumer;</span><br><span class="line"><span class="keyword">import</span> org.apache.kafka.common.serialization.StringDeserializer;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Collections;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Properties;</span><br><span class="line"><span class="keyword">import</span> java.util.stream.Collectors;</span><br><span class="line"><span class="keyword">import</span> java.util.stream.StreamSupport;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Consumer</span>&lt;<span class="title">T</span> <span class="keyword">extends</span> <span class="title">SpecificRecordBase</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> KafkaConsumer&lt;String, T&gt; consumer = <span class="keyword">new</span> KafkaConsumer&lt;&gt;(getProperties());</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;T&gt; <span class="title">receive</span><span class="params">(Topic topic)</span> </span>&#123;</span><br><span class="line"><span class="comment">//        TopicPartition partition = new TopicPartition(topic.topicName, 0);</span></span><br><span class="line">        consumer.subscribe(Collections.singletonList(topic.topicName));</span><br><span class="line"><span class="comment">//        consumer.assign(Collections.singletonList(partition));</span></span><br><span class="line">        ConsumerRecords&lt;String, T&gt; records = consumer.poll(<span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> StreamSupport.stream(records.spliterator(), <span class="keyword">false</span>)</span><br><span class="line">                .map(ConsumerRecord::value).collect(Collectors.toList());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> Properties <span class="title">getProperties</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Properties props = <span class="keyword">new</span> Properties();</span><br><span class="line">        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, <span class="string">"localhost:9092"</span>);</span><br><span class="line">        props.put(ConsumerConfig.GROUP_ID_CONFIG, <span class="string">"DemoConsumer"</span>);</span><br><span class="line">        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,</span><br><span class="line">                StringDeserializer.class.getName());</span><br><span class="line">        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,</span><br><span class="line">                AvroDeserializer.class.getName());</span><br><span class="line">        <span class="keyword">return</span> props;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>​<br>创建序列化avro对象的解析器AvroSerializer：</p>
+<p>​<br>
+创建序列化avro对象的解析器AvroSerializer：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> yangyue</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> Created in 下午4:16 2018/11/23</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Modified</span> by:</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>:</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">import</span> org.apache.avro.io.BinaryEncoder;</span><br><span class="line"><span class="keyword">import</span> org.apache.avro.io.DatumWriter;</span><br><span class="line"><span class="keyword">import</span> org.apache.avro.io.EncoderFactory;</span><br><span class="line"><span class="keyword">import</span> org.apache.avro.specific.SpecificDatumWriter;</span><br><span class="line"><span class="keyword">import</span> org.apache.avro.specific.SpecificRecordBase;</span><br><span class="line"><span class="keyword">import</span> org.apache.kafka.common.errors.SerializationException;</span><br><span class="line"><span class="keyword">import</span> org.apache.kafka.common.serialization.Serializer;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.ByteArrayOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AvroSerializer</span>&lt;<span class="title">T</span> <span class="keyword">extends</span> <span class="title">SpecificRecordBase</span>&gt; <span class="keyword">implements</span> <span class="title">Serializer</span>&lt;<span class="title">T</span>&gt;</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(Map&lt;String, ?&gt; configs, <span class="keyword">boolean</span> isKey)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">byte</span>[] serialize(String topic, T data) &#123;</span><br><span class="line">        DatumWriter&lt;T&gt; userDatumWriter = <span class="keyword">new</span> SpecificDatumWriter&lt;&gt;(data.getSchema());</span><br><span class="line">        ByteArrayOutputStream outputStream = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line">        BinaryEncoder binaryEncoder = EncoderFactory.get().directBinaryEncoder(outputStream, <span class="keyword">null</span>);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            userDatumWriter.write(data, binaryEncoder);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> SerializationException(e.getMessage());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> outputStream.toByteArray();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>定义一个topic：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> yangyue</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> Created in 下午4:17 2018/11/23</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Modified</span> by:</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>:</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">import</span> com.rickiyang.avro.User;</span><br><span class="line"><span class="keyword">import</span> org.apache.avro.specific.SpecificRecordBase;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.EnumSet;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Topic &#123;</span><br><span class="line">    USER(<span class="string">"user-info-topic"</span>, <span class="keyword">new</span> User());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> String topicName;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> SpecificRecordBase topicType;</span><br><span class="line"></span><br><span class="line">    Topic(String topicName, SpecificRecordBase topicType) &#123;</span><br><span class="line">        <span class="keyword">this</span>.topicName = topicName;</span><br><span class="line">        <span class="keyword">this</span>.topicType = topicType;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Topic <span class="title">matchFor</span><span class="params">(String topicName)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> EnumSet.allOf(Topic.class).stream()</span><br><span class="line">                .filter(topic -&gt; topic.topicName.equals(topicName))</span><br><span class="line">                .findFirst()</span><br><span class="line">                .orElse(<span class="keyword">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -626,6 +770,9 @@
 
       
     </div>
+
+    
+
     
     
     
@@ -643,8 +790,8 @@
   <p><span>文章作者:</span><a href="/" title="访问 Rickiyang 的个人博客">Rickiyang</a></p>
   <p><span>发布时间:</span>2018年11月20日 - 16:23</p>
   <p><span>最后更新:</span>2019年01月07日 - 09:55</p>
-  <p><span>原始链接:</span><a href="/posts/62981c04.html" title="序列化--Avro">https://blog.rickiyang.cn/posts/62981c04.html</a>
-    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.rickiyang.cn/posts/62981c04.html" aria-label="复制成功！"></i></span>
+  <p><span>原始链接:</span><a href="/posts/62981c04.html" title="序列化--Avro">http://blog.rickiyang.cn/posts/62981c04.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://blog.rickiyang.cn/posts/62981c04.html" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
 </div>
@@ -665,9 +812,7 @@
 
       
     </div>
-
     
-
     <div>
       
         <div>
@@ -679,6 +824,10 @@
       
     </div>
 
+
+    
+      
+    
     
 
     
@@ -687,7 +836,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/学习/" rel="tag"> <i class="”fa" fa-tag”=""></i> 学习</a>
+            <a href="/tags/学习/" rel="tag"># 学习</a>
           
         </div>
       
@@ -728,44 +877,15 @@
   </article>
 
 
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript">
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
   </div>
 
 
           </div>
           
 
-
-          
+  
+    <div class="comments" id="comments">
+    </div>
 
   
 
@@ -792,60 +912,124 @@ var jiathis_config={
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
+            Table of Contents
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
+            Overview
           </li>
         </ul>
       
 
-      <section class="site-overview-wrap sidebar-panel">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image" src="/images/adele.png" alt="Rickiyang">
             
               <p class="site-author-name" itemprop="name">Rickiyang</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-description motion-element" itemprop="description">分享对coding生活的见解</p>
           </div>
 
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
+          
+            <nav class="site-state motion-element">
               
-                <a href="/archives">
-              
-                  <span class="site-state-item-count">99</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">19</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
+                <div class="site-state-item site-state-posts">
                 
-                  <span class="site-state-item-count">11</span>
-                  <span class="site-state-item-name">标签</span>
+                  <a href="/archives">
                 
-              </div>
-            
+                    <span class="site-state-item-count">99</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
 
-          </nav>
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
 
           
             <div class="feed-link motion-element">
@@ -858,63 +1042,93 @@ var jiathis_config={
 
           
             <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/rickiyang" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:medee1320@gmail.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://blog.csdn.net/a953713428" target="_blank" title="CSDN">
-                      
-                        <i class="fa fa-fw fa-google"></i>CSDN</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="953713428" target="_blank" title="QQ">
-                      
-                        <i class="fa fa-fw fa-twitter"></i>QQ</a>
-                  </span>
-                
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3JpY2tpeWFuZw==" title="GitHub &rarr; https://github.com/rickiyang"><i class="fa fa-fw fa-github"></i>GitHub</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="bWFpbHRvOm1lZGVlMTMyMEBnbWFpbC5jb20=" title="E-Mail &rarr; mailto:medee1320@gmail.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2E5NTM3MTM0Mjg=" title="CSDN &rarr; https://blog.csdn.net/a953713428"><i class="fa fa-fw fa-google"></i>CSDN</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="/953713428" title="QQ &rarr; 953713428"><i class="fa fa-fw fa-twitter"></i>QQ</a>
+                </span>
+              
             </div>
           
 
           
-          
 
           
           
 
+          
+            
+          
           
 
         </div>
-      </section>
+      </div>
 
       
       <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
           <div class="post-toc">
 
             
-              
+            
+            
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#avro"><span class="nav-number">1.</span> <span class="nav-text">avro</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Avro的Schema"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">Avro的Schema</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Avro基本数据类型"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">Avro基本数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#复杂类型"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">复杂类型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Record"><span class="nav-number">1.0.0.3.1.</span> <span class="nav-text">Record</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Enum"><span class="nav-number">1.0.0.3.2.</span> <span class="nav-text">Enum</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Array"><span class="nav-number">1.0.0.3.3.</span> <span class="nav-text">Array</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Map"><span class="nav-number">1.0.0.3.4.</span> <span class="nav-text">Map</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Union"><span class="nav-number">1.0.0.3.5.</span> <span class="nav-text">Union</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Fixed"><span class="nav-number">1.0.0.3.6.</span> <span class="nav-text">Fixed</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Avro序列化方式"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">Avro序列化方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#定义schema"><span class="nav-number">1.0.0.4.1.</span> <span class="nav-text">定义schema</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#编译schema"><span class="nav-number">1.0.0.4.2.</span> <span class="nav-text">编译schema</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#序列化和反序列化"><span class="nav-number">1.0.0.5.</span> <span class="nav-text">序列化和反序列化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Avro实战"><span class="nav-number">1.0.0.6.</span> <span class="nav-text">Avro实战</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Kafka与Avro"><span class="nav-number">1.0.0.6.1.</span> <span class="nav-text">Kafka与Avro</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#avro"><span class="nav-number">1.</span> <span class="nav-text"> avro</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#avro的schema"><span class="nav-number">1.0.0.1.</span> <span class="nav-text"> Avro的Schema</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#avro基本数据类型"><span class="nav-number">1.0.0.2.</span> <span class="nav-text"> Avro基本数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#复杂类型"><span class="nav-number">1.0.0.3.</span> <span class="nav-text"> 复杂类型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#record"><span class="nav-number">1.0.0.3.1.</span> <span class="nav-text"> Record</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#enum"><span class="nav-number">1.0.0.3.2.</span> <span class="nav-text"> Enum</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#array"><span class="nav-number">1.0.0.3.3.</span> <span class="nav-text"> Array</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#map"><span class="nav-number">1.0.0.3.4.</span> <span class="nav-text"> Map</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#union"><span class="nav-number">1.0.0.3.5.</span> <span class="nav-text"> Union</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#fixed"><span class="nav-number">1.0.0.3.6.</span> <span class="nav-text"> Fixed</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#avro序列化方式"><span class="nav-number">1.0.0.4.</span> <span class="nav-text"> Avro序列化方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#定义schema"><span class="nav-number">1.0.0.4.1.</span> <span class="nav-text"> 定义schema</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#编译schema"><span class="nav-number">1.0.0.4.2.</span> <span class="nav-text"> 编译schema</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#序列化和反序列化"><span class="nav-number">1.0.0.5.</span> <span class="nav-text"> 序列化和反序列化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#avro实战"><span class="nav-number">1.0.0.6.</span> <span class="nav-text"> Avro实战</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#kafka与avro"><span class="nav-number">1.0.0.6.1.</span> <span class="nav-text"> Kafka与Avro</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
-        </section>
+        </div>
       <!--/noindex-->
       
 
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
       
 
     </div>
@@ -927,39 +1141,50 @@ var jiathis_config={
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2019</span>
-  <span class="with-love">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Rickiyang</span>
 
   
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="Symbols count total">752k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="Reading time total">11:24</span>
+  
 </div>
 
-<div class="powered-by">
+<!--<div class="powered-by">
 <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
   本站访客数:<span id="busuanzi_value_site_uv"></span>
 </span>
-</div>
-
-<!--
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
--->
-
-
-  <span class="post-meta-divider">|</span>
+</div>-->
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+  <div class="theme-info">Theme – <span class="exturl theme-link" data-url="aHR0cHM6Ly90aGVtZS1uZXh0Lm9yZw==">NexT.Gemini</span> v6.7.0</div>
 
 
 
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共231.6k字</span>
+  <span class="post-count">博客全站共231.9k字</span>
 </div>
 
 <script>
@@ -979,24 +1204,23 @@ var jiathis_config={
 
         
 <div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
   
-    <span class="site-uv">
+    <span class="site-uv" title="Total Visitors">
       <i class="fa fa-user"></i>
       <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-      人次
     </span>
   
 
   
-    <span class="site-pv">
+    <span class="site-pv" title="Total Views">
       <i class="fa fa-eye"></i>
       <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-      次
     </span>
   
 </div>
+
 
 
 
@@ -1010,21 +1234,17 @@ var jiathis_config={
     </footer>
 
     
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-          <span id="scrollpercent"><span>0</span>%</span>
-        
-      </div>
+
     
 
     
 
+    
   </div>
 
   
 
-<script type="text/javascript">
+<script>
   if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
     window.Promise = null;
   }
@@ -1038,117 +1258,6 @@ var jiathis_config={
 
 
 
-  
-
-
-
-
-
-
-  
-  
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/three.min.js"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
 
 
 
@@ -1161,8 +1270,111 @@ var jiathis_config={
 
 
   
+  
 
-  <script type="text/javascript">
+
+
+  
+  
+  <script id="ribbon" size="300" alpha="0.6" zindex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/three/three.min.js"></script>
+
+  
+  <script src="/lib/three/canvas_sphere.min.js"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script>
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+      el: '#comments' ,
+      verify: false,
+      notify: false,
+      appId: 'X5fy0b9Gknu0SAse5areilGR-gzGzoHsz',
+      appKey: 'URk4cyPQ8Ttqtwhop5t26kok',
+      placeholder: 'Just go go',
+      avatar: 'mm',
+      meta:guest,
+      pageSize: '10' || 10,
+      visitor: false
+    });
+  </script>
+
+
+
+
+  
+
+  <script>
     // Popup Window;
     var isfetched = false;
     var isXml = true;
@@ -1211,6 +1423,8 @@ var jiathis_config={
         .css('overflow', 'hidden');
       $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
 
+      
+
       $.ajax({
         url: path,
         dataType: isXml ? "xml" : "json",
@@ -1244,8 +1458,9 @@ var jiathis_config={
                 var title = data.title.trim();
                 var titleInLowerCase = title.toLowerCase();
                 var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
                 var contentInLowerCase = content.toLowerCase();
-                var articleUrl = decodeURIComponent(data.url);
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
                 var indexOfTitle = [];
                 var indexOfContent = [];
                 // only match articles with not empty titles
@@ -1414,9 +1629,9 @@ var jiathis_config={
               })
             };
             if (keywords.length === 1 && keywords[0] === "") {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
             } else if (resultItems.length === 0) {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
             } else {
               resultItems.sort(function (resultLeft, resultRight) {
                 if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
@@ -1486,107 +1701,66 @@ var jiathis_config={
   
 
   
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("X5fy0b9Gknu0SAse5areilGR-gzGzoHsz", "URk4cyPQ8Ttqtwhop5t26kok");</script>
   <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
-            }
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
+    
     function addCount(Counter) {
       var $visitors = $(".leancloud_visitors");
       var url = $visitors.attr('id').trim();
       var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
 
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function ({ results }) {
           if (results.length > 0) {
             var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
+            
+            Counter('put', `/classes/Counter/${counter.objectId}`, JSON.stringify({ time: { "__op":"Increment", "amount":1 } }))
+            
+            .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.time + 1);
+            })
+            
+            .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+            })
           } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1}))
+                .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function () {
+                  console.log('Failed to create');
+                });
+            
           }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
+        })
+      .fail(function ({ responseJSON }) {
+        console.log('LeanCloud Counter Error:' + responseJSON.code + " " + responseJSON.error);
       });
     }
+    
 
     $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + "X5fy0b9Gknu0SAse5areilGR-gzGzoHsz")
+        .done(function ({ api_server }) {
+          var Counter = function (method, url, data) {
+            return $.ajax({
+              method: method,
+              url: `https://${api_server}/1.1${url}`,
+              headers: {
+                'X-LC-Id': "X5fy0b9Gknu0SAse5areilGR-gzGzoHsz",
+                'X-LC-Key': "URk4cyPQ8Ttqtwhop5t26kok",
+                'Content-Type': 'application/json',
+              },
+              data: data,
+            });
+          };
+          
+          addCount(Counter);
+          
+        })
     });
   </script>
 
@@ -1595,9 +1769,45 @@ var jiathis_config={
   
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+      }
+      else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
 
   
   
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+  <script>
+    
+    
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+  <script src="/js/src/exturl.js?v=6.7.0"></script>
+
 
   
 
@@ -1607,7 +1817,7 @@ var jiathis_config={
 
 
   <!-- 页面点击小红心 -->
-  <script type="text/javascript" src="/js/src/love.js"></script>
-  <!---->
+    <script type="text/javascript" src="/js/src/love.js"></script>
+    <!---->
 </body>
 </html>

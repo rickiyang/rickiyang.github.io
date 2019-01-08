@@ -2,6 +2,15 @@
 
 
 
+
+
+
+
+
+
+
+
+
   
 
 
@@ -9,38 +18,38 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
 
 
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-center-circle.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -64,12 +73,6 @@
   
 
   
-    
-      
-    
-
-    
-  
 
   
     
@@ -90,7 +93,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|FZSongKeBenXiuKai:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
   
 
 
@@ -98,68 +101,40 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
 
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/adele.ico?v=5.1.4">
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/adele.ico?v=5.1.4">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/adele.ico?v=6.7.0">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/adele.ico?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/adele.ico?v=6.7.0">
 
 
-  <link rel="mask-icon" href="/images/adele.ico?v=5.1.4" color="#222">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/adele.ico?v=6.7.0">
 
 
-
-
-
-  <meta name="keywords" content="学习,">
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="Rickiyang's blog" type="application/atom+xml">
+  <link rel="mask-icon" href="/images/adele.ico?v=6.7.0" color="#222">
 
 
 
 
 
 
-<meta name="description" content="前面我们已经搭建了kafka的单机和集群环境，分别写了简单的实例代码，对于代码里面使用到的参数并没有做解释。下面我们来详细说一下各个参数的作用。 1. 创建kafka生产者kafka生产者有3个必选的属性： bootstrap.servers 该属性指定broker的地址清单，地址的格式为host:port。清单里不需要包含所有的broker 地址，生产者会从给定的broker里查找到其他brok">
-<meta name="keywords" content="学习">
-<meta property="og:type" content="article">
-<meta property="og:title" content="kafka客户端和服务端开发（3）">
-<meta property="og:url" content="https://blog.rickiyang.cn/posts/34bc78bf.html">
-<meta property="og:site_name" content="Rickiyang&#39;s blog">
-<meta property="og:description" content="前面我们已经搭建了kafka的单机和集群环境，分别写了简单的实例代码，对于代码里面使用到的参数并没有做解释。下面我们来详细说一下各个参数的作用。 1. 创建kafka生产者kafka生产者有3个必选的属性： bootstrap.servers 该属性指定broker的地址清单，地址的格式为host:port。清单里不需要包含所有的broker 地址，生产者会从给定的broker里查找到其他brok">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-06T02:53:23.042Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="kafka客户端和服务端开发（3）">
-<meta name="twitter:description" content="前面我们已经搭建了kafka的单机和集群环境，分别写了简单的实例代码，对于代码里面使用到的参数并没有做解释。下面我们来详细说一下各个参数的作用。 1. 创建kafka生产者kafka生产者有3个必选的属性： bootstrap.servers 该属性指定broker的地址清单，地址的格式为host:port。清单里不需要包含所有的broker 地址，生产者会从给定的broker里查找到其他brok">
 
-
-
-<script type="text/javascript" id="hexo.configurations">
+<script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
     scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
-    fancybox: true,
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
     algolia: {
       applicationID: '',
       apiKey: '',
@@ -171,12 +146,40 @@
 </script>
 
 
-
-  <link rel="canonical" href="https://blog.rickiyang.cn/posts/34bc78bf.html">
-
+  
 
 
 
+
+  <meta name="description" content="前面我们已经搭建了kafka的单机和集群环境，分别写了简单的实例代码，对于代码里面使用到的参数并没有做解释。下面我们来详细说一下各个参数的作用。  1. 创建kafka生产者 kafka生产者有3个必选的属性： bootstrap.servers 该属性指定broker的地址清单，地址的格式为host:port。清单里不需要包含所有的broker 地址，生产者会从给定的broker里查找到其他br">
+<meta name="keywords" content="学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kafka客户端和服务端开发（3）">
+<meta property="og:url" content="http://blog.rickiyang.cn/posts/34bc78bf.html">
+<meta property="og:site_name" content="Rickiyang&#39;s blog">
+<meta property="og:description" content="前面我们已经搭建了kafka的单机和集群环境，分别写了简单的实例代码，对于代码里面使用到的参数并没有做解释。下面我们来详细说一下各个参数的作用。  1. 创建kafka生产者 kafka生产者有3个必选的属性： bootstrap.servers 该属性指定broker的地址清单，地址的格式为host:port。清单里不需要包含所有的broker 地址，生产者会从给定的broker里查找到其他br">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-06T02:53:23.042Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="kafka客户端和服务端开发（3）">
+<meta name="twitter:description" content="前面我们已经搭建了kafka的单机和集群环境，分别写了简单的实例代码，对于代码里面使用到的参数并没有做解释。下面我们来详细说一下各个参数的作用。  1. 创建kafka生产者 kafka生产者有3个必选的属性： bootstrap.servers 该属性指定broker的地址清单，地址的格式为host:port。清单里不需要包含所有的broker 地址，生产者会从给定的broker里查找到其他br">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Rickiyang's blog" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://blog.rickiyang.cn/posts/34bc78bf.html">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
 
   <title>kafka客户端和服务端开发（3） | Rickiyang's blog</title>
   
@@ -187,6 +190,35 @@
 
 
 
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
 </head>
 
@@ -202,7 +234,7 @@
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
+  <div class="site-meta">
     
 
     <div class="custom-logo-site-title">
@@ -212,13 +244,16 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
+    
       
-        <h1 class="site-subtitle" itemprop="description"></h1>
+        <h1 class="site-subtitle" itemprop="description">java,大数据,分布式组件</h1>
       
+    
+    
   </div>
 
   <div class="site-nav-toggle">
-    <button>
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -226,66 +261,94 @@
   </div>
 </div>
 
-<nav class="site-nav">
-  
 
+
+<nav class="site-nav">
   
     <ul id="menu" class="menu">
       
         
-        <li class="menu-item menu-item-首页">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            首页
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-标签">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
-            
-            标签
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-分类">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
-            
-            分类
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-归档">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            归档
-          </a>
-        </li>
-      
+          
+          <li class="menu-item menu-item-首页">
 
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
       
         <li class="menu-item menu-item-search">
           
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
-            
-            搜索
-          </a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
         </li>
       
     </ul>
+  
+
   
 
   
@@ -300,7 +363,7 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -314,12 +377,23 @@
 
 
 
- </div>
+  
+
+
+
+</div>
     </header>
+
+    
+
 
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+          
+            
+
+          
           <div id="content" class="content">
             
 
@@ -332,16 +406,18 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.rickiyang.cn/posts/34bc78bf.html">
+    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/34bc78bf.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="分享对coding生活的见解">
       <meta itemprop="image" content="/images/adele.png">
     </span>
 
@@ -354,11 +430,20 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">kafka客户端和服务端开发（3）</h2>
+          <h2 class="post-title" itemprop="name headline">kafka客户端和服务端开发（3）
+
+              
+            
+          </h2>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -366,13 +451,30 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-08T16:56:33+08:00">
-                2018-04-08
-              </time>
+
+              
+                
+              
+
+              <time title="创建于: 2018-04-08 16:56:33" itemprop="dateCreated datePublished" datetime="2018-04-08T16:56:33+08:00">2018-04-08</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">编辑于</span>
+                
+                <time title="Modified: 2018-12-06 10:53:23" itemprop="dateModified" datetime="2018-12-06T10:53:23+08:00">2018-12-06</time>
+              
             
           </span>
 
@@ -388,11 +490,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/kafka/" itemprop="url" rel="index">
-                    <span itemprop="name">kafka</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/kafka/" itemprop="url" rel="index"><span itemprop="name">kafka</span></a></span>
 
                 
                 
@@ -401,6 +499,16 @@
           
 
           
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/posts/34bc78bf.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/34bc78bf.html" itemprop="commentCount"></span>
+                </a>
+              </span>
             
           
 
@@ -412,7 +520,7 @@
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">热度&#58;</span>
+                 <span class="post-meta-item-text">热度: </span>
                
                  <span class="leancloud-visitors-count"></span>
                  <span>℃</span>
@@ -420,27 +528,19 @@
           
 
           
-            <span class="post-meta-divider">|</span>
-            <span class="page-pv"><i class="fa fa-file-o"></i>
-            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
-            </span>
-          
 
           
-            <div class="post-wordcount">
+            <div class="post-symbolscount">
               
-                
-                  <span class="post-meta-divider">|</span>
-                
+
+              
                 <span class="post-meta-item-icon">
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">字数统计&#58;</span>
+                  <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="字数统计">
-                  4.4k
-                </span>
+                <span title="Symbols count in article">9k</span>
               
 
               
@@ -452,11 +552,9 @@
                   <i class="fa fa-clock-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="阅读时长">
-                  16
-                </span>
+                <span title="Reading time">8 mins.</span>
               
             </div>
           
@@ -477,7 +575,8 @@
 
       
         <p>前面我们已经搭建了kafka的单机和集群环境，分别写了简单的实例代码，对于代码里面使用到的参数并没有做解释。下面我们来详细说一下各个参数的作用。</p>
-<h4 id="1-创建kafka生产者"><a href="#1-创建kafka生产者" class="headerlink" title="1. 创建kafka生产者"></a>1. 创建kafka生产者</h4><p>kafka生产者有3个必选的属性：</p>
+<h4 id="1-创建kafka生产者"><a class="markdownIt-Anchor" href="#1-创建kafka生产者"></a> 1. 创建kafka生产者</h4>
+<p>kafka生产者有3个必选的属性：</p>
 <p><strong>bootstrap.servers</strong></p>
 <p>该属性指定broker的地址清单，地址的格式为host:port。清单里不需要包含所有的broker 地址，生产者会从给定的broker里查找到其他broker 的信息。不过建议至少要提供两个broker的信息，一且其中一个若机，生产者仍然能够连接到集群上。</p>
 <p><strong>key.serializer</strong></p>
@@ -490,49 +589,75 @@
 <p>我们的键值都定义为String对象，所以都是用的是内置的StringSerializer。</p>
 <p>实例化生产者对象之后我们就可以发送消息了，发消息主要有一下3种方式：</p>
 <ol>
-<li><p>发送并忘记(fire-and-forget)</p>
-<p> 我们把消息发送给服务器，但井不关心它是否正常到达。大多数情况下，消息会正常到达，因为Kafka 是高可用的，而且生产者会自动尝试重发。不过，使用这种方式有时候也会丢失一些消息。</p>
+<li>
+<p>发送并忘记(fire-and-forget)</p>
+<p>我们把消息发送给服务器，但井不关心它是否正常到达。大多数情况下，消息会正常到达，因为Kafka 是高可用的，而且生产者会自动尝试重发。不过，使用这种方式有时候也会丢失一些消息。</p>
 </li>
-<li><p>同步发送</p>
-<p> 我们使用send()方怯发送消息， 它会返回一个Future对象，调用get()方法进行等待，就可以知道消息是否发送成功。</p>
+<li>
+<p>同步发送</p>
+<p>我们使用send()方怯发送消息， 它会返回一个Future对象，调用get()方法进行等待，就可以知道消息是否发送成功。</p>
 </li>
-<li><p>异步发送</p>
-<p> 我们调用send()方法并且指定一个回调函数，服务器在返回响应时调用该函数。</p>
+<li>
+<p>异步发送</p>
+<p>我们调用send()方法并且指定一个回调函数，服务器在返回响应时调用该函数。</p>
 </li>
 </ol>
 <p>上面我们已经创建了一个生产者实例，接下来就可以发送消息了：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ProducerRecord&lt;String, String&gt; data = <span class="keyword">new</span> ProducerRecord&lt;String, String&gt;(<span class="string">"page_visits"</span>,<span class="string">"test_key"</span>,<span class="string">"test_msg"</span>);</span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    producer.send(data);</span><br><span class="line">&#125;<span class="keyword">catch</span>&#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>上面我们构造了一个ProducerRecord对象用来封装topic，消息的key-value。然后用生产者实例的send方法将消息体发送出去。</p>
-<h5 id="1-1-同步发送消息"><a href="#1-1-同步发送消息" class="headerlink" title="1.1 同步发送消息"></a>1.1 同步发送消息</h5><p>最简单的同步发送消息如下：</p>
+<h5 id="11-同步发送消息"><a class="markdownIt-Anchor" href="#11-同步发送消息"></a> 1.1 同步发送消息</h5>
+<p>最简单的同步发送消息如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ProducerRecord&lt;String, String&gt; data = <span class="keyword">new</span> ProducerRecord&lt;String, String&gt;(<span class="string">"page_visits"</span>,<span class="string">"test_key"</span>,<span class="string">"test_msg"</span>);</span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    producer.send(data).get();</span><br><span class="line">&#125;<span class="keyword">catch</span>&#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>即producer.send(data)返回的是一个Future对象，然后调用Future的get()方法僧带Kafka的响应。如果服务器返回错误，get()方法会抛异常。没有发生错误的话会得到一个RecordMetadata对象。可以用它来获取消息的偏移量。</p>
-<h5 id="1-2-异步发送消息"><a href="#1-2-异步发送消息" class="headerlink" title="1.2 异步发送消息"></a>1.2 异步发送消息</h5><p>producer发送消息给broker，如果发送成功，会把目标主题，分区信息以及消息偏移量发送回来。但是发送端大多数时候并不关心这些，只在乎是否发送成功。有的时候对于发送是否成功的状态也不是那么的着急需要。在消息量比较大的时候，如果每一条消息都需要同步去确认发送状态很显然是会发生超时的，这个时候异步回调机制很好的帮我们解决了这个问题。</p>
+<h5 id="12-异步发送消息"><a class="markdownIt-Anchor" href="#12-异步发送消息"></a> 1.2 异步发送消息</h5>
+<p>producer发送消息给broker，如果发送成功，会把目标主题，分区信息以及消息偏移量发送回来。但是发送端大多数时候并不关心这些，只在乎是否发送成功。有的时候对于发送是否成功的状态也不是那么的着急需要。在消息量比较大的时候，如果每一条消息都需要同步去确认发送状态很显然是会发生超时的，这个时候异步回调机制很好的帮我们解决了这个问题。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">ProducerRecord&lt;String, String&gt; data = <span class="keyword">new</span> ProducerRecord&lt;&gt;(<span class="string">"page_visits"</span>,<span class="string">"test_key"</span>,<span class="string">"test_msg"</span>);</span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    producer.send(data,<span class="keyword">new</span> Callback() &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCompletion</span><span class="params">(RecordMetadata metadata, Exception e)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(e != <span class="keyword">null</span>) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                System.out.println(<span class="string">"The offset of the record we just sent is: "</span> + metadata.offset());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;<span class="keyword">catch</span>&#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>实现回调需要实现org.apache.kafka.clients.producer.Callback接口，这个接口只有一个onCompletion方法。</p>
 <p>上面我们简单实现了一个生产者，提供了一个基本实现，producer还有很多其余的配置可以灵活使用，下面我们来看一下其余的参数：</p>
 <ul>
-<li>acks ：acks参数指定了必须要有多少个分区副本收到消息，生产者才会认为消息写入是成功的。这个参数对消息丢失的可能性有重要影响。该参数有如下选项：</li>
+<li>
+<p>acks ：acks参数指定了必须要有多少个分区副本收到消息，生产者才会认为消息写入是成功的。这个参数对消息丢失的可能性有重要影响。该参数有如下选项：</p>
+<ol>
+<li>acks=0 生产者在成功写入悄息之前不会等待任何来自服务器的响应。</li>
+<li>acks=1 只要集群的首领节点收到消息， 生产者就会收到一个来自服务器的成功响应。</li>
+<li>acks=all 只有当所有参与复制的节点全部收到消息时， 生产者才会收到一个来自服务器的成功响应。这种模式是最安全的，它可以保证不止一个服务器收到消息，就算有服务器发生崩溃，整个集群仍然可以运行,不过，它的延迟比acks=l 时更高，因为我们要等待不只一个服务器节点接收消息。</li>
+</ol>
+</li>
+<li>
+<p>buffer.memory: 该参数用来设置生产者内存缓冲区的大小，生产者用它缓冲要发送到服务器的消息。如果应用程序发送消息的速度超过发送到服务器的速度，会导致生产者空间不足。</p>
+</li>
+<li>
+<p>compression.type : 默认情况下，消息发送时不会被压缩。该参数可以设置为snappy，gzip或lz4，它指定了消息被发送给broker 之前使用哪一种压缩算陆进行压缩。</p>
+</li>
+<li>
+<p>retries ： 生产者从服务器收到的错误有可能是临时性的错误（比如分区找不到首领）。在这种情况下，retries参数的值决定了生产者可以重发消息的次数，如果达到这个次数，生产者会放弃重试并返回错民。默认情况下，生产者会在每次重试之间等待lOOms，不过可以通过retry.backoff.ms参数来改变这个时间间隔。</p>
+</li>
+<li>
+<p>batch.size : 当有多个消息需要被发送到同一个分区时，生产者会把它们放在同一个批次里。该参数指定了一个批次可以使用的内存大小，按照字节数计算（而不是消息个数）。当批次被填满，批次里的所有消息会被发送出去。不过生产者井不一定都会等到批次被填满才发送，半满的批次，甚至只包含一个消息的批次也有可能被发送。</p>
+</li>
+<li>
+<p><span class="exturl" data-url="aHR0cDovL2xpbmdlci5tcw==" title="http://linger.ms">linger.ms<i class="fa fa-external-link"></i></span> : 该参数指定了生产者在发送批次之前等待更多消息加入批次的时间。KafkaProducer会在批次填满或linger.ms达到上限时把批次发送出去。默认情况下,只要有可用的线程，生产者就会把消息发送出去，就算批次里只有一个消息。把linger.ms设置成比0大的数，让生产者在发送批次之前等待一会儿，使更多的消息加入到这个批次。</p>
+</li>
+<li>
+<p>partitioner.class :实现Partitioner接口的分区类</p>
+</li>
+<li>
+<p><span class="exturl" data-url="aHR0cDovL21heC5ibG9jay5tcw==" title="http://max.block.ms">max.block.ms<i class="fa fa-external-link"></i></span> : 这个配置控制着KafkaProducer.send() 和 KafkaProducer.partitionsFor()会阻塞多久。这个方法会因为缓冲区满了或是元数据不可用而被阻塞。在用户提供的 serializers 或 partitioner 里的阻塞将不会被计算在这个超时里。</p>
+</li>
+<li>
+<p><span class="exturl" data-url="aHR0cDovL2NsaWVudC5pZA==" title="http://client.id">client.id<i class="fa fa-external-link"></i></span> : 	发送请求时传递给服务器的一个标识字符串。这样做的目的是能过追踪请求的来源除了除了IP/端口。它是通过允许一个逻辑应用名称被包括在一个服务器端的请求日志来实现的。</p>
+</li>
 </ul>
-<pre><code>1. acks=0 生产者在成功写入悄息之前不会等待任何来自服务器的响应。
-2. acks=1 只要集群的首领节点收到消息， 生产者就会收到一个来自服务器的成功响应。
-3. acks=all 只有当所有参与复制的节点全部收到消息时， 生产者才会收到一个来自服务器的成功响应。这种模式是最安全的，它可以保证不止一个服务器收到消息，就算有服务器发生崩溃，整个集群仍然可以运行,不过，它的延迟比acks=l 时更高，因为我们要等待不只一个服务器节点接收消息。
-</code></pre><ul>
-<li>buffer.memory: 该参数用来设置生产者内存缓冲区的大小，生产者用它缓冲要发送到服务器的消息。如果应用程序发送消息的速度超过发送到服务器的速度，会导致生产者空间不足。</li>
-<li>compression.type : 默认情况下，消息发送时不会被压缩。该参数可以设置为snappy，gzip或lz4，它指定了消息被发送给broker 之前使用哪一种压缩算陆进行压缩。</li>
-<li>retries ： 生产者从服务器收到的错误有可能是临时性的错误（比如分区找不到首领）。在这种情况下，retries参数的值决定了生产者可以重发消息的次数，如果达到这个次数，生产者会放弃重试并返回错民。默认情况下，生产者会在每次重试之间等待lOOms，不过可以通过retry.backoff.ms参数来改变这个时间间隔。</li>
-<li>batch.size : 当有多个消息需要被发送到同一个分区时，生产者会把它们放在同一个批次里。该参数指定了一个批次可以使用的内存大小，按照字节数计算（而不是消息个数）。当批次被填满，批次里的所有消息会被发送出去。不过生产者井不一定都会等到批次被填满才发送，半满的批次，甚至只包含一个消息的批次也有可能被发送。</li>
-<li>linger.ms : 该参数指定了生产者在发送批次之前等待更多消息加入批次的时间。KafkaProducer会在批次填满或linger.ms达到上限时把批次发送出去。默认情况下,只要有可用的线程，生产者就会把消息发送出去，就算批次里只有一个消息。把linger.ms设置成比0大的数，让生产者在发送批次之前等待一会儿，使更多的消息加入到这个批次。</li>
-<li>partitioner.class :实现Partitioner接口的分区类 </li>
-<li>max.block.ms : 这个配置控制着KafkaProducer.send() 和 KafkaProducer.partitionsFor()会阻塞多久。这个方法会因为缓冲区满了或是元数据不可用而被阻塞。在用户提供的 serializers 或 partitioner 里的阻塞将不会被计算在这个超时里。</li>
-<li>client.id :     发送请求时传递给服务器的一个标识字符串。这样做的目的是能过追踪请求的来源除了除了IP/端口。它是通过允许一个逻辑应用名称被包括在一个服务器端的请求日志来实现的。</li>
-</ul>
-<h5 id="1-3分区和实现自定义分区策略"><a href="#1-3分区和实现自定义分区策略" class="headerlink" title="1.3分区和实现自定义分区策略"></a>1.3分区和实现自定义分区策略</h5><p>在前面的基本知识学习里面我们已经讲过kafka分区的问题，一个topic的消息会对应着一个或者多个partition。如果使用默认的分区器，那么记录将会被随机的发送到主题可用的各个分区上，分区器使用轮询算法均衡的分布到各个分区上。</p>
+<h5 id="13分区和实现自定义分区策略"><a class="markdownIt-Anchor" href="#13分区和实现自定义分区策略"></a> 1.3分区和实现自定义分区策略</h5>
+<p>在前面的基本知识学习里面我们已经讲过kafka分区的问题，一个topic的消息会对应着一个或者多个partition。如果使用默认的分区器，那么记录将会被随机的发送到主题可用的各个分区上，分区器使用轮询算法均衡的分布到各个分区上。</p>
 <p>kafka给用户提供了灵活的分区策略。如果你不想使用默认的均衡分布策略，而是有自己的逻辑需求，那么你可以自己控制。比如在一个topic下的消息分为两种：一种是用户信息增量更新的消息，一种是任职信息增量更新的消息。那么你可以使用自定义分区功能将两种消息分别散列在同一个topic的各个partition上。</p>
 <p>实现自定义分区策略需要继承Partitioner接口。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.kafka.clients.producer.Partitioner;</span><br><span class="line"><span class="keyword">import</span> org.apache.kafka.common.Cluster;</span><br><span class="line"><span class="keyword">import</span> org.apache.kafka.common.PartitionInfo;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SimplePartitioner2</span> <span class="keyword">implements</span> <span class="title">Partitioner</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> String USER_INFO_KEY = <span class="string">"simple_user_info"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(Map&lt;String, ?&gt; configs)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">partition</span><span class="params">(String topic, Object key, <span class="keyword">byte</span>[] keyBytes,</span></span></span><br><span class="line"><span class="function"><span class="params">                         Object value, <span class="keyword">byte</span>[] valueBytes, Cluster cluster)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> partition = <span class="number">0</span>;</span><br><span class="line">        List&lt;PartitionInfo&gt; partitions = cluster.partitionsForTopic(topic);</span><br><span class="line">        <span class="keyword">int</span> numPartitions = partitions.size();</span><br><span class="line">        <span class="keyword">if</span>(numPartitions != <span class="number">2</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> partition;</span><br><span class="line">        &#125;</span><br><span class="line">        String stringKey = (String) key;</span><br><span class="line">        <span class="keyword">if</span>(stringKey.contains(USER_INFO_KEY))&#123;</span><br><span class="line">            partition =<span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> partition;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>在上面的例子中，我们通过实现Partitioner的partition方法，对消息的key进行硬编码，确定key中是否包含某个标志来区分消息的类型进而确定该消息应该进入哪个分区。</p>
-<h4 id="2-创建kafka消费者"><a href="#2-创建kafka消费者" class="headerlink" title="2. 创建kafka消费者"></a>2. 创建kafka消费者</h4><h5 id="2-1-消费者中的群组"><a href="#2-1-消费者中的群组" class="headerlink" title="2.1 消费者中的群组"></a>2.1 消费者中的群组</h5><p>熟悉JMS消息协议的应该知道，消息的消费应该有两种方式：一种是点对对的消息，一方发送，一方消费。一种是发布-订阅模式，一方发送，所有订阅方都可以消费。kafka也是遵循JMS消息规范的，所以这两种消息模式都是可以支持。但是支持的方式可能和我们想象的有些不一样！</p>
-<p>kafka里面的消费者对应着一个<strong>消费者群组</strong>的概念。与别的消息中间件产品不同的是，每个消费者必须是属于某个消费者群组。一个群组里的消费者订阅的是同一个主题。我们通过kafka的”group.id”参数来配置消费者所属的群组。</p>
+<h4 id="2-创建kafka消费者"><a class="markdownIt-Anchor" href="#2-创建kafka消费者"></a> 2. 创建kafka消费者</h4>
+<h5 id="21-消费者中的群组"><a class="markdownIt-Anchor" href="#21-消费者中的群组"></a> 2.1 消费者中的群组</h5>
+<p>熟悉JMS消息协议的应该知道，消息的消费应该有两种方式：一种是点对对的消息，一方发送，一方消费。一种是发布-订阅模式，一方发送，所有订阅方都可以消费。kafka也是遵循JMS消息规范的，所以这两种消息模式都是可以支持。但是支持的方式可能和我们想象的有些不一样！</p>
+<p>kafka里面的消费者对应着一个<strong>消费者群组</strong>的概念。与别的消息中间件产品不同的是，每个消费者必须是属于某个消费者群组。一个群组里的消费者订阅的是同一个主题。我们通过kafka的&quot;<span class="exturl" data-url="aHR0cDovL2dyb3VwLmlk" title="http://group.id">group.id<i class="fa fa-external-link"></i></span>&quot;参数来配置消费者所属的群组。</p>
 <p>如果你以为kafka的服务端收到一条推送的消息之后，订阅的群组里面所有消费者可以同时消费到这一条消息那你就错了。kafka对于同属一个群组的消费者的定义是：</p>
 <ol>
 <li>同一个分区的消息只能被某个群组中的某个消费者同时消费。</li>
@@ -552,35 +677,53 @@
 <p>消息轮询是消费者API的核心，通过一个简单的轮询向服务器请求数据：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">    ConsumerRecords&lt;String, String&gt; records = consumer.poll(<span class="number">100</span>);</span><br><span class="line">    <span class="keyword">for</span> (ConsumerRecord&lt;String, String&gt; record : records) &#123;</span><br><span class="line">        System.out.printf(<span class="string">"offset = %d, key = %s, value = %s%n"</span>, record.offset(), record.key(), record.value());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>消费者必须不停地向kafka轮询，否则会被认为死亡。它的分区会被交给组里的其他消费者。poll()方法里面的参数是一个超时时间，用于设置该次请求的超时时间，如果参数被设置为0 ，请求会立即返回，否则请求会在指定的毫秒数内返回。</p>
-<h5 id="2-2-消费者基本配置项"><a href="#2-2-消费者基本配置项" class="headerlink" title="2.2 消费者基本配置项"></a>2.2 消费者基本配置项</h5><p>消费者也有一些基本的配置项：</p>
+<h5 id="22-消费者基本配置项"><a class="markdownIt-Anchor" href="#22-消费者基本配置项"></a> 2.2 消费者基本配置项</h5>
+<p>消费者也有一些基本的配置项：</p>
 <ul>
-<li>fetch.min.bytes:该属性指定了消费者从服务器获取记录的最小字节数。</li>
-<li>fetch.max.wait.ms:该属性指定了消费者从服务器获取记录的最大等待时间。该参数和fetch.min.bytes参数会互相克制。如果fetch.min.bytes没有得到满足，则会继续等待消息填充，但是如果到了fetch.max.wait.ms设置的时间，那么会直接返回。同理相反也是一样的。</li>
-<li>max.partition.fetch.bytes:该属性指定了服务器从每个分区里返回给消费者的最大字节数。它的默认值是lMB。</li>
-<li>session.timeout.ms:该属性指定了消费者在被认为死亡之前可以与服务器断开连接的时间，默认是3s。如果消费者没有session.timeout.ms定的时间内发送心跳给群组协调器，就被认为已经死亡，协调器就会触发再均衡，把它的分区分配给群组里的其他消费者。该属性与heartbeat.interval.ms紧密相关heartbeat.interval.ms指定了poll()向服务器发送心跳的频率， session.timeout.ms则指定了消费者可以多久不用给服务器发送心跳。</li>
-<li>auto.offset.reset:该属性指定了消费者在读取一个没有偏移量的分区或者偏移量无效的情况下（因消费者长时间失效，包含偏移量的记录已经过时井被删除）该作何处理。即指定该从何位置开始读取记录。</li>
-<li>enable.auto.commit:该属性指定了消费者是否自动提交偏移量，默认值是true。为了尽量避免出现重复数据和数据丢失，可以把它为false，由自己控制何时提交偏移量。如果把它设为true ，还可以通过配置auto.commit.interval.ms属性来控制提交的频率。</li>
-<li><p>partition.assignment.strategy:分区会被分配给群组里的消费者。PartitionAssignor根据给定的消费者和主题，决定哪些分区应该被分配给哪个消费者。Kafka有两个默认的分配策略:</p>
+<li>
+<p>fetch.min.bytes:该属性指定了消费者从服务器获取记录的最小字节数。</p>
+</li>
+<li>
+<p><span class="exturl" data-url="aHR0cDovL2ZldGNoLm1heC53YWl0Lm1z" title="http://fetch.max.wait.ms">fetch.max.wait.ms<i class="fa fa-external-link"></i></span>:该属性指定了消费者从服务器获取记录的最大等待时间。该参数和fetch.min.bytes参数会互相克制。如果fetch.min.bytes没有得到满足，则会继续等待消息填充，但是如果到了fetch.max.wait.ms设置的时间，那么会直接返回。同理相反也是一样的。</p>
+</li>
+<li>
+<p>max.partition.fetch.bytes:该属性指定了服务器从每个分区里返回给消费者的最大字节数。它的默认值是lMB。</p>
+</li>
+<li>
+<p><span class="exturl" data-url="aHR0cDovL3Nlc3Npb24udGltZW91dC5tcw==" title="http://session.timeout.ms">session.timeout.ms<i class="fa fa-external-link"></i></span>:该属性指定了消费者在被认为死亡之前可以与服务器断开连接的时间，默认是3s。如果消费者没有session.timeout.ms定的时间内发送心跳给群组协调器，就被认为已经死亡，协调器就会触发再均衡，把它的分区分配给群组里的其他消费者。该属性与heartbeat.interval.ms紧密相关heartbeat.interval.ms指定了poll()向服务器发送心跳的频率， session.timeout.ms则指定了消费者可以多久不用给服务器发送心跳。</p>
+</li>
+<li>
+<p>auto.offset.reset:该属性指定了消费者在读取一个没有偏移量的分区或者偏移量无效的情况下（因消费者长时间失效，包含偏移量的记录已经过时井被删除）该作何处理。即指定该从何位置开始读取记录。</p>
+</li>
+<li>
+<p>enable.auto.commit:该属性指定了消费者是否自动提交偏移量，默认值是true。为了尽量避免出现重复数据和数据丢失，可以把它为false，由自己控制何时提交偏移量。如果把它设为true ，还可以通过配置auto.commit.interval.ms属性来控制提交的频率。</p>
+</li>
+<li>
+<p>partition.assignment.strategy:分区会被分配给群组里的消费者。PartitionAssignor根据给定的消费者和主题，决定哪些分区应该被分配给哪个消费者。Kafka有两个默认的分配策略:</p>
 <ol>
-<li><p>range</p>
-<p> 该策略会把主题的若干个连续的分区分配给消费者。假设消费者Cl和消费者C2 同时订阅了主题Tl和主题口，井且每个主题有3 个分区。那么消费者Cl有可能分配到这两个主题的分区0和分区i，而消费者C2分配到这两个主题的分区2。因为每个主题拥有奇数个分区，而分配是在主题内独立完成的，第一个消费者最后分配到比第二个消费者更多的分区。只要使用了Range策略，而且分区数量无法被消费者数量整除，就会出现这种情况。</p>
+<li>
+<p>range</p>
+<p>该策略会把主题的若干个连续的分区分配给消费者。假设消费者Cl和消费者C2 同时订阅了主题Tl和主题口，井且每个主题有3 个分区。那么消费者Cl有可能分配到这两个主题的分区0和分区i，而消费者C2分配到这两个主题的分区2。因为每个主题拥有奇数个分区，而分配是在主题内独立完成的，第一个消费者最后分配到比第二个消费者更多的分区。只要使用了Range策略，而且分区数量无法被消费者数量整除，就会出现这种情况。</p>
+</li>
+<li>
+<p>RoundRobin</p>
+<p>该策略把主题的所有分区逐个分配给消费者。如果使用RoundRobin策略来给消费者Cl和消费者C2分配分区，那么消费者Cl将分到主题Tl的分区0和分区2以及主题T2的分区1 ，消费者C2 将分配到主题Tl 的分区l 以及主题口的分区0 和分区2 。一般来说，如果所有消费者都订阅相同的主题（这种情况很常见）, RoundRobin策略会给所有消费者分配相同数量的分区（或最多就差一个分区）。</p>
+<p>可以通过设置partition.assignment.strategy来选择分区策略.</p>
 </li>
 </ol>
 </li>
-</ul>
-<pre><code>1. RoundRobin
-
-    该策略把主题的所有分区逐个分配给消费者。如果使用RoundRobin策略来给消费者Cl和消费者C2分配分区，那么消费者Cl将分到主题Tl的分区0和分区2以及主题T2的分区1 ，消费者C2 将分配到主题Tl 的分区l 以及主题口的分区0 和分区2 。一般来说，如果所有消费者都订阅相同的主题（这种情况很常见）, RoundRobin策略会给所有消费者分配相同数量的分区（或最多就差一个分区）。
-
-    可以通过设置partition.assignment.strategy来选择分区策略.
-</code></pre><ul>
-<li>client.id:该属性可以是任意字符串，broker用它来标识从客户端发送过来的消息，通常被用在日志、度量指标和配额里。</li>
+<li>
+<p><span class="exturl" data-url="aHR0cDovL2NsaWVudC5pZA==" title="http://client.id">client.id<i class="fa fa-external-link"></i></span>:该属性可以是任意字符串，broker用它来标识从客户端发送过来的消息，通常被用在日志、度量指标和配额里。</p>
+</li>
 </ul>
 <p>主要的配置项如上，如果工作中还有别的需要可以去看官网的api查看。</p>
 <p>客户端其实要说的东西还是挺多，下一节学习我们就来看关于自动提交、手动提交和偏移量的关系，又够喝一壶的。</p>
 
       
     </div>
+
+    
+
     
     
     
@@ -598,8 +741,8 @@
   <p><span>文章作者:</span><a href="/" title="访问 Rickiyang 的个人博客">Rickiyang</a></p>
   <p><span>发布时间:</span>2018年04月08日 - 16:56</p>
   <p><span>最后更新:</span>2018年12月06日 - 10:53</p>
-  <p><span>原始链接:</span><a href="/posts/34bc78bf.html" title="kafka客户端和服务端开发（3）">https://blog.rickiyang.cn/posts/34bc78bf.html</a>
-    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.rickiyang.cn/posts/34bc78bf.html" aria-label="复制成功！"></i></span>
+  <p><span>原始链接:</span><a href="/posts/34bc78bf.html" title="kafka客户端和服务端开发（3）">http://blog.rickiyang.cn/posts/34bc78bf.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://blog.rickiyang.cn/posts/34bc78bf.html" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
 </div>
@@ -620,9 +763,7 @@
 
       
     </div>
-
     
-
     <div>
       
         <div>
@@ -634,6 +775,10 @@
       
     </div>
 
+
+    
+      
+    
     
 
     
@@ -642,7 +787,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/学习/" rel="tag"> <i class="”fa" fa-tag”=""></i> 学习</a>
+            <a href="/tags/学习/" rel="tag"># 学习</a>
           
         </div>
       
@@ -683,44 +828,15 @@
   </article>
 
 
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript">
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
   </div>
 
 
           </div>
           
 
-
-          
+  
+    <div class="comments" id="comments">
+    </div>
 
   
 
@@ -747,60 +863,124 @@ var jiathis_config={
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
+            Table of Contents
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
+            Overview
           </li>
         </ul>
       
 
-      <section class="site-overview-wrap sidebar-panel">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image" src="/images/adele.png" alt="Rickiyang">
             
               <p class="site-author-name" itemprop="name">Rickiyang</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-description motion-element" itemprop="description">分享对coding生活的见解</p>
           </div>
 
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
+          
+            <nav class="site-state motion-element">
               
-                <a href="/archives">
-              
-                  <span class="site-state-item-count">99</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">19</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
+                <div class="site-state-item site-state-posts">
                 
-                  <span class="site-state-item-count">11</span>
-                  <span class="site-state-item-name">标签</span>
+                  <a href="/archives">
                 
-              </div>
-            
+                    <span class="site-state-item-count">99</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
 
-          </nav>
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
 
           
             <div class="feed-link motion-element">
@@ -813,63 +993,93 @@ var jiathis_config={
 
           
             <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/rickiyang" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:medee1320@gmail.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://blog.csdn.net/a953713428" target="_blank" title="CSDN">
-                      
-                        <i class="fa fa-fw fa-google"></i>CSDN</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="953713428" target="_blank" title="QQ">
-                      
-                        <i class="fa fa-fw fa-twitter"></i>QQ</a>
-                  </span>
-                
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3JpY2tpeWFuZw==" title="GitHub &rarr; https://github.com/rickiyang"><i class="fa fa-fw fa-github"></i>GitHub</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="bWFpbHRvOm1lZGVlMTMyMEBnbWFpbC5jb20=" title="E-Mail &rarr; mailto:medee1320@gmail.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2E5NTM3MTM0Mjg=" title="CSDN &rarr; https://blog.csdn.net/a953713428"><i class="fa fa-fw fa-google"></i>CSDN</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="/953713428" title="QQ &rarr; 953713428"><i class="fa fa-fw fa-twitter"></i>QQ</a>
+                </span>
+              
             </div>
           
 
           
-          
 
           
           
 
+          
+            
+          
           
 
         </div>
-      </section>
+      </div>
 
       
       <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
           <div class="post-toc">
 
             
-              
+            
+            
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-创建kafka生产者"><span class="nav-number">1.</span> <span class="nav-text">1. 创建kafka生产者</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-同步发送消息"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 同步发送消息</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-异步发送消息"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 异步发送消息</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3分区和实现自定义分区策略"><span class="nav-number">1.3.</span> <span class="nav-text">1.3分区和实现自定义分区策略</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-创建kafka消费者"><span class="nav-number">2.</span> <span class="nav-text">2. 创建kafka消费者</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-消费者中的群组"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 消费者中的群组</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-消费者基本配置项"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 消费者基本配置项</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-创建kafka生产者"><span class="nav-number">1.</span> <span class="nav-text"> 1. 创建kafka生产者</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#11-同步发送消息"><span class="nav-number">1.1.</span> <span class="nav-text"> 1.1 同步发送消息</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#12-异步发送消息"><span class="nav-number">1.2.</span> <span class="nav-text"> 1.2 异步发送消息</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#13分区和实现自定义分区策略"><span class="nav-number">1.3.</span> <span class="nav-text"> 1.3分区和实现自定义分区策略</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-创建kafka消费者"><span class="nav-number">2.</span> <span class="nav-text"> 2. 创建kafka消费者</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#21-消费者中的群组"><span class="nav-number">2.1.</span> <span class="nav-text"> 2.1 消费者中的群组</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#22-消费者基本配置项"><span class="nav-number">2.2.</span> <span class="nav-text"> 2.2 消费者基本配置项</span></a></li></ol></li></ol></div>
             
 
           </div>
-        </section>
+        </div>
       <!--/noindex-->
       
 
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
       
 
     </div>
@@ -882,39 +1092,50 @@ var jiathis_config={
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2019</span>
-  <span class="with-love">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Rickiyang</span>
 
   
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="Symbols count total">752k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="Reading time total">11:24</span>
+  
 </div>
 
-<div class="powered-by">
+<!--<div class="powered-by">
 <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
   本站访客数:<span id="busuanzi_value_site_uv"></span>
 </span>
-</div>
-
-<!--
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
--->
-
-
-  <span class="post-meta-divider">|</span>
+</div>-->
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+  <div class="theme-info">Theme – <span class="exturl theme-link" data-url="aHR0cHM6Ly90aGVtZS1uZXh0Lm9yZw==">NexT.Gemini</span> v6.7.0</div>
 
 
 
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共231.6k字</span>
+  <span class="post-count">博客全站共231.9k字</span>
 </div>
 
 <script>
@@ -934,24 +1155,23 @@ var jiathis_config={
 
         
 <div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
   
-    <span class="site-uv">
+    <span class="site-uv" title="Total Visitors">
       <i class="fa fa-user"></i>
       <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-      人次
     </span>
   
 
   
-    <span class="site-pv">
+    <span class="site-pv" title="Total Views">
       <i class="fa fa-eye"></i>
       <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-      次
     </span>
   
 </div>
+
 
 
 
@@ -965,21 +1185,17 @@ var jiathis_config={
     </footer>
 
     
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-          <span id="scrollpercent"><span>0</span>%</span>
-        
-      </div>
+
     
 
     
 
+    
   </div>
 
   
 
-<script type="text/javascript">
+<script>
   if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
     window.Promise = null;
   }
@@ -993,117 +1209,6 @@ var jiathis_config={
 
 
 
-  
-
-
-
-
-
-
-  
-  
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/three.min.js"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
 
 
 
@@ -1116,8 +1221,111 @@ var jiathis_config={
 
 
   
+  
 
-  <script type="text/javascript">
+
+
+  
+  
+  <script id="ribbon" size="300" alpha="0.6" zindex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/three/three.min.js"></script>
+
+  
+  <script src="/lib/three/canvas_sphere.min.js"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script>
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+      el: '#comments' ,
+      verify: false,
+      notify: false,
+      appId: 'X5fy0b9Gknu0SAse5areilGR-gzGzoHsz',
+      appKey: 'URk4cyPQ8Ttqtwhop5t26kok',
+      placeholder: 'Just go go',
+      avatar: 'mm',
+      meta:guest,
+      pageSize: '10' || 10,
+      visitor: false
+    });
+  </script>
+
+
+
+
+  
+
+  <script>
     // Popup Window;
     var isfetched = false;
     var isXml = true;
@@ -1166,6 +1374,8 @@ var jiathis_config={
         .css('overflow', 'hidden');
       $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
 
+      
+
       $.ajax({
         url: path,
         dataType: isXml ? "xml" : "json",
@@ -1199,8 +1409,9 @@ var jiathis_config={
                 var title = data.title.trim();
                 var titleInLowerCase = title.toLowerCase();
                 var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
                 var contentInLowerCase = content.toLowerCase();
-                var articleUrl = decodeURIComponent(data.url);
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
                 var indexOfTitle = [];
                 var indexOfContent = [];
                 // only match articles with not empty titles
@@ -1369,9 +1580,9 @@ var jiathis_config={
               })
             };
             if (keywords.length === 1 && keywords[0] === "") {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
             } else if (resultItems.length === 0) {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
             } else {
               resultItems.sort(function (resultLeft, resultRight) {
                 if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
@@ -1441,107 +1652,66 @@ var jiathis_config={
   
 
   
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("X5fy0b9Gknu0SAse5areilGR-gzGzoHsz", "URk4cyPQ8Ttqtwhop5t26kok");</script>
   <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
-            }
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
+    
     function addCount(Counter) {
       var $visitors = $(".leancloud_visitors");
       var url = $visitors.attr('id').trim();
       var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
 
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function ({ results }) {
           if (results.length > 0) {
             var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
+            
+            Counter('put', `/classes/Counter/${counter.objectId}`, JSON.stringify({ time: { "__op":"Increment", "amount":1 } }))
+            
+            .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.time + 1);
+            })
+            
+            .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+            })
           } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1}))
+                .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function () {
+                  console.log('Failed to create');
+                });
+            
           }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
+        })
+      .fail(function ({ responseJSON }) {
+        console.log('LeanCloud Counter Error:' + responseJSON.code + " " + responseJSON.error);
       });
     }
+    
 
     $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + "X5fy0b9Gknu0SAse5areilGR-gzGzoHsz")
+        .done(function ({ api_server }) {
+          var Counter = function (method, url, data) {
+            return $.ajax({
+              method: method,
+              url: `https://${api_server}/1.1${url}`,
+              headers: {
+                'X-LC-Id': "X5fy0b9Gknu0SAse5areilGR-gzGzoHsz",
+                'X-LC-Key': "URk4cyPQ8Ttqtwhop5t26kok",
+                'Content-Type': 'application/json',
+              },
+              data: data,
+            });
+          };
+          
+          addCount(Counter);
+          
+        })
     });
   </script>
 
@@ -1550,9 +1720,45 @@ var jiathis_config={
   
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+      }
+      else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
 
   
   
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+  <script>
+    
+    
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+  <script src="/js/src/exturl.js?v=6.7.0"></script>
+
 
   
 
@@ -1562,7 +1768,7 @@ var jiathis_config={
 
 
   <!-- 页面点击小红心 -->
-  <script type="text/javascript" src="/js/src/love.js"></script>
-  <!---->
+    <script type="text/javascript" src="/js/src/love.js"></script>
+    <!---->
 </body>
 </html>
