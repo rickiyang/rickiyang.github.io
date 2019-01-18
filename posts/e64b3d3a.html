@@ -160,7 +160,7 @@
 <meta property="og:description" content="hbase基本知识学习 数据在 HBase 中的排布（逻辑上）                 Row-Key         Value（CF、Qualifier、Version                   1         info{&apos;姓&apos;: &apos;张&apos;，&apos;名&apos;:&apos;三&apos;}              pwd{&apos;密码&apos;: &apos;111&apos;}                   2">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.loli.net/2019/01/07/5c32bff8c77b2.jpg">
-<meta property="og:updated_time" content="2019-01-18T03:42:21.898Z">
+<meta property="og:updated_time" content="2019-01-18T06:10:37.559Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hbase初识">
 <meta name="twitter:description" content="hbase基本知识学习 数据在 HBase 中的排布（逻辑上）                 Row-Key         Value（CF、Qualifier、Version                   1         info{&apos;姓&apos;: &apos;张&apos;，&apos;名&apos;:&apos;三&apos;}              pwd{&apos;密码&apos;: &apos;111&apos;}                   2">
@@ -475,7 +475,7 @@
                 
                   <span class="post-meta-item-text">编辑于</span>
                 
-                <time title="Modified: 2019-01-18 11:42:21" itemprop="dateModified" datetime="2019-01-18T11:42:21+08:00">2019-01-18</time>
+                <time title="Modified: 2019-01-18 14:10:37" itemprop="dateModified" datetime="2019-01-18T14:10:37+08:00">2019-01-18</time>
               
             
           </span>
@@ -583,7 +583,7 @@
       
 
       
-        <h1 id="hbase基本知识学习"><a class="markdownIt-Anchor" href="#hbase基本知识学习"></a> hbase基本知识学习</h1>
+        <h2 id="hbase基本知识学习"><a class="markdownIt-Anchor" href="#hbase基本知识学习"></a> hbase基本知识学习</h2>
 <p>数据在 HBase 中的排布（逻辑上）</p>
  
 <table>
@@ -809,8 +809,7 @@
 </ul>
 <h2 id="hbase体系结构"><a class="markdownIt-Anchor" href="#hbase体系结构"></a> Hbase体系结构</h2>
 <p><img src="https://i.loli.net/2019/01/07/5c32bff8c77b2.jpg" alt=""></p>
-<p>###数据模型</p>
-<hr>
+<h3 id="数据模型"><a class="markdownIt-Anchor" href="#数据模型"></a> 数据模型</h3>
 <p>HBase以表的形式存储数据。表由行和列组成。行划分为若干个列族。</p>
 <p>最基本的单位是列（column），一列或者多列组成一行（row），并且由唯一的行键（row key）来确定存储。一个表中有很多行，每一列可能有多个版本，在每一个单元格（Cell）中存储了不同的值。</p>
 <p>HBase的行与行之间是有序的，按照row key的字典序进行排序，行键是唯一的，在一个表里只出现一次，否则就是在更新同一行，行键可以是任意的字节数组。一行由若干列组成，其中的某些列又可以构成一个列族（column family），一个列族的所有列存储在同一个底层的存储文件里，这个文件称之为HFile。</p>
@@ -818,8 +817,7 @@
 <p>HBase的存取模式如下（表，行键，列族，列，时间戳）-&gt; 值。即一个表中的某一行键的某一列族的某一列的某一个版本的值唯一。</p>
 <p>行数据的存取操作是原子的，可以读取任意数目的列。目前还不支持跨行事务和跨表事务。</p>
 <p>同一列族下的数据压缩在一起，访问控制磁盘和内存都在列族层面进行。</p>
-<p>###架构</p>
-<hr>
+<h3 id="架构"><a class="markdownIt-Anchor" href="#架构"></a> 架构</h3>
 <p>HBase包含3个重要组件：Zookeeper、HMaster和HRegionServer。</p>
 <p>Zookeeper</p>
 <p>Zookeeper为整个HBase提供协助服务，包括：</p>
@@ -847,7 +845,6 @@ Client直接通过HRegionServer读写数据（从HMaster中获取元数据，找
 <p>HLog</p>
 <p>每个HRegionServer中都有一个HLog对象，它是一个实现了Write Ahead Log的预写日志类。在每次用户操作将数据写入MemStore的时候，也会写一份数据到HLog文件中，HLog文件会定期滚动刷新，并删除旧的文件（已持久化到StoreFile中的数据）。当HMaster通过Zookeeper感知到某个HRegionServer意外终止时，HMaster首先会处理遗留的 HLog文件，将其中不同HRegion的HLog数据进行拆分，分别放到相应HRegion的目录下，然后再将失效的HRegion重新分配，领取到这些HRegion的HRegionServer在加载 HRegion的过程中，会发现有历史HLog需要处理，因此会Replay HLog中的数据到MemStore中，然后Flush到StoreFiles，完成数据恢复。</p>
 <h3 id="写数据流程"><a class="markdownIt-Anchor" href="#写数据流程"></a> 写数据流程：</h3>
-<hr>
 <ol>
 <li>Client向HRegionServer发送写请求</li>
 <li>HRegionServer将数据写到Hlog(write ahead log)。为了数据的持久化和恢复</li>
@@ -855,14 +852,12 @@ Client直接通过HRegionServer读写数据（从HMaster中获取元数据，找
 <li>反馈Client写成功</li>
 </ol>
 <h3 id="数据flush过程"><a class="markdownIt-Anchor" href="#数据flush过程"></a> 数据Flush过程</h3>
-<hr>
 <ol>
 <li>当memstore数据达到阀值（默认64M），将数据刷到硬盘，将内存中的数据删除，同时删除HLog中的历史数据。</li>
 <li>将数据存储到HDFS中</li>
 <li>在Hlog中做标记点</li>
 </ol>
 <h3 id="数据合并过程"><a class="markdownIt-Anchor" href="#数据合并过程"></a> 数据合并过程</h3>
-<hr>
 <ol>
 <li>当数据块达到4块，HMaster将数据加载到本地，进行合并</li>
 <li>当合并的数据超过256M，进行拆分，将拆分后的region分配给不同的HRegionServer管理</li>
@@ -870,14 +865,12 @@ Client直接通过HRegionServer读写数据（从HMaster中获取元数据，找
 <li>注意：Hlog会同步到HDFS</li>
 </ol>
 <h3 id="hbase的读流程"><a class="markdownIt-Anchor" href="#hbase的读流程"></a> HBase的读流程</h3>
-<hr>
 <ol>
 <li>通过ZK和 -ROOT- .META. 表定位HRegionServer</li>
 <li>数据从内存和硬盘合并后返回给Client</li>
 <li>数据块会缓存</li>
 </ol>
 <h3 id="hmaster的职责"><a class="markdownIt-Anchor" href="#hmaster的职责"></a> HMaster的职责</h3>
-<hr>
 <ol>
 <li>管理用户对Table的CRUD操作</li>
 <li>记录Region在哪台HRegionServer上</li>
@@ -886,13 +879,11 @@ Client直接通过HRegionServer读写数据（从HMaster中获取元数据，找
 <li>在HRegionServer宕机后，负责失效HRegionServer上的Regions迁移</li>
 </ol>
 <h3 id="hregionserver的职责"><a class="markdownIt-Anchor" href="#hregionserver的职责"></a> HRegionServer的职责</h3>
-<hr>
 <ol>
 <li>HRegionServer主要负责响应用户的IO请求，向HDFS文件系统中读写数据，是HBase中最核心的模块</li>
 <li>HRegionServer管理了很多table的分区，也就是Region</li>
 </ol>
 <h3 id="client的职责"><a class="markdownIt-Anchor" href="#client的职责"></a> Client的职责</h3>
-<hr>
 <p>HBase Client 使用HBase的RPC机制与HMaster和HRegionServer进行通信</p>
 <pre><code>1. 管理类操作： Client与HMaster进行RPC
 2. 数据读写类操作：Client与HRegionServer进行RPC
@@ -931,7 +922,7 @@ HBase的实时查询</p>
   <p><span>本文标题:</span><a href="/posts/e64b3d3a.html">hbase初识</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Rickiyang 的个人博客">Rickiyang</a></p>
   <p><span>发布时间:</span>2018年10月13日 - 15:12</p>
-  <p><span>最后更新:</span>2019年01月18日 - 11:42</p>
+  <p><span>最后更新:</span>2019年01月18日 - 14:10</p>
   <p><span>原始链接:</span><a href="/posts/e64b3d3a.html" title="hbase初识">http://blog.rickiyang.cn/posts/e64b3d3a.html</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://blog.rickiyang.cn/posts/e64b3d3a.html" aria-label="复制成功！"></i></span>
   </p>
@@ -1256,7 +1247,7 @@ HBase的实时查询</p>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#hbase基本知识学习"><span class="nav-number">1.</span> <span class="nav-text"> hbase基本知识学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#hbase体系结构"><span class="nav-number">1.1.</span> <span class="nav-text"> Hbase体系结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#写数据流程"><span class="nav-number">1.1.1.</span> <span class="nav-text"> 写数据流程：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据flush过程"><span class="nav-number">1.1.2.</span> <span class="nav-text"> 数据Flush过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据合并过程"><span class="nav-number">1.1.3.</span> <span class="nav-text"> 数据合并过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hbase的读流程"><span class="nav-number">1.1.4.</span> <span class="nav-text"> HBase的读流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hmaster的职责"><span class="nav-number">1.1.5.</span> <span class="nav-text"> HMaster的职责</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hregionserver的职责"><span class="nav-number">1.1.6.</span> <span class="nav-text"> HRegionServer的职责</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#client的职责"><span class="nav-number">1.1.7.</span> <span class="nav-text"> Client的职责</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#hbase基本知识学习"><span class="nav-number">1.</span> <span class="nav-text"> hbase基本知识学习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hbase体系结构"><span class="nav-number">2.</span> <span class="nav-text"> Hbase体系结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据模型"><span class="nav-number">2.1.</span> <span class="nav-text"> 数据模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#架构"><span class="nav-number">2.2.</span> <span class="nav-text"> 架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#写数据流程"><span class="nav-number">2.3.</span> <span class="nav-text"> 写数据流程：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据flush过程"><span class="nav-number">2.4.</span> <span class="nav-text"> 数据Flush过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据合并过程"><span class="nav-number">2.5.</span> <span class="nav-text"> 数据合并过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hbase的读流程"><span class="nav-number">2.6.</span> <span class="nav-text"> HBase的读流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hmaster的职责"><span class="nav-number">2.7.</span> <span class="nav-text"> HMaster的职责</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hregionserver的职责"><span class="nav-number">2.8.</span> <span class="nav-text"> HRegionServer的职责</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#client的职责"><span class="nav-number">2.9.</span> <span class="nav-text"> Client的职责</span></a></li></ol></li></ol></div>
             
 
           </div>
