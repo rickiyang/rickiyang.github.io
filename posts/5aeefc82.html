@@ -151,21 +151,22 @@
 
 
 
-  <meta name="description" content="上一节我们写了一个HelloWorld，对于Netty的运行有了一定的了解，知道Netty是如何启动客户端和服务器端。这一节我们简要的讲解一下几个重要的接口，初步探讨Netty的运行机制，当然刚学Netty就深入原理肯定是很枯燥的，所以我们就点到为止。  1 ChannelPipeLine和ChannelHandler 在上一篇中我们在ChannelInitializer类的initChannel">
-<meta name="keywords" content="学习">
+  <meta name="description" content="本文讨论一下Hbase region的分割。具体来说，会讨论为什么要预分区，要不要预分区和如何分区。  1. 为什么要预分区 我们知道region是Hbase表的基本单位，region又是由一个或者多个store组成，每个store保存一个columns family；每个store又由一个memStore和一个或者多个storeFile组成。memeStore存储在内存中，storeFile存储">
+<meta name="keywords" content="大数据">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Netty学习(三）-Netty重要接口讲解">
-<meta property="og:url" content="http://blog.rickiyang.cn/posts/d48afec7.html">
+<meta property="og:title" content="Hbase region的预分区">
+<meta property="og:url" content="http://blog.rickiyang.cn/posts/5aeefc82.html">
 <meta property="og:site_name" content="Rickiyang&#39;s blog">
-<meta property="og:description" content="上一节我们写了一个HelloWorld，对于Netty的运行有了一定的了解，知道Netty是如何启动客户端和服务器端。这一节我们简要的讲解一下几个重要的接口，初步探讨Netty的运行机制，当然刚学Netty就深入原理肯定是很枯燥的，所以我们就点到为止。  1 ChannelPipeLine和ChannelHandler 在上一篇中我们在ChannelInitializer类的initChannel">
+<meta property="og:description" content="本文讨论一下Hbase region的分割。具体来说，会讨论为什么要预分区，要不要预分区和如何分区。  1. 为什么要预分区 我们知道region是Hbase表的基本单位，region又是由一个或者多个store组成，每个store保存一个columns family；每个store又由一个memStore和一个或者多个storeFile组成。memeStore存储在内存中，storeFile存储">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://i.imgur.com/I6jciGg.png">
-<meta property="og:image" content="http://i.imgur.com/NLijyim.png">
-<meta property="og:updated_time" content="2018-12-04T09:28:26.151Z">
+<meta property="og:image" content="https://i.loli.net/2019/01/19/5c42ef9be8627.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/01/19/5c42f181be070.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/01/19/5c42f1cd81da9.jpg">
+<meta property="og:updated_time" content="2019-01-19T10:26:54.528Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Netty学习(三）-Netty重要接口讲解">
-<meta name="twitter:description" content="上一节我们写了一个HelloWorld，对于Netty的运行有了一定的了解，知道Netty是如何启动客户端和服务器端。这一节我们简要的讲解一下几个重要的接口，初步探讨Netty的运行机制，当然刚学Netty就深入原理肯定是很枯燥的，所以我们就点到为止。  1 ChannelPipeLine和ChannelHandler 在上一篇中我们在ChannelInitializer类的initChannel">
-<meta name="twitter:image" content="http://i.imgur.com/I6jciGg.png">
+<meta name="twitter:title" content="Hbase region的预分区">
+<meta name="twitter:description" content="本文讨论一下Hbase region的分割。具体来说，会讨论为什么要预分区，要不要预分区和如何分区。  1. 为什么要预分区 我们知道region是Hbase表的基本单位，region又是由一个或者多个store组成，每个store保存一个columns family；每个store又由一个memStore和一个或者多个storeFile组成。memeStore存储在内存中，storeFile存储">
+<meta name="twitter:image" content="https://i.loli.net/2019/01/19/5c42ef9be8627.jpg">
 
 
 
@@ -174,7 +175,7 @@
 
 
 
-  <link rel="canonical" href="http://blog.rickiyang.cn/posts/d48afec7.html">
+  <link rel="canonical" href="http://blog.rickiyang.cn/posts/5aeefc82.html">
 
 
 
@@ -184,7 +185,7 @@
   };
 </script>
 
-  <title>Netty学习(三）-Netty重要接口讲解 | Rickiyang's blog</title>
+  <title>Hbase region的预分区 | Rickiyang's blog</title>
   
 
 
@@ -416,7 +417,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/d48afec7.html">
+    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/5aeefc82.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
@@ -433,7 +434,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Netty学习(三）-Netty重要接口讲解
+          <h2 class="post-title" itemprop="name headline">Hbase region的预分区
 
               
             
@@ -459,7 +460,7 @@
                 
               
 
-              <time title="创建于: 2017-03-17 01:02:00" itemprop="dateCreated datePublished" datetime="2017-03-17T01:02:00+08:00">2017-03-17</time>
+              <time title="创建于: 2019-01-18 19:07:44" itemprop="dateCreated datePublished" datetime="2019-01-18T19:07:44+08:00">2019-01-18</time>
             
 
             
@@ -476,7 +477,7 @@
                 
                   <span class="post-meta-item-text">编辑于</span>
                 
-                <time title="Modified: 2018-12-04 17:28:26" itemprop="dateModified" datetime="2018-12-04T17:28:26+08:00">2018-12-04</time>
+                <time title="Modified: 2019-01-19 18:26:54" itemprop="dateModified" datetime="2019-01-19T18:26:54+08:00">2019-01-19</time>
               
             
           </span>
@@ -493,7 +494,14 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Netty/" itemprop="url" rel="index"><span itemprop="name">Netty</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/大数据学习/" itemprop="url" rel="index"><span itemprop="name">大数据学习</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/大数据学习/Hbase/" itemprop="url" rel="index"><span itemprop="name">Hbase</span></a></span>
 
                 
                 
@@ -508,8 +516,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/posts/d48afec7.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/d48afec7.html" itemprop="commentCount"></span>
+                <a href="/posts/5aeefc82.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/5aeefc82.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -517,7 +525,7 @@
 
           
           
-             <span id="/posts/d48afec7.html" class="leancloud_visitors" data-flag-title="Netty学习(三）-Netty重要接口讲解">
+             <span id="/posts/5aeefc82.html" class="leancloud_visitors" data-flag-title="Hbase region的预分区">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -543,7 +551,7 @@
                 
                   <span class="post-meta-item-text">文章字数: </span>
                 
-                <span title="文章字数">7.8k</span>
+                <span title="文章字数">7.7k</span>
               
 
               
@@ -577,64 +585,86 @@
       
 
       
-        <p>上一节我们写了一个HelloWorld，对于Netty的运行有了一定的了解，知道Netty是如何启动客户端和服务器端。这一节我们简要的讲解一下几个重要的接口，初步探讨Netty的运行机制，当然刚学Netty就深入原理肯定是很枯燥的，所以我们就点到为止。</p>
-<h4 id="1-channelpipeline和channelhandler"><a class="markdownIt-Anchor" href="#1-channelpipeline和channelhandler"></a> 1 <strong>ChannelPipeLine和ChannelHandler</strong></h4>
-<p>在上一篇中我们在ChannelInitializer类的initChannel方法中使用了ChannelPipeline，然后在ChannelPipeline中使用了handler来处理业务逻辑。</p>
-<p>ChannelPipeline是ChannelHandler的容器，它负责ChannelHandler的管理和事件拦截与调度。Netty的ChannelPipeline和ChannelHandler机制类似于Servlet 和Filter 过滤器，这类拦截器实际上是职责链模式的一种变形，主要是为了方便事件的拦截和用户业务逻辑的定制。</p>
-<p>Netty的channel运用机制和Filter过滤器机制一样，它将Channel 的数据管道抽象为ChannelPipeline. 消息在ChannelPipeline中流动和传递。ChannelPipeline 持有I/O事件拦截器ChannelHandler 的链表，由ChannelHandler 对I/0 事件进行拦截和处理，可以方便地通过新增和删除ChannelHandler 来实现小同的业务逻辑定制，不需要对已有的ChannelHandler进行修改，能够实现对修改封闭和对扩展的支持。</p>
-<p>通过一张图我们来看一下他们之间的关系：</p>
-<p><img src="http://i.imgur.com/I6jciGg.png" alt=""></p>
-<p>一个Channel中包含一个ChannelPipeline，用来处理Channel中的事件，一个ChannelPipeline中可以包含很多个handler，第二节的示例代码中我们也看到了，使用各种handler来处理通信信息。</p>
-<p>同时我们也注意到在hadler中继承了ChannelInboundHandlerAdapter类并实现了他的一些方法，比如：channelRead，channelActive，channelInactive等等，我们看到这些方法中都有一个参数：ChannelHandlerContext ctx。这个ChannelHandlerContext就是handler的上下文对象，有了这个ChannelHandlerContext你就获得了一切，你可以获得通道，获得事件的控制权。</p>
-<p>事实上，用户不需要自己创建pipeline，因为使用ServerBootstrap 或者Bootstrap 启动<br>
-服务端或者客户端时， Netty 会为每个Channel 连接创建一个独立的pipeline。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ChannelPipeline pipeline = socketChannel.pipeline();</span><br><span class="line"></span><br><span class="line">pipeline.addLast(<span class="string">"framer"</span>, <span class="keyword">new</span> DelimiterBasedFrameDecoder(<span class="number">8192</span>,Delimiters.lineDelimiter()));</span><br><span class="line">pipeline.addLast(<span class="string">"decoder"</span>, <span class="keyword">new</span> StringDecoder());</span><br><span class="line">pipeline.addLast(<span class="string">"encoder"</span>, <span class="keyword">new</span> StringEncoder());</span><br><span class="line"></span><br><span class="line"><span class="comment">// 客户端的逻辑</span></span><br><span class="line">pipeline.addLast(<span class="string">"handler"</span>, <span class="keyword">new</span> HelloWorldClientHandler());</span><br></pre></td></tr></table></figure>
-<p>ChannelPipeline 是线程安全的， 这意味着N个业务线程可以并发地操作ChannelPipeline<br>
-而不存在多线程并发问题。但是，ChannelHandler却不是线程安全的，这意味着尽管<br>
-ChannelPipeline 是线程去全的， 但是仍然需要自己保证ChannelHandler的线程安全。</p>
-<p>Netty 中的事件分为inbound 事件和outbound 事件。inbound 事件通常由I/O线程触发，例如TCP 链路建立事件、链路关闭事件、读事件、异常通知事件等。Outbound 事件通常是I/O 用户主动发起的网络I/O 操作，例如用户发起的连接操作、绑定操作、消息发送等操作。</p>
-<p>我们常用的inbound事件有：</p>
-<ul>
-<li>ChannelHandlerContext fireChannelRegistered()   //channel注册事件</li>
-<li>ChannelHandlerContext fireChannelActive()  //channel激活事件</li>
-<li>ChannelHandlerContext fireExceptionCaught(Throwable var1) //channel异常处理事件</li>
-<li>ChannelHandlerContext fireUserEventTriggered(Object var1) //用户自定义事件</li>
-<li>ChannelHandlerContext fireChannelRead(Object var1) //读事件</li>
-</ul>
-<p>pipeline 中以fireXXX命名的方法都是从I/O 线程流向用户业务Handler的inbound 事件，它们的实现因功能而异，但是处理步骤类似：</p>
+        <p>本文讨论一下Hbase region的分割。具体来说，会讨论为什么要预分区，要不要预分区和如何分区。</p>
+<h4 id="1-为什么要预分区"><a class="markdownIt-Anchor" href="#1-为什么要预分区"></a> 1. 为什么要预分区</h4>
+<p>我们知道region是Hbase表的基本单位，region又是由一个或者多个store组成，每个store保存一个columns family；每个store又由一个memStore和一个或者多个storeFile组成。memeStore存储在内存中，storeFile存储在HDFS中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">table</span><br><span class="line">   region...</span><br><span class="line">     store...</span><br><span class="line">        memStore</span><br><span class="line">        storeFile...</span><br></pre></td></tr></table></figure>
+<p>通常一个Hbase表由多个region构成，这些region分布在多个regionserver上。也就是说，region是在regionserver中插入和查询数据时负载均衡的物理机制。一张Hbase表在刚刚创建的时候，默认只有一个region。所以很有可能关于这张表的请求都被路由到同一个region server，不管集群中有多少region server。这也就是为什么Hbase表在刚刚创建的阶段不能充分利用整个集群的吞吐量的原因。</p>
+<p>Hbase表在创建之初只有一个region的原因是因为Hbase本身不知道如何在rowkey集中创建分割点。分割点高度依赖于rowkey的设计。Hbase提供了client端工具用于region分割，而不是让用户猜测或者导致故障。用户可以通过pre-splitting的流程，可以创建一个已经有多个region的新表。因为pre-splitting可以让你在表创建之初可以在集群中进行负载均衡，所以如果你已经知道插入数据的rowkey分布，就应该应用它。但是，pre-splitting创建region也有风险：由于数据分布不均匀，或者存在热点行或者较大的行，不能均匀地分担负载。如果最初的一组分割点选择得不好，那么最终可能会出现异构的负载分布，这反过来又会限制集群性能。</p>
+<p><strong>大致总结一下为什么要进行region的预分区：</strong></p>
+<p>Hbase table 对 client 的服务是region级别的，region落在regionserver上。</p>
 <ol>
-<li>
-<p>调用HeadHandler对应的fireXXX 方法</p>
-</li>
-<li>
-<p>执行事件相关的逻辑操作</p>
-</li>
+<li>Hbase 会对单个 region 的大小以及单 region 中文件数量进行限制。超过了限制就会进行 split，这样就解决了 mysql等关系型数据库普遍存在的 单表只能无限 append 的问题。</li>
+<li>Hbase 中split一般比较快速的完成，但是这会成为业务的潜在风险，比如业务高峰发生了自动的split，一两秒服务质量比较低可能就会造成服务影响。</li>
+<li>所以综合1和2，建议大家在Hbase创建表时进行预分区，预先指定分区数量。</li>
 </ol>
-<p>常用的outbound事件有：</p>
-<ul>
-<li>ChannelFuture bind(SocketAddress var1, ChannelPromise var2) //绑定地址</li>
-<li>ChannelFuture connect(SocketAddress var1, ChannelPromise var2) //连接服务器</li>
-<li>ChannelFuture write(Object var1) //发送事件</li>
-<li>ChannelHandlerContext flush() //刷新事件</li>
-</ul>
-<p>上面我们说到事件，netty的事件机制是由前至后的，一般来说，都是一个channel的ChannnelActive方法中调用fireChannelActive来触发调用下一个handler中的ChannelActive方法，即你在ChannelPipeline中添加handler的时候，要在第一个handler的channelActive方法中调用fireChannelActive，以此来触发下一个事件。我们再来写一个案例说明一下：</p>
-<p>客户端：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HWClient</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span>  <span class="keyword">int</span> port;</span><br><span class="line">    <span class="keyword">private</span>  String address;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">HWClient</span><span class="params">(<span class="keyword">int</span> port, String address)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.port = port;</span><br><span class="line">        <span class="keyword">this</span>.address = address;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">start</span><span class="params">()</span></span>&#123;</span><br><span class="line">        EventLoopGroup group = <span class="keyword">new</span> NioEventLoopGroup();</span><br><span class="line"></span><br><span class="line">        Bootstrap bootstrap = <span class="keyword">new</span> Bootstrap();</span><br><span class="line">        bootstrap.group(group)</span><br><span class="line">                .channel(NioSocketChannel.class)</span><br><span class="line">                .handler(<span class="keyword">new</span> ClientChannelInitializer());</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            ChannelFuture future = bootstrap.connect(address,port).sync();</span><br><span class="line">            future.channel().writeAndFlush(<span class="string">"Hello Netty Server ,I am a common client"</span>);</span><br><span class="line">            future.channel().closeFuture().sync();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            group.shutdownGracefully();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        HWClient client = <span class="keyword">new</span> HWClient(<span class="number">7788</span>,<span class="string">"127.0.0.1"</span>);</span><br><span class="line">        client.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>客户端ClientChannelInitializer：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClientChannelInitializer</span> <span class="keyword">extends</span>  <span class="title">ChannelInitializer</span>&lt;<span class="title">SocketChannel</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">initChannel</span><span class="params">(SocketChannel socketChannel)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        ChannelPipeline pipeline = socketChannel.pipeline();</span><br><span class="line"></span><br><span class="line">        pipeline.addLast(<span class="string">"decoder"</span>, <span class="keyword">new</span> StringDecoder());</span><br><span class="line">        pipeline.addLast(<span class="string">"encoder"</span>, <span class="keyword">new</span> StringEncoder());</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 客户端的handler</span></span><br><span class="line">        <span class="comment">//先调用handler在ChannnelActive方法中调用fireChannelActive会激活handler1</span></span><br><span class="line">        pipeline.addLast(<span class="string">"handler"</span>, <span class="keyword">new</span> HWClientHandler());</span><br><span class="line">        pipeline.addLast(<span class="string">"handler1"</span>, <span class="keyword">new</span> BaseClientHandler());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>客户端handler：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HWClientHandler</span> <span class="keyword">extends</span> <span class="title">ChannelInboundHandlerAdapter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">channelRead</span><span class="params">(ChannelHandlerContext ctx, Object msg)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"server say : "</span>+msg.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">channelActive</span><span class="params">(ChannelHandlerContext ctx)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Handler1"</span>);</span><br><span class="line">        ctx.fireChannelActive();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">channelInactive</span><span class="params">(ChannelHandlerContext ctx)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Client is close"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>客户端的第二个handler：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseClientHandler</span> <span class="keyword">extends</span> <span class="title">ChannelInboundHandlerAdapter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">channelActive</span><span class="params">(ChannelHandlerContext ctx)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Handler2"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">exceptionCaught</span><span class="params">(ChannelHandlerContext ctx, Throwable cause)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        ctx.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>服务端：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HWServer</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> port;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">HWServer</span><span class="params">(<span class="keyword">int</span> port)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.port = port;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">start</span><span class="params">()</span></span>&#123;</span><br><span class="line">        EventLoopGroup bossGroup = <span class="keyword">new</span> NioEventLoopGroup();</span><br><span class="line">        EventLoopGroup workGroup = <span class="keyword">new</span> NioEventLoopGroup();</span><br><span class="line"></span><br><span class="line">        ServerBootstrap server = <span class="keyword">new</span> ServerBootstrap().group(bossGroup,workGroup)</span><br><span class="line">                                    .channel(NioServerSocketChannel.class)</span><br><span class="line">                                    .childHandler(<span class="keyword">new</span> ServerChannelInitializer());</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            ChannelFuture future = server.bind(port).sync();</span><br><span class="line">            future.channel().closeFuture().sync();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            bossGroup.shutdownGracefully();</span><br><span class="line">            workGroup.shutdownGracefully();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        HWServer server = <span class="keyword">new</span> HWServer(<span class="number">7788</span>);</span><br><span class="line">        server.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>服务端ServerChannelInitializer:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ServerChannelInitializer</span> <span class="keyword">extends</span> <span class="title">ChannelInitializer</span>&lt;<span class="title">SocketChannel</span>&gt; </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">initChannel</span><span class="params">(SocketChannel socketChannel)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        ChannelPipeline pipeline = socketChannel.pipeline();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 字符串解码 和 编码</span></span><br><span class="line">        pipeline.addLast(<span class="string">"decoder"</span>, <span class="keyword">new</span> StringDecoder());</span><br><span class="line">        pipeline.addLast(<span class="string">"encoder"</span>, <span class="keyword">new</span> StringEncoder());</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 自己的逻辑Handler</span></span><br><span class="line">        pipeline.addLast(<span class="string">"handler"</span>, <span class="keyword">new</span> HWServerHandler());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>服务端handler：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HWServerHandler</span> <span class="keyword">extends</span> <span class="title">ChannelInboundHandlerAdapter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">channelActive</span><span class="params">(ChannelHandlerContext ctx)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"channelActive"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">channelRead</span><span class="params">(ChannelHandlerContext ctx, Object msg)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        System.out.println(ctx.channel().remoteAddress()+<span class="string">"===&gt;server: "</span>+msg.toString());</span><br><span class="line">        ctx.write(<span class="string">"received your msg"</span>);</span><br><span class="line">        ctx.flush();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">exceptionCaught</span><span class="params">(ChannelHandlerContext ctx, Throwable cause)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.exceptionCaught(ctx, cause);</span><br><span class="line">        ctx.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>我们启动服务端和客户端，会发现客户端的两个handler都通过了。</p>
-<p><img src="http://i.imgur.com/NLijyim.png" alt=""></p>
-<p>先调用HWClientHandler，打印出：HWClientHandler channelActive；继而调用了BaseClientHandler ，打印出：BaseClient1Handler channelActive.</p>
+<p>同时，如果一个节点有过多的读写操作，还会造成热点问题，Hbase可能会因为Zookeeper的连接超时而关掉该节点，将表预分割为固定数量的区域(region)也是一个好的解决方法，并且通过rowkey设计将这些区域均匀地分布在所有的服务器(regionserver)上。</p>
+<h4 id="2-如何分区"><a class="markdownIt-Anchor" href="#2-如何分区"></a> 2. 如何分区</h4>
+<p>RegionSplitter提供三个用于Pre-splitting的工具：HexStringSplit、UniformSplit、SplitAlgorithm。</p>
+<p><strong>HexStringSplit</strong></p>
+<p>row key是十六进制的字符串(hexadecimal ASCII)作为前缀的时候，HexHash(prefix)作为row key的前缀，其中Hexhash为最终得到十六进制字符串的hash算法。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">方式一</span></span><br><span class="line">create 'tableName', &#123; NAME =&gt; 'info', COMPRESSION =&gt; 'snappy' &#125;,  &#123;NUMREGIONS =&gt; 60, SPLITALGO =&gt; 'HexStringSplit'&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">方式二</span></span><br><span class="line">在Hbase shell 下执行：</span><br><span class="line"></span><br><span class="line">Hbase org.apache.hadoop.Hbase.util.RegionSplitter mytable HexStringSplit -c 10 -f f1</span><br><span class="line"></span><br><span class="line">-c 10 的意思为，最终的region数目为10个；-f  f1为创建一个那么为f1的 column family.</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2019/01/19/5c42ef9be8627.jpg" alt=""></p>
+<p><strong>UniformSplit</strong></p>
+<p>row key是字节数组arbitrary bytes的时候，某个Hbase的表查询只是以随机查询为主，可以用UniformSplit的方式进行，按照原始byte值（从0x00~0xFF）右边以00填充。以这种方式分区的表在插入的时候需要对rowkey进行一个技巧性的改造， 比如原来的rowkey为rawStr，则需要对其取hashCode，然后进行按照比特位反转后放在最初rowkey串的前面。</p>
+<p>举个例子：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create 'table_name', 'info',&#123;NUMREGIONS =&gt; 15, SPLITALGO =&gt; 'UniformSplit'&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2019/01/19/5c42f181be070.jpg" alt=""></p>
+<p>rowKey设计：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;  </span><br><span class="line">        Configuration conf = HbaseConfiguration.create();  </span><br><span class="line">        conf.set(<span class="string">"Hbase.zookeeper.quorum"</span>, <span class="string">"hadoop1"</span>);  </span><br><span class="line">        conf.set(<span class="string">"Hbase.zookeeper.property.clientPort"</span>, <span class="string">"2181"</span>);  </span><br><span class="line">        HConnection connection = HConnectionManager.createConnection(conf);  </span><br><span class="line">        HTableInterface table = connection.getTable(<span class="string">"huanggang"</span>);  </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>; i&lt; <span class="number">6553500</span>; i++) &#123;  </span><br><span class="line">            <span class="keyword">byte</span>[] rowKey = Bytes.add(Bytes.toBytes(Integer.reverse(Integer.valueOf(Integer.valueOf(i).hashCode()))), Bytes.toBytes(i));  </span><br><span class="line">            System.out.println(rowKey);  </span><br><span class="line">            Put put = <span class="keyword">new</span> Put(rowKey);  </span><br><span class="line">            put.add(<span class="string">"f"</span>.getBytes(), <span class="string">"col1"</span>.getBytes(), Bytes.toBytes(<span class="keyword">new</span> Random().nextInt(<span class="number">10000</span>)));  </span><br><span class="line">            put.add(<span class="string">"f"</span>.getBytes(), <span class="string">"col2"</span>.getBytes(), Bytes.toBytes(<span class="keyword">new</span> Random().nextInt(<span class="number">10000</span>)));  </span><br><span class="line">            put.add(<span class="string">"f"</span>.getBytes(), <span class="string">"col3"</span>.getBytes(), Bytes.toBytes(<span class="keyword">new</span> Random().nextInt(<span class="number">10000</span>)));  </span><br><span class="line">            put.add(<span class="string">"f"</span>.getBytes(), <span class="string">"col4"</span>.getBytes(), Bytes.toBytes(<span class="keyword">new</span> Random().nextInt(<span class="number">10000</span>)));  </span><br><span class="line">            put.add(<span class="string">"f"</span>.getBytes(), <span class="string">"col5"</span>.getBytes(), Bytes.toBytes(<span class="keyword">new</span> Random().nextInt(<span class="number">10000</span>)));  </span><br><span class="line">            put.add(<span class="string">"f"</span>.getBytes(), <span class="string">"col6"</span>.getBytes(), Bytes.toBytes(<span class="keyword">new</span> Random().nextInt(<span class="number">10000</span>)));  </span><br><span class="line">            table.put(put);  </span><br><span class="line">        &#125;  </span><br><span class="line">        table.flushCommits();  </span><br><span class="line">        table.close();  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>SplitAlgorithm</strong></p>
+<p>SplitAlgorithm是一个接口，需要开发人员自己实现相应的分隔策略。</p>
+<p>待定</p>
+<p>以上为Hbase自带的分区工具，另外我们还可以自定义分区：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Examples:</span><br><span class="line"> </span><br><span class="line"><span class="meta">  Hbase&gt;</span><span class="bash"> create <span class="string">'ns1:t1'</span>, <span class="string">'f1'</span>, SPLITS =&gt; [<span class="string">'10'</span>, <span class="string">'20'</span>, <span class="string">'30'</span>, <span class="string">'40'</span>]</span></span><br><span class="line"><span class="meta">  Hbase&gt;</span><span class="bash"> create <span class="string">'t1'</span>, <span class="string">'f1'</span>, SPLITS =&gt; [<span class="string">'10'</span>, <span class="string">'20'</span>, <span class="string">'30'</span>, <span class="string">'40'</span>]</span></span><br><span class="line"><span class="meta">  Hbase&gt;</span><span class="bash"> create <span class="string">'t1'</span>, <span class="string">'f1'</span>, SPLITS_FILE =&gt; <span class="string">'splits.txt'</span>, OWNER =&gt; <span class="string">'johndoe'</span></span></span><br><span class="line"><span class="meta">  Hbase&gt;</span><span class="bash"> create <span class="string">'t1'</span>, &#123;NAME =&gt; <span class="string">'f1'</span>, VERSIONS =&gt; 5&#125;, METADATA =&gt; &#123; <span class="string">'mykey'</span> =&gt; <span class="string">'myvalue'</span> &#125;</span></span><br><span class="line"><span class="meta">  Hbase&gt;</span><span class="bash"> <span class="comment"># Optionally pre-split the table into NUMREGIONS, using</span></span></span><br><span class="line"><span class="meta">  Hbase&gt;</span><span class="bash"> <span class="comment"># SPLITALGO ("HexStringSplit", "UniformSplit" or classname)</span></span></span><br><span class="line"><span class="meta">  Hbase&gt;</span><span class="bash"> create <span class="string">'t1'</span>, <span class="string">'f1'</span>, &#123;NUMREGIONS =&gt; 15, SPLITALGO =&gt; <span class="string">'HexStringSplit'</span>&#125;</span></span><br><span class="line"><span class="meta">  Hbase&gt;</span><span class="bash"> create <span class="string">'t1'</span>, <span class="string">'f1'</span>, &#123;NUMREGIONS =&gt; 15, SPLITALGO =&gt; <span class="string">'HexStringSplit'</span>, CONFIGURATION =&gt; &#123;<span class="string">'Hbase.hregion.scan.loadColumnFamiliesOnDemand'</span> =&gt; <span class="string">'true'</span>&#125;&#125;</span></span><br><span class="line"><span class="meta">  Hbase&gt;</span><span class="bash"> create <span class="string">'t1'</span>, &#123;NAME =&gt; <span class="string">'f1'</span>&#125;, &#123;NAME =&gt; <span class="string">'if1'</span>, LOCAL_INDEX=&gt;<span class="string">'COMBINE_INDEX|INDEXED=f1:q1:8|rowKey:rowKey:10,UPDATE=true'</span>&#125;</span></span><br></pre></td></tr></table></figure>
+<p>以上为Hbase自带的示例，可以看到如果分区比较少的情况下，通过SPLITS关键字指定即可，如果分区很多，可以通过文件的形式指定。比如我们想划分10个region，key如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">0001|</span><br><span class="line">0002|</span><br><span class="line">0003|</span><br><span class="line">0004|</span><br><span class="line">0005|</span><br><span class="line">0006|</span><br><span class="line">0007|</span><br><span class="line">0008|</span><br><span class="line">0009|</span><br><span class="line">0010|</span><br></pre></td></tr></table></figure>
+<p>然后创建表：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create 'split_table_test', 'cf', &#123;SPLITS_FILE =&gt; '/data/region_split_info.txt'&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2019/01/19/5c42f1cd81da9.jpg" alt=""></p>
+<p>假如我还想对Hbase表做一个SNAPPY压缩，应该怎么写呢？</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create 'split_table_test',&#123;NAME =&gt;'cf', COMPRESSION =&gt; 'SNAPPY'&#125;, &#123;SPLITS_FILE =&gt; 'region_split_info.txt'&#125;</span><br></pre></td></tr></table></figure>
+<p>这里注意，一定要将分区的参数指定单独用一个大括号扩起来，因为分区是针对全表，而不是针对某一个column family。</p>
+<h4 id="3-rowkey的设计原则"><a class="markdownIt-Anchor" href="#3-rowkey的设计原则"></a> 3. RowKey的设计原则</h4>
+<p>上面说到region的预分区，主要围绕rowKey的设计来做，那么rowKey应该如何设计呢。我们知道Hbase是三维有序存储的，通过rowkey（行键），column key（column family和qualifier）和TimeStamp（时间戳）这个三个维度可以对Hbase中的数据进行快速定位。</p>
+<p>Hbase中rowkey可以唯一标识一行记录，在Hbase查询的时候，有以下几种方式：</p>
+<ol>
+<li>通过get方式，指定rowkey获取唯一一条记录</li>
+<li>通过scan方式，设置startRow和stopRow参数进行范围匹配</li>
+<li>全表扫描，即直接扫描整张表中所有行记录</li>
+</ol>
+<h4 id="31-rowkey长度原则"><a class="markdownIt-Anchor" href="#31-rowkey长度原则"></a> 3.1 rowkey长度原则</h4>
+<p>rowkey是一个二进制码流，可以是任意字符串，最大长度 <em>64kb</em> ，实际应用中一般为10-100bytes，以 <code>byte[]</code> 形式保存，一般设计成定长。</p>
+<p>建议越短越好，不要超过16个字节，原因如下：</p>
+<ol>
+<li>数据的持久化文件HFile中是按照KeyValue存储的，如果rowkey过长，比如超过100字节，1000w行数据，光rowkey就要占用100*1000w=10亿个字节，将近1G数据，这样会极大影响HFile的存储效率；</li>
+<li>MemStore将缓存部分数据到内存，如果rowkey字段过长，内存的有效利用率就会降低，系统不能缓存更多的数据，这样会降低检索效率。</li>
+<li>目前操作系统都是64位系统，内存8字节对齐，控制在16个字节，8字节的整数倍利用了操作系统的最佳特性。</li>
+</ol>
+<h4 id="32-rowkey散列原则"><a class="markdownIt-Anchor" href="#32-rowkey散列原则"></a> 3.2 rowkey散列原则</h4>
+<p>如果rowkey按照时间戳的方式递增，不要将时间放在二进制码的前面，建议将rowkey的高位作为散列字段，由程序随机生成，低位放时间字段，这样将提高数据均衡分布在每个RegionServer，以实现负载均衡的几率。如果没有散列字段，首字段直接是时间信息，所有的数据都会集中在一个RegionServer上，这样在数据检索的时候负载会集中在个别的RegionServer上，造成热点问题，会降低查询效率。</p>
+<h4 id="33-rowkey唯一原则"><a class="markdownIt-Anchor" href="#33-rowkey唯一原则"></a> 3.3  rowkey唯一原则</h4>
+<p>必须在设计上保证其唯一性，rowkey是按照字典顺序排序存储的，因此，设计rowkey的时候，要充分利用这个排序的特点，将经常读取的数据存储到一块，将最近可能会被访问的数据放到一块。</p>
+<h4 id="34-什么是热点"><a class="markdownIt-Anchor" href="#34-什么是热点"></a> 3.4 什么是热点</h4>
+<p>Hbase中的行是按照rowkey的字典顺序排序的，这种设计优化了scan操作，可以将相关的行以及会被一起读取的行存取在临近位置，便于scan。然而糟糕的rowkey设计是热点的源头。 热点发生在大量的client直接访问集群的一个或极少数个节点（访问可能是读，写或者其他操作）。大量访问会使热点region所在的单个机器超出自身承受能力，引起性能下降甚至region不可用，这也会影响同一个RegionServer上的其他region，由于主机无法服务其他region的请求。 设计良好的数据访问模式以使集群被充分，均衡的利用。</p>
+<p>为了避免写热点，设计rowkey使得不同行在同一个region，但是在更多数据情况下，数据应该被写入集群的多个region，而不是一个。</p>
+<p>下面是一些常见的避免热点的方法以及它们的优缺点：</p>
+<p><strong>加盐</strong></p>
+<p>这里所说的加盐不是密码学中的加盐，而是在rowkey的前面增加随机数，具体就是给rowkey分配一个随机前缀以使得它和之前的rowkey的开头不同。分配的前缀种类数量应该和你想使用数据分散到不同的region的数量一致。加盐之后的rowkey就会根据随机生成的前缀分散到各个region上，以避免热点。</p>
+<p><strong>哈希</strong></p>
+<p>哈希会使同一行永远用一个前缀加盐。哈希也可以使负载分散到整个集群，但是读却是可以预测的。使用确定的哈希可以让客户端重构完整的rowkey，可以使用get操作准确获取某一个行数据</p>
+<p><strong>反转</strong></p>
+<p>第三种防止热点的方法时反转固定长度或者数字格式的rowkey。这样可以使得rowkey中经常改变的部分（最没有意义的部分）放在前面。这样可以有效的随机rowkey，但是牺牲了rowkey的有序性。</p>
+<p>反转rowkey的例子以手机号为rowkey，可以将手机号反转后的字符串作为rowkey，这样的就避免了以手机号那样比较固定开头导致热点问题</p>
+<p><strong>时间戳反转</strong></p>
+<p>一个常见的数据处理问题是快速获取数据的最近版本，使用反转的时间戳作为rowkey的一部分对这个问题十分有用，可以用 Long.Max_Value - timestamp 追加到key的末尾，例如 [key][reverse_timestamp] , [key] 的最新值可以通过scan [key]获得[key]的第一条记录，因为Hbase中rowkey是有序的，第一条记录是最后录入的数据。</p>
+<p>比如需要保存一个用户的操作记录，按照操作时间倒序排序，在设计rowkey的时候，可以这样设计</p>
+<p>[userId反转][Long.Max_Value - timestamp]，在查询用户的所有操作记录数据的时候，直接指定反转后的userId，startRow是[userId反转][000000000000],stopRow是[userId反转][Long.Max_Value - timestamp]</p>
+<p>如果需要查询某段时间的操作记录，startRow是[user反转][Long.Max_Value - 起始时间]，stopRow是[userId反转][Long.Max_Value - 结束时间]</p>
+<p><strong>其他一些建议</strong></p>
+<p>尽量减少行和列的大小在Hbase中，value永远和它的key一起传输的。当具体的值在系统间传输时，它的rowkey，列名，时间戳也会一起传输。如果你的rowkey和列名很大，甚至可以和具体的值相比较，那么你将会遇到一些有趣的问题。Hbase storefiles中的索引（有助于随机访问）最终占据了Hbase分配的大量内存，因为具体的值和它的key很大。可以增加block大小使得storefiles索引再更大的时间间隔增加，或者修改表的模式以减小rowkey和列名的大小。压缩也有助于更大的索引。</p>
+<p>列族尽可能越短越好，最好是一个字符。</p>
+<p>冗长的属性名虽然可读性好，但是更短的属性名存储在Hbase中会更好。</p>
 
       
     </div>
@@ -654,12 +684,12 @@ ChannelPipeline 是线程去全的， 但是仍然需要自己保证ChannelHandl
   <!-- JS库 sweetalert 可修改路径 -->
   <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <p><span>本文标题:</span><a href="/posts/d48afec7.html">Netty学习(三）-Netty重要接口讲解</a></p>
+  <p><span>本文标题:</span><a href="/posts/5aeefc82.html">Hbase region的预分区</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Rickiyang 的个人博客">Rickiyang</a></p>
-  <p><span>发布时间:</span>2017年03月17日 - 01:02</p>
-  <p><span>最后更新:</span>2018年12月04日 - 17:28</p>
-  <p><span>原始链接:</span><a href="/posts/d48afec7.html" title="Netty学习(三）-Netty重要接口讲解">http://blog.rickiyang.cn/posts/d48afec7.html</a>
-    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://blog.rickiyang.cn/posts/d48afec7.html" aria-label="复制成功！"></i></span>
+  <p><span>发布时间:</span>2019年01月18日 - 19:07</p>
+  <p><span>最后更新:</span>2019年01月19日 - 18:26</p>
+  <p><span>原始链接:</span><a href="/posts/5aeefc82.html" title="Hbase region的预分区">http://blog.rickiyang.cn/posts/5aeefc82.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://blog.rickiyang.cn/posts/5aeefc82.html" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
 </div>
@@ -704,7 +734,7 @@ ChannelPipeline 是线程去全的， 但是仍然需要自己保证ChannelHandl
       
         <div class="post-tags">
           
-            <a href="/tags/学习/" rel="tag"># 学习</a>
+            <a href="/tags/大数据/" rel="tag"># 大数据</a>
           
         </div>
       
@@ -717,8 +747,8 @@ ChannelPipeline 是线程去全的， 但是仍然需要自己保证ChannelHandl
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/87e472dc.html" rel="next" title="Netty学习(五)-DelimiterBasedFrameDecoder">
-                <i class="fa fa-chevron-left"></i> Netty学习(五)-DelimiterBasedFrameDecoder
+              <a href="/posts/f1a04f3f.html" rel="next" title="linux时间配置同步">
+                <i class="fa fa-chevron-left"></i> linux时间配置同步
               </a>
             
           </div>
@@ -727,8 +757,8 @@ ChannelPipeline 是线程去全的， 但是仍然需要自己保证ChannelHandl
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/posts/278c909d.html" rel="prev" title="Netty学习(四)-TCP粘包和拆包">
-                Netty学习(四)-TCP粘包和拆包 <i class="fa fa-chevron-right"></i>
+              <a href="/posts/af1f3985.html" rel="prev" title="Hbase扫描器和过滤器">
+                Hbase扫描器和过滤器 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -984,7 +1014,7 @@ ChannelPipeline 是线程去全的， 但是仍然需要自己保证ChannelHandl
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-channelpipeline和channelhandler"><span class="nav-number">1.</span> <span class="nav-text"> 1 ChannelPipeLine和ChannelHandler</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-为什么要预分区"><span class="nav-number">1.</span> <span class="nav-text"> 1. 为什么要预分区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-如何分区"><span class="nav-number">2.</span> <span class="nav-text"> 2. 如何分区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-rowkey的设计原则"><span class="nav-number">3.</span> <span class="nav-text"> 3. RowKey的设计原则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#31-rowkey长度原则"><span class="nav-number">4.</span> <span class="nav-text"> 3.1 rowkey长度原则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#32-rowkey散列原则"><span class="nav-number">5.</span> <span class="nav-text"> 3.2 rowkey散列原则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#33-rowkey唯一原则"><span class="nav-number">6.</span> <span class="nav-text"> 3.3  rowkey唯一原则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#34-什么是热点"><span class="nav-number">7.</span> <span class="nav-text"> 3.4 什么是热点</span></a></li></ol></div>
             
 
           </div>

@@ -151,19 +151,19 @@
 
 
 
-  <meta name="description" content="hbase基本知识学习 数据在 HBase 中的排布（逻辑上）                 Row-Key         Value（CF、Qualifier、Version                   1         info{&apos;姓&apos;: &apos;张&apos;，&apos;名&apos;:&apos;三&apos;}              pwd{&apos;密码&apos;: &apos;111&apos;}                   2">
+  <meta name="description" content="Hbase基本知识学习 数据在 Hbase 中的排布（逻辑上）                 Row-Key         Value（CF、Qualifier、Version                   1         info{&apos;姓&apos;: &apos;张&apos;，&apos;名&apos;:&apos;三&apos;}              pwd{&apos;密码&apos;: &apos;111&apos;}                   2">
 <meta name="keywords" content="大数据">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hbase初识">
+<meta property="og:title" content="Hbase初识">
 <meta property="og:url" content="http://blog.rickiyang.cn/posts/e64b3d3a.html">
 <meta property="og:site_name" content="Rickiyang&#39;s blog">
-<meta property="og:description" content="hbase基本知识学习 数据在 HBase 中的排布（逻辑上）                 Row-Key         Value（CF、Qualifier、Version                   1         info{&apos;姓&apos;: &apos;张&apos;，&apos;名&apos;:&apos;三&apos;}              pwd{&apos;密码&apos;: &apos;111&apos;}                   2">
+<meta property="og:description" content="Hbase基本知识学习 数据在 Hbase 中的排布（逻辑上）                 Row-Key         Value（CF、Qualifier、Version                   1         info{&apos;姓&apos;: &apos;张&apos;，&apos;名&apos;:&apos;三&apos;}              pwd{&apos;密码&apos;: &apos;111&apos;}                   2">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.loli.net/2019/01/07/5c32bff8c77b2.jpg">
-<meta property="og:updated_time" content="2019-01-18T06:10:37.559Z">
+<meta property="og:updated_time" content="2019-01-19T10:26:54.512Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="hbase初识">
-<meta name="twitter:description" content="hbase基本知识学习 数据在 HBase 中的排布（逻辑上）                 Row-Key         Value（CF、Qualifier、Version                   1         info{&apos;姓&apos;: &apos;张&apos;，&apos;名&apos;:&apos;三&apos;}              pwd{&apos;密码&apos;: &apos;111&apos;}                   2">
+<meta name="twitter:title" content="Hbase初识">
+<meta name="twitter:description" content="Hbase基本知识学习 数据在 Hbase 中的排布（逻辑上）                 Row-Key         Value（CF、Qualifier、Version                   1         info{&apos;姓&apos;: &apos;张&apos;，&apos;名&apos;:&apos;三&apos;}              pwd{&apos;密码&apos;: &apos;111&apos;}                   2">
 <meta name="twitter:image" content="https://i.loli.net/2019/01/07/5c32bff8c77b2.jpg">
 
 
@@ -183,7 +183,7 @@
   };
 </script>
 
-  <title>hbase初识 | Rickiyang's blog</title>
+  <title>Hbase初识 | Rickiyang's blog</title>
   
 
 
@@ -432,7 +432,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">hbase初识
+          <h2 class="post-title" itemprop="name headline">Hbase初识
 
               
             
@@ -475,7 +475,7 @@
                 
                   <span class="post-meta-item-text">编辑于</span>
                 
-                <time title="Modified: 2019-01-18 14:10:37" itemprop="dateModified" datetime="2019-01-18T14:10:37+08:00">2019-01-18</time>
+                <time title="Modified: 2019-01-19 18:26:54" itemprop="dateModified" datetime="2019-01-19T18:26:54+08:00">2019-01-19</time>
               
             
           </span>
@@ -499,7 +499,7 @@
                   , 
                 
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/大数据学习/hbase/" itemprop="url" rel="index"><span itemprop="name">hbase</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/大数据学习/Hbase/" itemprop="url" rel="index"><span itemprop="name">Hbase</span></a></span>
 
                 
                 
@@ -523,7 +523,7 @@
 
           
           
-             <span id="/posts/e64b3d3a.html" class="leancloud_visitors" data-flag-title="hbase初识">
+             <span id="/posts/e64b3d3a.html" class="leancloud_visitors" data-flag-title="Hbase初识">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -583,8 +583,8 @@
       
 
       
-        <h2 id="hbase基本知识学习"><a class="markdownIt-Anchor" href="#hbase基本知识学习"></a> hbase基本知识学习</h2>
-<p>数据在 HBase 中的排布（逻辑上）</p>
+        <h2 id="hbase基本知识学习"><a class="markdownIt-Anchor" href="#hbase基本知识学习"></a> Hbase基本知识学习</h2>
+<p>数据在 Hbase 中的排布（逻辑上）</p>
  
 <table>
     <tr>
@@ -602,8 +602,8 @@
     </tr>
 </table>
 
-<p>我们可以看出，在HBase中首先会有 Column Family 的概念，简称为CF。CF 一般用于将相关的列（Column）组合起来。在物理上 HBase其实是按 CF 存储的，只是按照 Row-key 将相关 CF 中的列关联起来。</p>
-<p>数据在hbase中的物理分布如下：</p>
+<p>我们可以看出，在Hbase中首先会有 Column Family 的概念，简称为CF。CF 一般用于将相关的列（Column）组合起来。在物理上 Hbase其实是按 CF 存储的，只是按照 Row-key 将相关 CF 中的列关联起来。</p>
+<p>数据在Hbase中的物理分布如下：</p>
  
 <table>
     <tr>
@@ -638,8 +638,8 @@
     </tr>
 </table>
 
-<p>如果要用很短的一句话总结 HBase，我们可以认为 HBase 就是一个有序的多维 Map，其中每一个 Row-key 映射了许多数据，这些数据存储在 CF 中的 Column。我们可以用下图来表示这句话。</p>
-<p>HBase是一个面向列的数据库，在表中它由行排序。 表模式定义只能列族，也就是键值对。 一个表有多个列族以及每一个列族可以有任意数量的列。 后续列的值连续地存储在磁盘上。 表中的每个单元格值都具有时间戳。在一个hbase中：</p>
+<p>如果要用很短的一句话总结 Hbase，我们可以认为 Hbase 就是一个有序的多维 Map，其中每一个 Row-key 映射了许多数据，这些数据存储在 CF 中的 Column。我们可以用下图来表示这句话。</p>
+<p>Hbase是一个面向列的数据库，在表中它由行排序。 表模式定义只能列族，也就是键值对。 一个表有多个列族以及每一个列族可以有任意数量的列。 后续列的值连续地存储在磁盘上。 表中的每个单元格值都具有时间戳。在一个Hbase中：</p>
 <pre><code>表是行的集合。
 行是列族的集合。
 列族是列的集合。
@@ -656,7 +656,7 @@
 <p>Column Family</p>
 <hr>
 <ol>
-<li>hbase中的每个列都归属于某个列族；</li>
+<li>Hbase中的每个列都归属于某个列族；</li>
 <li>列族是schema的一部分(列并不是),必须在使用表之前定义；</li>
 <li>列表都以列族为前缀，例如：course:math,course:English都属于course这个列族。</li>
 </ol>
@@ -675,26 +675,26 @@
 <ol>
 <li>每个cell都保存着一份数据的多个版本；</li>
 <li>版本通过时间戳来索引，时间戳的类型是64类整型；</li>
-<li>时间戳可以由HBASE(在数据写入时自动)赋值,此时时间戳是精确到毫秒的当前系统时间。时间戳也可以由客户显式赋值。如果应用程序要避免数据版本冲突,就必须自己生成具有唯一性的时间戳。每个cell中,不同版本的数据按照时间倒序排序,即最新的数据排在最前面；</li>
-<li>为了避免数据存在过多版本造成的的管理(包括存贮和索引)负担,HBASE提供了两种数据版本回收方式。一是保存数据的最后n个版本,二是保存最近一段时间内的版本（比如最近七天）。用户可以针对每个列族进行设置。</li>
+<li>时间戳可以由Hbase(在数据写入时自动)赋值,此时时间戳是精确到毫秒的当前系统时间。时间戳也可以由客户显式赋值。如果应用程序要避免数据版本冲突,就必须自己生成具有唯一性的时间戳。每个cell中,不同版本的数据按照时间倒序排序,即最新的数据排在最前面；</li>
+<li>为了避免数据存在过多版本造成的的管理(包括存贮和索引)负担,Hbase提供了两种数据版本回收方式。一是保存数据的最后n个版本,二是保存最近一段时间内的版本（比如最近七天）。用户可以针对每个列族进行设置。</li>
 </ol>
 <p>Region</p>
 <hr>
-<p>HBase自动把表水平划分成多个区域(region)，每个region会保存一个表里面某段连续的数据。</p>
+<p>Hbase自动把表水平划分成多个区域(region)，每个region会保存一个表里面某段连续的数据。</p>
 <p>每个表一开始只有一个region，随着数据不断插入表，region不断增大，当增大到一个阀值的时候，region就会等分会两个新的region。</p>
 <p>当table中的行不断增多，就会有越来越多的region。这样一张完整的表被保存在多个Region 上。</p>
 <p>Region是Hbase中“分布式存储”和“负载均衡”的最小单元。最小单元就表示不同的region可以分布在不同的Region server上。但一个Region是不会拆分到多个server上的。</p>
-<p>HBase存储和HDFS存储的关系:</p>
+<p>Hbase存储和HDFS存储的关系:</p>
 <ul>
 <li>HDFS: Client -&gt; NameNode -&gt; DataNode</li>
-<li>HBase: Client -&gt; HMaster -&gt; HRegionServer -&gt; Zookeeper(元数据) -&gt; HDFS(数据文件)
+<li>Hbase: Client -&gt; HMaster -&gt; HRegionServer -&gt; Zookeeper(元数据) -&gt; HDFS(数据文件)
 <ul>
 <li>
 <pre><code>每条数据线缓存到HRegionServer的内存中,当达到Block大小时再写入HDFS。
 </code></pre>
 </li>
 <li>
-<pre><code>HBase中只有表结构和列族,其他都是数据。
+<pre><code>Hbase中只有表结构和列族,其他都是数据。
 </code></pre>
 </li>
 <li>
@@ -784,12 +784,12 @@
 </tr>
 <tr>
 <td>更新记录</td>
-<td>就是重写一遍，进行覆盖，hbase没有修改，都是追加</td>
+<td>就是重写一遍，进行覆盖，Hbase没有修改，都是追加</td>
 </tr>
 </tbody>
 </table>
 
-<p>ZK在HBase中的功能：</p>
+<p>ZK在Hbase中的功能：</p>
 <ul>
 <li>保存HMaster的地址和 backup-master 地址</li>
 <li>HMaster的功能：
@@ -810,38 +810,38 @@
 <h2 id="hbase体系结构"><a class="markdownIt-Anchor" href="#hbase体系结构"></a> Hbase体系结构</h2>
 <p><img src="https://i.loli.net/2019/01/07/5c32bff8c77b2.jpg" alt=""></p>
 <h3 id="数据模型"><a class="markdownIt-Anchor" href="#数据模型"></a> 数据模型</h3>
-<p>HBase以表的形式存储数据。表由行和列组成。行划分为若干个列族。</p>
+<p>Hbase以表的形式存储数据。表由行和列组成。行划分为若干个列族。</p>
 <p>最基本的单位是列（column），一列或者多列组成一行（row），并且由唯一的行键（row key）来确定存储。一个表中有很多行，每一列可能有多个版本，在每一个单元格（Cell）中存储了不同的值。</p>
-<p>HBase的行与行之间是有序的，按照row key的字典序进行排序，行键是唯一的，在一个表里只出现一次，否则就是在更新同一行，行键可以是任意的字节数组。一行由若干列组成，其中的某些列又可以构成一个列族（column family），一个列族的所有列存储在同一个底层的存储文件里，这个文件称之为HFile。</p>
-<p>列族需要在创建表的时候就定义好，数量也不宜过多。列族名必须由可打印字符组成，创建表的时候不需要定义好列。对列的引用格式通常为family：qualifier，qualifier也可以是任意的字节数组。同一个列族里qualifier的名称应该唯一，否则就是在更新同一列，列的数量没有限制，可以有数百万个。列值也没有类型和长度限定。HBase会对row key的长度做检查，默认应该小于65536。</p>
-<p>HBase的存取模式如下（表，行键，列族，列，时间戳）-&gt; 值。即一个表中的某一行键的某一列族的某一列的某一个版本的值唯一。</p>
+<p>Hbase的行与行之间是有序的，按照row key的字典序进行排序，行键是唯一的，在一个表里只出现一次，否则就是在更新同一行，行键可以是任意的字节数组。一行由若干列组成，其中的某些列又可以构成一个列族（column family），一个列族的所有列存储在同一个底层的存储文件里，这个文件称之为HFile。</p>
+<p>列族需要在创建表的时候就定义好，数量也不宜过多。列族名必须由可打印字符组成，创建表的时候不需要定义好列。对列的引用格式通常为family：qualifier，qualifier也可以是任意的字节数组。同一个列族里qualifier的名称应该唯一，否则就是在更新同一列，列的数量没有限制，可以有数百万个。列值也没有类型和长度限定。Hbase会对row key的长度做检查，默认应该小于65536。</p>
+<p>Hbase的存取模式如下（表，行键，列族，列，时间戳）-&gt; 值。即一个表中的某一行键的某一列族的某一列的某一个版本的值唯一。</p>
 <p>行数据的存取操作是原子的，可以读取任意数目的列。目前还不支持跨行事务和跨表事务。</p>
 <p>同一列族下的数据压缩在一起，访问控制磁盘和内存都在列族层面进行。</p>
 <h3 id="架构"><a class="markdownIt-Anchor" href="#架构"></a> 架构</h3>
-<p>HBase包含3个重要组件：Zookeeper、HMaster和HRegionServer。</p>
+<p>Hbase包含3个重要组件：Zookeeper、HMaster和HRegionServer。</p>
 <p>Zookeeper</p>
-<p>Zookeeper为整个HBase提供协助服务，包括：</p>
-<p>存放整个HBase集群的元数据以及集群的状态信息。<br>
+<p>Zookeeper为整个Hbase提供协助服务，包括：</p>
+<p>存放整个Hbase集群的元数据以及集群的状态信息。<br>
 实现HMaster主从节点的failover。<br>
-ZooKeeper为HBase集群提供协调服务，它管理着HMaster和HRegionServer的状态(available/alive等)，并且会在它们宕机时通知给HMaster，从而HMaster可以实现HMaster之间的failover，或对宕机的HRegionServer中的HRegion集合的修复(将它们分配给其他的HRegionServer)。ZooKeeper集群本身使用一致性协议(PAXOS协议)保证每个节点状态的一致性。</p>
+ZooKeeper为Hbase集群提供协调服务，它管理着HMaster和HRegionServer的状态(available/alive等)，并且会在它们宕机时通知给HMaster，从而HMaster可以实现HMaster之间的failover，或对宕机的HRegionServer中的HRegion集合的修复(将它们分配给其他的HRegionServer)。ZooKeeper集群本身使用一致性协议(PAXOS协议)保证每个节点状态的一致性。</p>
 <p>HMaster</p>
-<p>HMaster主要用于监控和操作集群中的所有HRegionServer。HMaster没有单点问题，HBase中可以启动多个HMaster，通过Zookeeper的MasterElection机制保证总有一个Master在运行。</p>
-<p>管理所有的HRegionServer，告诉其需要维护哪些HRegion，并监控所有HRegionServer的运行状态。当一个新的HRegionServer登录到HMaster时，HMaster会告诉它等待分配数据；而当某个HRegion死机时，HMaster会把它负责的所有HRegion标记为未分配，然后再把它们分配到其他HRegionServer中。HMaster没有单点问题，HBase可以启动多个HMaster，通过Zookeeper的选举机制保证集群中总有一个HMaster运行，从而提高了集群的可用性。</p>
+<p>HMaster主要用于监控和操作集群中的所有HRegionServer。HMaster没有单点问题，Hbase中可以启动多个HMaster，通过Zookeeper的MasterElection机制保证总有一个Master在运行。</p>
+<p>管理所有的HRegionServer，告诉其需要维护哪些HRegion，并监控所有HRegionServer的运行状态。当一个新的HRegionServer登录到HMaster时，HMaster会告诉它等待分配数据；而当某个HRegion死机时，HMaster会把它负责的所有HRegion标记为未分配，然后再把它们分配到其他HRegionServer中。HMaster没有单点问题，Hbase可以启动多个HMaster，通过Zookeeper的选举机制保证集群中总有一个HMaster运行，从而提高了集群的可用性。</p>
 <p>HMaster主要负责Table和Region的管理工作：</p>
 <p>管理用户对表的增删改查操作。<br>
 管理HRegionServer的负载均衡，调整Region分布。<br>
 Region Split后，负责新Region的分布。<br>
 在HRegionServer停机后，负责失效HRegionServer上Region迁移。<br>
 HRegionServer</p>
-<p>HRegionServer是HBase中最核心的模块，主要负责响应用户I/O请求，向HDFS文件系统读写数据。HBase中的所有数据从底层来说一般都是保存在HDFS中的，用户通过一系列HRegionServer获取这些数据。集群一个节点上一般只运行一个HRegionServer，且每一个区段的HRegion只会被一个HRegionServer维护。HRegionServer主要负责响应用户I/O请求，向HDFS文件系统读写数据，是HBase中最核心的模块。HRegionServer内部管理了一系列HRegion对象，每个HRegion对应了逻辑表中的一个连续数据段。HRegion由多个HStore组成，每个HStore对应了逻辑表中的一个列族的存储，可以看出每个列族其实就是一个集中的存储单元。因此，为了提高操作效率，最好将具备共同I/O特性的列放在一个列族中。</p>
+<p>HRegionServer是Hbase中最核心的模块，主要负责响应用户I/O请求，向HDFS文件系统读写数据。Hbase中的所有数据从底层来说一般都是保存在HDFS中的，用户通过一系列HRegionServer获取这些数据。集群一个节点上一般只运行一个HRegionServer，且每一个区段的HRegion只会被一个HRegionServer维护。HRegionServer主要负责响应用户I/O请求，向HDFS文件系统读写数据，是Hbase中最核心的模块。HRegionServer内部管理了一系列HRegion对象，每个HRegion对应了逻辑表中的一个连续数据段。HRegion由多个HStore组成，每个HStore对应了逻辑表中的一个列族的存储，可以看出每个列族其实就是一个集中的存储单元。因此，为了提高操作效率，最好将具备共同I/O特性的列放在一个列族中。</p>
 <p>存放和管理本地HRegion。<br>
 读写HDFS，管理Table中的数据。<br>
 Client直接通过HRegionServer读写数据（从HMaster中获取元数据，找到RowKey所在的HRegion/HRegionServer后）。<br>
 另外，Hbase架构中还包括以下几个部分：</p>
 <p>HRegion</p>
-<p>当表的大小超过预设值的时候，HBase会自动将表划分为不同的区域，每个区域包含表中所有行的一个子集。对用户来说，每个表是一堆数据的集合，靠主键（RowKey）来区分。从物理上来说，一张表被拆分成了多块，每一块就是一个HRegion。我们用表名+开始/结束主键，来区分每一个HRegion，一个HRegion会保存一个表中某段连续的数据，一张完整的表数据是保存在多个HRegion中的。</p>
+<p>当表的大小超过预设值的时候，Hbase会自动将表划分为不同的区域，每个区域包含表中所有行的一个子集。对用户来说，每个表是一堆数据的集合，靠主键（RowKey）来区分。从物理上来说，一张表被拆分成了多块，每一块就是一个HRegion。我们用表名+开始/结束主键，来区分每一个HRegion，一个HRegion会保存一个表中某段连续的数据，一张完整的表数据是保存在多个HRegion中的。</p>
 <p>HStore</p>
-<p>它是HBase存储的核心，由MemStore和StoreFiles两部分组成。MemStore是内存缓冲区，用户写入的数据首先会放入MemStore，当MemStore满了以后会Flush成一个StoreFile（底层实现是HFile），当StoreFile的文件数量增长到一定阈值后，会触发Compact合并操作，将多个StoreFiles合并成一个StoreFile，合并过程中会进行版本合并和数据删除操作。因此，可以看出HBase其实只有增加数据，所有的更新和删除操作都是在后续的Compact过程中进行的，这样使得用户的写操作只要进入内存就可以立即返回，保证了HBaseI/O的高性能。当StoreFiles Compact后，会逐步形成越来越大的StoreFile，当单个StoreFile大小超过一定阈值后，会触发Split操作，同时把当前的HRegion Split成2个HRegion，父HRegion会下线，新分出的2个子HRegion会被HMaster分配到相应的HRegionServer，使得原先1个HRegion的负载压力分流到2个HRegion上。</p>
+<p>它是Hbase存储的核心，由MemStore和StoreFiles两部分组成。MemStore是内存缓冲区，用户写入的数据首先会放入MemStore，当MemStore满了以后会Flush成一个StoreFile（底层实现是HFile），当StoreFile的文件数量增长到一定阈值后，会触发Compact合并操作，将多个StoreFiles合并成一个StoreFile，合并过程中会进行版本合并和数据删除操作。因此，可以看出Hbase其实只有增加数据，所有的更新和删除操作都是在后续的Compact过程中进行的，这样使得用户的写操作只要进入内存就可以立即返回，保证了HbaseI/O的高性能。当StoreFiles Compact后，会逐步形成越来越大的StoreFile，当单个StoreFile大小超过一定阈值后，会触发Split操作，同时把当前的HRegion Split成2个HRegion，父HRegion会下线，新分出的2个子HRegion会被HMaster分配到相应的HRegionServer，使得原先1个HRegion的负载压力分流到2个HRegion上。</p>
 <p>HLog</p>
 <p>每个HRegionServer中都有一个HLog对象，它是一个实现了Write Ahead Log的预写日志类。在每次用户操作将数据写入MemStore的时候，也会写一份数据到HLog文件中，HLog文件会定期滚动刷新，并删除旧的文件（已持久化到StoreFile中的数据）。当HMaster通过Zookeeper感知到某个HRegionServer意外终止时，HMaster首先会处理遗留的 HLog文件，将其中不同HRegion的HLog数据进行拆分，分别放到相应HRegion的目录下，然后再将失效的HRegion重新分配，领取到这些HRegion的HRegionServer在加载 HRegion的过程中，会发现有历史HLog需要处理，因此会Replay HLog中的数据到MemStore中，然后Flush到StoreFiles，完成数据恢复。</p>
 <h3 id="写数据流程"><a class="markdownIt-Anchor" href="#写数据流程"></a> 写数据流程：</h3>
@@ -864,7 +864,7 @@ Client直接通过HRegionServer读写数据（从HMaster中获取元数据，找
 <li>当HRegionServer宕机后，将HRegionServer上的Hlog拆分，然后分配给不同的HRegionServer加载，修改 .META.</li>
 <li>注意：Hlog会同步到HDFS</li>
 </ol>
-<h3 id="hbase的读流程"><a class="markdownIt-Anchor" href="#hbase的读流程"></a> HBase的读流程</h3>
+<h3 id="hbase的读流程"><a class="markdownIt-Anchor" href="#hbase的读流程"></a> Hbase的读流程</h3>
 <ol>
 <li>通过ZK和 -ROOT- .META. 表定位HRegionServer</li>
 <li>数据从内存和硬盘合并后返回给Client</li>
@@ -880,25 +880,25 @@ Client直接通过HRegionServer读写数据（从HMaster中获取元数据，找
 </ol>
 <h3 id="hregionserver的职责"><a class="markdownIt-Anchor" href="#hregionserver的职责"></a> HRegionServer的职责</h3>
 <ol>
-<li>HRegionServer主要负责响应用户的IO请求，向HDFS文件系统中读写数据，是HBase中最核心的模块</li>
+<li>HRegionServer主要负责响应用户的IO请求，向HDFS文件系统中读写数据，是Hbase中最核心的模块</li>
 <li>HRegionServer管理了很多table的分区，也就是Region</li>
 </ol>
 <h3 id="client的职责"><a class="markdownIt-Anchor" href="#client的职责"></a> Client的职责</h3>
-<p>HBase Client 使用HBase的RPC机制与HMaster和HRegionServer进行通信</p>
+<p>Hbase Client 使用Hbase的RPC机制与HMaster和HRegionServer进行通信</p>
 <pre><code>1. 管理类操作： Client与HMaster进行RPC
 2. 数据读写类操作：Client与HRegionServer进行RPC
 </code></pre>
 <p>Hbase为什么能实现快速的查询？</p>
-<p>如果快速查询（从磁盘读数据），hbase是根据rowkey查询的，只要能快速的定位rowkey，就能实现快速的查询，主要是以下因素：</p>
-<p>hbase是可划分成多个region，可以简单的理解为关系型数据库的多个分区。<br>
+<p>如果快速查询（从磁盘读数据），Hbase是根据rowkey查询的，只要能快速的定位rowkey，就能实现快速的查询，主要是以下因素：</p>
+<p>Hbase是可划分成多个region，可以简单的理解为关系型数据库的多个分区。<br>
 键是排好序了的。<br>
 按列存储的。<br>
 首先，能快速找到行所在的region(分区)，假设表有10亿条记录，占空间1TB，分裂成了500个region，1个region占2个G。最多读取2G的记录，就能找到对应记录；<br>
 其次，是按列存储的，其实是列族，假设分为3个列族，每个列族就是666M，如果要查询的东西在其中1个列族上，1个列族包含1个或者多个HStoreFile，假设一个HStoreFile是128M，该列族包含5个HStoreFile在磁盘上. 剩下的在内存中。<br>
 再次，是排好序了的，要的记录有可能在最前面，也有可能在最后面，假设在中间，我们只需遍历2.5个HStoreFile共300M。<br>
 最后，每个HStoreFile(HFile的封装)，是以键值对（key-value）方式存储，只要遍历一个个数据块中的key的位置，并判断符合条件可以了。一般key是有限的长度，假设跟value是1:19（忽略HFile上其它块），最终只需要15M就可获取的对应的记录，按照磁盘的访问100M/S，只需0.15秒。加上块缓存机制（LRU原则），会取得更高的效率。<br>
-HBase的实时查询</p>
-<p>实时查询，可以认为是从内存中查询，一般响应时间在1秒内。HBase的机制是数据先写入到内存中，当数据量达到一定的量（如128M），再写入磁盘中，在内存中，是不进行数据的更新或合并操作的，只增加数据，这使得用户的写操作只要进入内存中就可以立即返回，保证了HBase I/O的高性能。<br>
+Hbase的实时查询</p>
+<p>实时查询，可以认为是从内存中查询，一般响应时间在1秒内。Hbase的机制是数据先写入到内存中，当数据量达到一定的量（如128M），再写入磁盘中，在内存中，是不进行数据的更新或合并操作的，只增加数据，这使得用户的写操作只要进入内存中就可以立即返回，保证了Hbase I/O的高性能。<br>
 实时查询即反映当前时间的数据，可以认为这些数据始终是在内存的，保证了数据的实时响应。</p>
 
       
@@ -919,11 +919,11 @@ HBase的实时查询</p>
   <!-- JS库 sweetalert 可修改路径 -->
   <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <p><span>本文标题:</span><a href="/posts/e64b3d3a.html">hbase初识</a></p>
+  <p><span>本文标题:</span><a href="/posts/e64b3d3a.html">Hbase初识</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Rickiyang 的个人博客">Rickiyang</a></p>
   <p><span>发布时间:</span>2018年10月13日 - 15:12</p>
-  <p><span>最后更新:</span>2019年01月18日 - 14:10</p>
-  <p><span>原始链接:</span><a href="/posts/e64b3d3a.html" title="hbase初识">http://blog.rickiyang.cn/posts/e64b3d3a.html</a>
+  <p><span>最后更新:</span>2019年01月19日 - 18:26</p>
+  <p><span>原始链接:</span><a href="/posts/e64b3d3a.html" title="Hbase初识">http://blog.rickiyang.cn/posts/e64b3d3a.html</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://blog.rickiyang.cn/posts/e64b3d3a.html" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
@@ -982,8 +982,8 @@ HBase的实时查询</p>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/ebc35787.html" rel="next" title="hbase基本shell命令">
-                <i class="fa fa-chevron-left"></i> hbase基本shell命令
+              <a href="/posts/ebc35787.html" rel="next" title="Hbase基本shell命令">
+                <i class="fa fa-chevron-left"></i> Hbase基本shell命令
               </a>
             
           </div>
@@ -1070,7 +1070,7 @@ HBase的实时查询</p>
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">101</span>
+                    <span class="site-state-item-count">103</span>
                     <span class="site-state-item-name">总文章</span>
                   </a>
                 </div>
@@ -1082,6 +1082,8 @@ HBase的实时查询</p>
                 <div class="site-state-item site-state-categories">
                   <a href="/categories/index.html">
                     
+                    
+                      
                     
                       
                     
@@ -1247,7 +1249,7 @@ HBase的实时查询</p>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#hbase基本知识学习"><span class="nav-number">1.</span> <span class="nav-text"> hbase基本知识学习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hbase体系结构"><span class="nav-number">2.</span> <span class="nav-text"> Hbase体系结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据模型"><span class="nav-number">2.1.</span> <span class="nav-text"> 数据模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#架构"><span class="nav-number">2.2.</span> <span class="nav-text"> 架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#写数据流程"><span class="nav-number">2.3.</span> <span class="nav-text"> 写数据流程：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据flush过程"><span class="nav-number">2.4.</span> <span class="nav-text"> 数据Flush过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据合并过程"><span class="nav-number">2.5.</span> <span class="nav-text"> 数据合并过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hbase的读流程"><span class="nav-number">2.6.</span> <span class="nav-text"> HBase的读流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hmaster的职责"><span class="nav-number">2.7.</span> <span class="nav-text"> HMaster的职责</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hregionserver的职责"><span class="nav-number">2.8.</span> <span class="nav-text"> HRegionServer的职责</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#client的职责"><span class="nav-number">2.9.</span> <span class="nav-text"> Client的职责</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#hbase基本知识学习"><span class="nav-number">1.</span> <span class="nav-text"> Hbase基本知识学习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hbase体系结构"><span class="nav-number">2.</span> <span class="nav-text"> Hbase体系结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据模型"><span class="nav-number">2.1.</span> <span class="nav-text"> 数据模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#架构"><span class="nav-number">2.2.</span> <span class="nav-text"> 架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#写数据流程"><span class="nav-number">2.3.</span> <span class="nav-text"> 写数据流程：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据flush过程"><span class="nav-number">2.4.</span> <span class="nav-text"> 数据Flush过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据合并过程"><span class="nav-number">2.5.</span> <span class="nav-text"> 数据合并过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hbase的读流程"><span class="nav-number">2.6.</span> <span class="nav-text"> Hbase的读流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hmaster的职责"><span class="nav-number">2.7.</span> <span class="nav-text"> HMaster的职责</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hregionserver的职责"><span class="nav-number">2.8.</span> <span class="nav-text"> HRegionServer的职责</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#client的职责"><span class="nav-number">2.9.</span> <span class="nav-text"> Client的职责</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1303,7 +1305,7 @@ HBase的实时查询</p>
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共237k字</span>
+  <span class="post-count">博客全站共244.4k字</span>
 </div>
 
 <script>
