@@ -415,7 +415,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/e8d11d6a.html">
+    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/e87423e8.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
@@ -435,7 +435,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/posts/e8d11d6a.html" class="post-title-link" itemprop="url">java学习-NIO(二)Buffer</a>
+                <a href="/posts/e87423e8.html" class="post-title-link" itemprop="url">java学习-NIO(四)Selector</a>
               
             
           </h2>
@@ -509,8 +509,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/posts/e8d11d6a.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/e8d11d6a.html" itemprop="commentCount"></span>
+                <a href="/posts/e87423e8.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/e87423e8.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -518,7 +518,7 @@
 
           
           
-             <span id="/posts/e8d11d6a.html" class="leancloud_visitors" data-flag-title="java学习-NIO(二)Buffer">
+             <span id="/posts/e87423e8.html" class="leancloud_visitors" data-flag-title="java学习-NIO(四)Selector">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -544,7 +544,7 @@
                 
                   <span class="post-meta-item-text">文章字数: </span>
                 
-                <span title="文章字数">3.4k</span>
+                <span title="文章字数">2.6k</span>
               
 
               
@@ -558,7 +558,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">3 mins.</span>
+                <span title="阅读时长">2 mins.</span>
               
             </div>
           
@@ -581,13 +581,13 @@
         
           
             <p>
-              当我们需要与 NIO Channel 进行交互时, 我们就需要使用到 NIO Buffer, 即数据从 Buffer读取到 Channel 中, 并且从 Channel 中写入到 Buffer 中。缓冲区本质上是一块可以写入数据，然后可以从中读取数据的内存。这块内存被包装成NIO Buffer对象，
+              这一节我们将探索选择器(selectors)。选择器提供选择执行已经就绪的任务的能力，这使得多元 I/O 成为可能。就像在第一章中描述的那样，就绪选择和多元执行使得单线程能够有效率地同时管理多个 I/O 通道(channels)。C/C++代码的工具箱中，许多年前就已经有 select()和 pol
               ...
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/posts/e8d11d6a.html#more" rel="contents">
+              <a class="btn" href="/posts/e87423e8.html#more" rel="contents">
                 读取更多 &raquo;
               </a>
             </div>
@@ -827,6 +827,245 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/posts/da918f82.html#more" rel="contents">
+                读取更多 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    <div>
+      
+    </div>
+    
+    <div>
+      
+    </div>
+
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/e8d11d6a.html">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Rickiyang">
+      <meta itemprop="description" content="分享对coding生活的见解">
+      <meta itemprop="image" content="/images/adele.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rickiyang's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/posts/e8d11d6a.html" class="post-title-link" itemprop="url">java学习-NIO(二)Buffer</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建于: 2017-03-17 01:02:00" itemprop="dateCreated datePublished" datetime="2017-03-17T01:02:00+08:00">2017-03-17</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">编辑于</span>
+                
+                <time title="Modified: 2018-12-04 17:28:26" itemprop="dateModified" datetime="2018-12-04T17:28:26+08:00">2018-12-04</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Netty/" itemprop="url" rel="index"><span itemprop="name">Netty</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/posts/e8d11d6a.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/e8d11d6a.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/posts/e8d11d6a.html" class="leancloud_visitors" data-flag-title="java学习-NIO(二)Buffer">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度: </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>℃</span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">文章字数: </span>
+                
+                <span title="文章字数">3.4k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">3 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>
+              当我们需要与 NIO Channel 进行交互时, 我们就需要使用到 NIO Buffer, 即数据从 Buffer读取到 Channel 中, 并且从 Channel 中写入到 Buffer 中。缓冲区本质上是一块可以写入数据，然后可以从中读取数据的内存。这块内存被包装成NIO Buffer对象，
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/posts/e8d11d6a.html#more" rel="contents">
                 读取更多 &raquo;
               </a>
             </div>
@@ -1375,247 +1614,6 @@ Java NIO即Java Non-bl
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/12968bae.html">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Rickiyang">
-      <meta itemprop="description" content="分享对coding生活的见解">
-      <meta itemprop="image" content="/images/adele.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Rickiyang's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/posts/12968bae.html" class="post-title-link" itemprop="url">java学习-NIO(三)Channel</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建于: 2017-03-17 01:02:00" itemprop="dateCreated datePublished" datetime="2017-03-17T01:02:00+08:00">2017-03-17</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">编辑于</span>
-                
-                <time title="Modified: 2018-12-04 17:28:26" itemprop="dateModified" datetime="2018-12-04T17:28:26+08:00">2018-12-04</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Netty/" itemprop="url" rel="index"><span itemprop="name">Netty</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/posts/12968bae.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/12968bae.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/posts/12968bae.html" class="leancloud_visitors" data-flag-title="java学习-NIO(三)Channel">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">热度: </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-                 <span>℃</span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">文章字数: </span>
-                
-                <span title="文章字数">9.3k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">8 mins.</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>
-              通道（Channel）是java.nio的第二个主要创新。它们既不是一个扩展也不是一项增强，而是全新、极好的Java I/O示例，提供与I/O服务的直接连接。Channel用于在字节缓冲区和位于通道另一侧的实体（通常是一个文件或套接字）之间有效地传输数据。
- channel介绍
-通道是访问I/O服务
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/posts/12968bae.html#more" rel="contents">
-                读取更多 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    <div>
-      
-    </div>
-    
-    <div>
-      
-    </div>
-
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/c0d0b105.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1855,7 +1853,7 @@ Java NIO即Java Non-bl
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/2b5f20ba.html">
+    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/12968bae.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
@@ -1875,7 +1873,7 @@ Java NIO即Java Non-bl
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/posts/2b5f20ba.html" class="post-title-link" itemprop="url">Netty学习(六)-LengthFieldBasedFrameDecoder解码器</a>
+                <a href="/posts/12968bae.html" class="post-title-link" itemprop="url">java学习-NIO(三)Channel</a>
               
             
           </h2>
@@ -1949,8 +1947,8 @@ Java NIO即Java Non-bl
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/posts/2b5f20ba.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/2b5f20ba.html" itemprop="commentCount"></span>
+                <a href="/posts/12968bae.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/12968bae.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1958,7 +1956,7 @@ Java NIO即Java Non-bl
 
           
           
-             <span id="/posts/2b5f20ba.html" class="leancloud_visitors" data-flag-title="Netty学习(六)-LengthFieldBasedFrameDecoder解码器">
+             <span id="/posts/12968bae.html" class="leancloud_visitors" data-flag-title="java学习-NIO(三)Channel">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1984,7 +1982,7 @@ Java NIO即Java Non-bl
                 
                   <span class="post-meta-item-text">文章字数: </span>
                 
-                <span title="文章字数">11k</span>
+                <span title="文章字数">9.3k</span>
               
 
               
@@ -1998,7 +1996,7 @@ Java NIO即Java Non-bl
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">10 mins.</span>
+                <span title="阅读时长">8 mins.</span>
               
             </div>
           
@@ -2021,13 +2019,15 @@ Java NIO即Java Non-bl
         
           
             <p>
-              在TCP协议中我们知道当我们在接收消息时候，我们如何判断我们一次读取到的包就是整包消息呢，特别是对于使用了长连接和使用了非阻塞I/O的程序。上节我们也说了上层应用协议为了对消息进行区分一般采用4种方式。前面三种我们都说了，第四种是：通过在消息头定义长度字段来标识消息总长度。这个我们还没讲。当然Net
+              通道（Channel）是java.nio的第二个主要创新。它们既不是一个扩展也不是一项增强，而是全新、极好的Java I/O示例，提供与I/O服务的直接连接。Channel用于在字节缓冲区和位于通道另一侧的实体（通常是一个文件或套接字）之间有效地传输数据。
+ channel介绍
+通道是访问I/O服务
               ...
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/posts/2b5f20ba.html#more" rel="contents">
+              <a class="btn" href="/posts/12968bae.html#more" rel="contents">
                 读取更多 &raquo;
               </a>
             </div>
@@ -2572,7 +2572,7 @@ Java NIO即Java Non-bl
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/f693139f.html">
+    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/87e472dc.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
@@ -2592,7 +2592,7 @@ Java NIO即Java Non-bl
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/posts/f693139f.html" class="post-title-link" itemprop="url">Netty学习(七)-Netty编解码技术以及ProtoBuf和Thrift的介绍</a>
+                <a href="/posts/87e472dc.html" class="post-title-link" itemprop="url">Netty学习(五)-DelimiterBasedFrameDecoder</a>
               
             
           </h2>
@@ -2666,8 +2666,8 @@ Java NIO即Java Non-bl
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/posts/f693139f.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/f693139f.html" itemprop="commentCount"></span>
+                <a href="/posts/87e472dc.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/87e472dc.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -2675,7 +2675,7 @@ Java NIO即Java Non-bl
 
           
           
-             <span id="/posts/f693139f.html" class="leancloud_visitors" data-flag-title="Netty学习(七)-Netty编解码技术以及ProtoBuf和Thrift的介绍">
+             <span id="/posts/87e472dc.html" class="leancloud_visitors" data-flag-title="Netty学习(五)-DelimiterBasedFrameDecoder">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -2738,14 +2738,16 @@ Java NIO即Java Non-bl
         
           
             <p>
-              在前几节我们学习过处理粘包和拆包的问题，用到了Netty提供的几个解码器对不同情况的问题进行处理。功能很是强大。我们有没有去想这么强大的功能是如何实现的呢？背后又用到了什么技术？这一节我们就来处理这个问题。了解一下编码解码到底是如何处理的。
-通常说的编码(Encoder)也就是发生在发送消息的时候需
+              上一节我们说了LineBasedframeDecoder来解决粘包拆包的问题，TCP以流的方式进行数据传输，上层应用协议为了对消息进行区分，一般采用如下4种方式：
+
+消息长度固定，累计读取到消息长度总和为定长Len的报文之后即认为是读取到了一个完整的消息。计数器归位，重新读取。
+将回车换行符作为消息
               ...
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/posts/f693139f.html#more" rel="contents">
+              <a class="btn" href="/posts/87e472dc.html#more" rel="contents">
                 读取更多 &raquo;
               </a>
             </div>
@@ -2846,7 +2848,7 @@ Java NIO即Java Non-bl
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">103</span>
+                    <span class="site-state-item-count">104</span>
                     <span class="site-state-item-name">总文章</span>
                   </a>
                 </div>
@@ -2858,8 +2860,6 @@ Java NIO即Java Non-bl
                 <div class="site-state-item site-state-categories">
                   <a href="/categories/index.html">
                     
-                    
-                      
                     
                       
                     
@@ -3064,7 +3064,7 @@ Java NIO即Java Non-bl
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共244.4k字</span>
+  <span class="post-count">博客全站共255.4k字</span>
 </div>
 
 <script>
