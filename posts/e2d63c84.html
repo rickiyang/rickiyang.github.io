@@ -151,32 +151,18 @@
 
 
 
-  <meta name="description" content="启动Hbase，进入shell，退出shell： start-Hbase.sh  Hbase shell  quit   进入shell之后遇到命令不知道怎么使用的话，使用’help’命令：  help的使用方式： help &apos;命令&apos; #命令需要加引号  需要注意的事： 不知道为什么Hbase的shell界面输入字符之后如果想回退按backspace是不行的，我使用的shell客户端是Xshell">
+  <meta name="description" content="如果在HBase中使用某一行的值进行Put操作进行计数器功能，为了保证原子性操作，必然会导致一个客户端对计数器所在行的资源占有，如果在大量进行计数器操作时，则会占有大量资源，并且一旦某一客户端崩溃，将会使得其他客户端进入长时间等待。HBase中定义了一个计数器来完成用户的技术操作，并且防止资源占有问题，并且也保证其原子性。 在HBase中，HBase将某一列作为计数器来使用，因此创建计数器与创建行">
 <meta name="keywords" content="大数据">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hbase基本shell命令">
-<meta property="og:url" content="http://blog.rickiyang.cn/posts/ebc35787.html">
+<meta property="og:title" content="Hbase计数器">
+<meta property="og:url" content="http://blog.rickiyang.cn/posts/e2d63c84.html">
 <meta property="og:site_name" content="Rickiyang&#39;s blog">
-<meta property="og:description" content="启动Hbase，进入shell，退出shell： start-Hbase.sh  Hbase shell  quit   进入shell之后遇到命令不知道怎么使用的话，使用’help’命令：  help的使用方式： help &apos;命令&apos; #命令需要加引号  需要注意的事： 不知道为什么Hbase的shell界面输入字符之后如果想回退按backspace是不行的，我使用的shell客户端是Xshell">
+<meta property="og:description" content="如果在HBase中使用某一行的值进行Put操作进行计数器功能，为了保证原子性操作，必然会导致一个客户端对计数器所在行的资源占有，如果在大量进行计数器操作时，则会占有大量资源，并且一旦某一客户端崩溃，将会使得其他客户端进入长时间等待。HBase中定义了一个计数器来完成用户的技术操作，并且防止资源占有问题，并且也保证其原子性。 在HBase中，HBase将某一列作为计数器来使用，因此创建计数器与创建行">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://i.imgur.com/kpCjU8M.jpg">
-<meta property="og:image" content="https://i.imgur.com/CB15x3K.jpg">
-<meta property="og:image" content="https://i.imgur.com/fGfpYLD.jpg">
-<meta property="og:image" content="https://i.imgur.com/KgrWJqe.jpg">
-<meta property="og:image" content="https://i.imgur.com/TN2piuK.jpg">
-<meta property="og:image" content="https://i.imgur.com/WhwgiwF.jpg">
-<meta property="og:image" content="https://i.imgur.com/yWhFm9C.jpg">
-<meta property="og:image" content="https://i.imgur.com/M6nFyeB.jpg">
-<meta property="og:image" content="https://i.imgur.com/UWNssfq.jpg">
-<meta property="og:image" content="https://i.imgur.com/WLuhLWD.jpg">
-<meta property="og:image" content="https://i.imgur.com/oHwjo2y.jpg">
-<meta property="og:image" content="https://i.imgur.com/eMdft4V.jpg">
-<meta property="og:image" content="https://i.imgur.com/J1bL43f.jpg">
-<meta property="og:updated_time" content="2019-01-19T10:26:54.523Z">
+<meta property="og:updated_time" content="2019-01-27T01:56:37.769Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hbase基本shell命令">
-<meta name="twitter:description" content="启动Hbase，进入shell，退出shell： start-Hbase.sh  Hbase shell  quit   进入shell之后遇到命令不知道怎么使用的话，使用’help’命令：  help的使用方式： help &apos;命令&apos; #命令需要加引号  需要注意的事： 不知道为什么Hbase的shell界面输入字符之后如果想回退按backspace是不行的，我使用的shell客户端是Xshell">
-<meta name="twitter:image" content="https://i.imgur.com/kpCjU8M.jpg">
+<meta name="twitter:title" content="Hbase计数器">
+<meta name="twitter:description" content="如果在HBase中使用某一行的值进行Put操作进行计数器功能，为了保证原子性操作，必然会导致一个客户端对计数器所在行的资源占有，如果在大量进行计数器操作时，则会占有大量资源，并且一旦某一客户端崩溃，将会使得其他客户端进入长时间等待。HBase中定义了一个计数器来完成用户的技术操作，并且防止资源占有问题，并且也保证其原子性。 在HBase中，HBase将某一列作为计数器来使用，因此创建计数器与创建行">
 
 
 
@@ -185,7 +171,7 @@
 
 
 
-  <link rel="canonical" href="http://blog.rickiyang.cn/posts/ebc35787.html">
+  <link rel="canonical" href="http://blog.rickiyang.cn/posts/e2d63c84.html">
 
 
 
@@ -195,7 +181,7 @@
   };
 </script>
 
-  <title>Hbase基本shell命令 | Rickiyang's blog</title>
+  <title>Hbase计数器 | Rickiyang's blog</title>
   
 
 
@@ -427,7 +413,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/ebc35787.html">
+    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/e2d63c84.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
@@ -444,7 +430,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Hbase基本shell命令
+          <h2 class="post-title" itemprop="name headline">Hbase计数器
 
               
             
@@ -470,7 +456,7 @@
                 
               
 
-              <time title="创建于: 2018-10-07 23:56:43" itemprop="dateCreated datePublished" datetime="2018-10-07T23:56:43+08:00">2018-10-07</time>
+              <time title="创建于: 2019-01-22 22:55:09" itemprop="dateCreated datePublished" datetime="2019-01-22T22:55:09+08:00">2019-01-22</time>
             
 
             
@@ -487,7 +473,7 @@
                 
                   <span class="post-meta-item-text">编辑于</span>
                 
-                <time title="Modified: 2019-01-19 18:26:54" itemprop="dateModified" datetime="2019-01-19T18:26:54+08:00">2019-01-19</time>
+                <time title="Modified: 2019-01-27 09:56:37" itemprop="dateModified" datetime="2019-01-27T09:56:37+08:00">2019-01-27</time>
               
             
           </span>
@@ -526,8 +512,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/posts/ebc35787.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/ebc35787.html" itemprop="commentCount"></span>
+                <a href="/posts/e2d63c84.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/e2d63c84.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -535,7 +521,7 @@
 
           
           
-             <span id="/posts/ebc35787.html" class="leancloud_visitors" data-flag-title="Hbase基本shell命令">
+             <span id="/posts/e2d63c84.html" class="leancloud_visitors" data-flag-title="Hbase计数器">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -561,7 +547,7 @@
                 
                   <span class="post-meta-item-text">文章字数: </span>
                 
-                <span title="文章字数">759</span>
+                <span title="文章字数">4.2k</span>
               
 
               
@@ -575,7 +561,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">1 mins.</span>
+                <span title="阅读时长">4 mins.</span>
               
             </div>
           
@@ -595,67 +581,22 @@
       
 
       
-        <p>启动Hbase，进入shell，退出shell：</p>
-<pre><code>start-Hbase.sh 
-Hbase shell 
-quit 
-</code></pre>
-<p>进入shell之后遇到命令不知道怎么使用的话，使用’help’命令：</p>
-<p><img src="https://i.imgur.com/kpCjU8M.jpg" alt=""></p>
-<p>help的使用方式：</p>
-<pre><code>help '命令' #命令需要加引号
-</code></pre>
-<p><strong>需要注意的事： 不知道为什么Hbase的shell界面输入字符之后如果想回退按backspace是不行的，我使用的shell客户端是Xshell，同时按住：ctrl+space+backspace可以。</strong></p>
-<p>1.创建表：</p>
-<pre><code>create '表名', '列族名1','列族名2','列族名N'
-</code></pre>
-<p><img src="https://i.imgur.com/CB15x3K.jpg" alt=""></p>
-<p>2.查看表：</p>
-<p><img src="https://i.imgur.com/fGfpYLD.jpg" alt=""></p>
-<p>3.判断表是否启用或禁用：</p>
-<p><img src="https://i.imgur.com/KgrWJqe.jpg" alt=""></p>
-<p>4.添加表数据：</p>
-<pre><code>put  '表名','rowKey','列族:列','值'
-</code></pre>
-<p><img src="https://i.imgur.com/TN2piuK.jpg" alt=""></p>
-<p>注意到表名后面的rowkey，其实就相当于是行号的概念。</p>
-<p>5.查看rowkey下的所有数据：</p>
-<pre><code>get  '表名','rowKey'
-</code></pre>
-<p><img src="https://i.imgur.com/WhwgiwF.jpg" alt=""></p>
-<p>6.查看表中的记录总数：</p>
-<pre><code>count '表名'
-</code></pre>
-<p><img src="https://i.imgur.com/yWhFm9C.jpg" alt=""></p>
-<p>7.获取某行数据：</p>
-<pre><code>get '表名','rowkey'
-</code></pre>
-<p><img src="https://i.imgur.com/M6nFyeB.jpg" alt=""></p>
-<p>8.获取某个列族和获取列族的某个列：</p>
-<pre><code>get '表名','rowkey','列族'
-get '表名','rowkey','列族：列'
-</code></pre>
-<p><img src="https://i.imgur.com/UWNssfq.jpg" alt=""></p>
-<p>9.删除记录(某一行中的某一个值)：</p>
-<pre><code>delete '表名','rowkey','列族：列'
-</code></pre>
-<p><img src="https://i.imgur.com/WLuhLWD.jpg" alt=""></p>
-<p>10.删除整行：</p>
-<pre><code>deleteall '表名','rowkey'
-</code></pre>
-<p><img src="https://i.imgur.com/oHwjo2y.jpg" alt=""></p>
-<p>11.删除表：</p>
-<pre><code>先要屏蔽该表，才能对该表进行删除
-第一步 disable ‘表名’ ，第二步  drop '表名'
-</code></pre>
-<p><img src="https://i.imgur.com/eMdft4V.jpg" alt=""></p>
-<p>12.清空表：</p>
-<pre><code>truncate '表名'
-</code></pre>
-<p><img src="https://i.imgur.com/J1bL43f.jpg" alt=""></p>
-<p>13.查看表中某个列的所有数据：</p>
-<pre><code>scan &quot;表名&quot;,{COLUMNS=&gt;'列族名:列名'}
-</code></pre>
+        <p>如果在HBase中使用某一行的值进行Put操作进行计数器功能，为了保证原子性操作，必然会导致一个客户端对计数器所在行的资源占有，如果在大量进行计数器操作时，则会占有大量资源，并且一旦某一客户端崩溃，将会使得其他客户端进入长时间等待。HBase中定义了一个计数器来完成用户的技术操作，并且防止资源占有问题，并且也保证其原子性。</p>
+<p>在HBase中，HBase将某一列作为计数器来使用，因此创建计数器与创建行是相同的，因此创建计数器时不需要特定的创建流程，因为HBase的列具有动态添加的特性，使得计数器跟列具有相同的特性：动态添加。在第一次使用时计数器（实质为列）隐藏的进行了创建。</p>
+<p>计数器增加值是增加一个long值，其增加的值也有负有正，不同的数据进行增加时有不同的效果：</p>
+<ul>
+<li>大于0：增加计数器的值</li>
+<li>等于0：不更改计数器的值</li>
+<li>小于0：减少计数器的值</li>
+</ul>
+<p><strong>需要注意的是，计数器的值增加的是一个long类型的整数，而不是一个字符串，有时候增减一个字符串会发现结果很意外。</strong></p>
+<p>shell命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">hbase(main):007:0&gt; incr 'ns1:calllogs','24,18000696806,20170220210151,0,1533','f1:callee'</span><br><span class="line">COUNTER VALUE = 1</span><br><span class="line">0 row(s) in 0.0780 seconds</span><br><span class="line"></span><br><span class="line">hbase(main):008:0&gt; incr 'ns1:calllogs','24,18000696806,20170220210151,0,1533','f1:callee'</span><br><span class="line">COUNTER VALUE = 2</span><br><span class="line">0 row(s) in 0.0540 seconds</span><br><span class="line"></span><br><span class="line">hbase(main):009:0&gt; incr 'ns1:calllogs','24,18000696806,20170220210151,0,1533','f1:callee'</span><br><span class="line">COUNTER VALUE = 3</span><br><span class="line">0 row(s) in 0.0200 seconds</span><br><span class="line"></span><br><span class="line">hbase(main):010:0&gt; incr 'ns1:calllogs','24,18000696806,20170220210151,0,1533','f1:callee'</span><br><span class="line">COUNTER VALUE = 4</span><br><span class="line">0 row(s) in 0.0190 seconds</span><br><span class="line"></span><br><span class="line">获取计数器：</span><br><span class="line">hbase(main):011:0&gt; get_counter 'ns1:calllogs','24,18000696806,20170220210151,0,1533','f1:callee'</span><br><span class="line">COUNTER VALUE = 4</span><br></pre></td></tr></table></figure>
+<p>java代码set计数器：</p>
+<p>计数器分为单列计数器和多列计数器，如字面意思，单列指的是可以给某一行的某一列计数，多列指的是可以给某一行的多列同时计数。</p>
+<p>示例表：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">create &apos;user_info&apos;,&apos;base_info&apos;,&apos;extra_info&apos;</span><br><span class="line"></span><br><span class="line">put &apos;user_info&apos;,&apos;1&apos;,&apos;base_info:user_name&apos;,&apos;xiaoming&apos;</span><br><span class="line">put &apos;user_info&apos;,&apos;2&apos;,&apos;base_info:sex&apos;,&apos;1&apos;</span><br><span class="line">put &apos;user_info&apos;,&apos;3&apos;,&apos;base_info:age&apos;,&apos;12&apos;</span><br><span class="line">put &apos;user_info&apos;,&apos;4&apos;,&apos;base_info:user_name&apos;,&apos;xiaoli&apos;</span><br><span class="line">put &apos;user_info&apos;,&apos;5&apos;,&apos;base_info:sex&apos;,&apos;1&apos;</span><br><span class="line">put &apos;user_info&apos;,&apos;6&apos;,&apos;base_info:age&apos;,&apos;14&apos;</span><br><span class="line">put &apos;user_info&apos;,&apos;7&apos;,&apos;base_info:user_name&apos;,&apos;xiaohong&apos;</span><br><span class="line">put &apos;user_info&apos;,&apos;8&apos;,&apos;base_info:sex&apos;,&apos;2&apos;</span><br><span class="line">put &apos;user_info&apos;,&apos;9&apos;,&apos;base_info:age&apos;,&apos;15&apos;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.edu.hust.demo1.hbase;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.conf.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.*;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.client.*;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.filter.*;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.util.Bytes;</span><br><span class="line"><span class="keyword">import</span> org.junit.Before;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HbaseApiTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> Configuration conf = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">static</span> HBaseAdmin admin = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">static</span> Connection connection = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">static</span> Table table = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">//创建conf对象</span></span><br><span class="line">        conf = HBaseConfiguration.create();</span><br><span class="line">        <span class="comment">//通过连接工厂创建连接对象</span></span><br><span class="line">        connection = ConnectionFactory.createConnection(conf);</span><br><span class="line">        <span class="comment">//通过连接查询tableName对象</span></span><br><span class="line">        TableName tname = TableName.valueOf(<span class="string">"user_info"</span>);</span><br><span class="line">        <span class="comment">//获得table</span></span><br><span class="line">        table = connection.getTable(tname);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 单计数器</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> IOException</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">singleCounterTest</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> counter1 = table.incrementColumnValue(Bytes.toBytes(<span class="string">"1"</span>),</span><br><span class="line">                Bytes.toBytes(<span class="string">"base_info"</span>), Bytes.toBytes(<span class="string">"sex"</span>), <span class="number">1</span>); <span class="comment">// 一次增加1</span></span><br><span class="line">        System.out.println(<span class="string">"counter1 = "</span> + counter1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 多计数器</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> IOException</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">MulticounterTest</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        Increment incr = <span class="keyword">new</span> Increment(Bytes.toBytes(<span class="string">"1"</span>));</span><br><span class="line">        incr.addColumn(Bytes.toBytes(<span class="string">"base_info"</span>), Bytes.toBytes(<span class="string">"sex"</span>), <span class="number">1</span>);</span><br><span class="line">        incr.addColumn(Bytes.toBytes(<span class="string">"base_info"</span>), Bytes.toBytes(<span class="string">"name"</span>), <span class="number">2</span>);</span><br><span class="line">        Result increment = table.increment(incr);</span><br><span class="line">        Cell[] cells = increment.rawCells();</span><br><span class="line">        <span class="keyword">for</span>(Cell cell : cells) &#123;</span><br><span class="line">            System.out.print(Arrays.toString(cell.getRow()) + <span class="string">" "</span>);</span><br><span class="line">            System.out.print(<span class="keyword">new</span> String(cell.getFamily()) + <span class="string">":"</span>);</span><br><span class="line">            System.out.print(<span class="keyword">new</span> String(cell.getQualifier()) + <span class="string">" = "</span>);</span><br><span class="line">            System.out.print(<span class="keyword">new</span> String(cell.getValue()));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -675,12 +616,12 @@ get '表名','rowkey','列族：列'
   <!-- JS库 sweetalert 可修改路径 -->
   <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <p><span>本文标题:</span><a href="/posts/ebc35787.html">Hbase基本shell命令</a></p>
+  <p><span>本文标题:</span><a href="/posts/e2d63c84.html">Hbase计数器</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Rickiyang 的个人博客">Rickiyang</a></p>
-  <p><span>发布时间:</span>2018年10月07日 - 23:56</p>
-  <p><span>最后更新:</span>2019年01月19日 - 18:26</p>
-  <p><span>原始链接:</span><a href="/posts/ebc35787.html" title="Hbase基本shell命令">http://blog.rickiyang.cn/posts/ebc35787.html</a>
-    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://blog.rickiyang.cn/posts/ebc35787.html" aria-label="复制成功！"></i></span>
+  <p><span>发布时间:</span>2019年01月22日 - 22:55</p>
+  <p><span>最后更新:</span>2019年01月27日 - 09:56</p>
+  <p><span>原始链接:</span><a href="/posts/e2d63c84.html" title="Hbase计数器">http://blog.rickiyang.cn/posts/e2d63c84.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://blog.rickiyang.cn/posts/e2d63c84.html" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
 </div>
@@ -738,8 +679,8 @@ get '表名','rowkey','列族：列'
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/d4452255.html" rel="next" title="数据倾斜的解决方案">
-                <i class="fa fa-chevron-left"></i> 数据倾斜的解决方案
+              <a href="/posts/2e2f423b.html" rel="next" title="Hbase协处理器">
+                <i class="fa fa-chevron-left"></i> Hbase协处理器
               </a>
             
           </div>
@@ -747,10 +688,6 @@ get '表名','rowkey','列族：列'
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/posts/e64b3d3a.html" rel="prev" title="Hbase初识">
-                Hbase初识 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
