@@ -160,7 +160,7 @@
 <meta property="og:description" content="今天我们来看一下JUC包中的原子类，所谓原子操作是指不会被线程调度机制打断的操作；这种操作一旦开始，就一直运行到结束，中间不会有任何 context switch （切换到另一个线程），原子操作可以是一个步骤，也可以是多个操作步骤，但是其顺序不可以被打乱，也不可以被切割而只执行其中的一部分。将整个操作视作一个整体是原子性的核心特征。  在atomic包中的这些原子类我们可以大致给他分类为：  基本">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://i.imgur.com/1cgiAcM.png">
-<meta property="og:updated_time" content="2018-12-04T09:28:26.139Z">
+<meta property="og:updated_time" content="2018-12-04T09:28:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java并发编程（十）----JUC原子类介绍">
 <meta name="twitter:description" content="今天我们来看一下JUC包中的原子类，所谓原子操作是指不会被线程调度机制打断的操作；这种操作一旦开始，就一直运行到结束，中间不会有任何 context switch （切换到另一个线程），原子操作可以是一个步骤，也可以是多个操作步骤，但是其顺序不可以被打乱，也不可以被切割而只执行其中的一部分。将整个操作视作一个整体是原子性的核心特征。  在atomic包中的这些原子类我们可以大致给他分类为：  基本">
@@ -345,7 +345,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Suche</a>
         </li>
       
     </ul>
@@ -451,14 +451,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="创建于: 2017-03-24 01:02:00" itemprop="dateCreated datePublished" datetime="2017-03-24T01:02:00+08:00">2017-03-24</time>
+              <time title="Post created: 2017-03-24 01:02:00" itemprop="dateCreated datePublished" datetime="2017-03-24T01:02:00+08:00">2017-03-24</time>
             
 
             
@@ -473,9 +473,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">编辑于</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-04 17:28:26" itemprop="dateModified" datetime="2018-12-04T17:28:26+08:00">2018-12-04</time>
+                <time title="Updated at: 2018-12-04 17:28:26" itemprop="dateModified" datetime="2018-12-04T17:28:26+08:00">2018-12-04</time>
               
             
           </span>
@@ -489,7 +489,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">分类于</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/多线程与并发编程/" itemprop="url" rel="index"><span itemprop="name">多线程与并发编程</span></a></span>
@@ -508,7 +508,7 @@
                   <i class="fa fa-comment-o"></i>
                 </span>
                 <a href="/posts/db147845.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/db147845.html" itemprop="commentCount"></span>
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/db147845.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -522,7 +522,7 @@
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">热度: </span>
+                 <span class="post-meta-item-text">Views: </span>
                
                  <span class="leancloud-visitors-count"></span>
                  <span>℃</span>
@@ -540,9 +540,9 @@
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">文章字数: </span>
+                  <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="文章字数">494</span>
+                <span title="Symbols count in article">494</span>
               
 
               
@@ -554,9 +554,9 @@
                   <i class="fa fa-clock-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="阅读时长">1 mins.</span>
+                <span title="Reading time">1 mins.</span>
               
             </div>
           
@@ -747,8 +747,8 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">105</span>
-                    <span class="site-state-item-name">总文章</span>
+                    <span class="site-state-item-count">116</span>
+                    <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>
               
@@ -798,8 +798,10 @@
                     
                       
                     
-                    <span class="site-state-item-count">19</span>
-                    <span class="site-state-item-name">分类</span>
+                      
+                    
+                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-name">Kategorien</span>
                   </a>
                 </div>
               
@@ -833,8 +835,10 @@
                     
                       
                     
-                    <span class="site-state-item-count">11</span>
-                    <span class="site-state-item-name">标签</span>
+                      
+                    
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">Tags</span>
                   </a>
                 </div>
               
@@ -963,7 +967,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共256.3k字</span>
+  <span class="post-count">博客全站共277.1k字</span>
 </div>
 
 <script>

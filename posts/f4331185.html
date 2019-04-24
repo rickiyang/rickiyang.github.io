@@ -160,7 +160,7 @@
 <meta property="og:description" content="首先我们来回忆一下上一节讲过的synchronized关键字，该关键字用于给代码段或方法加锁，使得某一时刻它修饰的方法或代码段只能被一个线程访问。那么试想，当我们遇到这样的情况：当synchronized修饰的方法或代码段因为某种原因（IO异常或是sleep方法）被阻塞了，但是锁有没有被释放，那么其他线程除了等待以外什么事都做不了。当我们遇到这种情况该怎么办呢？我们今天讲到的Lock锁将有机会为此">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://i.imgur.com/FpFZGXS.png">
-<meta property="og:updated_time" content="2018-12-05T06:13:34.113Z">
+<meta property="og:updated_time" content="2018-12-05T06:13:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java并发编程（四）----（JUC）Lock锁初探">
 <meta name="twitter:description" content="首先我们来回忆一下上一节讲过的synchronized关键字，该关键字用于给代码段或方法加锁，使得某一时刻它修饰的方法或代码段只能被一个线程访问。那么试想，当我们遇到这样的情况：当synchronized修饰的方法或代码段因为某种原因（IO异常或是sleep方法）被阻塞了，但是锁有没有被释放，那么其他线程除了等待以外什么事都做不了。当我们遇到这种情况该怎么办呢？我们今天讲到的Lock锁将有机会为此">
@@ -345,7 +345,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Suche</a>
         </li>
       
     </ul>
@@ -451,14 +451,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="创建于: 2017-03-18 01:02:00" itemprop="dateCreated datePublished" datetime="2017-03-18T01:02:00+08:00">2017-03-18</time>
+              <time title="Post created: 2017-03-18 01:02:00" itemprop="dateCreated datePublished" datetime="2017-03-18T01:02:00+08:00">2017-03-18</time>
             
 
             
@@ -473,9 +473,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">编辑于</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-05 14:13:34" itemprop="dateModified" datetime="2018-12-05T14:13:34+08:00">2018-12-05</time>
+                <time title="Updated at: 2018-12-05 14:13:34" itemprop="dateModified" datetime="2018-12-05T14:13:34+08:00">2018-12-05</time>
               
             
           </span>
@@ -489,7 +489,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">分类于</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/多线程与并发编程/" itemprop="url" rel="index"><span itemprop="name">多线程与并发编程</span></a></span>
@@ -508,7 +508,7 @@
                   <i class="fa fa-comment-o"></i>
                 </span>
                 <a href="/posts/f4331185.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/f4331185.html" itemprop="commentCount"></span>
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/f4331185.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -522,7 +522,7 @@
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">热度: </span>
+                 <span class="post-meta-item-text">Views: </span>
                
                  <span class="leancloud-visitors-count"></span>
                  <span>℃</span>
@@ -540,9 +540,9 @@
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">文章字数: </span>
+                  <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="文章字数">2.1k</span>
+                <span title="Symbols count in article">2.1k</span>
               
 
               
@@ -554,9 +554,9 @@
                   <i class="fa fa-clock-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="阅读时长">2 mins.</span>
+                <span title="Reading time">2 mins.</span>
               
             </div>
           
@@ -691,8 +691,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/7ab746e7.html" rel="next" title="Netty学习(二）-Helloworld Netty">
-                <i class="fa fa-chevron-left"></i> Netty学习(二）-Helloworld Netty
+              <a href="/posts/c0d0b105.html" rel="next" title="消息中间件和JMS介绍(一)">
+                <i class="fa fa-chevron-left"></i> 消息中间件和JMS介绍(一)
               </a>
             
           </div>
@@ -754,10 +754,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
+            Inhaltsverzeichnis
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
+            Übersicht
           </li>
         </ul>
       
@@ -779,8 +779,8 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">105</span>
-                    <span class="site-state-item-name">总文章</span>
+                    <span class="site-state-item-count">116</span>
+                    <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>
               
@@ -830,8 +830,10 @@
                     
                       
                     
-                    <span class="site-state-item-count">19</span>
-                    <span class="site-state-item-name">分类</span>
+                      
+                    
+                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-name">Kategorien</span>
                   </a>
                 </div>
               
@@ -865,8 +867,10 @@
                     
                       
                     
-                    <span class="site-state-item-count">11</span>
-                    <span class="site-state-item-name">标签</span>
+                      
+                    
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">Tags</span>
                   </a>
                 </div>
               
@@ -1012,7 +1016,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共256.3k字</span>
+  <span class="post-count">博客全站共277.1k字</span>
 </div>
 
 <script>

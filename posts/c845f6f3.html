@@ -159,7 +159,7 @@
 <meta property="og:site_name" content="Rickiyang&#39;s blog">
 <meta property="og:description" content="1 实现线程的两种方式 上一节我们了解了关于线程的一些基本知识，下面我们正式进入多线程的实现环节。实现线程常用的有两种方式，一种是继承Thread类，一种是实现Runnable接口。当然还有第三种方式，那就是通过线程池来生成线程，后面我们还会学习，一步一个脚印打好基础。 Runnable接口： 12345public interface Runnable &amp;#123;       public">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-04T09:28:26.137Z">
+<meta property="og:updated_time" content="2018-12-04T09:28:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java并发编程（二）----创建并运行java线程">
 <meta name="twitter:description" content="1 实现线程的两种方式 上一节我们了解了关于线程的一些基本知识，下面我们正式进入多线程的实现环节。实现线程常用的有两种方式，一种是继承Thread类，一种是实现Runnable接口。当然还有第三种方式，那就是通过线程池来生成线程，后面我们还会学习，一步一个脚印打好基础。 Runnable接口： 12345public interface Runnable &amp;#123;       public">
@@ -343,7 +343,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Suche</a>
         </li>
       
     </ul>
@@ -449,14 +449,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="创建于: 2017-03-16 01:02:01" itemprop="dateCreated datePublished" datetime="2017-03-16T01:02:01+08:00">2017-03-16</time>
+              <time title="Post created: 2017-03-16 01:02:01" itemprop="dateCreated datePublished" datetime="2017-03-16T01:02:01+08:00">2017-03-16</time>
             
 
             
@@ -471,9 +471,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">编辑于</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-04 17:28:26" itemprop="dateModified" datetime="2018-12-04T17:28:26+08:00">2018-12-04</time>
+                <time title="Updated at: 2018-12-04 17:28:26" itemprop="dateModified" datetime="2018-12-04T17:28:26+08:00">2018-12-04</time>
               
             
           </span>
@@ -487,7 +487,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">分类于</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/多线程与并发编程/" itemprop="url" rel="index"><span itemprop="name">多线程与并发编程</span></a></span>
@@ -506,7 +506,7 @@
                   <i class="fa fa-comment-o"></i>
                 </span>
                 <a href="/posts/c845f6f3.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/c845f6f3.html" itemprop="commentCount"></span>
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/c845f6f3.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -520,7 +520,7 @@
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">热度: </span>
+                 <span class="post-meta-item-text">Views: </span>
                
                  <span class="leancloud-visitors-count"></span>
                  <span>℃</span>
@@ -538,9 +538,9 @@
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">文章字数: </span>
+                  <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="文章字数">5.5k</span>
+                <span title="Symbols count in article">5.5k</span>
               
 
               
@@ -552,9 +552,9 @@
                   <i class="fa fa-clock-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="阅读时长">5 mins.</span>
+                <span title="Reading time">5 mins.</span>
               
             </div>
           
@@ -756,10 +756,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
+            Inhaltsverzeichnis
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
+            Übersicht
           </li>
         </ul>
       
@@ -781,8 +781,8 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">105</span>
-                    <span class="site-state-item-name">总文章</span>
+                    <span class="site-state-item-count">116</span>
+                    <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>
               
@@ -832,8 +832,10 @@
                     
                       
                     
-                    <span class="site-state-item-count">19</span>
-                    <span class="site-state-item-name">分类</span>
+                      
+                    
+                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-name">Kategorien</span>
                   </a>
                 </div>
               
@@ -867,8 +869,10 @@
                     
                       
                     
-                    <span class="site-state-item-count">11</span>
-                    <span class="site-state-item-name">标签</span>
+                      
+                    
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">Tags</span>
                   </a>
                 </div>
               
@@ -1014,7 +1018,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共256.3k字</span>
+  <span class="post-count">博客全站共277.1k字</span>
 </div>
 
 <script>

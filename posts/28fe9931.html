@@ -160,7 +160,7 @@
 <meta property="og:description" content="前面一节简单学习了activemq的使用，我们知道activemq的使用方式非常简单有如下几个步骤：  创建连接工厂 创建连接 创建会话 创建目的地 创建生产者或消费者 生产或消费消息 关闭生产或消费者、关闭会话、关闭连接  前面我们的实例代码中已经按照这个步骤完成了P2P和Pub/Sub模式的消息发送和接收。那么这一节我们就针对他的消息传播机制和持久化方式做一个简单的学习。在会用的同时我们也需要">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://img.blog.csdn.net/20170502232257791?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYTk1MzcxMzQyOA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2018-12-04T09:28:26.146Z">
+<meta property="og:updated_time" content="2018-12-04T09:28:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="消息中间件-activemq消息机制和持久化介绍(三)">
 <meta name="twitter:description" content="前面一节简单学习了activemq的使用，我们知道activemq的使用方式非常简单有如下几个步骤：  创建连接工厂 创建连接 创建会话 创建目的地 创建生产者或消费者 生产或消费消息 关闭生产或消费者、关闭会话、关闭连接  前面我们的实例代码中已经按照这个步骤完成了P2P和Pub/Sub模式的消息发送和接收。那么这一节我们就针对他的消息传播机制和持久化方式做一个简单的学习。在会用的同时我们也需要">
@@ -345,7 +345,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Suche</a>
         </li>
       
     </ul>
@@ -451,14 +451,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="创建于: 2017-03-17 01:02:00" itemprop="dateCreated datePublished" datetime="2017-03-17T01:02:00+08:00">2017-03-17</time>
+              <time title="Post created: 2017-03-17 01:02:00" itemprop="dateCreated datePublished" datetime="2017-03-17T01:02:00+08:00">2017-03-17</time>
             
 
             
@@ -473,9 +473,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">编辑于</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-04 17:28:26" itemprop="dateModified" datetime="2018-12-04T17:28:26+08:00">2018-12-04</time>
+                <time title="Updated at: 2018-12-04 17:28:26" itemprop="dateModified" datetime="2018-12-04T17:28:26+08:00">2018-12-04</time>
               
             
           </span>
@@ -489,7 +489,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">分类于</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/activeMQ/" itemprop="url" rel="index"><span itemprop="name">activeMQ</span></a></span>
@@ -508,7 +508,7 @@
                   <i class="fa fa-comment-o"></i>
                 </span>
                 <a href="/posts/28fe9931.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/28fe9931.html" itemprop="commentCount"></span>
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/28fe9931.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -522,7 +522,7 @@
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">热度: </span>
+                 <span class="post-meta-item-text">Views: </span>
                
                  <span class="leancloud-visitors-count"></span>
                  <span>℃</span>
@@ -540,9 +540,9 @@
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">文章字数: </span>
+                  <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="文章字数">4.5k</span>
+                <span title="Symbols count in article">4.5k</span>
               
 
               
@@ -554,9 +554,9 @@
                   <i class="fa fa-clock-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="阅读时长">4 mins.</span>
+                <span title="Reading time">4 mins.</span>
               
             </div>
           
@@ -763,8 +763,8 @@ message.acknowledge();</p>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/e87423e8.html" rel="next" title="java学习-NIO(四)Selector">
-                <i class="fa fa-chevron-left"></i> java学习-NIO(四)Selector
+              <a href="/posts/a042465a.html" rel="next" title="消息中间件-activemq入门(二)">
+                <i class="fa fa-chevron-left"></i> 消息中间件-activemq入门(二)
               </a>
             
           </div>
@@ -773,8 +773,8 @@ message.acknowledge();</p>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/posts/1d6950fa.html" rel="prev" title="消息中间件-activemq实战整合Spring之Topic模式(五)">
-                消息中间件-activemq实战整合Spring之Topic模式(五) <i class="fa fa-chevron-right"></i>
+              <a href="/posts/d48afec7.html" rel="prev" title="Netty学习(三）-Netty重要接口讲解">
+                Netty学习(三）-Netty重要接口讲解 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -826,10 +826,10 @@ message.acknowledge();</p>
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
+            Inhaltsverzeichnis
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
+            Übersicht
           </li>
         </ul>
       
@@ -851,8 +851,8 @@ message.acknowledge();</p>
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">105</span>
-                    <span class="site-state-item-name">总文章</span>
+                    <span class="site-state-item-count">116</span>
+                    <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>
               
@@ -902,8 +902,10 @@ message.acknowledge();</p>
                     
                       
                     
-                    <span class="site-state-item-count">19</span>
-                    <span class="site-state-item-name">分类</span>
+                      
+                    
+                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-name">Kategorien</span>
                   </a>
                 </div>
               
@@ -937,8 +939,10 @@ message.acknowledge();</p>
                     
                       
                     
-                    <span class="site-state-item-count">11</span>
-                    <span class="site-state-item-name">标签</span>
+                      
+                    
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">Tags</span>
                   </a>
                 </div>
               
@@ -1084,7 +1088,7 @@ message.acknowledge();</p>
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共256.3k字</span>
+  <span class="post-count">博客全站共277.1k字</span>
 </div>
 
 <script>

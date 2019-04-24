@@ -159,7 +159,7 @@
 <meta property="og:site_name" content="Rickiyang&#39;s blog">
 <meta property="og:description" content="1. Hbase扫描器 Hbase在扫描数据的时候，使用scanner表扫描器。 HTable通过一个Scan实例，调用getScanner(scan)来获取扫描器。可以配置扫描起止位以及其他的过滤条件。 通过迭代器返回查询结果，使用起来虽然不是很方便，不过并不复杂。 但是这里有一点可能被忽略的地方，就是返回的scanner迭代器，每次调用next的获取下一条记录的时候，默认配置下会访问一次Re">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-19T10:26:54.518Z">
+<meta property="og:updated_time" content="2019-01-19T10:26:54.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hbase扫描器和过滤器">
 <meta name="twitter:description" content="1. Hbase扫描器 Hbase在扫描数据的时候，使用scanner表扫描器。 HTable通过一个Scan实例，调用getScanner(scan)来获取扫描器。可以配置扫描起止位以及其他的过滤条件。 通过迭代器返回查询结果，使用起来虽然不是很方便，不过并不复杂。 但是这里有一点可能被忽略的地方，就是返回的scanner迭代器，每次调用next的获取下一条记录的时候，默认配置下会访问一次Re">
@@ -343,7 +343,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Suche</a>
         </li>
       
     </ul>
@@ -449,14 +449,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="创建于: 2019-01-19 19:30:21 / Modified: 18:26:54" itemprop="dateCreated datePublished" datetime="2019-01-19T19:30:21+08:00">2019-01-19</time>
+              <time title="Post created: 2019-01-19 19:30:21 / Updated at: 18:26:54" itemprop="dateCreated datePublished" datetime="2019-01-19T19:30:21+08:00">2019-01-19</time>
             
 
             
@@ -475,14 +475,14 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">分类于</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/大数据学习/" itemprop="url" rel="index"><span itemprop="name">大数据学习</span></a></span>
 
                 
                 
-                  , 
+                  . 
                 
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/大数据学习/Hbase/" itemprop="url" rel="index"><span itemprop="name">Hbase</span></a></span>
@@ -501,7 +501,7 @@
                   <i class="fa fa-comment-o"></i>
                 </span>
                 <a href="/posts/af1f3985.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/af1f3985.html" itemprop="commentCount"></span>
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/af1f3985.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -515,7 +515,7 @@
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">热度: </span>
+                 <span class="post-meta-item-text">Views: </span>
                
                  <span class="leancloud-visitors-count"></span>
                  <span>℃</span>
@@ -533,9 +533,9 @@
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">文章字数: </span>
+                  <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="文章字数">14k</span>
+                <span title="Symbols count in article">14k</span>
               
 
               
@@ -547,9 +547,9 @@
                   <i class="fa fa-clock-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="阅读时长">13 mins.</span>
+                <span title="Reading time">13 mins.</span>
               
             </div>
           
@@ -868,10 +868,10 @@ HTable通过一个Scan实例，调用getScanner(scan)来获取扫描器。可以
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
+            Inhaltsverzeichnis
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
+            Übersicht
           </li>
         </ul>
       
@@ -893,8 +893,8 @@ HTable通过一个Scan实例，调用getScanner(scan)来获取扫描器。可以
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">105</span>
-                    <span class="site-state-item-name">总文章</span>
+                    <span class="site-state-item-count">116</span>
+                    <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>
               
@@ -944,8 +944,10 @@ HTable通过一个Scan实例，调用getScanner(scan)来获取扫描器。可以
                     
                       
                     
-                    <span class="site-state-item-count">19</span>
-                    <span class="site-state-item-name">分类</span>
+                      
+                    
+                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-name">Kategorien</span>
                   </a>
                 </div>
               
@@ -979,8 +981,10 @@ HTable通过一个Scan实例，调用getScanner(scan)来获取扫描器。可以
                     
                       
                     
-                    <span class="site-state-item-count">11</span>
-                    <span class="site-state-item-name">标签</span>
+                      
+                    
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">Tags</span>
                   </a>
                 </div>
               
@@ -1126,7 +1130,7 @@ HTable通过一个Scan实例，调用getScanner(scan)来获取扫描器。可以
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共256.3k字</span>
+  <span class="post-count">博客全站共277.1k字</span>
 </div>
 
 <script>

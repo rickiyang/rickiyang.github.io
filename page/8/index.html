@@ -345,7 +345,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Suche</a>
         </li>
       
     </ul>
@@ -415,7 +415,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/8ca24763.html">
+    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/31315379.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
@@ -435,7 +435,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/posts/8ca24763.html" class="post-title-link" itemprop="url">java并发编程（十一）----(JUC原子类)基本类型介绍</a>
+                <a href="/posts/31315379.html" class="post-title-link" itemprop="url">java并发编程（二十三）----(JUC集合)ConcurrentSkipListMap介绍</a>
               
             
           </h2>
@@ -453,14 +453,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="创建于: 2017-03-25 01:02:00" itemprop="dateCreated datePublished" datetime="2017-03-25T01:02:00+08:00">2017-03-25</time>
+              <time title="Post created: 2017-04-08 01:02:00" itemprop="dateCreated datePublished" datetime="2017-04-08T01:02:00+08:00">2017-04-08</time>
             
 
             
@@ -475,9 +475,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">编辑于</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-04 17:28:26" itemprop="dateModified" datetime="2018-12-04T17:28:26+08:00">2018-12-04</time>
+                <time title="Updated at: 2018-12-04 17:28:26" itemprop="dateModified" datetime="2018-12-04T17:28:26+08:00">2018-12-04</time>
               
             
           </span>
@@ -491,7 +491,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">分类于</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/多线程与并发编程/" itemprop="url" rel="index"><span itemprop="name">多线程与并发编程</span></a></span>
@@ -509,8 +509,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/posts/8ca24763.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/8ca24763.html" itemprop="commentCount"></span>
+                <a href="/posts/31315379.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/31315379.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -518,13 +518,13 @@
 
           
           
-             <span id="/posts/8ca24763.html" class="leancloud_visitors" data-flag-title="java并发编程（十一）----(JUC原子类)基本类型介绍">
+             <span id="/posts/31315379.html" class="leancloud_visitors" data-flag-title="java并发编程（二十三）----(JUC集合)ConcurrentSkipListMap介绍">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">热度: </span>
+                 <span class="post-meta-item-text">Views: </span>
                
                  <span class="leancloud-visitors-count"></span>
                  <span>℃</span>
@@ -542,9 +542,9 @@
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">文章字数: </span>
+                  <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="文章字数">3.8k</span>
+                <span title="Symbols count in article">11k</span>
               
 
               
@@ -556,9 +556,9 @@
                   <i class="fa fa-clock-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="阅读时长">3 mins.</span>
+                <span title="Reading time">10 mins.</span>
               
             </div>
           
@@ -581,14 +581,14 @@
         
           
             <p>
-              上一节我们说到了基本原子类的简单介绍，这一节我们先来看一下基本类型: AtomicInteger, AtomicLong, AtomicBoolean。AtomicInteger和AtomicLong的使用方法差不多，AtomicBoolean因为比较简单所以方法比前两个都少，那我们这节主要挑Ato
+              这一节我们来看一下并发的Map，ConcurrentHashMap和ConcurrentSkipListMap。ConcurrentHashMap通常只被看做并发效率更高的Map，用来替换其他线程安全的Map容器，比如Hashtable和Collections.synchronizedMap。Con
               ...
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/posts/8ca24763.html#more" rel="contents">
-                读取更多 &raquo;
+              <a class="btn" href="/posts/31315379.html#more" rel="contents">
+                Weiterlesen &raquo;
               </a>
             </div>
           
@@ -654,7 +654,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/db147845.html">
+    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/5ee7a4a7.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
@@ -674,7 +674,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/posts/db147845.html" class="post-title-link" itemprop="url">java并发编程（十）----JUC原子类介绍</a>
+                <a href="/posts/5ee7a4a7.html" class="post-title-link" itemprop="url">java并发编程（二十一）----(JUC集合)CopyOnWriteArraySet和ConcurrentSkipListSet介绍</a>
               
             
           </h2>
@@ -692,14 +692,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="创建于: 2017-03-24 01:02:00" itemprop="dateCreated datePublished" datetime="2017-03-24T01:02:00+08:00">2017-03-24</time>
+              <time title="Post created: 2017-04-07 01:02:00" itemprop="dateCreated datePublished" datetime="2017-04-07T01:02:00+08:00">2017-04-07</time>
             
 
             
@@ -714,9 +714,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">编辑于</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-04 17:28:26" itemprop="dateModified" datetime="2018-12-04T17:28:26+08:00">2018-12-04</time>
+                <time title="Updated at: 2018-12-04 17:28:26" itemprop="dateModified" datetime="2018-12-04T17:28:26+08:00">2018-12-04</time>
               
             
           </span>
@@ -730,7 +730,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">分类于</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/多线程与并发编程/" itemprop="url" rel="index"><span itemprop="name">多线程与并发编程</span></a></span>
@@ -748,8 +748,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/posts/db147845.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/db147845.html" itemprop="commentCount"></span>
+                <a href="/posts/5ee7a4a7.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/5ee7a4a7.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -757,13 +757,13 @@
 
           
           
-             <span id="/posts/db147845.html" class="leancloud_visitors" data-flag-title="java并发编程（十）----JUC原子类介绍">
+             <span id="/posts/5ee7a4a7.html" class="leancloud_visitors" data-flag-title="java并发编程（二十一）----(JUC集合)CopyOnWriteArraySet和ConcurrentSkipListSet介绍">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">热度: </span>
+                 <span class="post-meta-item-text">Views: </span>
                
                  <span class="leancloud-visitors-count"></span>
                  <span>℃</span>
@@ -781,9 +781,9 @@
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">文章字数: </span>
+                  <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="文章字数">494</span>
+                <span title="Symbols count in article">2k</span>
               
 
               
@@ -795,9 +795,9 @@
                   <i class="fa fa-clock-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="阅读时长">1 mins.</span>
+                <span title="Reading time">2 mins.</span>
               
             </div>
           
@@ -820,14 +820,14 @@
         
           
             <p>
-              今天我们来看一下JUC包中的原子类，所谓原子操作是指不会被线程调度机制打断的操作；这种操作一旦开始，就一直运行到结束，中间不会有任何 context switch （切换到另一个线程），原子操作可以是一个步骤，也可以是多个操作步骤，但是其顺序不可以被打乱，也不可以被切割而只执行其中的一部分。将整个操
+              这一节我们来接着介绍JUC集合：CopyOnWriteArraySet和ConcurrentSkipListSet。从名字上来看我们知道CopyOnWriteArraySet与上一节讲到的CopyOnWriteArrayList一样是动态数组实现;ConcurrentSkipListSet是线程安全
               ...
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/posts/db147845.html#more" rel="contents">
-                读取更多 &raquo;
+              <a class="btn" href="/posts/5ee7a4a7.html#more" rel="contents">
+                Weiterlesen &raquo;
               </a>
             </div>
           
@@ -893,7 +893,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/f5e73779.html">
+    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/c00aa264.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
@@ -913,7 +913,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/posts/f5e73779.html" class="post-title-link" itemprop="url">java并发编程（九）----(JUC)CyclicBarrier</a>
+                <a href="/posts/c00aa264.html" class="post-title-link" itemprop="url">java并发编程（十九）----(JUC集合)总体框架介绍</a>
               
             
           </h2>
@@ -931,14 +931,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="创建于: 2017-03-22 01:02:00" itemprop="dateCreated datePublished" datetime="2017-03-22T01:02:00+08:00">2017-03-22</time>
+              <time title="Post created: 2017-04-05 01:02:00" itemprop="dateCreated datePublished" datetime="2017-04-05T01:02:00+08:00">2017-04-05</time>
             
 
             
@@ -953,9 +953,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">编辑于</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-04 17:28:26" itemprop="dateModified" datetime="2018-12-04T17:28:26+08:00">2018-12-04</time>
+                <time title="Updated at: 2018-12-04 17:28:26" itemprop="dateModified" datetime="2018-12-04T17:28:26+08:00">2018-12-04</time>
               
             
           </span>
@@ -969,7 +969,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">分类于</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/多线程与并发编程/" itemprop="url" rel="index"><span itemprop="name">多线程与并发编程</span></a></span>
@@ -987,8 +987,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/posts/f5e73779.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/f5e73779.html" itemprop="commentCount"></span>
+                <a href="/posts/c00aa264.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/c00aa264.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -996,13 +996,13 @@
 
           
           
-             <span id="/posts/f5e73779.html" class="leancloud_visitors" data-flag-title="java并发编程（九）----(JUC)CyclicBarrier">
+             <span id="/posts/c00aa264.html" class="leancloud_visitors" data-flag-title="java并发编程（十九）----(JUC集合)总体框架介绍">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">热度: </span>
+                 <span class="post-meta-item-text">Views: </span>
                
                  <span class="leancloud-visitors-count"></span>
                  <span>℃</span>
@@ -1020,9 +1020,9 @@
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">文章字数: </span>
+                  <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="文章字数">4.2k</span>
+                <span title="Symbols count in article">1.8k</span>
               
 
               
@@ -1034,9 +1034,9 @@
                   <i class="fa fa-clock-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="阅读时长">4 mins.</span>
+                <span title="Reading time">2 mins.</span>
               
             </div>
           
@@ -1059,14 +1059,16 @@
         
           
             <p>
-              上一篇我们介绍了CountDownlatch，我们知道CountDownlatch是“在完成一组正在其他线程中执行的操作之前，它允许一个或多个线程一直等待”，即CountDownLatch的作用是允许1或N个线程等待其他线程完成执行，而我们今天要介绍的CyclicBarrier则是允许N个线程相互等
+              本节我们将继续学习JUC包中的集合类，我们知道jdk中本身自带了一套非线程安全的集合类，我们先温习一下java集合包里面的集合类，然后系统的看一下JUC包里面的集合类到底有什么不同。
+ 1 java集合类
+java集合类里面主要包含两大类：一类是Collection接口下的List、Set和Queu
               ...
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/posts/f5e73779.html#more" rel="contents">
-                读取更多 &raquo;
+              <a class="btn" href="/posts/c00aa264.html#more" rel="contents">
+                Weiterlesen &raquo;
               </a>
             </div>
           
@@ -1132,7 +1134,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/de2aa32e.html">
+    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/5f5c40c1.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
@@ -1152,7 +1154,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/posts/de2aa32e.html" class="post-title-link" itemprop="url">java并发编程（七）----（JUC）ReadWriteLock</a>
+                <a href="/posts/5f5c40c1.html" class="post-title-link" itemprop="url">java并发编程（十八）----(线程池)java线程池框架Fork-Join</a>
               
             
           </h2>
@@ -1170,14 +1172,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="创建于: 2017-03-20 01:02:00" itemprop="dateCreated datePublished" datetime="2017-03-20T01:02:00+08:00">2017-03-20</time>
+              <time title="Post created: 2017-04-04 01:02:00" itemprop="dateCreated datePublished" datetime="2017-04-04T01:02:00+08:00">2017-04-04</time>
             
 
             
@@ -1192,9 +1194,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">编辑于</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-04 17:28:26" itemprop="dateModified" datetime="2018-12-04T17:28:26+08:00">2018-12-04</time>
+                <time title="Updated at: 2018-12-04 17:28:26" itemprop="dateModified" datetime="2018-12-04T17:28:26+08:00">2018-12-04</time>
               
             
           </span>
@@ -1208,7 +1210,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">分类于</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/多线程与并发编程/" itemprop="url" rel="index"><span itemprop="name">多线程与并发编程</span></a></span>
@@ -1226,8 +1228,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/posts/de2aa32e.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/de2aa32e.html" itemprop="commentCount"></span>
+                <a href="/posts/5f5c40c1.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/5f5c40c1.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1235,13 +1237,13 @@
 
           
           
-             <span id="/posts/de2aa32e.html" class="leancloud_visitors" data-flag-title="java并发编程（七）----（JUC）ReadWriteLock">
+             <span id="/posts/5f5c40c1.html" class="leancloud_visitors" data-flag-title="java并发编程（十八）----(线程池)java线程池框架Fork-Join">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">热度: </span>
+                 <span class="post-meta-item-text">Views: </span>
                
                  <span class="leancloud-visitors-count"></span>
                  <span>℃</span>
@@ -1259,9 +1261,9 @@
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">文章字数: </span>
+                  <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="文章字数">6.7k</span>
+                <span title="Symbols count in article">7k</span>
               
 
               
@@ -1273,9 +1275,9 @@
                   <i class="fa fa-clock-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="阅读时长">6 mins.</span>
+                <span title="Reading time">6 mins.</span>
               
             </div>
           
@@ -1298,14 +1300,16 @@
         
           
             <p>
-              前面我们已经分析过JUC包里面的Lock锁，ReentrantLock锁和semaphore信号量机制。Lock锁实现了比synchronized更灵活的锁机制，Reentrantlock是Lock的实现类，是一种可重入锁，都是每次只有一次线程对资源进行处理；semaphore实现了多个线程同时对一
+              这一节开始我们正式来介绍JUC集合类。我们按照List、Set、Map、Queue的顺序来进行介绍。这一节我们来看一下CopyOnWriteArrayList。
+ 1 CopyOnWriteArrayList介绍
+CopyOnWriteArrayList是ArrayList 的一个线程安全的变体，其
               ...
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/posts/de2aa32e.html#more" rel="contents">
-                读取更多 &raquo;
+              <a class="btn" href="/posts/5f5c40c1.html#more" rel="contents">
+                Weiterlesen &raquo;
               </a>
             </div>
           
@@ -1371,7 +1375,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/de2aa32e.html">
+    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/5f5c40c1.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
@@ -1391,7 +1395,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/posts/de2aa32e.html" class="post-title-link" itemprop="url">java并发编程（七）----（JUC）ReadWriteLock</a>
+                <a href="/posts/5f5c40c1.html" class="post-title-link" itemprop="url">java并发编程（十八）----(线程池)java线程池框架Fork-Join</a>
               
             
           </h2>
@@ -1409,14 +1413,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="创建于: 2017-03-20 01:02:00" itemprop="dateCreated datePublished" datetime="2017-03-20T01:02:00+08:00">2017-03-20</time>
+              <time title="Post created: 2017-04-04 01:02:00" itemprop="dateCreated datePublished" datetime="2017-04-04T01:02:00+08:00">2017-04-04</time>
             
 
             
@@ -1431,9 +1435,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">编辑于</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-04 17:28:26" itemprop="dateModified" datetime="2018-12-04T17:28:26+08:00">2018-12-04</time>
+                <time title="Updated at: 2018-12-04 17:28:26" itemprop="dateModified" datetime="2018-12-04T17:28:26+08:00">2018-12-04</time>
               
             
           </span>
@@ -1447,7 +1451,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">分类于</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/多线程与并发编程/" itemprop="url" rel="index"><span itemprop="name">多线程与并发编程</span></a></span>
@@ -1465,8 +1469,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/posts/de2aa32e.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/de2aa32e.html" itemprop="commentCount"></span>
+                <a href="/posts/5f5c40c1.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/5f5c40c1.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1474,13 +1478,13 @@
 
           
           
-             <span id="/posts/de2aa32e.html" class="leancloud_visitors" data-flag-title="java并发编程（七）----（JUC）ReadWriteLock">
+             <span id="/posts/5f5c40c1.html" class="leancloud_visitors" data-flag-title="java并发编程（十八）----(线程池)java线程池框架Fork-Join">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">热度: </span>
+                 <span class="post-meta-item-text">Views: </span>
                
                  <span class="leancloud-visitors-count"></span>
                  <span>℃</span>
@@ -1498,9 +1502,9 @@
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">文章字数: </span>
+                  <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="文章字数">3.1k</span>
+                <span title="Symbols count in article">4.7k</span>
               
 
               
@@ -1512,9 +1516,9 @@
                   <i class="fa fa-clock-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="阅读时长">3 mins.</span>
+                <span title="Reading time">4 mins.</span>
               
             </div>
           
@@ -1537,14 +1541,14 @@
         
           
             <p>
-              CountDownLatch 是一个非常实用的多线程控制工具类。&quot; Count Down &quot; 在英文中意为倒计数， Latch 为门问的意思。如果翻译成为倒计数门阀， 我想大家都会觉得不知所云吧! 因此，这里简单地称之为倒计数器。在这里， 门问的含义是:把门锁起来，不让里面的线程
+              还记得我们在初始介绍线程池的时候提到了Executor框架的体系，到现在为止我们只有一个没有介绍，与ThreadPoolExecutor一样继承与AbstractExecutorService的ForkJoinPool.Fork/Join框架是Java7提供了的一个用于并行执行任务的框架， 是一个把
               ...
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/posts/de2aa32e.html#more" rel="contents">
-                读取更多 &raquo;
+              <a class="btn" href="/posts/5f5c40c1.html#more" rel="contents">
+                Weiterlesen &raquo;
               </a>
             </div>
           
@@ -1610,7 +1614,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/7afb7337.html">
+    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/b9ed0404.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
@@ -1630,7 +1634,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/posts/7afb7337.html" class="post-title-link" itemprop="url">java并发编程（六）----（JUC）Semaphore</a>
+                <a href="/posts/b9ed0404.html" class="post-title-link" itemprop="url">java并发编程（十七）----(线程池)java线程池架构和原理</a>
               
             
           </h2>
@@ -1648,14 +1652,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="创建于: 2017-03-19 11:12:00" itemprop="dateCreated datePublished" datetime="2017-03-19T11:12:00+08:00">2017-03-19</time>
+              <time title="Post created: 2017-04-03 01:02:00" itemprop="dateCreated datePublished" datetime="2017-04-03T01:02:00+08:00">2017-04-03</time>
             
 
             
@@ -1670,9 +1674,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">编辑于</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-04 17:28:26" itemprop="dateModified" datetime="2018-12-04T17:28:26+08:00">2018-12-04</time>
+                <time title="Updated at: 2018-12-04 17:28:26" itemprop="dateModified" datetime="2018-12-04T17:28:26+08:00">2018-12-04</time>
               
             
           </span>
@@ -1686,7 +1690,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">分类于</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/多线程与并发编程/" itemprop="url" rel="index"><span itemprop="name">多线程与并发编程</span></a></span>
@@ -1704,8 +1708,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/posts/7afb7337.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/7afb7337.html" itemprop="commentCount"></span>
+                <a href="/posts/b9ed0404.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/b9ed0404.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1713,13 +1717,13 @@
 
           
           
-             <span id="/posts/7afb7337.html" class="leancloud_visitors" data-flag-title="java并发编程（六）----（JUC）Semaphore">
+             <span id="/posts/b9ed0404.html" class="leancloud_visitors" data-flag-title="java并发编程（十七）----(线程池)java线程池架构和原理">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">热度: </span>
+                 <span class="post-meta-item-text">Views: </span>
                
                  <span class="leancloud-visitors-count"></span>
                  <span>℃</span>
@@ -1737,9 +1741,9 @@
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">文章字数: </span>
+                  <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="文章字数">2.3k</span>
+                <span title="Symbols count in article">11k</span>
               
 
               
@@ -1751,9 +1755,9 @@
                   <i class="fa fa-clock-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="阅读时长">2 mins.</span>
+                <span title="Reading time">10 mins.</span>
               
             </div>
           
@@ -1776,15 +1780,16 @@
         
           
             <p>
-              Semaphore,从字面意义上我们知道他是信号量的意思。在java中，一个计数信号量维护了一个许可集。Semaphore 只对可用许可的号码进行计数，并采取相应的行动。拿到信号量的线程可以进入代码，否则就等待。通过acquire()和release()获取和释放访问许可。
-信号量Semaphore
+              前面我们简单介绍了线程池的使用，但是对于其如何运行我们还不清楚，Executors为我们提供了简单的线程工厂类，但是我们知道ThreadPoolExecutor是线程池的具体实现类。我们先从他开始分析。
+ 1 ThreadPoolExecutor初探
+ThreadPoolExecutor一共有3个构
               ...
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/posts/7afb7337.html#more" rel="contents">
-                读取更多 &raquo;
+              <a class="btn" href="/posts/b9ed0404.html#more" rel="contents">
+                Weiterlesen &raquo;
               </a>
             </div>
           
@@ -1850,7 +1855,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/d68e6b33.html">
+    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/e7e539b9.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
@@ -1870,7 +1875,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/posts/d68e6b33.html" class="post-title-link" itemprop="url">java并发编程（五）----（JUC）ReentrantLock</a>
+                <a href="/posts/e7e539b9.html" class="post-title-link" itemprop="url">java并发编程（十六）----(线程池)java线程池的使用</a>
               
             
           </h2>
@@ -1888,14 +1893,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="创建于: 2017-03-19 01:02:00" itemprop="dateCreated datePublished" datetime="2017-03-19T01:02:00+08:00">2017-03-19</time>
+              <time title="Post created: 2017-03-29 01:02:00" itemprop="dateCreated datePublished" datetime="2017-03-29T01:02:00+08:00">2017-03-29</time>
             
 
             
@@ -1910,9 +1915,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">编辑于</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-05 14:13:34" itemprop="dateModified" datetime="2018-12-05T14:13:34+08:00">2018-12-05</time>
+                <time title="Updated at: 2018-12-04 17:28:26" itemprop="dateModified" datetime="2018-12-04T17:28:26+08:00">2018-12-04</time>
               
             
           </span>
@@ -1926,7 +1931,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">分类于</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/多线程与并发编程/" itemprop="url" rel="index"><span itemprop="name">多线程与并发编程</span></a></span>
@@ -1944,8 +1949,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/posts/d68e6b33.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/d68e6b33.html" itemprop="commentCount"></span>
+                <a href="/posts/e7e539b9.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/e7e539b9.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1953,13 +1958,13 @@
 
           
           
-             <span id="/posts/d68e6b33.html" class="leancloud_visitors" data-flag-title="java并发编程（五）----（JUC）ReentrantLock">
+             <span id="/posts/e7e539b9.html" class="leancloud_visitors" data-flag-title="java并发编程（十六）----(线程池)java线程池的使用">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">热度: </span>
+                 <span class="post-meta-item-text">Views: </span>
                
                  <span class="leancloud-visitors-count"></span>
                  <span>℃</span>
@@ -1977,9 +1982,9 @@
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">文章字数: </span>
+                  <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="文章字数">15k</span>
+                <span title="Symbols count in article">6.7k</span>
               
 
               
@@ -1991,9 +1996,9 @@
                   <i class="fa fa-clock-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="阅读时长">13 mins.</span>
+                <span title="Reading time">6 mins.</span>
               
             </div>
           
@@ -2016,16 +2021,15 @@
         
           
             <p>
-              上一节我们了解了Lock接口的一些简单的说明，知道Lock锁的常用形式，那么这节我们正式开始进入JUC锁（java.util.concurrent包下的锁，简称JUC锁）。下面我们来看一下Lock最常用的实现类ReentrantLock。
- 1 ReentrantLock简介
-由单词意思我们可以知道
+              上节我们简单介绍了线程池，这次我们就来使用一下。Executors提供四种线程池，分别是：newCachedThreadPool，newFixedThreadPool ，newScheduledThreadPool ，newSingleThreadExecutor 。下面我们分别来使用下。
+ 1 n
               ...
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/posts/d68e6b33.html#more" rel="contents">
-                读取更多 &raquo;
+              <a class="btn" href="/posts/e7e539b9.html#more" rel="contents">
+                Weiterlesen &raquo;
               </a>
             </div>
           
@@ -2091,7 +2095,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/f4331185.html">
+    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/d72ca9c5.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
@@ -2111,7 +2115,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/posts/f4331185.html" class="post-title-link" itemprop="url">java并发编程（四）----（JUC）Lock锁初探</a>
+                <a href="/posts/d72ca9c5.html" class="post-title-link" itemprop="url">（十五）----(线程池)java线程池简介</a>
               
             
           </h2>
@@ -2129,14 +2133,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="创建于: 2017-03-18 01:02:00" itemprop="dateCreated datePublished" datetime="2017-03-18T01:02:00+08:00">2017-03-18</time>
+              <time title="Post created: 2017-03-28 01:02:00" itemprop="dateCreated datePublished" datetime="2017-03-28T01:02:00+08:00">2017-03-28</time>
             
 
             
@@ -2151,9 +2155,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">编辑于</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-05 14:13:34" itemprop="dateModified" datetime="2018-12-05T14:13:34+08:00">2018-12-05</time>
+                <time title="Updated at: 2018-12-04 17:28:26" itemprop="dateModified" datetime="2018-12-04T17:28:26+08:00">2018-12-04</time>
               
             
           </span>
@@ -2167,7 +2171,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">分类于</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/多线程与并发编程/" itemprop="url" rel="index"><span itemprop="name">多线程与并发编程</span></a></span>
@@ -2185,8 +2189,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/posts/f4331185.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/f4331185.html" itemprop="commentCount"></span>
+                <a href="/posts/d72ca9c5.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/d72ca9c5.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -2194,13 +2198,13 @@
 
           
           
-             <span id="/posts/f4331185.html" class="leancloud_visitors" data-flag-title="java并发编程（四）----（JUC）Lock锁初探">
+             <span id="/posts/d72ca9c5.html" class="leancloud_visitors" data-flag-title="（十五）----(线程池)java线程池简介">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">热度: </span>
+                 <span class="post-meta-item-text">Views: </span>
                
                  <span class="leancloud-visitors-count"></span>
                  <span>℃</span>
@@ -2218,9 +2222,9 @@
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">文章字数: </span>
+                  <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="文章字数">2.1k</span>
+                <span title="Symbols count in article">4k</span>
               
 
               
@@ -2232,9 +2236,9 @@
                   <i class="fa fa-clock-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="阅读时长">2 mins.</span>
+                <span title="Reading time">4 mins.</span>
               
             </div>
           
@@ -2257,14 +2261,14 @@
         
           
             <p>
-              首先我们来回忆一下上一节讲过的synchronized关键字，该关键字用于给代码段或方法加锁，使得某一时刻它修饰的方法或代码段只能被一个线程访问。那么试想，当我们遇到这样的情况：当synchronized修饰的方法或代码段因为某种原因（IO异常或是sleep方法）被阻塞了，但是锁有没有被释放，那么其
+              好的软件设计不建议手动创建和销毁线程。线程的创建和销毁是非常耗 CPU 和内存的，因为这需要 JVM 和操作系统的参与。64位 JVM 默认线程栈是大小1 MB。这就是为什么说在请求频繁时为每个小的请求创建线程是一种资源的浪费。线程池可以根据创建时选择的策略自动处理线程的生命周期。重点在于：在资源（
               ...
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/posts/f4331185.html#more" rel="contents">
-                读取更多 &raquo;
+              <a class="btn" href="/posts/d72ca9c5.html#more" rel="contents">
+                Weiterlesen &raquo;
               </a>
             </div>
           
@@ -2330,7 +2334,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/7ab746e7.html">
+    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/579efe75.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
@@ -2350,7 +2354,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/posts/7ab746e7.html" class="post-title-link" itemprop="url">Netty学习(二）-Helloworld Netty</a>
+                <a href="/posts/579efe75.html" class="post-title-link" itemprop="url">java并发编程（十三）----(JUC原子类)引用类型介绍（CAS和ABA的介绍）</a>
               
             
           </h2>
@@ -2368,14 +2372,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="创建于: 2017-03-17 01:02:00" itemprop="dateCreated datePublished" datetime="2017-03-17T01:02:00+08:00">2017-03-17</time>
+              <time title="Post created: 2017-03-26 01:02:00" itemprop="dateCreated datePublished" datetime="2017-03-26T01:02:00+08:00">2017-03-26</time>
             
 
             
@@ -2390,9 +2394,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">编辑于</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-04 17:28:26" itemprop="dateModified" datetime="2018-12-04T17:28:26+08:00">2018-12-04</time>
+                <time title="Updated at: 2018-12-04 17:28:26" itemprop="dateModified" datetime="2018-12-04T17:28:26+08:00">2018-12-04</time>
               
             
           </span>
@@ -2406,10 +2410,10 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">分类于</span>
+                <span class="post-meta-item-text">in</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Netty/" itemprop="url" rel="index"><span itemprop="name">Netty</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/多线程与并发编程/" itemprop="url" rel="index"><span itemprop="name">多线程与并发编程</span></a></span>
 
                 
                 
@@ -2424,8 +2428,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/posts/7ab746e7.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/7ab746e7.html" itemprop="commentCount"></span>
+                <a href="/posts/579efe75.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/579efe75.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -2433,13 +2437,13 @@
 
           
           
-             <span id="/posts/7ab746e7.html" class="leancloud_visitors" data-flag-title="Netty学习(二）-Helloworld Netty">
+             <span id="/posts/579efe75.html" class="leancloud_visitors" data-flag-title="java并发编程（十三）----(JUC原子类)引用类型介绍（CAS和ABA的介绍）">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">热度: </span>
+                 <span class="post-meta-item-text">Views: </span>
                
                  <span class="leancloud-visitors-count"></span>
                  <span>℃</span>
@@ -2457,9 +2461,9 @@
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">文章字数: </span>
+                  <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="文章字数">6.4k</span>
+                <span title="Symbols count in article">9.5k</span>
               
 
               
@@ -2471,9 +2475,9 @@
                   <i class="fa fa-clock-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="阅读时长">6 mins.</span>
+                <span title="Reading time">9 mins.</span>
               
             </div>
           
@@ -2496,21 +2500,14 @@
         
           
             <p>
-              这一节我们来讲解Netty，使用Netty之前我们先了解一下Netty能做什么，无为而学，岂不是白费力气！
- 1.使用Netty能够做什么
-
-开发异步、非阻塞的TCP网络应用程序；
-开发异步、非阻塞的UDP网络应用程序；
-开发异步文件传输应用程序；
-开发异步HTTP服务端和客户端应用程序；
-提供对多
+              这一节我们将探讨引用类型原子类：AtomicReference, AtomicStampedRerence, AtomicMarkableReference。AtomicReference的使用非常简单，根据API我们就可以知道如何用，但是后两个从名字上看起来感觉是很难的样子，其实只是他的样子长得有
               ...
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/posts/7ab746e7.html#more" rel="contents">
-                读取更多 &raquo;
+              <a class="btn" href="/posts/579efe75.html#more" rel="contents">
+                Weiterlesen &raquo;
               </a>
             </div>
           
@@ -2576,7 +2573,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/ccb5d663.html">
+    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/58721c94.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rickiyang">
@@ -2596,7 +2593,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/posts/ccb5d663.html" class="post-title-link" itemprop="url">Netty学习(九)-Netty编解码技术之Marshalling</a>
+                <a href="/posts/58721c94.html" class="post-title-link" itemprop="url">java并发编程（十四）----(JUC原子类)对象的属性修改类型介绍</a>
               
             
           </h2>
@@ -2614,14 +2611,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="创建于: 2017-03-17 01:02:00" itemprop="dateCreated datePublished" datetime="2017-03-17T01:02:00+08:00">2017-03-17</time>
+              <time title="Post created: 2017-03-26 01:02:00" itemprop="dateCreated datePublished" datetime="2017-03-26T01:02:00+08:00">2017-03-26</time>
             
 
             
@@ -2636,9 +2633,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">编辑于</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-04 17:28:26" itemprop="dateModified" datetime="2018-12-04T17:28:26+08:00">2018-12-04</time>
+                <time title="Updated at: 2018-12-04 17:28:26" itemprop="dateModified" datetime="2018-12-04T17:28:26+08:00">2018-12-04</time>
               
             
           </span>
@@ -2652,10 +2649,10 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">分类于</span>
+                <span class="post-meta-item-text">in</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Netty/" itemprop="url" rel="index"><span itemprop="name">Netty</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/多线程与并发编程/" itemprop="url" rel="index"><span itemprop="name">多线程与并发编程</span></a></span>
 
                 
                 
@@ -2670,8 +2667,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/posts/ccb5d663.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/ccb5d663.html" itemprop="commentCount"></span>
+                <a href="/posts/58721c94.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/58721c94.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -2679,13 +2676,13 @@
 
           
           
-             <span id="/posts/ccb5d663.html" class="leancloud_visitors" data-flag-title="Netty学习(九)-Netty编解码技术之Marshalling">
+             <span id="/posts/58721c94.html" class="leancloud_visitors" data-flag-title="java并发编程（十四）----(JUC原子类)对象的属性修改类型介绍">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">热度: </span>
+                 <span class="post-meta-item-text">Views: </span>
                
                  <span class="leancloud-visitors-count"></span>
                  <span>℃</span>
@@ -2703,9 +2700,9 @@
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">文章字数: </span>
+                  <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="文章字数">14k</span>
+                <span title="Symbols count in article">5.4k</span>
               
 
               
@@ -2717,9 +2714,9 @@
                   <i class="fa fa-clock-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="阅读时长">12 mins.</span>
+                <span title="Reading time">5 mins.</span>
               
             </div>
           
@@ -2742,23 +2739,16 @@
         
           
             <p>
-              前面我们讲过protobuf的使用，主流的编解码框架其实还有很多种：
-①JBoss的Marshalling包
-
-②google的Protobuf
-
-③基于Protobuf的Kyro
-
-④Apache的Thrift
-
-JBoss Marshalling是一个Java对象的序列化API包，修正了JDK自
+              今天我们介绍原子类的最后一个类型----对象的属性修改类型: AtomicIntegerFieldUpdater,AtomicLongFieldUpdater,AtomicReferenceFieldUpdater。有了这几个方法，普通的变量也能享受原子操作了。
+ 1 开胃菜
+由API我们知道Ato
               ...
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/posts/ccb5d663.html#more" rel="contents">
-                读取更多 &raquo;
+              <a class="btn" href="/posts/58721c94.html#more" rel="contents">
+                Weiterlesen &raquo;
               </a>
             </div>
           
@@ -2813,7 +2803,7 @@ JBoss Marshalling是一个Java对象的序列化API包，修正了JDK自
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -2858,8 +2848,8 @@ JBoss Marshalling是一个Java对象的序列化API包，修正了JDK自
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">105</span>
-                    <span class="site-state-item-name">总文章</span>
+                    <span class="site-state-item-count">116</span>
+                    <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>
               
@@ -2909,8 +2899,10 @@ JBoss Marshalling是一个Java对象的序列化API包，修正了JDK自
                     
                       
                     
-                    <span class="site-state-item-count">19</span>
-                    <span class="site-state-item-name">分类</span>
+                      
+                    
+                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-name">Kategorien</span>
                   </a>
                 </div>
               
@@ -2944,8 +2936,10 @@ JBoss Marshalling是一个Java对象的序列化API包，修正了JDK自
                     
                       
                     
-                    <span class="site-state-item-count">11</span>
-                    <span class="site-state-item-name">标签</span>
+                      
+                    
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">Tags</span>
                   </a>
                 </div>
               
@@ -3074,7 +3068,7 @@ JBoss Marshalling是一个Java对象的序列化API包，修正了JDK自
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共256.3k字</span>
+  <span class="post-count">博客全站共277.1k字</span>
 </div>
 
 <script>

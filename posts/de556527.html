@@ -168,7 +168,7 @@
 <meta property="og:image" content="https://i.imgur.com/oBGF6QX.png">
 <meta property="og:image" content="https://i.imgur.com/9XutJuZ.jpg">
 <meta property="og:image" content="https://i.imgur.com/YvyYm7u.jpg">
-<meta property="og:updated_time" content="2018-12-13T02:14:20.610Z">
+<meta property="og:updated_time" content="2018-12-13T02:14:20.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hadoop学习(八)----mapReduce的工作机制">
 <meta name="twitter:description" content="前面我们分析了MapReduce的运行过程，对mapReduce的执行流程有了一个大致的了解。那么这一节我们开始看MapReduce的工作机制，顺带实现一下MapReduce编程。  MapReduce的工作机制 前面我们是从数据流的角度解释了数据从输入到HDFS到mapReduce是如何流向的，那么具体到一个MapReduce作业到底是怎么样的一个运作过程呢。又得祭出这一张经典的图：  上图大体">
@@ -353,7 +353,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Suche</a>
         </li>
       
     </ul>
@@ -459,14 +459,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="创建于: 2018-07-06 17:28:37" itemprop="dateCreated datePublished" datetime="2018-07-06T17:28:37+08:00">2018-07-06</time>
+              <time title="Post created: 2018-07-06 17:28:37" itemprop="dateCreated datePublished" datetime="2018-07-06T17:28:37+08:00">2018-07-06</time>
             
 
             
@@ -481,9 +481,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">编辑于</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-13 10:14:20" itemprop="dateModified" datetime="2018-12-13T10:14:20+08:00">2018-12-13</time>
+                <time title="Updated at: 2018-12-13 10:14:20" itemprop="dateModified" datetime="2018-12-13T10:14:20+08:00">2018-12-13</time>
               
             
           </span>
@@ -497,14 +497,14 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">分类于</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/大数据学习/" itemprop="url" rel="index"><span itemprop="name">大数据学习</span></a></span>
 
                 
                 
-                  , 
+                  . 
                 
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/大数据学习/hadoop/" itemprop="url" rel="index"><span itemprop="name">hadoop</span></a></span>
@@ -523,7 +523,7 @@
                   <i class="fa fa-comment-o"></i>
                 </span>
                 <a href="/posts/de556527.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/de556527.html" itemprop="commentCount"></span>
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/de556527.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -537,7 +537,7 @@
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">热度: </span>
+                 <span class="post-meta-item-text">Views: </span>
                
                  <span class="leancloud-visitors-count"></span>
                  <span>℃</span>
@@ -555,9 +555,9 @@
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">文章字数: </span>
+                  <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="文章字数">5.4k</span>
+                <span title="Symbols count in article">5.4k</span>
               
 
               
@@ -569,9 +569,9 @@
                   <i class="fa fa-clock-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="阅读时长">5 mins.</span>
+                <span title="Reading time">5 mins.</span>
               
             </div>
           
@@ -851,10 +851,10 @@ private Text fileName;</filepair></p>
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
+            Inhaltsverzeichnis
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
+            Übersicht
           </li>
         </ul>
       
@@ -876,8 +876,8 @@ private Text fileName;</filepair></p>
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">105</span>
-                    <span class="site-state-item-name">总文章</span>
+                    <span class="site-state-item-count">116</span>
+                    <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>
               
@@ -927,8 +927,10 @@ private Text fileName;</filepair></p>
                     
                       
                     
-                    <span class="site-state-item-count">19</span>
-                    <span class="site-state-item-name">分类</span>
+                      
+                    
+                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-name">Kategorien</span>
                   </a>
                 </div>
               
@@ -962,8 +964,10 @@ private Text fileName;</filepair></p>
                     
                       
                     
-                    <span class="site-state-item-count">11</span>
-                    <span class="site-state-item-name">标签</span>
+                      
+                    
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">Tags</span>
                   </a>
                 </div>
               
@@ -1109,7 +1113,7 @@ private Text fileName;</filepair></p>
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共256.3k字</span>
+  <span class="post-count">博客全站共277.1k字</span>
 </div>
 
 <script>

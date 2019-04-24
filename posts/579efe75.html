@@ -162,7 +162,7 @@
 <meta property="og:image" content="http://i.imgur.com/WHz1hpa.png">
 <meta property="og:image" content="http://i.imgur.com/JHnfHNT.png">
 <meta property="og:image" content="http://i.imgur.com/ANevGLg.png">
-<meta property="og:updated_time" content="2018-12-04T09:28:26.166Z">
+<meta property="og:updated_time" content="2018-12-04T09:28:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java并发编程（十三）----(JUC原子类)引用类型介绍（CAS和ABA的介绍）">
 <meta name="twitter:description" content="这一节我们将探讨引用类型原子类：AtomicReference, AtomicStampedRerence, AtomicMarkableReference。AtomicReference的使用非常简单，根据API我们就可以知道如何用，但是后两个从名字上看起来感觉是很难的样子，其实只是他的样子长得有点吓人，并且确实发挥了很大的作用（解决了ABA问题）。所以并没有那么可怕，就让我们一起来克服困难吧。">
@@ -347,7 +347,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Suche</a>
         </li>
       
     </ul>
@@ -453,14 +453,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="创建于: 2017-03-26 01:02:00" itemprop="dateCreated datePublished" datetime="2017-03-26T01:02:00+08:00">2017-03-26</time>
+              <time title="Post created: 2017-03-26 01:02:00" itemprop="dateCreated datePublished" datetime="2017-03-26T01:02:00+08:00">2017-03-26</time>
             
 
             
@@ -475,9 +475,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">编辑于</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-04 17:28:26" itemprop="dateModified" datetime="2018-12-04T17:28:26+08:00">2018-12-04</time>
+                <time title="Updated at: 2018-12-04 17:28:26" itemprop="dateModified" datetime="2018-12-04T17:28:26+08:00">2018-12-04</time>
               
             
           </span>
@@ -491,7 +491,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">分类于</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/多线程与并发编程/" itemprop="url" rel="index"><span itemprop="name">多线程与并发编程</span></a></span>
@@ -510,7 +510,7 @@
                   <i class="fa fa-comment-o"></i>
                 </span>
                 <a href="/posts/579efe75.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/579efe75.html" itemprop="commentCount"></span>
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/posts/579efe75.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -524,7 +524,7 @@
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">热度: </span>
+                 <span class="post-meta-item-text">Views: </span>
                
                  <span class="leancloud-visitors-count"></span>
                  <span>℃</span>
@@ -542,9 +542,9 @@
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">文章字数: </span>
+                  <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="文章字数">9.5k</span>
+                <span title="Symbols count in article">9.5k</span>
               
 
               
@@ -556,9 +556,9 @@
                   <i class="fa fa-clock-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="阅读时长">9 mins.</span>
+                <span title="Reading time">9 mins.</span>
               
             </div>
           
@@ -842,10 +842,10 @@ Process finished with exit code 0
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
+            Inhaltsverzeichnis
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
+            Übersicht
           </li>
         </ul>
       
@@ -867,8 +867,8 @@ Process finished with exit code 0
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">105</span>
-                    <span class="site-state-item-name">总文章</span>
+                    <span class="site-state-item-count">116</span>
+                    <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>
               
@@ -918,8 +918,10 @@ Process finished with exit code 0
                     
                       
                     
-                    <span class="site-state-item-count">19</span>
-                    <span class="site-state-item-name">分类</span>
+                      
+                    
+                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-name">Kategorien</span>
                   </a>
                 </div>
               
@@ -953,8 +955,10 @@ Process finished with exit code 0
                     
                       
                     
-                    <span class="site-state-item-count">11</span>
-                    <span class="site-state-item-name">标签</span>
+                      
+                    
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">Tags</span>
                   </a>
                 </div>
               
@@ -1100,7 +1104,7 @@ Process finished with exit code 0
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共256.3k字</span>
+  <span class="post-count">博客全站共277.1k字</span>
 </div>
 
 <script>
