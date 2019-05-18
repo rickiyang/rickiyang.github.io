@@ -1,0 +1,1720 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-center-circle.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
+  
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/adele.ico?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/adele.ico?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/adele.ico?v=6.7.0">
+
+
+  <link rel="mask-icon" href="/images/adele.ico?v=6.7.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="并发编程对于任何语言来说都不是一件简单的事情。Go在设计之初主打高并发，为使用者提供了goroutine，使用的方式虽然简单，但是用好却不是那么容易，我们一起来学习Go中的并发编程。  1. 并行和并发 并行(parallel)： 指在同一时刻，有多条指令在多个处理器上同时执行。 并发(concurrency)： 指在同一时刻只能有一条指令执行，但多个进程指令被快速的轮换执行，使得在宏观上具有多个">
+<meta name="keywords" content="Go基础学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Go中的并发编程和goroutine(15)">
+<meta property="og:url" content="http://blog.rickiyang.cn/posts/5eb88d0d.html">
+<meta property="og:site_name" content="Rickiyang&#39;s blog">
+<meta property="og:description" content="并发编程对于任何语言来说都不是一件简单的事情。Go在设计之初主打高并发，为使用者提供了goroutine，使用的方式虽然简单，但是用好却不是那么容易，我们一起来学习Go中的并发编程。  1. 并行和并发 并行(parallel)： 指在同一时刻，有多条指令在多个处理器上同时执行。 并发(concurrency)： 指在同一时刻只能有一条指令执行，但多个进程指令被快速的轮换执行，使得在宏观上具有多个">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-05-18T10:53:47.248Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Go中的并发编程和goroutine(15)">
+<meta name="twitter:description" content="并发编程对于任何语言来说都不是一件简单的事情。Go在设计之初主打高并发，为使用者提供了goroutine，使用的方式虽然简单，但是用好却不是那么容易，我们一起来学习Go中的并发编程。  1. 并行和并发 并行(parallel)： 指在同一时刻，有多条指令在多个处理器上同时执行。 并发(concurrency)： 指在同一时刻只能有一条指令执行，但多个进程指令被快速的轮换执行，使得在宏观上具有多个">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Rickiyang's blog" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://blog.rickiyang.cn/posts/5eb88d0d.html">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Go中的并发编程和goroutine(15) | Rickiyang's blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Rickiyang's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">java,大数据,分布式组件</h1>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-首页">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/5eb88d0d.html">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Rickiyang">
+      <meta itemprop="description" content="分享对coding生活的见解">
+      <meta itemprop="image" content="/images/adele.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rickiyang's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Go中的并发编程和goroutine(15)
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-18 18:52:44 / 修改时间：18:53:47" itemprop="dateCreated datePublished" datetime="2019-05-18T18:52:44+08:00">2019-05-18</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/posts/5eb88d0d.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/posts/5eb88d0d.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/posts/5eb88d0d.html" class="leancloud_visitors" data-flag-title="Go中的并发编程和goroutine(15)">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>℃</span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">9.4k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">9 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>并发编程对于任何语言来说都不是一件简单的事情。Go在设计之初主打高并发，为使用者提供了goroutine，使用的方式虽然简单，但是用好却不是那么容易，我们一起来学习Go中的并发编程。</p>
+<h4 id="1-并行和并发"><a class="markdownIt-Anchor" href="#1-并行和并发"></a> 1. 并行和并发</h4>
+<p><strong>并行(parallel)：</strong> 指在同一时刻，有多条指令在<strong>多个处理器</strong>上同时执行。</p>
+<p><strong>并发(concurrency)：</strong> 指在同一时刻只能有一条指令执行，但多个进程指令被快速的轮换执行，使得在宏观上具有多个进程同时执行的效果，但在微观上并不是同时执行的，只是把时间分成若干段，通过<strong>cpu时间片轮转</strong>使多个进程快速交替的执行。</p>
+<h4 id="2-进程和线程"><a class="markdownIt-Anchor" href="#2-进程和线程"></a> 2. 进程和线程</h4>
+<p><strong>进程</strong>： 我们在操作系统中的每一次操作相当于触发了一个进程，打开一个浏览器，点开任务管理器，等等。</p>
+<p><strong>线程</strong>： 轻量级的进程，本质仍是进程 。独立地址空间，拥有PCB，<strong>最小分配资源单位</strong>，可看成是只有一个线程的进程；而线程是程序的<strong>最小的执行单位</strong>，有独立的PCB，线程拥有自己的栈空间，但没有独立的地址空间 ，共享当前进程的地址空间。</p>
+<p><strong>对操作系统来说，线程是最小的执行单元，进程是最小的资源管理单元。</strong></p>
+<p>无论进程还是线程，都是由操作系统所管理的。</p>
+<h4 id="3协程"><a class="markdownIt-Anchor" href="#3协程"></a> 3.协程</h4>
+<p>**协程：**coroutine，协同式程序。协程不是轻量级的线程, 协程与线程的关系并不像是线程与进程的关系。</p>
+<p>先了解一些概念：</p>
+<h5 id="cpu切换"><a class="markdownIt-Anchor" href="#cpu切换"></a> <strong>CPU切换</strong></h5>
+<p>在每个任务运行前， CPU 都需要知道任务从哪里加载，又从哪里开始运行。也就是说，需要系统事先给他设置好 CPU 寄存器和程序计数器（Program Counter,PC）</p>
+<ul>
+<li>
+<p>CPU 寄存器：是 CPU 内置的容量小、但速度极快的内存</p>
+</li>
+<li>
+<p>程序计数器：是用来存储 CPU 正在执行的指令位置、或者即将执行的下一条指令位置</p>
+</li>
+</ul>
+<p>它们都是 CPU 在运行任何任务前，必须依赖的环境，因此也被叫做 CPU 上下文。</p>
+<p>上下文切换：就是先把前一个任务的 CPU 上下文（也就是 CPU 寄存器和程序计数器）保存起来，然后加载新任务的上下文到这些寄存器和程序计数器，最后再跳转到程序计数器所指的新位置，运行新任务。</p>
+<p>根据任务的不同，又分为<code>进程上下文切换</code>、<code>线程上下文切换</code>、<code>中断上下文切换</code>。</p>
+<h6 id="进程的上下文切换"><a class="markdownIt-Anchor" href="#进程的上下文切换"></a> <strong>进程的上下文切换</strong></h6>
+<p><strong>进程的运行态：</strong></p>
+<p>Linux 按照特权等级，把进程的运行空间分为<code>内核空间</code>和<code>用户空间</code> 。在这两种空间中运行的进程状态分别称为<code>内核态</code>和<code>用户态</code>。</p>
+<ul>
+<li>内核空间(Ring 0)：具有最高权限，可以直接访问所有资源</li>
+<li>用户空间(Ring 3)：只能访问受限资源，不能直接访问内存等硬件设备，必须通过系统调用进入到内核中，才能访问这些特权资源</li>
+</ul>
+<p><strong>系统调用：</strong></p>
+<p>从用户态到内核态的转变，需要通过系统调用来完成。比如查看文件时，需要执行多次系统调用：open、read、write、close等。系统调用的过程如下：</p>
+<ol>
+<li>把 CPU 寄存器里原来用户态的指令位置保存起来；</li>
+<li>为了执行内核代码，CPU 寄存器需要更新为内核态指令的新位置，最后跳转到内核态运行内核任务；</li>
+<li>系统调用结束后，CPU 寄存器需要恢复原来保存的用户态，然后再切换到用户空间，继续运行进程；</li>
+</ol>
+<p>所以，一次系统调用的过程，其实是发生了两次 CPU 上下文切换。</p>
+<p><strong>什么是进程上下文切换：</strong></p>
+<ul>
+<li>进程执行终止，它之前顺颂的CPU就会被释放出来，这时就从就绪队列中取出下一个等待时间片的进程；</li>
+<li>当某个进程的时间片耗尽，它就会被系统挂起，切换到其他等待CPU的进程运行；</li>
+<li>某个进程因为需要的系统资源比较大(比如内存不足),这时候该进程会被挂起，系统会调度其他进程执行；</li>
+<li>当有优先级更高的进程(系统操作进程)需要时间片，为了保证优先级更高的进程能够执行，当前进程会被挂起；</li>
+<li>如果当前进程中有sleep函数，他也会被挂起；</li>
+</ul>
+<p><strong>进程上下文切换和系统调用的区别：</strong></p>
+<ul>
+<li>进程上下文切换：进程之间的切换，从一个进程切换到另一个；进程是由内核来管理和调度，进程的切换只发生在内核态；进程上下文切换过程中，需要将该进程的虚拟内存、栈、全局变量保存起来，以供下次使用；</li>
+<li>系统调用：是在一个进程中的进程状态切换；切换过程中无需改变进程的虚拟内存，栈，全局变量等相关信息，从内核态到用户态相当于新开辟了一块虚拟内存；</li>
+</ul>
+<h6 id="线程的上下文切换"><a class="markdownIt-Anchor" href="#线程的上下文切换"></a> 线程的上下文切换</h6>
+<p>线程是调度的基本单位，而进程则是资源拥有的基本单位。 当进程只有一个线程时，可以认为进程就等于线程。 当进程拥有多个线程时，这些线程会共享相同的虚拟内存和全局变量等资源。这些资源在上下文切换时是不需要修改的。线程也有自己的私有数据，比如栈和寄存器等，这些在上下文切换时也是需要保存的。</p>
+<p>线程上下文切换有两种情况：</p>
+<ol>
+<li>前后两个线程属于不同进程，因为资源不共享，所以切换过程就跟进程上下文切换是一样的；</li>
+<li>前后两个线程属于同一个进程，因为虚拟内存是共享的，所以在切换时，虚拟内存这些资源就保持不动，只需要切换线程的私有数据、寄存器等不共享的数据。</li>
+</ol>
+<h6 id="中断上下文切换"><a class="markdownIt-Anchor" href="#中断上下文切换"></a> 中断上下文切换</h6>
+<p>中断处理会打断进程的正常调度和执行。在打断其他进程时，需要将进程当前的状态保存下来，中断结束后，进程仍然可以从原来的状态恢复运行。</p>
+<p>中断上下文切换并不涉及到进程的用户态。所以，即便中断过程打断了一个正处在用户态的进程，也不需要保存和恢复这个进程的虚拟内存、全局变量等用户态资源。中断上下文，其实只包括内核态中断服务程序执行所必须的状态，包括 CPU 寄存器、内核堆栈、硬件中断参数等。</p>
+<p><strong>在有线程的前提下，提出来协程，它到底解决了什么问题呢？</strong></p>
+<p>我们知道线程的出现是为了减小进程的切换开销，提高多核的利用率。当程序运行到某个IO发送阻塞的时候，可以切换到其他线程去执行，这样不会浪费CPU时间。而线程的切换完全是通过操作系统去完成的，切换的时候一般会通过系统从用户态切换到内核态。这段话的重点是，线程是内核态的。</p>
+<p>我们常见的代码逻辑都是被封装在一个个函数块里面。每次传递一个参数，这个函数就会从头到尾执行一遍，有对应的输出。如果在执行的过程中，发生了线程的抢占切换，那么当前线程就会保存函数当前的上下文信息（放到寄存器里面），去执行其他线程的逻辑。当这个线程重新执行时会根据之前保存的上下文信息继续执行。这段话的重点是，线程的切换需要保存函数的上下文信息。</p>
+<p>而且现代操作系统一般都是抢占式的，所以多个线程在执行的时候在什么时候切换我们是无法控制的。所以，多线程编程时为了保证数据的准确性与安全性，我们经常需要加锁。这段话的重点是，线程的执行顺序我们无法控制，什么时候切换我们也几乎无法控制。</p>
+<p>由于线程在运行时经常会由于IO阻塞（或者时钟阻塞）而放弃CPU，会导致我们的逻辑不能流畅的执行下去。所以，我们一般采用异步+回调的方式去执行代码。当线程与到阻塞时直接返回，继续执行下面的逻辑。同时注册一个回调函数，当内核数据准备好了之后再通知我们。这种写代码的方式其实不够直观，因为我们一般都习惯顺序执行的逻辑，一段代码能从头跑到尾那是再理想不过了。这段话的重点是，涉及到IO阻塞的多线程编程时，我们一般用异步+回调的方式来解决问题。</p>
+<p>协程是用户态的，他是包含在线程里面的，简答来说你可以认为一个线程可以按照你的规则把自己的时间片分给多个协程去执行。</p>
+<p>因为一个线程里面可能有多个协程，所以协程的执行需要切换，切换就需要保存当前的上下文信息（一组寄存器和调用堆栈，保存在自身的用户空间内），这样才能在再次执行的时候继续前面的工作。相比线程，协程要保存的东西都很少。</p>
+<p>相比线程，协程的切换时机是可以控制的。我们可以告诉协程，代码执行到哪句的时候切换到哪个协程，这样就可以避免线程执行不确定性带来的安全问题，避免了各种锁机制带来的相关问题。</p>
+<p>协程的代码看起来是同步的，不需要回调。比如说有两个协程，A协程执行到第3句就一定会切换到B协程的第4句，假如A与B里面都有循环，那展开来看其实就是A与B函数不断的顺序执行。这种感觉有点像并发，同样在一个线程上的A与B不断的切换去执行逻辑。</p>
+<p>协程不过是一种用户级别的实现手段，他并不像线程那样有明确的概念与实体，更像是一个语言技巧。他的切换开销很小。</p>
+<p>协程拥有自己的寄存器上下文和栈。协程调度切换时，将寄存器上下文和栈保存到其他地方，在切回来的时候，恢复先前保存的寄存器上下文和栈。因此：协程能保留上一次调用时的状态（即所有局部状态的一个特定组合），每次过程重入时，就相当于进入上一次调用的状态，换种说法：进入上一次离开时所处逻辑流的位置。在并发编程中，协程与线程类似，每个协程表示一个执行单元，有自己的本地数据，与其它协程共享全局数据和其它资源。目前主流语言基本上都选择了多线程作为并发设施，与线程相关的概念是<strong>抢占式多任务</strong>（Preemptive  multitasking），而与协程相关的是<strong>协作式多任务</strong>。</p>
+<p>不管是进程还是线程，每次阻塞、切换都需要陷入系统调用(system  call)，先让CPU跑操作系统的调度程序，然后再由调度程序决定该跑哪一个进程(线程)。而且由于抢占式调度执行顺序无法确定的特点，使用线程时需要非常小心地处理同步问题，而协程完全不存在这个问题（事件驱动和异步程序也有同样的优点）。</p>
+<p>协作式的任务，是要用户自己来负责任务的让出的。如果一个任务不主动让出，其他任务就不会得到调度。这是协程的一个弱点，但是好好的规划，这其实是一个可以变得很强大的优点。</p>
+<p><strong>总结一下上面的重点：</strong></p>
+<p>1.多线程处理，叫做抢占式多任务处理；多协程处理，叫做协作式多任务处理。</p>
+<p>2.历史上是先有协程，但是因为它是非抢占式的，导致多任务时间片不能公平分享，所以后来全部废弃了协程改成抢占式的线程。</p>
+<p>3.协程是用户态的，是包含在一个线程里面的多个执行单元。意味他是单线程处理的过程。（比如你的main函数比协程修饰的函数先停止，那么协程是没有执行完的）协程都没有参与多核CPU的并行处理。而线程是在多核 CPU上是受操作系统调度并行执行的。</p>
+<p>4.由于协程可以在用户空间内切换上下文，不再需要陷入内核来做线程切换，避免了大量的用户空间和内核空间之间的数据拷贝，降低了CPU的消耗，从而避免了追求高并发时CPU早早到达瓶颈的窘境 。</p>
+<p>5.协程本质还是单线程下处理多任务，单线程的瓶颈也是协程的瓶颈。我觉得协程最大的意义就是可以用同步方式编写异步代码 。</p>
+<h4 id="4-go并发"><a class="markdownIt-Anchor" href="#4-go并发"></a> 4. Go并发</h4>
+<p>goroutine是Go并行设计的核心。 一般会使用goroutine来处理并发任务 。goroutine是go语言中最为NB的设计，也是其魅力所在，goroutine的本质是协程，是实现并行计算的核心。它是处于异步方式运行，你不需要等它运行完成以后在执行以后的代码。</p>
+<p>Goroutine是建立在线程之上的轻量级的抽象。它允许我们以非常低的代价在同一个地址空间中并行地执行多个函数或者方法。相比于线程，它的创建和销毁的代价要小很多，并且它的调度是独立于线程的。在Go中创建一个goroutine非常简单，使用“go”关键字即可：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">go</span> hello(str)</span><br></pre></td></tr></table></figure>
+<p>先来看一个简单的例子：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"time"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Print</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">1</span>; i &lt;= <span class="number">5</span>; i++ &#123;</span><br><span class="line">		time.Sleep(<span class="number">100</span> * time.Millisecond)</span><br><span class="line">		<span class="built_in">println</span>(i)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">HelloWorld</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="built_in">println</span>(<span class="string">"Hello world"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">go</span> Print()    <span class="comment">// 开启第一个goroutine</span></span><br><span class="line">	<span class="keyword">go</span> HelloWorld()    <span class="comment">// 开启第二个goroutine</span></span><br><span class="line">	time.Sleep(<span class="number">2</span>*time.Second)</span><br><span class="line">	<span class="built_in">println</span>(<span class="string">"end"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">打印：</span><br><span class="line">Hello world</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">5</span></span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<h5 id="41-go中的countdownlatch"><a class="markdownIt-Anchor" href="#41-go中的countdownlatch"></a> 4.1 Go中的CountDownLatch</h5>
+<p>CountDownLatch是Java中的一个同步辅助类，在完成一组正在其他线程中执行的操作之前，它允许一个或多个线程一直等待。</p>
+<p>在Go中可以使用sync包中的WaitGroup来实现一样的功能，WaitGroup 等待一组goroutinue执行完毕，主程序调用 Add 添加等待的goroutinue数量，每个goroutinue在执行结束时调用 Done ，此时等待队列数量减1，主程序通过Wait阻塞，直到等待队列为0。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"sync"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">cal</span><span class="params">(a <span class="keyword">int</span> , b <span class="keyword">int</span> ,n *sync.WaitGroup)</span></span>  &#123;</span><br><span class="line">	c := a+b</span><br><span class="line">	fmt.Printf(<span class="string">"%d + %d = %d\n"</span>,a,b,c)</span><br><span class="line">	<span class="keyword">defer</span> n.Done() <span class="comment">//goroutinue完成后, WaitGroup的计数-1</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> go_sync sync.WaitGroup <span class="comment">//声明一个WaitGroup变量</span></span><br><span class="line">	<span class="keyword">for</span> i :=<span class="number">0</span> ; i&lt;<span class="number">10</span> ;i++&#123;</span><br><span class="line">		go_sync.Add(<span class="number">1</span>) <span class="comment">// WaitGroup的计数加1</span></span><br><span class="line">		<span class="keyword">go</span> cal(i,i+<span class="number">1</span>,&amp;go_sync)</span><br><span class="line">	&#125;</span><br><span class="line">	go_sync.Wait()  <span class="comment">//等待所有goroutine执行完毕</span></span><br><span class="line">	<span class="built_in">println</span>(<span class="string">"主程序执行完毕"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">结果：</span><br><span class="line"><span class="number">0</span> + <span class="number">1</span> = <span class="number">1</span></span><br><span class="line"><span class="number">1</span> + <span class="number">2</span> = <span class="number">3</span></span><br><span class="line"><span class="number">9</span> + <span class="number">10</span> = <span class="number">19</span></span><br><span class="line"><span class="number">3</span> + <span class="number">4</span> = <span class="number">7</span></span><br><span class="line"><span class="number">4</span> + <span class="number">5</span> = <span class="number">9</span></span><br><span class="line"><span class="number">2</span> + <span class="number">3</span> = <span class="number">5</span></span><br><span class="line"><span class="number">5</span> + <span class="number">6</span> = <span class="number">11</span></span><br><span class="line"><span class="number">6</span> + <span class="number">7</span> = <span class="number">13</span></span><br><span class="line"><span class="number">7</span> + <span class="number">8</span> = <span class="number">15</span></span><br><span class="line"><span class="number">8</span> + <span class="number">9</span> = <span class="number">17</span></span><br><span class="line">主程序执行完毕</span><br></pre></td></tr></table></figure>
+<h5 id="42-goroutine之间的通讯channel"><a class="markdownIt-Anchor" href="#42-goroutine之间的通讯channel"></a> 4.2 goroutine之间的通讯–channel</h5>
+<p>channel用于数据传递或数据共享，其本质是一个先进先出的队列，使用goroutine+channel进行数据通讯简单高效，同时也线程安全，多个goroutine可同时修改一个channel，不需要加锁。</p>
+<p>channel可分为三种类型：</p>
+<ul>
+<li>只读channel：只能读channel里面数据，不可写入</li>
+<li>只写channel：只能写数据，不可读</li>
+<li>一般channel：可读可写</li>
+</ul>
+<p>注意，必须使用make 创建channel：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">c1 := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>)</span><br><span class="line">c2 := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">string</span>)</span><br></pre></td></tr></table></figure>
+<p>channel通过操作符<code>&lt;-</code>来接收和发送数据 :</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">c1 &lt;- str <span class="comment">//发送数据str到c1</span></span><br><span class="line">newStr := &lt;- c1 <span class="comment">//从str中接受数据并赋值给newStr</span></span><br></pre></td></tr></table></figure>
+<p>默认的，信道的存消息和取消息都是阻塞的 , 叫做无缓冲的信道。也就是说, 无缓冲的信道在取消息和存消息的时候都会挂起当前的goroutine，除非另一端已经准备好。</p>
+<p>那么有缓存的channel是指在声明的时候指定该channel缓存的容量：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ch := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>, <span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+<p>有缓存的 channel 类似一个阻塞队列(采用环形数组实现)。当缓存未满时，向 channel 中发送消息时不会阻塞，当缓存满时，发送操作将被阻塞，直到有其他 goroutine 从中读取消息；相应的，当 channel 中消息不为空时，读取消息不会出现阻塞，当 channel 为空时，读取操作会造成阻塞，直到有 goroutine 向 channel 中写入消息。</p>
+ <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">ch := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>, <span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 读消息阻塞，因为channel为空</span></span><br><span class="line">&lt;- ch</span><br><span class="line"></span><br><span class="line">ch := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>, <span class="number">3</span>)</span><br><span class="line">ch &lt;- <span class="number">1</span></span><br><span class="line">ch &lt;- <span class="number">2</span></span><br><span class="line">ch &lt;- <span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 存入消息阻塞，channel已满，未被读取</span></span><br><span class="line">ch &lt;- <span class="number">4</span></span><br></pre></td></tr></table></figure>
+<p>channel的使用：</p>
+<p>1.使用channel阻塞主线程，直到子goroutine完成才继续往下走。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">c := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>)</span><br><span class="line"><span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//do something</span></span><br><span class="line">    c &lt;- <span class="number">1</span></span><br><span class="line">&#125;()</span><br><span class="line">doAnnotherThing()</span><br><span class="line">&lt;- c</span><br></pre></td></tr></table></figure>
+<p>2.消息传递</p>
+   <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">	intChan := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		intChan &lt;- <span class="number">1</span></span><br><span class="line">	&#125;()</span><br><span class="line"></span><br><span class="line">	value := &lt;- intChan</span><br><span class="line">	fmt.Println(<span class="string">"value : "</span>, value)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>匿名函数中的操作产生一个值，将该值传递到主函数中去。</p>
+<p>3.合并多个channel的输出</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line">   </span><br><span class="line">   <span class="keyword">import</span> (</span><br><span class="line">   	<span class="string">"fmt"</span></span><br><span class="line">   	<span class="string">"time"</span></span><br><span class="line">   )</span><br><span class="line">   </span><br><span class="line">   </span><br><span class="line">   <span class="function"><span class="keyword">func</span> <span class="title">testMergeInput</span><span class="params">()</span></span> &#123;</span><br><span class="line">   	input1 := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>)</span><br><span class="line">   	input2 := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>)</span><br><span class="line">   	output := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>)</span><br><span class="line">   </span><br><span class="line">   	<span class="comment">//将 channel 1 和 2 中的数据输出到output中</span></span><br><span class="line">   	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">(in1, in2 &lt;-<span class="keyword">chan</span> <span class="keyword">int</span>, out <span class="keyword">chan</span>&lt;- <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">   		<span class="keyword">for</span> &#123;</span><br><span class="line">   			<span class="keyword">select</span> &#123;</span><br><span class="line">   			<span class="keyword">case</span> v := &lt;-in1:</span><br><span class="line">   				out &lt;- v</span><br><span class="line">   			<span class="keyword">case</span> v := &lt;-in2:</span><br><span class="line">   				out &lt;- v</span><br><span class="line">   			&#125;</span><br><span class="line">   		&#125;</span><br><span class="line">   	&#125;(input1, input2, output)</span><br><span class="line">   </span><br><span class="line">   	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">   		<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">10</span>; i++ &#123;</span><br><span class="line">   			input1 &lt;- i</span><br><span class="line">   			time.Sleep(time.Millisecond * <span class="number">100</span>)</span><br><span class="line">   		&#125;</span><br><span class="line">   	&#125;()</span><br><span class="line">   </span><br><span class="line">   	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">   		<span class="keyword">for</span> i := <span class="number">20</span>; i &lt; <span class="number">30</span>; i++ &#123;</span><br><span class="line">   			input2 &lt;- i</span><br><span class="line">   			time.Sleep(time.Millisecond * <span class="number">100</span>)</span><br><span class="line">   		&#125;</span><br><span class="line">   	&#125;()</span><br><span class="line">   </span><br><span class="line">   	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">   		<span class="keyword">for</span> &#123;</span><br><span class="line">   			<span class="keyword">select</span> &#123;</span><br><span class="line">   			<span class="keyword">case</span> value := &lt;-output:</span><br><span class="line">   				fmt.Println(<span class="string">"输出："</span>, value)</span><br><span class="line">   			&#125;</span><br><span class="line">   		&#125;</span><br><span class="line">   	&#125;()</span><br><span class="line">   </span><br><span class="line">   	time.Sleep(time.Second * <span class="number">5</span>)</span><br><span class="line">   	fmt.Println(<span class="string">"主线程退出"</span>)</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   </span><br><span class="line">   </span><br><span class="line">   <span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">   	testMergeInput()</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>4.模拟生产者和消费者模式</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"math/rand"</span></span><br><span class="line">	<span class="string">"time"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span>(</span><br><span class="line">	<span class="comment">//同步控制模型，生产者模型</span></span><br><span class="line">	lockChan = <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>, <span class="number">1</span>)</span><br><span class="line">	remainMoney = <span class="number">1000</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">testSynchronize</span><span class="params">()</span></span>  &#123;</span><br><span class="line">	quit := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">bool</span>, <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		<span class="keyword">for</span> i:=<span class="number">0</span>; i&lt;<span class="number">10</span>;i++&#123;</span><br><span class="line">			money := (rand.Intn(<span class="number">12</span>) + <span class="number">1</span>) * <span class="number">100</span></span><br><span class="line">			<span class="keyword">go</span> testSynchronize_expense(money)</span><br><span class="line">			time.Sleep(time.Millisecond * time.Duration(rand.Intn(<span class="number">500</span>)))</span><br><span class="line">		&#125;</span><br><span class="line">		quit &lt;- <span class="literal">true</span></span><br><span class="line">	&#125;()</span><br><span class="line"></span><br><span class="line">	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		<span class="keyword">for</span> i:=<span class="number">0</span>; i&lt;<span class="number">10</span>; i++&#123;</span><br><span class="line">			money := (rand.Intn(<span class="number">12</span>) + <span class="number">1</span>) * <span class="number">100</span></span><br><span class="line">			<span class="keyword">go</span> testSynchronize_gain(money)</span><br><span class="line">			time.Sleep(time.Millisecond * time.Duration(rand.Intn(<span class="number">500</span>)))</span><br><span class="line">		&#125;</span><br><span class="line">		quit &lt;- <span class="literal">true</span></span><br><span class="line">	&#125;()</span><br><span class="line">	&lt;- quit</span><br><span class="line">	&lt;- quit</span><br><span class="line">	fmt.Println(<span class="string">"主程序退出"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">testSynchronize_expense</span><span class="params">(money <span class="keyword">int</span>)</span></span>  &#123;</span><br><span class="line">	lockChan &lt;- <span class="number">0</span></span><br><span class="line">	<span class="keyword">if</span>(remainMoney &gt;= money)&#123;</span><br><span class="line">		srcRemainMoney := remainMoney</span><br><span class="line">		remainMoney -= money</span><br><span class="line">		fmt.Printf(<span class="string">"原来有%d, 花了%d，剩余%d\n"</span>, srcRemainMoney, money, remainMoney)</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		fmt.Printf(<span class="string">"想消费%d钱不够了, 只剩%d\n"</span>, money, remainMoney)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&lt;- lockChan</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">testSynchronize_gain</span><span class="params">(money <span class="keyword">int</span>)</span></span>  &#123;</span><br><span class="line">	lockChan &lt;- <span class="number">0</span></span><br><span class="line">	srcRemainMoney := remainMoney</span><br><span class="line">	remainMoney += money</span><br><span class="line">	fmt.Printf(<span class="string">"原来有%d, 赚了%d，剩余%d\n"</span>, srcRemainMoney, money, remainMoney)</span><br><span class="line">	&lt;- lockChan</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	testSynchronize()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/posts/5eb88d0d.html">Go中的并发编程和goroutine(15)</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Rickiyang 的个人博客">Rickiyang</a></p>
+  <p><span>发布时间:</span>2019年05月18日 - 18:52</p>
+  <p><span>最后更新:</span>2019年05月18日 - 18:53</p>
+  <p><span>原始链接:</span><a href="/posts/5eb88d0d.html" title="Go中的并发编程和goroutine(15)">http://blog.rickiyang.cn/posts/5eb88d0d.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://blog.rickiyang.cn/posts/5eb88d0d.html" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
+</div>
+<script>
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({
+          title: "",
+          text: '复制成功',
+          icon: "success",
+          showConfirmButton: true
+          });
+    });
+    });
+</script>
+
+
+      
+    </div>
+    
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #636363;font-size:14px;letter-spacing: 10px">本文结束啦<i class="fa fa-bell"></i>感谢您的阅读</div>
+    
+</div>
+
+      
+    </div>
+
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Go基础学习/" rel="tag"># Go基础学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/774afcc7.html" rel="next" title="Go中的配置文件读取的几种方式(14)">
+                <i class="fa fa-chevron-left"></i> Go中的配置文件读取的几种方式(14)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/adele.png" alt="Rickiyang">
+            
+              <p class="site-author-name" itemprop="name">Rickiyang</p>
+              <p class="site-description motion-element" itemprop="description">分享对coding生活的见解</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">120</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3JpY2tpeWFuZw==" title="GitHub &rarr; https://github.com/rickiyang"><i class="fa fa-fw fa-github"></i>GitHub</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="bWFpbHRvOm1lZGVlMTMyMEBnbWFpbC5jb20=" title="E-Mail &rarr; mailto:medee1320@gmail.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2E5NTM3MTM0Mjg=" title="CSDN &rarr; https://blog.csdn.net/a953713428"><i class="fa fa-fw fa-google"></i>CSDN</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="/953713428" title="QQ &rarr; 953713428"><i class="fa fa-fw fa-twitter"></i>QQ</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-并行和并发"><span class="nav-number">1.</span> <span class="nav-text"> 1. 并行和并发</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-进程和线程"><span class="nav-number">2.</span> <span class="nav-text"> 2. 进程和线程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3协程"><span class="nav-number">3.</span> <span class="nav-text"> 3.协程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#cpu切换"><span class="nav-number">3.1.</span> <span class="nav-text"> CPU切换</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#进程的上下文切换"><span class="nav-number">3.1.1.</span> <span class="nav-text"> 进程的上下文切换</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#线程的上下文切换"><span class="nav-number">3.1.2.</span> <span class="nav-text"> 线程的上下文切换</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#中断上下文切换"><span class="nav-number">3.1.3.</span> <span class="nav-text"> 中断上下文切换</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-go并发"><span class="nav-number">4.</span> <span class="nav-text"> 4. Go并发</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#41-go中的countdownlatch"><span class="nav-number">4.1.</span> <span class="nav-text"> 4.1 Go中的CountDownLatch</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#42-goroutine之间的通讯channel"><span class="nav-number">4.2.</span> <span class="nav-text"> 4.2 goroutine之间的通讯–channel</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Rickiyang</span>
+
+  
+
+  
+</div>
+
+<!--<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>-->
+
+
+
+
+
+<!--
+  <div class="theme-info">主题 – <span class="exturl theme-link" data-url="aHR0cHM6Ly90aGVtZS1uZXh0Lm9yZw==">NexT.Gemini</span> v6.7.0</div>
+-->
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共286.6k字</span>
+</div>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https'){
+   bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else{
+  bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      网站总访客数 <span class="busuanzi-value" id="busuanzi_value_site_uv"></span> 人次. |
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      &nbsp;<i class="fa fa-eye"></i>
+      总访问量 <span class="busuanzi-value" id="busuanzi_value_site_pv"></span> 次.
+    </span>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </div></footer>
+
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  <script id="ribbon" size="300" alpha="0.6" zindex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/three/three.min.js"></script>
+
+  
+  <script src="/lib/three/canvas_sphere.min.js"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script>
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+      el: '#comments' ,
+      verify: false,
+      notify: false,
+      appId: 'X5fy0b9Gknu0SAse5areilGR-gzGzoHsz',
+      appKey: 'URk4cyPQ8Ttqtwhop5t26kok',
+      placeholder: 'Just go go',
+      avatar: 'mm',
+      meta:guest,
+      pageSize: '10' || 10,
+      visitor: false
+    });
+  </script>
+
+
+
+
+  
+
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function ({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', `/classes/Counter/${counter.objectId}`, JSON.stringify({ time: { "__op":"Increment", "amount":1 } }))
+            
+            .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.time + 1);
+            })
+            
+            .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+            })
+          } else {
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1}))
+                .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function () {
+                  console.log('Failed to create');
+                });
+            
+          }
+        })
+      .fail(function ({ responseJSON }) {
+        console.log('LeanCloud Counter Error:' + responseJSON.code + " " + responseJSON.error);
+      });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + "X5fy0b9Gknu0SAse5areilGR-gzGzoHsz")
+        .done(function ({ api_server }) {
+          var Counter = function (method, url, data) {
+            return $.ajax({
+              method: method,
+              url: `https://${api_server}/1.1${url}`,
+              headers: {
+                'X-LC-Id': "X5fy0b9Gknu0SAse5areilGR-gzGzoHsz",
+                'X-LC-Key': "URk4cyPQ8Ttqtwhop5t26kok",
+                'Content-Type': 'application/json',
+              },
+              data: data,
+            });
+          };
+          
+          addCount(Counter);
+          
+        })
+    });
+  </script>
+
+
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+      }
+      else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+  <script>
+    
+    
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+  <script src="/js/src/exturl.js?v=6.7.0"></script>
+
+
+  
+
+  
+
+  
+
+
+  <!-- 页面点击小红心 -->
+    <script type="text/javascript" src="/js/src/love.js"></script>
+    <!---->
+</body>
+</html>
