@@ -1,0 +1,1696 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-center-circle.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
+  
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/adele.ico?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/adele.ico?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/adele.ico?v=6.7.0">
+
+
+  <link rel="mask-icon" href="/images/adele.ico?v=6.7.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="之前咱们学习过原生的Go连接MYSQL的方法，使用Go自带的&amp;quot;database/sql&amp;quot;数据库连接api，&amp;quot;github.com/go-sql-driver/mysql&amp;quot;MYSQL驱动，通过比较原生的写法去写sql和处理事务。目前开源界也有很多封装好的orm操作框架，帮我们简省一些重复的操作，提高代码可读性。gorm就是这样的一款作品，我们来学习一下gorm">
+<meta name="keywords" content="Go基础学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Go orm框架gorm学习(17)">
+<meta property="og:url" content="http://blog.rickiyang.cn/posts/9784e2f1.html">
+<meta property="og:site_name" content="Rickiyang&#39;s blog">
+<meta property="og:description" content="之前咱们学习过原生的Go连接MYSQL的方法，使用Go自带的&amp;quot;database/sql&amp;quot;数据库连接api，&amp;quot;github.com/go-sql-driver/mysql&amp;quot;MYSQL驱动，通过比较原生的写法去写sql和处理事务。目前开源界也有很多封装好的orm操作框架，帮我们简省一些重复的操作，提高代码可读性。gorm就是这样的一款作品，我们来学习一下gorm">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-06-05T14:26:55.586Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Go orm框架gorm学习(17)">
+<meta name="twitter:description" content="之前咱们学习过原生的Go连接MYSQL的方法，使用Go自带的&amp;quot;database/sql&amp;quot;数据库连接api，&amp;quot;github.com/go-sql-driver/mysql&amp;quot;MYSQL驱动，通过比较原生的写法去写sql和处理事务。目前开源界也有很多封装好的orm操作框架，帮我们简省一些重复的操作，提高代码可读性。gorm就是这样的一款作品，我们来学习一下gorm">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Rickiyang's blog" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://blog.rickiyang.cn/posts/9784e2f1.html">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Go orm框架gorm学习(17) | Rickiyang's blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Rickiyang's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">java,大数据,分布式组件</h1>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-首页">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/9784e2f1.html">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Rickiyang">
+      <meta itemprop="description" content="分享对coding生活的见解">
+      <meta itemprop="image" content="/images/adele.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rickiyang's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Go orm框架gorm学习(17)
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-06-05 22:16:23 / 修改时间：22:26:55" itemprop="dateCreated datePublished" datetime="2019-06-05T22:16:23+08:00">2019-06-05</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/posts/9784e2f1.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/posts/9784e2f1.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/posts/9784e2f1.html" class="leancloud_visitors" data-flag-title="Go orm框架gorm学习(17)">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>℃</span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">8.8k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">8 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>之前咱们学习过原生的Go连接MYSQL的方法，使用Go自带的<code>&quot;database/sql&quot;</code>数据库连接api，<code>&quot;github.com/go-sql-driver/mysql&quot;</code>MYSQL驱动，通过比较原生的写法去写sql和处理事务。目前开源界也有很多封装好的orm操作框架，帮我们简省一些重复的操作，提高代码可读性。<code>gorm</code>就是这样的一款作品，我们来学习一下gorm的操作流程。</p>
+<h4 id="安装"><a class="markdownIt-Anchor" href="#安装"></a> 安装</h4>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go get -u github.com/jinzhu/gorm</span><br></pre></td></tr></table></figure>
+<h4 id="数据库连接"><a class="markdownIt-Anchor" href="#数据库连接"></a> 数据库连接</h4>
+<p>要连接到数据库首先要导入驱动程序。例如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import _ &quot;github.com/go-sql-driver/mysql&quot;</span><br></pre></td></tr></table></figure>
+<p>为了方便记住导入路径，GORM包装了一些驱动。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import _ &quot;github.com/jinzhu/gorm/dialects/mysql&quot;</span><br><span class="line">// import _ &quot;github.com/jinzhu/gorm/dialects/postgres&quot;</span><br><span class="line">// import _ &quot;github.com/jinzhu/gorm/dialects/sqlite&quot;</span><br><span class="line">// import _ &quot;github.com/jinzhu/gorm/dialects/mssql&quot;</span><br></pre></td></tr></table></figure>
+<p>所以包名可以改为如上：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"github.com/jinzhu/gorm"</span></span><br><span class="line">    _ <span class="string">"github.com/jinzhu/gorm/dialects/mysql"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    db, err := gorm.Open(<span class="string">"mysql"</span>, <span class="string">"user:password@tcp(IP:port)/dbname?charset=utf8&amp;parseTime=True&amp;loc=Local"</span>)</span><br><span class="line">  	db.DB().SetMaxIdleConns(<span class="number">10</span>)</span><br><span class="line">		db.DB().SetMaxOpenConns(<span class="number">100</span>)</span><br><span class="line">  <span class="keyword">defer</span> db.Close()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>注：为了处理<code>time.Time</code>，你需要包括<code>parseTime</code>作为参数。</strong></p>
+<h4 id="数据模型定义"><a class="markdownIt-Anchor" href="#数据模型定义"></a> 数据模型定义</h4>
+<h5 id="表名列名如何对应结构体"><a class="markdownIt-Anchor" href="#表名列名如何对应结构体"></a> 表名，列名如何对应结构体</h5>
+<p>在Gorm中，表名是结构体名的复数形式，列名是字段名的蛇形小写。</p>
+<p><strong>即，如果有一个user表，那么如果你定义的结构体名为：User，gorm会默认表名为users而不是user。</strong></p>
+<p>例如有如下表结构定义：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`areas`</span> (</span><br><span class="line">  <span class="string">`id`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT <span class="keyword">COMMENT</span> <span class="string">'主键id'</span>,</span><br><span class="line">  <span class="string">`area_id`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'区县id'</span>,</span><br><span class="line">  <span class="string">`area_name`</span> <span class="built_in">varchar</span>(<span class="number">45</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'区县名'</span>,</span><br><span class="line">  <span class="string">`city_id`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'城市id'</span>,</span><br><span class="line">  <span class="string">`city_name`</span> <span class="built_in">varchar</span>(<span class="number">45</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'城市名称'</span>,</span><br><span class="line">  <span class="string">`province_id`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'省份id'</span>,</span><br><span class="line">  <span class="string">`province_name`</span> <span class="built_in">varchar</span>(<span class="number">45</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'省份名称'</span>,</span><br><span class="line">  <span class="string">`area_status`</span> tinyint(<span class="number">3</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="string">'1'</span> <span class="keyword">COMMENT</span> <span class="string">'该条区域信息是否可用 ： 1:可用  2：不可用'</span>,</span><br><span class="line">  <span class="string">`created_at`</span> <span class="built_in">timestamp</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">CURRENT_TIMESTAMP</span> <span class="keyword">COMMENT</span> <span class="string">'创建时间'</span>,</span><br><span class="line">  <span class="string">`updated_at`</span> <span class="built_in">timestamp</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">CURRENT_TIMESTAMP</span> <span class="keyword">ON</span> <span class="keyword">UPDATE</span> <span class="keyword">CURRENT_TIMESTAMP</span> <span class="keyword">COMMENT</span> <span class="string">'更新时间'</span>,</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>)</span><br><span class="line">) <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span> AUTO_INCREMENT=<span class="number">1</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=utf8mb4 <span class="keyword">COMMENT</span>=<span class="string">'区域表'</span></span><br></pre></td></tr></table></figure>
+<p>那么对应的结构体定义如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Area <span class="keyword">struct</span> &#123;</span><br><span class="line">	Id <span class="keyword">int</span></span><br><span class="line">	AreaId <span class="keyword">int</span></span><br><span class="line">	AreaName <span class="keyword">string</span></span><br><span class="line">	CityId <span class="keyword">int</span></span><br><span class="line">	CityName <span class="keyword">string</span></span><br><span class="line">	ProvinceId <span class="keyword">int</span></span><br><span class="line">	ProvinceName <span class="keyword">string</span></span><br><span class="line">	AreaStatus <span class="keyword">int</span></span><br><span class="line">	CreatedAt time.Time</span><br><span class="line">	UpdatedAt time.Time</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如何全局禁用表名复数呢？</p>
+<p>可以在创建数据库连接的时候设置如下参数：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 全局禁用表名复数</span></span><br><span class="line">db.SingularTable(<span class="literal">true</span>) <span class="comment">// 如果设置为true,`User`的默认表名为`user`,使用`TableName`设置的表名不受影响</span></span><br></pre></td></tr></table></figure>
+<p>这样的话，表名默认即为结构体的首字母小写形式。</p>
+<h4 id="crud-使用"><a class="markdownIt-Anchor" href="#crud-使用"></a> CRUD 使用</h4>
+<p>下面我们使用一张User表来就CRUD做一些操作示例：</p>
+<p>表结构如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`user`</span> (</span><br><span class="line">  <span class="string">`id`</span> <span class="built_in">bigint</span>(<span class="number">20</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT,</span><br><span class="line">  <span class="string">`name`</span> <span class="built_in">varchar</span>(<span class="number">30</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="string">''</span>,</span><br><span class="line">  <span class="string">`age`</span> <span class="built_in">int</span>(<span class="number">3</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="string">'0'</span>,</span><br><span class="line">  <span class="string">`sex`</span> tinyint(<span class="number">3</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="string">'0'</span>,</span><br><span class="line">  <span class="string">`phone`</span> <span class="built_in">varchar</span>(<span class="number">40</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="string">''</span>,</span><br><span class="line">  <span class="string">`create_at`</span> <span class="built_in">timestamp</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">CURRENT_TIMESTAMP</span> <span class="keyword">ON</span> <span class="keyword">UPDATE</span> <span class="keyword">CURRENT_TIMESTAMP</span>,</span><br><span class="line">  <span class="string">`updated_at`</span> <span class="built_in">timestamp</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">CURRENT_TIMESTAMP</span>,</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>)</span><br><span class="line">) <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span> AUTO_INCREMENT=<span class="number">8</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=utf8mb4</span><br></pre></td></tr></table></figure>
+<p>首先初始化数据库连接：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"github.com/jinzhu/gorm"</span></span><br><span class="line">	_ <span class="string">"github.com/jinzhu/gorm/dialects/mysql"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> db *gorm.DB</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> User <span class="keyword">struct</span> &#123;</span><br><span class="line">	Id <span class="keyword">int</span></span><br><span class="line">	Name <span class="keyword">string</span></span><br><span class="line">	Age <span class="keyword">int</span></span><br><span class="line">	Sex <span class="keyword">byte</span></span><br><span class="line">	Phone <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> err error</span><br><span class="line">	db, err = gorm.Open(<span class="string">"mysql"</span>, <span class="string">"root:123456@tcp(127.0.0.1:3306)/test?charset=utf8&amp;parseTime=True&amp;loc=Local"</span>)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="built_in">panic</span>(err)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//设置全局表名禁用复数</span></span><br><span class="line">	db.SingularTable(<span class="literal">true</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下面所有的操作都是在上面的初始化连接上执行的操作。</p>
+<h5 id="插入"><a class="markdownIt-Anchor" href="#插入"></a> 插入</h5>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//插入数据</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(user *User)</span> <span class="title">Insert</span><span class="params">()</span></span>  &#123;</span><br><span class="line">	<span class="comment">//这里使用了Table()函数，如果你没有指定全局表名禁用复数，或者是表名跟结构体名不一样的时候</span></span><br><span class="line">	<span class="comment">//你可以自己在sql中指定表名。这里是示例，本例中这个函数可以去除。</span></span><br><span class="line">	db.Table(<span class="string">"user"</span>).Create(user)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="更新"><a class="markdownIt-Anchor" href="#更新"></a> 更新</h5>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//注意，Model方法必须要和Update方法一起使用</span></span><br><span class="line"><span class="comment">//使用效果相当于Model中设置更新的主键key（如果没有where指定，那么默认更新的key为id），Update中设置更新的值</span></span><br><span class="line"><span class="comment">//如果Model中没有指定id值，且也没有指定where条件，那么将更新全表</span></span><br><span class="line"><span class="comment">//相当于：update user set name='xiaoming' where id=1;</span></span><br><span class="line">user := User&#123;Id: <span class="number">1</span>,Name:<span class="string">"xiaoming"</span>&#125;</span><br><span class="line">db.Model(&amp;user).Update(user)</span><br><span class="line"></span><br><span class="line"><span class="comment">//注意到上面Update中使用了一个Struct，你也可以使用map对象。</span></span><br><span class="line"><span class="comment">//需要注意的是：使用Struct的时候，只会更新Struct中这些非空的字段。</span></span><br><span class="line"><span class="comment">//对于string类型字段的""，int类型字段0，bool类型字段的false都被认为是空白值，不会去更新表</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//下面这个更新操作只使用了where条件没有在Model中指定id</span></span><br><span class="line"><span class="comment">//update user set name='xiaohong' wehre sex=1</span></span><br><span class="line">db.Model(&amp;User&#123;&#125;).Where(<span class="string">"sex = ?"</span>,<span class="number">1</span>).Update(<span class="string">"name"</span>,<span class="string">"xiaohong"</span>)</span><br></pre></td></tr></table></figure>
+<p>如果你想手动将某个字段set为空值, 可以使用单独选定某些字段的方式来更新：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">user := User&#123;Id: <span class="number">1</span>&#125;</span><br><span class="line">db.Model(&amp;user).Select(<span class="string">"name"</span>).Update(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">interface</span>&#123;&#125;&#123;<span class="string">"name"</span>:<span class="string">""</span>,<span class="string">"age"</span>:<span class="number">0</span>&#125;)</span><br></pre></td></tr></table></figure>
+<p>忽略掉某些字段：</p>
+<p>当你的更新的参数为结构体，而结构体中某些字段你又不想去更新，那么可以使用Omit方法过滤掉这些不想update到库的字段：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">user := User&#123;Id: <span class="number">1</span>,Name:<span class="string">"xioaming"</span>,Age:<span class="number">12</span>&#125;</span><br><span class="line">db.Model(&amp;user).Omit(<span class="string">"name"</span>).Update(&amp;user)</span><br></pre></td></tr></table></figure>
+<h5 id="删除"><a class="markdownIt-Anchor" href="#删除"></a> 删除</h5>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//delete from user where id=1;</span></span><br><span class="line">user := User&#123;Id: <span class="number">1</span>&#125;</span><br><span class="line">db.Delete(&amp;user)</span><br><span class="line"></span><br><span class="line"><span class="comment">//delete from user where id &gt; 11;</span></span><br><span class="line">db.Delete(&amp;User&#123;&#125;,<span class="string">"id &gt; ?"</span>,<span class="number">11</span>)</span><br></pre></td></tr></table></figure>
+<h5 id="事务"><a class="markdownIt-Anchor" href="#事务"></a> 事务</h5>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">CreateAnimals</span><span class="params">(db *gorm.DB)</span> <span class="title">err</span></span> &#123;</span><br><span class="line">  tx := db.Begin()</span><br><span class="line">  <span class="comment">// 注意，一旦你在一个事务中，使用tx作为数据库句柄</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> err := tx.Create(&amp;Animal&#123;Name: <span class="string">"Giraffe"</span>&#125;).Error; err != <span class="literal">nil</span> &#123;</span><br><span class="line">     tx.Rollback()</span><br><span class="line">     <span class="keyword">return</span> err</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> err := tx.Create(&amp;Animal&#123;Name: <span class="string">"Lion"</span>&#125;).Error; err != <span class="literal">nil</span> &#123;</span><br><span class="line">     tx.Rollback()</span><br><span class="line">     <span class="keyword">return</span> err</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  tx.Commit()</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="查询"><a class="markdownIt-Anchor" href="#查询"></a> 查询：</h5>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(user *User)</span> <span class="title">query</span><span class="params">()</span> <span class="params">(u []User)</span></span> &#123;</span><br><span class="line">	<span class="comment">//查询所有记录</span></span><br><span class="line">	db.Find(&amp;u)</span><br><span class="line"></span><br><span class="line">	<span class="comment">//Find方法可以带 where 参数</span></span><br><span class="line">	db.Find(&amp;u,<span class="string">"id &gt; ? and age &gt; ?"</span>,<span class="number">2</span>,<span class="number">12</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">//带where 子句的查询，注意where要在find前面</span></span><br><span class="line">	db.Where(<span class="string">"id &gt; ?"</span>, <span class="number">2</span>).Find(&amp;u)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// where name in ("xiaoming","xiaohong")</span></span><br><span class="line">	db.Where(<span class="string">"name in (?)"</span>,[]<span class="keyword">string</span>&#123;<span class="string">"xiaoming"</span>,<span class="string">"xiaohong"</span>&#125;).Find(&amp;u)</span><br><span class="line"></span><br><span class="line">	<span class="comment">//获取第一条记录，按照主键顺序排序</span></span><br><span class="line">	db.First(&amp;u)</span><br><span class="line"></span><br><span class="line">	<span class="comment">//First方法可以带where 条件</span></span><br><span class="line">	db.First(&amp;u,<span class="string">"where sex = ?"</span>,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">//获取最后一条记录，按照主键顺序排序</span></span><br><span class="line">	<span class="comment">//同样 last方法也可以带where条件</span></span><br><span class="line">	db.Last(&amp;u)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> u</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意：方法中带的<code>&amp;u</code>表示是返回值用u这个对象来接收。</p>
+<p>上面的查询都将返回表中所有的字段，如果你想指定查询某些字段该怎么做呢？</p>
+<h5 id="指定查询字段-select"><a class="markdownIt-Anchor" href="#指定查询字段-select"></a> 指定查询字段-Select</h5>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//指定查询字段</span></span><br><span class="line">db.Select(<span class="string">"name,age"</span>).Where(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">interface</span>&#123;&#125;&#123;<span class="string">"age"</span>:<span class="number">12</span>,<span class="string">"sex"</span>:<span class="number">1</span>&#125;).Find(&amp;u)</span><br></pre></td></tr></table></figure>
+<h5 id="使用struct和map作为查询条件"><a class="markdownIt-Anchor" href="#使用struct和map作为查询条件"></a> 使用Struct和map作为查询条件</h5>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用Struct，相当于：select * from user where age =12 and sex=1</span></span><br><span class="line">db.Where(&amp;User&#123;Age:<span class="number">12</span>,Sex:<span class="number">1</span>&#125;).Find(&amp;u)</span><br><span class="line"></span><br><span class="line"><span class="comment">//等同上一句</span></span><br><span class="line">db.Where(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">interface</span>&#123;&#125;&#123;<span class="string">"age"</span>:<span class="number">12</span>,<span class="string">"sex"</span>:<span class="number">1</span>&#125;).Find(&amp;u)</span><br></pre></td></tr></table></figure>
+<h5 id="not-条件的使用"><a class="markdownIt-Anchor" href="#not-条件的使用"></a> not 条件的使用</h5>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//where name not in ("xiaoming","xiaohong")</span></span><br><span class="line">db.Not(<span class="string">"name"</span>,<span class="string">"xiaoming"</span>,<span class="string">"xiaohong"</span>).Find(&amp;u)</span><br><span class="line"></span><br><span class="line"><span class="comment">//同上</span></span><br><span class="line">db.Not(<span class="string">"name"</span>,[]<span class="keyword">string</span>&#123;<span class="string">"xiaoming"</span>,<span class="string">"xiaohong"</span>&#125;).Find(&amp;u)</span><br></pre></td></tr></table></figure>
+<h5 id="or-的使用"><a class="markdownIt-Anchor" href="#or-的使用"></a> or 的使用</h5>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//where age &gt; 12 or sex = 1</span></span><br><span class="line">db.Where(<span class="string">"age &gt; ?"</span>,<span class="number">12</span>).Or(<span class="string">"sex = ?"</span>,<span class="number">1</span>).Find(&amp;u)</span><br></pre></td></tr></table></figure>
+<h5 id="order-by-的使用"><a class="markdownIt-Anchor" href="#order-by-的使用"></a> order by 的使用</h5>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//order by age desc</span></span><br><span class="line">db.Where(<span class="string">"age &gt; ?"</span>,<span class="number">12</span>).Or(<span class="string">"sex = ?"</span>,<span class="number">1</span>).Order(<span class="string">"age desc"</span>).Find(&amp;u)</span><br></pre></td></tr></table></figure>
+<h5 id="limit-的使用"><a class="markdownIt-Anchor" href="#limit-的使用"></a> limit 的使用</h5>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//limit 10</span></span><br><span class="line">db.Not(<span class="string">"name"</span>,[]<span class="keyword">string</span>&#123;<span class="string">"xiaoming"</span>,<span class="string">"xiaohong"</span>&#125;).Limit(<span class="number">10</span>).Find(&amp;u)</span><br></pre></td></tr></table></figure>
+<h5 id="offset-的使用"><a class="markdownIt-Anchor" href="#offset-的使用"></a> offset 的使用</h5>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//limit 300,10</span></span><br><span class="line">db.Not(<span class="string">"name"</span>,[]<span class="keyword">string</span>&#123;<span class="string">"xiaoming"</span>,<span class="string">"xiaohong"</span>&#125;).Limit(<span class="number">10</span>).Offset(<span class="number">300</span>).Find(&amp;u)</span><br></pre></td></tr></table></figure>
+<h5 id="count"><a class="markdownIt-Anchor" href="#count"></a> count(*)</h5>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//count(*)</span></span><br><span class="line"><span class="keyword">var</span> count <span class="keyword">int</span></span><br><span class="line">db.Table(<span class="string">"user"</span>).Where(<span class="string">"age &gt; ?"</span>,<span class="number">0</span>).Count(&amp;count)</span><br></pre></td></tr></table></figure>
+<p>注意：这里你在指定表名的情况下sql为：select count(*) from user where age &gt; 0;</p>
+<p>如上代码如果改为：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> count <span class="keyword">int</span></span><br><span class="line"><span class="keyword">var</span> user []User</span><br><span class="line">db.Where(<span class="string">"age &gt; ?"</span>,<span class="number">0</span>).Find(&amp;user).Count(&amp;count)</span><br></pre></td></tr></table></figure>
+<p>相当于你先查出来[]User，然后统计这个list的长度。跟你预期的sql不相符。</p>
+<h5 id="group-having"><a class="markdownIt-Anchor" href="#group-having"></a> group &amp; having</h5>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">rows, _ := db.Table(<span class="string">"user"</span>).Select(<span class="string">"count(*),sex"</span>).Group(<span class="string">"sex"</span>).</span><br><span class="line">		Having(<span class="string">"age &gt; ?"</span>, <span class="number">10</span>).Rows()</span><br><span class="line"><span class="keyword">for</span> rows.Next() &#123;</span><br><span class="line">    fmt.Print(rows.Columns())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="join"><a class="markdownIt-Anchor" href="#join"></a> join</h5>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.Table(<span class="string">"user u"</span>).Select(<span class="string">"u.name,u.age"</span>).Joins(<span class="string">"left join user_ext ue on u.user_id = ue.user_id"</span>).Row()</span><br></pre></td></tr></table></figure>
+<p>如果有多个连接，用多个Join方法即可。</p>
+<h5 id="原生函数"><a class="markdownIt-Anchor" href="#原生函数"></a> 原生函数</h5>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">db.Exec(<span class="string">"DROP TABLE user;"</span>)</span><br><span class="line">db.Exec(<span class="string">"UPDATE user SET name=? WHERE id IN (?)"</span>, <span class="string">"xiaoming"</span>, []<span class="keyword">int</span>&#123;<span class="number">11</span>,<span class="number">22</span>,<span class="number">33</span>&#125;)</span><br><span class="line">db.Exec(<span class="string">"select * from user where id &gt; ?"</span>,<span class="number">10</span>).Scan(&amp;user)</span><br></pre></td></tr></table></figure>
+<h5 id="一些函数"><a class="markdownIt-Anchor" href="#一些函数"></a> 一些函数</h5>
+<p><strong>FirstOrInit 和 FirstOrCreate</strong></p>
+<p>获取第一个匹配的记录，若没有，则根据条件初始化一个新的记录：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//注意：where条件只能使用Struct或者map。如果这条记录不存在，那么会新增一条name=xiaoming的记录</span><br><span class="line">db.FirstOrInit(&amp;u,User&#123;Name:&quot;xiaoming&quot;&#125;)</span><br><span class="line">//同上</span><br><span class="line">db.FirstOrCreate(&amp;u,User&#123;Name:&quot;xiaoming&quot;&#125;)</span><br></pre></td></tr></table></figure>
+<p><strong>Attrs</strong></p>
+<p>如果没有找到记录，则使用Attrs中的数据来初始化一条记录：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用attrs来初始化参数，如果未找到数据则使用attrs中的数据来初始化一条</span></span><br><span class="line"><span class="comment">//注意：attrs 必须 要和FirstOrInit 或者 FirstOrCreate 连用</span></span><br><span class="line">db.Where(User&#123;Name:<span class="string">"xiaoming"</span>&#125;).Attrs(User&#123;Name:<span class="string">"xiaoming"</span>,Age:<span class="number">12</span>&#125;).FirstOrInit(&amp;u)</span><br></pre></td></tr></table></figure>
+<p><strong>Assign</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//不管是否找的到，最终返回结构中都将带上Assign指定的参数</span></span><br><span class="line">db.Where(<span class="string">"age &gt; 12"</span>).Assign(User&#123;Name:<span class="string">"xiaoming"</span>&#125;).FirstOrInit(&amp;u)</span><br></pre></td></tr></table></figure>
+<p><strong>Pluck</strong></p>
+<p>如果user表中你只想查询age这一列，该怎么返回呢，gorm提供了Pluck函数用于查询单列，返回数组：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ages []<span class="keyword">int</span></span><br><span class="line">db.Find(&amp;u).Pluck(<span class="string">"age"</span>,&amp;ages)</span><br></pre></td></tr></table></figure>
+<p><strong>Scan</strong></p>
+<p>Scan函数可以将结果转存储到另一个结构体中。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> SubUser <span class="keyword">struct</span>&#123;</span><br><span class="line">    Name <span class="keyword">string</span></span><br><span class="line">    Age <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">db.Table(<span class="string">"user"</span>).Select(<span class="string">"name,age"</span>).Scan(&amp;SubUser)</span><br></pre></td></tr></table></figure>
+<p><strong>sql.Row &amp; sql.Rows</strong></p>
+<p>row和rows用户获取查询结果。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//查询一行</span></span><br><span class="line">row := db.Table(<span class="string">"user"</span>).Where(<span class="string">"name = ?"</span>, <span class="string">"xiaoming"</span>).Select(<span class="string">"name, age"</span>).Row() <span class="comment">// (*sql.Row)</span></span><br><span class="line"><span class="comment">//获取一行的结果后，调用Scan方法来将返回结果赋值给对象或者结构体</span></span><br><span class="line">row.Scan(&amp;name, &amp;age)</span><br><span class="line"></span><br><span class="line"><span class="comment">//查询多行</span></span><br><span class="line">rows, err := db.Model(&amp;User&#123;&#125;).Where(<span class="string">"sex = ?"</span>,<span class="number">1</span>).Select(<span class="string">"name, age, phone"</span>).Rows() <span class="comment">// (*sql.Rows, error)</span></span><br><span class="line"><span class="keyword">defer</span> rows.Close()</span><br><span class="line"><span class="keyword">for</span> rows.Next() &#123;</span><br><span class="line">    ...</span><br><span class="line">    rows.Scan(&amp;name, &amp;age, &amp;email)</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="日志"><a class="markdownIt-Anchor" href="#日志"></a> 日志</h4>
+<p>Gorm有内置的日志记录器支持，默认情况下，它会打印发生的错误。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 启用Logger，显示详细日志</span></span><br><span class="line">db.LogMode(<span class="literal">true</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 禁用日志记录器，不显示任何日志</span></span><br><span class="line">db.LogMode(<span class="literal">false</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 调试单个操作，显示此操作的详细日志</span></span><br><span class="line">db.Debug().Where(<span class="string">"name = ?"</span>, <span class="string">"xiaoming"</span>).First(&amp;User&#123;&#125;)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/posts/9784e2f1.html">Go orm框架gorm学习(17)</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Rickiyang 的个人博客">Rickiyang</a></p>
+  <p><span>发布时间:</span>2019年06月05日 - 22:16</p>
+  <p><span>最后更新:</span>2019年06月05日 - 22:26</p>
+  <p><span>原始链接:</span><a href="/posts/9784e2f1.html" title="Go orm框架gorm学习(17)">http://blog.rickiyang.cn/posts/9784e2f1.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://blog.rickiyang.cn/posts/9784e2f1.html" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
+</div>
+<script>
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({
+          title: "",
+          text: '复制成功',
+          icon: "success",
+          showConfirmButton: true
+          });
+    });
+    });
+</script>
+
+
+      
+    </div>
+    
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #636363;font-size:14px;letter-spacing: 10px">本文结束啦<i class="fa fa-bell"></i>感谢您的阅读</div>
+    
+</div>
+
+      
+    </div>
+
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Go基础学习/" rel="tag"># Go基础学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/a7eb32ee.html" rel="next" title="Go中sync包学习(16)">
+                <i class="fa fa-chevron-left"></i> Go中sync包学习(16)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/adele.png" alt="Rickiyang">
+            
+              <p class="site-author-name" itemprop="name">Rickiyang</p>
+              <p class="site-description motion-element" itemprop="description">分享对coding生活的见解</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">122</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3JpY2tpeWFuZw==" title="GitHub &rarr; https://github.com/rickiyang"><i class="fa fa-fw fa-github"></i>GitHub</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="bWFpbHRvOm1lZGVlMTMyMEBnbWFpbC5jb20=" title="E-Mail &rarr; mailto:medee1320@gmail.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2E5NTM3MTM0Mjg=" title="CSDN &rarr; https://blog.csdn.net/a953713428"><i class="fa fa-fw fa-google"></i>CSDN</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="/953713428" title="QQ &rarr; 953713428"><i class="fa fa-fw fa-twitter"></i>QQ</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text"> 安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据库连接"><span class="nav-number">2.</span> <span class="nav-text"> 数据库连接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据模型定义"><span class="nav-number">3.</span> <span class="nav-text"> 数据模型定义</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#表名列名如何对应结构体"><span class="nav-number">3.1.</span> <span class="nav-text"> 表名，列名如何对应结构体</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#crud-使用"><span class="nav-number">4.</span> <span class="nav-text"> CRUD 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#插入"><span class="nav-number">4.1.</span> <span class="nav-text"> 插入</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#更新"><span class="nav-number">4.2.</span> <span class="nav-text"> 更新</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#删除"><span class="nav-number">4.3.</span> <span class="nav-text"> 删除</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#事务"><span class="nav-number">4.4.</span> <span class="nav-text"> 事务</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#查询"><span class="nav-number">4.5.</span> <span class="nav-text"> 查询：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#指定查询字段-select"><span class="nav-number">4.6.</span> <span class="nav-text"> 指定查询字段-Select</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用struct和map作为查询条件"><span class="nav-number">4.7.</span> <span class="nav-text"> 使用Struct和map作为查询条件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#not-条件的使用"><span class="nav-number">4.8.</span> <span class="nav-text"> not 条件的使用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#or-的使用"><span class="nav-number">4.9.</span> <span class="nav-text"> or 的使用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#order-by-的使用"><span class="nav-number">4.10.</span> <span class="nav-text"> order by 的使用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#limit-的使用"><span class="nav-number">4.11.</span> <span class="nav-text"> limit 的使用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#offset-的使用"><span class="nav-number">4.12.</span> <span class="nav-text"> offset 的使用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#count"><span class="nav-number">4.13.</span> <span class="nav-text"> count(*)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#group-having"><span class="nav-number">4.14.</span> <span class="nav-text"> group &amp; having</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#join"><span class="nav-number">4.15.</span> <span class="nav-text"> join</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#原生函数"><span class="nav-number">4.16.</span> <span class="nav-text"> 原生函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#一些函数"><span class="nav-number">4.17.</span> <span class="nav-text"> 一些函数</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#日志"><span class="nav-number">5.</span> <span class="nav-text"> 日志</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Rickiyang</span>
+
+  
+
+  
+</div>
+
+<!--<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>-->
+
+
+
+
+
+<!--
+  <div class="theme-info">主题 – <span class="exturl theme-link" data-url="aHR0cHM6Ly90aGVtZS1uZXh0Lm9yZw==">NexT.Gemini</span> v6.7.0</div>
+-->
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共291.7k字</span>
+</div>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https'){
+   bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else{
+  bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      网站总访客数 <span class="busuanzi-value" id="busuanzi_value_site_uv"></span> 人次. |
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      &nbsp;<i class="fa fa-eye"></i>
+      总访问量 <span class="busuanzi-value" id="busuanzi_value_site_pv"></span> 次.
+    </span>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </div></footer>
+
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  <script id="ribbon" size="300" alpha="0.6" zindex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/three/three.min.js"></script>
+
+  
+  <script src="/lib/three/canvas_sphere.min.js"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script>
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+      el: '#comments' ,
+      verify: false,
+      notify: false,
+      appId: 'X5fy0b9Gknu0SAse5areilGR-gzGzoHsz',
+      appKey: 'URk4cyPQ8Ttqtwhop5t26kok',
+      placeholder: 'Just go go',
+      avatar: 'mm',
+      meta:guest,
+      pageSize: '10' || 10,
+      visitor: false
+    });
+  </script>
+
+
+
+
+  
+
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function ({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', `/classes/Counter/${counter.objectId}`, JSON.stringify({ time: { "__op":"Increment", "amount":1 } }))
+            
+            .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.time + 1);
+            })
+            
+            .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+            })
+          } else {
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1}))
+                .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function () {
+                  console.log('Failed to create');
+                });
+            
+          }
+        })
+      .fail(function ({ responseJSON }) {
+        console.log('LeanCloud Counter Error:' + responseJSON.code + " " + responseJSON.error);
+      });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + "X5fy0b9Gknu0SAse5areilGR-gzGzoHsz")
+        .done(function ({ api_server }) {
+          var Counter = function (method, url, data) {
+            return $.ajax({
+              method: method,
+              url: `https://${api_server}/1.1${url}`,
+              headers: {
+                'X-LC-Id': "X5fy0b9Gknu0SAse5areilGR-gzGzoHsz",
+                'X-LC-Key': "URk4cyPQ8Ttqtwhop5t26kok",
+                'Content-Type': 'application/json',
+              },
+              data: data,
+            });
+          };
+          
+          addCount(Counter);
+          
+        })
+    });
+  </script>
+
+
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+      }
+      else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+  <script>
+    
+    
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+  <script src="/js/src/exturl.js?v=6.7.0"></script>
+
+
+  
+
+  
+
+  
+
+
+  <!-- 页面点击小红心 -->
+    <script type="text/javascript" src="/js/src/love.js"></script>
+    <!---->
+</body>
+</html>
