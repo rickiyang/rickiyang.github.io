@@ -151,17 +151,18 @@
 
 
 
-  <meta name="description" content="分享对coding生活的见解">
-<meta name="keywords" content="java,大数据,分布式组件,hadoop,spark,Scala,机器学习">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Rickiyang&#39;s blog">
-<meta property="og:url" content="http://blog.rickiyang.cn/categories/activeMQ/index.html">
+  <meta name="description" content="Java转过来的同学对Mybatis的使用肯定不陌生，特别是对一堆表去生成相应的dao和entity的时候使用Mybatis generator所带来的感触，无比深刻。前面我们也讲过原生的数据库使用，讲过gorm的使用，无论是原生的还是第三方的数据库工具，都是需要我们手动的写struct和相应的CRUD的。今天说的这一款插件跟Java中的Mybatis generator一样，都是能帮我们简化表与">
+<meta name="keywords" content="Go基础学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL一键生成实体文件的神器-ginbro(18)">
+<meta property="og:url" content="http://blog.rickiyang.cn/posts/cb2d4bc7.html">
 <meta property="og:site_name" content="Rickiyang&#39;s blog">
-<meta property="og:description" content="分享对coding生活的见解">
+<meta property="og:description" content="Java转过来的同学对Mybatis的使用肯定不陌生，特别是对一堆表去生成相应的dao和entity的时候使用Mybatis generator所带来的感触，无比深刻。前面我们也讲过原生的数据库使用，讲过gorm的使用，无论是原生的还是第三方的数据库工具，都是需要我们手动的写struct和相应的CRUD的。今天说的这一款插件跟Java中的Mybatis generator一样，都是能帮我们简化表与">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-06-11T14:25:50.837Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Rickiyang&#39;s blog">
-<meta name="twitter:description" content="分享对coding生活的见解">
+<meta name="twitter:title" content="MySQL一键生成实体文件的神器-ginbro(18)">
+<meta name="twitter:description" content="Java转过来的同学对Mybatis的使用肯定不陌生，特别是对一堆表去生成相应的dao和entity的时候使用Mybatis generator所带来的感触，无比深刻。前面我们也讲过原生的数据库使用，讲过gorm的使用，无论是原生的还是第三方的数据库工具，都是需要我们手动的写struct和相应的CRUD的。今天说的这一款插件跟Java中的Mybatis generator一样，都是能帮我们简化表与">
 
 
 
@@ -170,7 +171,7 @@
 
 
 
-  <link rel="canonical" href="http://blog.rickiyang.cn/categories/activeMQ/">
+  <link rel="canonical" href="http://blog.rickiyang.cn/posts/cb2d4bc7.html">
 
 
 
@@ -180,7 +181,7 @@
   };
 </script>
 
-  <title>分类: activeMQ | Rickiyang's blog</title>
+  <title>MySQL一键生成实体文件的神器-ginbro(18) | Rickiyang's blog</title>
   
 
 
@@ -228,7 +229,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -304,7 +305,7 @@
         
         
           
-          <li class="menu-item menu-item-分类 menu-item-active">
+          <li class="menu-item menu-item-分类">
 
     
     
@@ -392,283 +393,376 @@
           
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
           
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block category">
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h2>activeMQ<small>分类</small>
-        </h2>
-      </div>
-
-      
-        
+  
 
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/cb2d4bc7.html">
 
-      <h3 class="post-title">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Rickiyang">
+      <meta itemprop="description" content="分享对coding生活的见解">
+      <meta itemprop="image" content="/images/adele.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rickiyang's blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-          <a class="post-title-link" href="/posts/413284da.html" itemprop="url">
+        
+          <h2 class="post-title" itemprop="name headline">MySQL一键生成实体文件的神器-ginbro(18)
+
+              
             
-              <span itemprop="name">消息中间件-activemq安全机制</span>
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
             
-          </a>
-        
-      </h3>
+            
+            
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2017-03-17T01:02:00+08:00" content="2017-03-17">
-          03-17
-        </time>
-      </div>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
 
-    </header>
-  </article>
+              
+                
+              
 
+              <time title="创建时间：2019-06-11 22:25:19 / 修改时间：22:25:50" itemprop="dateCreated datePublished" datetime="2019-06-11T22:25:19+08:00">2019-06-11</time>
+            
 
-        
-                      
-                      
+            
+              
 
-                     
-                        
-                        <div class="collection-title">
-                          <h2 class="archive-year motion-element" id="archive-year-2017">2017</h2>
-                        </div>
-                     
-                      
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/posts/cb2d4bc7.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/posts/cb2d4bc7.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/posts/cb2d4bc7.html" class="leancloud_visitors" data-flag-title="MySQL一键生成实体文件的神器-ginbro(18)">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>℃</span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">2.2k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">2 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-          <a class="post-title-link" href="/posts/28fe9931.html" itemprop="url">
-            
-              <span itemprop="name">消息中间件-activemq消息机制和持久化介绍(三)</span>
-            
-          </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2017-03-17T01:02:00+08:00" content="2017-03-17">
-          03-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-        
-                      
-                      
-
-                     
-                      
       
-        
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-          <a class="post-title-link" href="/posts/1d6950fa.html" itemprop="url">
-            
-              <span itemprop="name">消息中间件-activemq实战整合Spring之Topic模式(五)</span>
-            
-          </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2017-03-17T01:02:00+08:00" content="2017-03-17">
-          03-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-        
-                      
-                      
-
-                     
-                      
       
-        
+        <p>Java转过来的同学对Mybatis的使用肯定不陌生，特别是对一堆表去生成相应的dao和entity的时候使用Mybatis generator所带来的感触，无比深刻。前面我们也讲过原生的数据库使用，讲过gorm的使用，无论是原生的还是第三方的数据库工具，都是需要我们手动的写struct和相应的CRUD的。今天说的这一款插件跟Java中的Mybatis generator一样，都是能帮我们简化表与实体对应关系。</p>
+<h4 id="安装"><a class="markdownIt-Anchor" href="#安装"></a> 安装</h4>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">go</span> get github.com/dejavuzhou/ginbro</span><br></pre></td></tr></table></figure>
+<p>默认安装到了$GOPATH/bin中。</p>
+<h4 id="使用"><a class="markdownIt-Anchor" href="#使用"></a> 使用</h4>
+<p>接下来使用如下方式去连接你的数据库，以下拿MYSQL数据库示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ginbro gen -u userName -p pwd -a <span class="string">"IP:port"</span> -d databaseName -o <span class="string">"projectName"</span></span><br></pre></td></tr></table></figure>
+<p>上述命令表示连接相应的数据库，用户名密码，对应的库名。最后是你想生成的工程名称。</p>
+<p>相应的参数：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Flags:</span><br><span class="line">   	  --config <span class="keyword">string</span>          指定config文件名 (<span class="keyword">default</span> is $HOME/ginbro.yaml)</span><br><span class="line">  -h, --help                   help <span class="keyword">for</span> ginbro</span><br><span class="line">  -a, --mysqlAddr <span class="keyword">string</span>       MySQL host:port (<span class="keyword">default</span> <span class="string">"127.0.0.1:3306"</span>)</span><br><span class="line">  -c, --mysqlCharset <span class="keyword">string</span>    MySQL charset (<span class="keyword">default</span> <span class="string">"utf8"</span>)</span><br><span class="line">  -d, --mysqlDatabase <span class="keyword">string</span>   MySQL database name</span><br><span class="line">  -p, --mysqlPassword <span class="keyword">string</span>   MySQL password (<span class="keyword">default</span> <span class="string">"password"</span>)</span><br><span class="line">  -u, --mysqlUser <span class="keyword">string</span>       MySQL user name (<span class="keyword">default</span> <span class="string">"root"</span>)</span><br></pre></td></tr></table></figure>
+<p>工程默认生成到$GOPATH/src目录下。</p>
+<p>工程结构如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">demo</span><br><span class="line">	config/  配置文件所在目录</span><br><span class="line">	handlers/ 使用gin 生成对http接口</span><br><span class="line">	models/ 数据库表对应的实体</span><br><span class="line">	static/ 静态文件</span><br><span class="line">	swagger/ swagger</span><br><span class="line">	tasks/ 定时任务相关</span><br><span class="line">	main.go 启动类</span><br><span class="line">	config.toml 主配置文件</span><br></pre></td></tr></table></figure>
+<p>运行main函数，控制台可以看到swagger的访问地址：</p>
+<p><span class="exturl" data-url="aHR0cDovLzEyNy4wLjAuMTo1NTU1L3N3YWdnZXI=" title="http://127.0.0.1:5555/swagger">http://127.0.0.1:5555/swagger<i class="fa fa-external-link"></i></span></p>
+<p>访问swagger你能看到给你生成了一些表对应的CRUD的接口。</p>
+<h4 id="ginbro-生成app代码包含功能简介"><a class="markdownIt-Anchor" href="#ginbro-生成app代码包含功能简介"></a> ginbro 生成app代码包含功能简介</h4>
+<ul>
+<li>
+<p>生成完善RESTful APIs 应用</p>
+</li>
+<li>
+<p>自动生成完善的Swagger文档</p>
+</li>
+<li>
+<p>自动生成数据库表的模型和标注</p>
+</li>
+<li>
+<p>支持 JWT Authorization Bearer 身份验证 and JWT 中间件</p>
+</li>
+<li>
+<p>支持登陆防火墙</p>
+</li>
+<li>
+<p>支持静态资源替代nginx</p>
+</li>
+<li>
+<p>可配置的跨域cors中间件</p>
+</li>
+<li>
+<p>用户友好的自定义配置</p>
+</li>
+<li>
+<p>支持定时任务</p>
+</li>
+<li>
+<p>支持图形工具GUI</p>
+</li>
+<li>
+<p>内置高效率的内存数据库</p>
+</li>
+</ul>
+<h4 id="依赖框架"><a class="markdownIt-Anchor" href="#依赖框架"></a> 依赖框架</h4>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">go</span> get github.com/gin-contrib/cors</span><br><span class="line"><span class="keyword">go</span> get github.com/gin-contrib/static</span><br><span class="line"><span class="keyword">go</span> get github.com/gin-gonic/autotls</span><br><span class="line"><span class="keyword">go</span> get github.com/gin-gonic/gin</span><br><span class="line"><span class="keyword">go</span> get github.com/sirupsen/logrus</span><br><span class="line"><span class="keyword">go</span> get github.com/spf13/viper</span><br><span class="line"><span class="keyword">go</span> get github.com/spf13/cobra</span><br><span class="line"><span class="keyword">go</span> get github.com/<span class="keyword">go</span>-redis/redis</span><br><span class="line"><span class="keyword">go</span> get github.com/<span class="keyword">go</span>-sql-driver/mysql</span><br><span class="line"><span class="keyword">go</span> get github.com/jinzhu/gorm</span><br><span class="line"><span class="keyword">go</span> get github.com/dgrijalva/jwt-<span class="keyword">go</span></span><br></pre></td></tr></table></figure>
+<p>gin框架相关，viper配置文件解析框架，gorm数据库框架。</p>
+<h4 id="开发计划"><a class="markdownIt-Anchor" href="#开发计划"></a> 开发计划</h4>
+<p>已完成：</p>
+<ul>
+<li>Auth 和 JWT middleware</li>
+<li>支持一键生产jwt密码验证</li>
+<li>分页总数做mem缓存</li>
+<li>json不现实password等隐私字段</li>
+<li>生成友好的.gitignore</li>
+<li>go test 单元测试</li>
+<li>完善go doc</li>
+</ul>
+<p>未完成：</p>
+<ul>
+<li>支持MongoDB数据库</li>
+<li>更具体数据映射关联模型</li>
+<li>支持PostgreSQL数据库</li>
+<li>支持生成gRPC服务</li>
+<li>更详细的gorm tag信息</li>
+<li>swaggerDoc参数说明继续优化</li>
+<li>支持其他语言框架(php-laravel/lumne ,python flask …)</li>
+<li>sqlite</li>
+</ul>
+<h4 id="注意"><a class="markdownIt-Anchor" href="#注意"></a> 注意</h4>
+<ul>
+<li>mysql表中没有id/ID/Id/iD字段将不会生成路由和模型</li>
+<li>json字段 在update/create的时候 必须使可以序列号的json字符串(<code>eg0:&quot;{}&quot; eg1:&quot;[]&quot;</code>),否则mysql会报错</li>
+</ul>
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-          <a class="post-title-link" href="/posts/af8467f6.html" itemprop="url">
-            
-              <span itemprop="name">消息中间件-activemq实战之消息持久化(六)</span>
-            
-          </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2017-03-17T01:02:00+08:00" content="2017-03-17">
-          03-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-        
-                      
-                      
-
-                     
-                      
-      
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-          <a class="post-title-link" href="/posts/a042465a.html" itemprop="url">
-            
-              <span itemprop="name">消息中间件-activemq入门(二)</span>
-            
-          </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2017-03-17T01:02:00+08:00" content="2017-03-17">
-          03-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-        
-                      
-                      
-
-                     
-                      
-      
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-          <a class="post-title-link" href="/posts/64e3c39e.html" itemprop="url">
-            
-              <span itemprop="name">消息中间件-activemq实战之整合Spring(四)</span>
-            
-          </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2017-03-17T01:02:00+08:00" content="2017-03-17">
-          03-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-        
-                      
-                      
-
-                     
-                      
-      
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-          <a class="post-title-link" href="/posts/c0d0b105.html" itemprop="url">
-            
-              <span itemprop="name">消息中间件和JMS介绍(一)</span>
-            
-          </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2017-03-17T01:02:00+08:00" content="2017-03-17">
-          03-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-        
-                      
-                      
-
-                     
-                      
       
     </div>
 
+    
+
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/posts/cb2d4bc7.html">MySQL一键生成实体文件的神器-ginbro(18)</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Rickiyang 的个人博客">Rickiyang</a></p>
+  <p><span>发布时间:</span>2019年06月11日 - 22:25</p>
+  <p><span>最后更新:</span>2019年06月11日 - 22:25</p>
+  <p><span>原始链接:</span><a href="/posts/cb2d4bc7.html" title="MySQL一键生成实体文件的神器-ginbro(18)">http://blog.rickiyang.cn/posts/cb2d4bc7.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://blog.rickiyang.cn/posts/cb2d4bc7.html" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
+</div>
+<script>
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({
+          title: "",
+          text: '复制成功',
+          icon: "success",
+          showConfirmButton: true
+          });
+    });
+    });
+</script>
+
+
+      
+    </div>
+    
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #636363;font-size:14px;letter-spacing: 10px">本文结束啦<i class="fa fa-bell"></i>感谢您的阅读</div>
+    
+</div>
+
+      
+    </div>
+
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Go基础学习/" rel="tag"># Go基础学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/9784e2f1.html" rel="next" title="Go orm框架gorm学习(17)">
+                <i class="fa fa-chevron-left"></i> Go orm框架gorm学习(17)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+  </div>
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
 
         </div>
         
@@ -689,8 +783,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -878,6 +981,23 @@
       </div>
 
       
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text"> 安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用"><span class="nav-number">2.</span> <span class="nav-text"> 使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ginbro-生成app代码包含功能简介"><span class="nav-number">3.</span> <span class="nav-text"> ginbro 生成app代码包含功能简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#依赖框架"><span class="nav-number">4.</span> <span class="nav-text"> 依赖框架</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#开发计划"><span class="nav-number">5.</span> <span class="nav-text"> 开发计划</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注意"><span class="nav-number">6.</span> <span class="nav-text"> 注意</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
       
         <div class="back-to-top">
@@ -1059,7 +1179,9 @@
 
 
   
-  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
 
 
   
@@ -1442,43 +1564,42 @@
   
   <script>
     
-    function showTime(Counter) {
-      var entries = [];
+    function addCount(Counter) {
       var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
 
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      Counter('get', '/classes/Counter', { where: JSON.stringify({ url: { "$in": entries } }) })
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
         .done(function ({ results }) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.url;
-            var time = item.time;
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
-            }
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', `/classes/Counter/${counter.objectId}`, JSON.stringify({ time: { "__op":"Increment", "amount":1 } }))
+            
+            .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.time + 1);
+            })
+            
+            .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+            })
+          } else {
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1}))
+                .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function () {
+                  console.log('Failed to create');
+                });
+            
           }
         })
-        .fail(function ({ responseJSON }) {
-          console.log("LeanCloud Counter Error: " + responseJSON.code + " " + responseJSON.error);
-        });
+      .fail(function ({ responseJSON }) {
+        console.log('LeanCloud Counter Error:' + responseJSON.code + " " + responseJSON.error);
+      });
     }
     
 
@@ -1498,9 +1619,7 @@
             });
           };
           
-          if ($('.post-title-link').length >= 1) {
-            showTime(Counter);
-          }
+          addCount(Counter);
           
         })
     });
