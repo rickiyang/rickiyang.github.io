@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-center-circle.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
+  
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/adele.ico?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/adele.ico?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/adele.ico?v=6.7.0">
+
+
+  <link rel="mask-icon" href="/images/adele.ico?v=6.7.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Eureka Client 是一个Java 客户端，用于简化与Eureka Server的交互，客户端同时也具备一个内置的、使用轮询负载算法的负载均衡器。 在应用启动后，将会向Eureka Server发送心跳(默认周期为30秒)，如果Eureka Server在多个心跳周期没有收到某个节点的心跳，Eureka Server 将会从服务注册表中把这个服务节点移除(默认90秒)。 Eureka Cl">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Cloud Eureka源码分析 --- client 注册流程">
+<meta property="og:url" content="http://blog.rickiyang.cn/posts/d4e07de.html">
+<meta property="og:site_name" content="Rickiyang&#39;s blog">
+<meta property="og:description" content="Eureka Client 是一个Java 客户端，用于简化与Eureka Server的交互，客户端同时也具备一个内置的、使用轮询负载算法的负载均衡器。 在应用启动后，将会向Eureka Server发送心跳(默认周期为30秒)，如果Eureka Server在多个心跳周期没有收到某个节点的心跳，Eureka Server 将会从服务注册表中把这个服务节点移除(默认90秒)。 Eureka Cl">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://s2.ax1x.com/2019/12/25/lkATIg.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/12/25/lkAHiQ.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/12/25/lkAXMq.png">
+<meta property="og:updated_time" content="2019-12-25T15:48:33.270Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring Cloud Eureka源码分析 --- client 注册流程">
+<meta name="twitter:description" content="Eureka Client 是一个Java 客户端，用于简化与Eureka Server的交互，客户端同时也具备一个内置的、使用轮询负载算法的负载均衡器。 在应用启动后，将会向Eureka Server发送心跳(默认周期为30秒)，如果Eureka Server在多个心跳周期没有收到某个节点的心跳，Eureka Server 将会从服务注册表中把这个服务节点移除(默认90秒)。 Eureka Cl">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/12/25/lkATIg.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Rickiyang's blog" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://blog.rickiyang.cn/posts/d4e07de.html">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Spring Cloud Eureka源码分析 --- client 注册流程 | Rickiyang's blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Rickiyang's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">java,大数据,分布式组件</h1>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-首页">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/d4e07de.html">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Rickiyang">
+      <meta itemprop="description" content="分享对coding生活的见解">
+      <meta itemprop="image" content="/images/adele.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rickiyang's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Spring Cloud Eureka源码分析 --- client 注册流程
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-04 12:36:55" itemprop="dateCreated datePublished" datetime="2019-10-04T12:36:55+08:00">2019-10-04</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-12-25 23:48:33" itemprop="dateModified" datetime="2019-12-25T23:48:33+08:00">2019-12-25</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Spring-Cloud/" itemprop="url" rel="index"><span itemprop="name">Spring Cloud</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/posts/d4e07de.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/posts/d4e07de.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/posts/d4e07de.html" class="leancloud_visitors" data-flag-title="Spring Cloud Eureka源码分析 --- client 注册流程">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>℃</span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">40k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">36 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Eureka Client 是一个Java 客户端，用于简化与Eureka Server的交互，客户端同时也具备一个内置的、使用轮询负载算法的负载均衡器。</p>
+<p>在应用启动后，将会向Eureka Server发送心跳(默认周期为30秒)，如果Eureka Server在多个心跳周期没有收到某个节点的心跳，Eureka Server 将会从服务注册表中把这个服务节点移除(默认90秒)。</p>
+<p>Eureka Client具有缓存的机制，即使所有的Eureka Server 都挂掉的话，客户端依然可以利用缓存中的信息消费其它服务的API。下面我们一起来看客户端相关操作。</p>
+<h4 id="1从启动类入手"><a class="markdownIt-Anchor" href="#1从启动类入手"></a> 1.从启动类入手</h4>
+<p>我们还是和分析 Eureka Server 源码一样，从启动类的<code>@EnableDiscoveryClient</code>注解入手看调用流程。</p>
+<p>进入 EnableDiscoveryClient 之后，通过注释知道它的作用是为了激活 DiscoveryClient：</p>
+<p><img src="https://s2.ax1x.com/2019/12/25/lkATIg.png" alt="1"></p>
+<p>首先是在类头使用了 import 注解引入了：EnableDiscoveryClientImportSelector。该类的主要作用是实例化：AutoServiceRegistrationConfiguration。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Order</span>(Ordered.LOWEST_PRECEDENCE - <span class="number">100</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EnableDiscoveryClientImportSelector</span></span></span><br><span class="line"><span class="class">		<span class="keyword">extends</span> <span class="title">SpringFactoryImportSelector</span>&lt;<span class="title">EnableDiscoveryClient</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="keyword">public</span> String[] selectImports(AnnotationMetadata metadata) &#123;</span><br><span class="line">         <span class="comment">//调用父类的方法,拿到通过父类方法要注入的全路径类名数组</span></span><br><span class="line">		String[] imports = <span class="keyword">super</span>.selectImports(metadata);</span><br><span class="line">		<span class="comment">//获得该注解(@EnableDiscoveryClient)的所有属性参数</span></span><br><span class="line">		AnnotationAttributes attributes = AnnotationAttributes.fromMap(</span><br><span class="line">				metadata.getAnnotationAttributes(getAnnotationClass().getName(), <span class="keyword">true</span>));</span><br><span class="line">		 <span class="comment">//获得属性autoRegister的值,该值默认是true的</span></span><br><span class="line">		<span class="keyword">boolean</span> autoRegister = attributes.getBoolean(<span class="string">"autoRegister"</span>);</span><br><span class="line">		<span class="comment">//根据注解配置来判断是否要实例化下面的那个自动配置类</span></span><br><span class="line">		<span class="keyword">if</span> (autoRegister) &#123;</span><br><span class="line">			List&lt;String&gt; importsList = <span class="keyword">new</span> ArrayList&lt;&gt;(Arrays.asList(imports));</span><br><span class="line">			importsList.add(<span class="string">"org.springframework.cloud.client.serviceregistry.AutoServiceRegistrationConfiguration"</span>);</span><br><span class="line">			imports = importsList.toArray(<span class="keyword">new</span> String[<span class="number">0</span>]);</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			Environment env = getEnvironment();</span><br><span class="line">			<span class="keyword">if</span>(ConfigurableEnvironment.class.isInstance(env)) &#123;</span><br><span class="line">				ConfigurableEnvironment configEnv = (ConfigurableEnvironment)env;</span><br><span class="line">				LinkedHashMap&lt;String, Object&gt; map = <span class="keyword">new</span> LinkedHashMap&lt;&gt;();</span><br><span class="line">				map.put(<span class="string">"spring.cloud.service-registry.auto-registration.enabled"</span>, <span class="keyword">false</span>);</span><br><span class="line">				MapPropertySource propertySource = <span class="keyword">new</span> MapPropertySource(</span><br><span class="line">						<span class="string">"springCloudDiscoveryClient"</span>, map);</span><br><span class="line">				configEnv.getPropertySources().addLast(propertySource);</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> imports;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">isEnabled</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> getEnvironment().getProperty(</span><br><span class="line">				<span class="string">"spring.cloud.discovery.enabled"</span>, Boolean.class, Boolean.TRUE);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">hasDefaultFactory</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里最终的目的是想实例化：AutoServiceRegistrationConfiguration，我们来看他做了什么：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@Import</span>(AutoServiceRegistrationConfiguration.class)</span><br><span class="line"><span class="meta">@ConditionalOnProperty</span>(value = <span class="string">"spring.cloud.service-registry.auto-registration.enabled"</span>, matchIfMissing = <span class="keyword">true</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AutoServiceRegistrationAutoConfiguration</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Autowired</span>(required = <span class="keyword">false</span>)</span><br><span class="line">	<span class="keyword">private</span> AutoServiceRegistration autoServiceRegistration;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Autowired</span></span><br><span class="line">	<span class="keyword">private</span> AutoServiceRegistrationProperties properties;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@PostConstruct</span></span><br><span class="line">	<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (autoServiceRegistration == <span class="keyword">null</span> &amp;&amp; <span class="keyword">this</span>.properties.isFailFast()) &#123;</span><br><span class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"Auto Service Registration has been requested, but there is no AutoServiceRegistration bean"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从这里看主要目的是为了实例化：AutoServiceRegistration，AutoServiceRegistrationProperties这两个类。那么初始化这两个bean的作用是什么呢，查看调用 的地方：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableConfigurationProperties</span></span><br><span class="line"><span class="meta">@ConditionalOnClass</span>(EurekaClientConfig.class)</span><br><span class="line"><span class="meta">@Import</span>(DiscoveryClientOptionalArgsConfiguration.class)</span><br><span class="line"><span class="meta">@ConditionalOnBean</span>(EurekaDiscoveryClientConfiguration.Marker.class)</span><br><span class="line"><span class="meta">@ConditionalOnProperty</span>(value = <span class="string">"eureka.client.enabled"</span>, matchIfMissing = <span class="keyword">true</span>)</span><br><span class="line"><span class="meta">@AutoConfigureBefore</span>(&#123; NoopDiscoveryClientAutoConfiguration.class,</span><br><span class="line">		CommonsClientAutoConfiguration.class, ServiceRegistryAutoConfiguration.class &#125;)</span><br><span class="line"><span class="meta">@AutoConfigureAfter</span>(name = &#123;<span class="string">"org.springframework.cloud.autoconfigure.RefreshAutoConfiguration"</span>,</span><br><span class="line">		<span class="string">"org.springframework.cloud.netflix.eureka.EurekaDiscoveryClientConfiguration"</span>,</span><br><span class="line">		<span class="string">"org.springframework.cloud.client.serviceregistry.AutoServiceRegistrationAutoConfiguration"</span>&#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EurekaClientAutoConfiguration</span> </span>&#123;</span><br><span class="line">    ......</span><br><span class="line">    ......</span><br><span class="line">    ......</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">	<span class="meta">@ConditionalOnBean</span>(AutoServiceRegistrationProperties.class)</span><br><span class="line">	<span class="meta">@ConditionalOnProperty</span>(value = <span class="string">"spring.cloud.service-registry.auto-registration.enabled"</span>, matchIfMissing = <span class="keyword">true</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> EurekaRegistration <span class="title">eurekaRegistration</span><span class="params">(EurekaClient eurekaClient, CloudEurekaInstanceConfig instanceConfig, ApplicationInfoManager applicationInfoManager, ObjectProvider&lt;HealthCheckHandler&gt; healthCheckHandler)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> EurekaRegistration.builder(instanceConfig)</span><br><span class="line">				.with(applicationInfoManager)</span><br><span class="line">				.with(eurekaClient)</span><br><span class="line">				.with(healthCheckHandler)</span><br><span class="line">				.build();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Bean</span></span><br><span class="line">	<span class="meta">@ConditionalOnBean</span>(AutoServiceRegistrationProperties.class)</span><br><span class="line">	<span class="meta">@ConditionalOnProperty</span>(value = <span class="string">"spring.cloud.service-registry.auto-registration.enabled"</span>, matchIfMissing = <span class="keyword">true</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> EurekaAutoServiceRegistration <span class="title">eurekaAutoServiceRegistration</span><span class="params">(ApplicationContext context, EurekaServiceRegistry registry, EurekaRegistration registration)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> EurekaAutoServiceRegistration(context, registry, registration);</span><br><span class="line">	&#125;   </span><br><span class="line">    ......</span><br><span class="line">    ......</span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>原因是在这里实例化bean的时候被做为前置条件。</p>
+<p>EurekaClientAutoConfiguration  算是到目前为止比较重要的一个类，主要做的事情包括：</p>
+<ol>
+<li>注册 EurekaClientConfigBean ，初始化client端配置信息；</li>
+<li>注册 EurekaInstanceConfigBean ，初始化客户端实例信息；</li>
+<li>初始化 EurekaRegistration，EurekaServiceRegistry，EurekaAutoServiceRegistration实现Eureka服务自动注册；</li>
+<li>初始化 EurekaClient ，ApplicationInfoManager。EurekaClient  的默认实现是 DiscoveryClient，是我们接下来要分析的重点；</li>
+<li>初始化 EurekaHealthIndicator，为<code>/health</code> 端点提供Eureka相关信息，主要有Status当前实例状态和applications服务列表。</li>
+</ol>
+<p>继续看 EurekaClientAutoConfiguration 又在哪里被使用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ConditionalOnClass</span>(ConfigServicePropertySourceLocator.class)</span><br><span class="line"><span class="meta">@ConditionalOnProperty</span>(value = <span class="string">"spring.cloud.config.discovery.enabled"</span>, matchIfMissing = <span class="keyword">false</span>)</span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@Import</span>(&#123; EurekaDiscoveryClientConfiguration.class, <span class="comment">// this emulates @EnableDiscoveryClient, the import selector doesn't run before the bootstrap phase</span></span><br><span class="line">		EurekaClientAutoConfiguration.class &#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EurekaDiscoveryClientConfigServiceBootstrapConfiguration</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在 EurekaDiscoveryClientConfigServiceBootstrapConfiguration 类中被作为注入的对象。</p>
+<p>而 EurekaDiscoveryClientConfigServiceBootstrapConfiguration 被引用的分地方就比较特殊，被配置在配置文件中。</p>
+<p>spring.factories</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">org.springframework.cloud.bootstrap.BootstrapConfiguration=\</span><br><span class="line">org.springframework.cloud.netflix.eureka.config.EurekaDiscoveryClientConfigServiceBootstrapConfiguration</span><br></pre></td></tr></table></figure>
+<p>这个配置的Key部分对应着一个注解类 BootstrapConfiguration：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target</span>(ElementType.TYPE)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> BootstrapConfiguration &#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Exclude specific auto-configuration classes such that they will never be applied.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	Class&lt;?&gt;[] exclude() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>他被使用的地方是：BootstrapApplicationListener 的 164行，在这里拿到类的全路径之后，186行进行加载类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BootstrapApplicationListener</span></span></span><br><span class="line"><span class="class">		<span class="keyword">implements</span> <span class="title">ApplicationListener</span>&lt;<span class="title">ApplicationEnvironmentPreparedEvent</span>&gt;, <span class="title">Ordered</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    ......</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onApplicationEvent</span><span class="params">(ApplicationEnvironmentPreparedEvent event)</span> </span>&#123;</span><br><span class="line">		ConfigurableEnvironment environment = event.getEnvironment();</span><br><span class="line">		......</span><br><span class="line">		ConfigurableApplicationContext context = <span class="keyword">null</span>;</span><br><span class="line">		String configName = environment</span><br><span class="line">				.resolvePlaceholders(<span class="string">"$&#123;spring.cloud.bootstrap.name:bootstrap&#125;"</span>);</span><br><span class="line">		<span class="keyword">for</span> (ApplicationContextInitializer&lt;?&gt; initializer : event.getSpringApplication()</span><br><span class="line">				.getInitializers()) &#123;</span><br><span class="line">			<span class="keyword">if</span> (initializer <span class="keyword">instanceof</span> ParentContextApplicationContextInitializer) &#123;</span><br><span class="line">				context = findBootstrapContext(</span><br><span class="line">						(ParentContextApplicationContextInitializer) initializer,</span><br><span class="line">						configName);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (context == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">//在这里被调用</span></span><br><span class="line">			context = bootstrapServiceContext(environment, event.getSpringApplication(),</span><br><span class="line">					configName);</span><br><span class="line">		&#125;</span><br><span class="line">		apply(context, event.getSpringApplication(), environment);</span><br><span class="line">	&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> ConfigurableApplicationContext <span class="title">bootstrapServiceContext</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">        ConfigurableEnvironment environment, <span class="keyword">final</span> SpringApplication application,</span></span></span><br><span class="line"><span class="function"><span class="params">        String configName)</span> </span>&#123;</span><br><span class="line">        StandardEnvironment bootstrapEnvironment = <span class="keyword">new</span> StandardEnvironment();</span><br><span class="line">        MutablePropertySources bootstrapProperties = bootstrapEnvironment</span><br><span class="line">            .getPropertySources();</span><br><span class="line">        <span class="keyword">for</span> (PropertySource&lt;?&gt; source : bootstrapProperties) &#123;</span><br><span class="line">            bootstrapProperties.remove(source.getName());</span><br><span class="line">        &#125;</span><br><span class="line">        String configLocation = environment</span><br><span class="line">            .resolvePlaceholders(<span class="string">"$&#123;spring.cloud.bootstrap.location:&#125;"</span>);</span><br><span class="line">        Map&lt;String, Object&gt; bootstrapMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        bootstrapMap.put(<span class="string">"spring.config.name"</span>, configName);</span><br><span class="line">        <span class="comment">// if an app (or test) uses spring.main.web-application-type=reactive, bootstrap will fail</span></span><br><span class="line">        <span class="comment">// force the environment to use none, because if though it is set below in the builder</span></span><br><span class="line">        <span class="comment">// the environment overrides it</span></span><br><span class="line">        bootstrapMap.put(<span class="string">"spring.main.web-application-type"</span>, <span class="string">"none"</span>);</span><br><span class="line">        <span class="keyword">if</span> (StringUtils.hasText(configLocation)) &#123;</span><br><span class="line">            bootstrapMap.put(<span class="string">"spring.config.location"</span>, configLocation);</span><br><span class="line">        &#125;</span><br><span class="line">        bootstrapProperties.addFirst(</span><br><span class="line">            <span class="keyword">new</span> MapPropertySource(BOOTSTRAP_PROPERTY_SOURCE_NAME, bootstrapMap));</span><br><span class="line">        <span class="keyword">for</span> (PropertySource&lt;?&gt; source : environment.getPropertySources()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (source <span class="keyword">instanceof</span> StubPropertySource) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            bootstrapProperties.addLast(source);</span><br><span class="line">        &#125;</span><br><span class="line">        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();</span><br><span class="line">        <span class="comment">// 在这里扫描BootstrapConfiguration注解</span></span><br><span class="line">        List&lt;String&gt; names = <span class="keyword">new</span> ArrayList&lt;&gt;(SpringFactoriesLoader</span><br><span class="line">                                             .loadFactoryNames(BootstrapConfiguration.class, classLoader));</span><br><span class="line">        <span class="keyword">for</span> (String name : StringUtils.commaDelimitedListToStringArray(</span><br><span class="line">            environment.getProperty(<span class="string">"spring.cloud.bootstrap.sources"</span>, <span class="string">""</span>))) &#123;</span><br><span class="line">            names.add(name);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// <span class="doctag">TODO:</span> is it possible or sensible to share a ResourceLoader?</span></span><br><span class="line">        SpringApplicationBuilder builder = <span class="keyword">new</span> SpringApplicationBuilder()</span><br><span class="line">            .profiles(environment.getActiveProfiles()).bannerMode(Mode.OFF)</span><br><span class="line">            .environment(bootstrapEnvironment)</span><br><span class="line">            <span class="comment">// Don't use the default properties in this builder</span></span><br><span class="line">            .registerShutdownHook(<span class="keyword">false</span>).logStartupInfo(<span class="keyword">false</span>)</span><br><span class="line">            .web(WebApplicationType.NONE);</span><br><span class="line">        <span class="keyword">if</span> (environment.getPropertySources().contains(<span class="string">"refreshArgs"</span>)) &#123;</span><br><span class="line">            <span class="comment">// If we are doing a context refresh, really we only want to refresh the</span></span><br><span class="line">            <span class="comment">// Environment, and there are some toxic listeners (like the</span></span><br><span class="line">            <span class="comment">// LoggingApplicationListener) that affect global static state, so we need a</span></span><br><span class="line">            <span class="comment">// way to switch those off.</span></span><br><span class="line">            builder.application()</span><br><span class="line">                .setListeners(filterListeners(builder.application().getListeners()));</span><br><span class="line">        &#125;</span><br><span class="line">        List&lt;Class&lt;?&gt;&gt; sources = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (String name : names) &#123;</span><br><span class="line">            Class&lt;?&gt; cls = ClassUtils.resolveClassName(name, <span class="keyword">null</span>);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                cls.getDeclaredAnnotations();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            sources.add(cls);</span><br><span class="line">        &#125;</span><br><span class="line">        AnnotationAwareOrderComparator.sort(sources);</span><br><span class="line">        builder.sources(sources.toArray(<span class="keyword">new</span> Class[sources.size()]));</span><br><span class="line">        <span class="keyword">final</span> ConfigurableApplicationContext context = builder.run();</span><br><span class="line">        <span class="comment">// gh-214 using spring.application.name=bootstrap to set the context id via</span></span><br><span class="line">        <span class="comment">// `ContextIdApplicationContextInitializer` prevents apps from getting the actual</span></span><br><span class="line">        <span class="comment">// spring.application.name</span></span><br><span class="line">        <span class="comment">// during the bootstrap phase.</span></span><br><span class="line">        context.setId(<span class="string">"bootstrap"</span>);</span><br><span class="line">        <span class="comment">// Make the bootstrap context a parent of the app context</span></span><br><span class="line">        addAncestorInitializer(application, context);</span><br><span class="line">        <span class="comment">// It only has properties in it now that we don't want in the parent so remove</span></span><br><span class="line">        <span class="comment">// it (and it will be added back later)</span></span><br><span class="line">        bootstrapProperties.remove(BOOTSTRAP_PROPERTY_SOURCE_NAME);</span><br><span class="line">        mergeDefaultProperties(environment.getPropertySources(), bootstrapProperties);</span><br><span class="line">        <span class="keyword">return</span> context;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    ......</span><br><span class="line">    ......</span><br><span class="line">      </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>BootstrapApplicationListener 实现了ApplicationEnvironmentPreparedEvent，作为监听器在项目启动的时候被加载。Spring根据应用启动的过程,提供了四种事件供我们使用:</p>
+<ul>
+<li><strong>ApplicationStartedEvent</strong> ：Spring Boot启动开始时执行的事件；</li>
+<li><strong>ApplicationEnvironmentPreparedEvent</strong>：Spring Boot 对应Enviroment已经准备完毕，但此时上下文context还没有创建；</li>
+<li><strong>ApplicationPreparedEvent</strong>：Spring Boot 上下文context创建完成，但此时spring中的bean是没有完全加载完成的；</li>
+<li><strong>ApplicationFailedEvent</strong>：Spring Boot 启动异常时执行事件。</li>
+</ul>
+<p>即这里的BootstrapApplicationListener 是在项目启动加载环境变量完成，还没有创建bean的时候去加载的。</p>
+<p>分析到这里，我们把整个的EnableDiscoveryClient注解的初始化链路都走了一遍。大致流程如下：</p>
+<p><img src="https://s2.ax1x.com/2019/12/25/lkAHiQ.png" alt="2"></p>
+<p>总结上面分析的部分主要两个作用：</p>
+<ol>
+<li>初始化配置文件；</li>
+<li>激活 DiscoveryClient。</li>
+</ol>
+<p>下面就开始分析DiscoveryClient的作用。</p>
+<h4 id="2-discoveryclient"><a class="markdownIt-Anchor" href="#2-discoveryclient"></a> 2. DiscoveryClient</h4>
+<p>启动客户端的时候查看启动日志你会看到服务注册也是从 DiscoveryClient  类中发出的：</p>
+<p><img src="https://s2.ax1x.com/2019/12/25/lkAXMq.png" alt="3"></p>
+<p>足以见得这个类在服务注册过程中应该做了一些重要的事情。下面一起来分析一下具体实现。</p>
+<h5 id="21-服务注册"><a class="markdownIt-Anchor" href="#21-服务注册"></a> 2.1 服务注册</h5>
+<p>DiscoveryClient 是一个接口，继续观看它的实现类，可以看到每个实现类中都有一个：DESCRIPTION字段，这个字段明确描述了当前类的作用。</p>
+<ol>
+<li>EurekaDiscoveryClient：client 的主要实现逻辑类；</li>
+<li>CompositeDiscoveryClient：会装载别的服务注册客户端，顺序查找；</li>
+<li>NoopDiscoveryClient：已经被废弃；</li>
+<li>SimpleDiscoveryClient：具体的服务实例从 SimpleDiscoveryProperties 配置中获取。</li>
+</ol>
+<p>从描述上看 EurekaDiscoveryClient 是 client 的主要实现类。而在 EurekaDiscoveryClient 中，获取client实例主要是从 EurekaClient 中查找的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;ServiceInstance&gt; <span class="title">getInstances</span><span class="params">(String serviceId)</span> </span>&#123;</span><br><span class="line">    List&lt;InstanceInfo&gt; infos = <span class="keyword">this</span>.eurekaClient.getInstancesByVipAddress(serviceId,<span class="keyword">false</span>);</span><br><span class="line">    List&lt;ServiceInstance&gt; instances = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (InstanceInfo info : infos) &#123;</span><br><span class="line">        instances.add(<span class="keyword">new</span> EurekaServiceInstance(info));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> instances;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>DiscoveryClient 是 EurekaClient 的唯一实现类，他有一个很重要的构造方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Inject</span></span><br><span class="line">DiscoveryClient(ApplicationInfoManager applicationInfoManager, EurekaClientConfig config, AbstractDiscoveryClientOptionalArgs args,Provider&lt;BackupRegistry&gt; backupRegistryProvider) &#123;</span><br><span class="line">    <span class="keyword">if</span> (args != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>.healthCheckHandlerProvider = args.healthCheckHandlerProvider;</span><br><span class="line">        <span class="keyword">this</span>.healthCheckCallbackProvider = args.healthCheckCallbackProvider;</span><br><span class="line">        <span class="keyword">this</span>.eventListeners.addAll(args.getEventListeners());</span><br><span class="line">        <span class="keyword">this</span>.preRegistrationHandler = args.preRegistrationHandler;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.healthCheckCallbackProvider = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">this</span>.healthCheckHandlerProvider = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">this</span>.preRegistrationHandler = <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.applicationInfoManager = applicationInfoManager;</span><br><span class="line">    InstanceInfo myInfo = applicationInfoManager.getInfo();</span><br><span class="line"></span><br><span class="line">    clientConfig = config;</span><br><span class="line">    staticClientConfig = clientConfig;</span><br><span class="line">    transportConfig = config.getTransportConfig();</span><br><span class="line">    instanceInfo = myInfo;</span><br><span class="line">    <span class="keyword">if</span> (myInfo != <span class="keyword">null</span>) &#123;</span><br><span class="line">        appPathIdentifier = instanceInfo.getAppName() + <span class="string">"/"</span> + instanceInfo.getId();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        logger.warn(<span class="string">"Setting instanceInfo to a passed in null value"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.backupRegistryProvider = backupRegistryProvider;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.urlRandomizer = <span class="keyword">new</span> EndpointUtils.InstanceInfoBasedUrlRandomizer(instanceInfo);</span><br><span class="line">    localRegionApps.set(<span class="keyword">new</span> Applications());</span><br><span class="line"></span><br><span class="line">    fetchRegistryGeneration = <span class="keyword">new</span> AtomicLong(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    remoteRegionsToFetch = <span class="keyword">new</span> AtomicReference&lt;String&gt;(clientConfig.fetchRegistryForRemoteRegions());</span><br><span class="line">    remoteRegionsRef = <span class="keyword">new</span> AtomicReference&lt;&gt;(remoteRegionsToFetch.get() == <span class="keyword">null</span> ? <span class="keyword">null</span> : remoteRegionsToFetch.get().split(<span class="string">","</span>));</span><br><span class="line">	<span class="comment">//上面主要是初始化一些参数</span></span><br><span class="line">    <span class="comment">//如果 shouldFetchRegistry= true，注册监控</span></span><br><span class="line">    <span class="keyword">if</span> (config.shouldFetchRegistry()) &#123;</span><br><span class="line">        <span class="keyword">this</span>.registryStalenessMonitor = <span class="keyword">new</span> ThresholdLevelsMetric(<span class="keyword">this</span>, METRIC_REGISTRY_PREFIX + <span class="string">"lastUpdateSec_"</span>, <span class="keyword">new</span> <span class="keyword">long</span>[]&#123;<span class="number">15L</span>, <span class="number">30L</span>, <span class="number">60L</span>, <span class="number">120L</span>, <span class="number">240L</span>, <span class="number">480L</span>&#125;);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.registryStalenessMonitor = ThresholdLevelsMetric.NO_OP_METRIC;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">//如果shouldRegisterWithEureka=true，注册监控</span></span><br><span class="line">    <span class="keyword">if</span> (config.shouldRegisterWithEureka()) &#123;</span><br><span class="line">        <span class="keyword">this</span>.heartbeatStalenessMonitor = <span class="keyword">new</span> ThresholdLevelsMetric(<span class="keyword">this</span>, METRIC_REGISTRATION_PREFIX + <span class="string">"lastHeartbeatSec_"</span>, <span class="keyword">new</span> <span class="keyword">long</span>[]&#123;<span class="number">15L</span>, <span class="number">30L</span>, <span class="number">60L</span>, <span class="number">120L</span>, <span class="number">240L</span>, <span class="number">480L</span>&#125;);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.heartbeatStalenessMonitor = ThresholdLevelsMetric.NO_OP_METRIC;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    logger.info(<span class="string">"Initializing Eureka in region &#123;&#125;"</span>, clientConfig.getRegion());</span><br><span class="line">	<span class="comment">//如果shouldRegisterWithEureka = false &amp;&amp; shouldFetchRegistry=false</span></span><br><span class="line">    <span class="comment">//就不做初始化的工作，直接返回</span></span><br><span class="line">    <span class="keyword">if</span> (!config.shouldRegisterWithEureka() &amp;&amp; !config.shouldFetchRegistry()) &#123;</span><br><span class="line">        logger.info(<span class="string">"Client configured to neither register nor query for data."</span>);</span><br><span class="line">        scheduler = <span class="keyword">null</span>;</span><br><span class="line">        heartbeatExecutor = <span class="keyword">null</span>;</span><br><span class="line">        cacheRefreshExecutor = <span class="keyword">null</span>;</span><br><span class="line">        eurekaTransport = <span class="keyword">null</span>;</span><br><span class="line">        instanceRegionChecker = <span class="keyword">new</span> InstanceRegionChecker(<span class="keyword">new</span> PropertyBasedAzToRegionMapper(config), clientConfig.getRegion());</span><br><span class="line"></span><br><span class="line">        <span class="comment">// This is a bit of hack to allow for existing code using DiscoveryManager.getInstance()</span></span><br><span class="line">        <span class="comment">// to work with DI'd DiscoveryClient</span></span><br><span class="line">        DiscoveryManager.getInstance().setDiscoveryClient(<span class="keyword">this</span>);</span><br><span class="line">        DiscoveryManager.getInstance().setEurekaClientConfig(config);</span><br><span class="line"></span><br><span class="line">        initTimestampMs = System.currentTimeMillis();</span><br><span class="line">        logger.info(<span class="string">"Discovery Client initialized at timestamp &#123;&#125; with initial instances count: &#123;&#125;"</span>,</span><br><span class="line">                    initTimestampMs, <span class="keyword">this</span>.getApplications().size());</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span>;  <span class="comment">// no need to setup up an network tasks and we are done</span></span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">//从这里开始创建各种任务的线程池</span></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// default size of 2 - 1 each for heartbeat and cacheRefresh</span></span><br><span class="line">        <span class="comment">//创建定时线程池，线程数量为2个，分别用来维持心跳连接和刷新其他eureka client实例缓存</span></span><br><span class="line">        scheduler = Executors.newScheduledThreadPool(<span class="number">2</span>,</span><br><span class="line">                                                     <span class="keyword">new</span> ThreadFactoryBuilder()</span><br><span class="line">                                                     .setNameFormat(<span class="string">"DiscoveryClient-%d"</span>)</span><br><span class="line">                                                     .setDaemon(<span class="keyword">true</span>)</span><br><span class="line">                                                     .build());</span><br><span class="line">		<span class="comment">//创建一个线程池，线程池大小默认为2个，用来维持心跳连接</span></span><br><span class="line">        heartbeatExecutor = <span class="keyword">new</span> ThreadPoolExecutor(</span><br><span class="line">            <span class="number">1</span>, clientConfig.getHeartbeatExecutorThreadPoolSize(), <span class="number">0</span>, TimeUnit.SECONDS,</span><br><span class="line">            <span class="keyword">new</span> SynchronousQueue&lt;Runnable&gt;(),</span><br><span class="line">            <span class="keyword">new</span> ThreadFactoryBuilder()</span><br><span class="line">            .setNameFormat(<span class="string">"DiscoveryClient-HeartbeatExecutor-%d"</span>)</span><br><span class="line">            .setDaemon(<span class="keyword">true</span>)</span><br><span class="line">            .build()</span><br><span class="line">        );  <span class="comment">// use direct handoff</span></span><br><span class="line">		<span class="comment">//创建一个线程池，线程池大小默认为2个，用来刷新其他eureka client实例缓存</span></span><br><span class="line">        cacheRefreshExecutor = <span class="keyword">new</span> ThreadPoolExecutor(</span><br><span class="line">            <span class="number">1</span>, clientConfig.getCacheRefreshExecutorThreadPoolSize(), <span class="number">0</span>, TimeUnit.SECONDS,</span><br><span class="line">            <span class="keyword">new</span> SynchronousQueue&lt;Runnable&gt;(),</span><br><span class="line">            <span class="keyword">new</span> ThreadFactoryBuilder()</span><br><span class="line">            .setNameFormat(<span class="string">"DiscoveryClient-CacheRefreshExecutor-%d"</span>)</span><br><span class="line">            .setDaemon(<span class="keyword">true</span>)</span><br><span class="line">            .build()</span><br><span class="line">        );  <span class="comment">// use direct handoff</span></span><br><span class="line"></span><br><span class="line">        eurekaTransport = <span class="keyword">new</span> EurekaTransport();</span><br><span class="line">        scheduleServerEndpointTask(eurekaTransport, args);</span><br><span class="line">		......</span><br><span class="line">        ......</span><br><span class="line">        ......</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"Failed to initialize DiscoveryClient!"</span>, e);</span><br><span class="line">    &#125;</span><br><span class="line">     <span class="comment">//抓取远程实例注册信息，fetchRegistry()方法里的参数，这里为false，意思是要不要强制抓取所有实例注册信息</span></span><br><span class="line">    <span class="comment">//这里获取注册信息，分两种方式，一种是全量获取，另一种是增量获取，默认是增量获取</span></span><br><span class="line">    <span class="keyword">if</span> (clientConfig.shouldFetchRegistry() &amp;&amp; !fetchRegistry(<span class="keyword">false</span>)) &#123;</span><br><span class="line">        <span class="comment">//如果配置的是要获取实例注册信息，但是从远程获取失败，从备份获取实例注册信息</span></span><br><span class="line">        fetchRegistryFromBackup();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// call and execute the pre registration handler before all background tasks (inc registration) is started</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.preRegistrationHandler != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>.preRegistrationHandler.beforeRegistration();</span><br><span class="line">    &#125;</span><br><span class="line">        <span class="comment">//如果client配置注册到eureka server 且 强制 初始化就注册到eureka 那么就注册到eureka server，默认是不初始化就注册到eureka</span></span><br><span class="line">    <span class="keyword">if</span> (clientConfig.shouldRegisterWithEureka() &amp;&amp; clientConfig.shouldEnforceRegistrationAtInit()) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (!register() ) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"Registration error at startup. Invalid server response."</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable th) &#123;</span><br><span class="line">            logger.error(<span class="string">"Registration error at startup: &#123;&#125;"</span>, th.getMessage());</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(th);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// finally, init the schedule tasks (e.g. cluster resolvers, heartbeat, instanceInfo replicator, fetch</span></span><br><span class="line">    <span class="comment">//初始化维持心跳连接、更新注册信息缓存的定时任务</span></span><br><span class="line">    initScheduledTasks();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        Monitors.registerObject(<span class="keyword">this</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">        logger.warn(<span class="string">"Cannot register timers"</span>, e);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// This is a bit of hack to allow for existing code using DiscoveryManager.getInstance()</span></span><br><span class="line">    <span class="comment">// to work with DI'd DiscoveryClient</span></span><br><span class="line">    DiscoveryManager.getInstance().setDiscoveryClient(<span class="keyword">this</span>);</span><br><span class="line">    DiscoveryManager.getInstance().setEurekaClientConfig(config);</span><br><span class="line"></span><br><span class="line">    initTimestampMs = System.currentTimeMillis();</span><br><span class="line">    logger.info(<span class="string">"Discovery Client initialized at timestamp &#123;&#125; with initial instances count: &#123;&#125;"</span>,</span><br><span class="line">                initTimestampMs, <span class="keyword">this</span>.getApplications().size());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>初始化的过程主要做了两件事：</p>
+<ol>
+<li>创建了 scheduler 定时任务的线程池，heartbeatExecutor 心跳检查线程池(<strong>服务续约</strong>)，cacheRefreshExecutor 服务获取线程池 ；</li>
+<li>调用 <code>initScheduledTasks()</code>方法开启线程池，往上面3个线程池分别添加相应任务。然后创建了一个<code>instanceInfoReplicator(Runnable任务)</code>，然后调用<code>InstanceInfoReplicator.start</code>方法，把这个任务放进上面scheduler定时任务线程池(<strong>服务注册并更新</strong>)。</li>
+</ol>
+<p>接着看 <code>initScheduledTasks</code>做了哪些事情 ：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initScheduledTasks</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//获取服务列表信息</span></span><br><span class="line">    <span class="keyword">if</span> (clientConfig.shouldFetchRegistry()) &#123;</span><br><span class="line">        <span class="comment">// registry cache refresh timer</span></span><br><span class="line">        <span class="comment">//获取默认的注册频率信息，默认30S</span></span><br><span class="line">        <span class="keyword">int</span> registryFetchIntervalSeconds = clientConfig.getRegistryFetchIntervalSeconds();</span><br><span class="line">        <span class="comment">//如果缓存刷新超时，下一次执行的delay最大是registryFetchIntervalSeconds的几倍（默认10），默认每次执行是上一次的2倍</span></span><br><span class="line">        <span class="keyword">int</span> expBackOffBound = clientConfig.getCacheRefreshExecutorExponentialBackOffBound();</span><br><span class="line">        <span class="comment">//执行CacheRefreshThread，服务列表缓存刷新任务</span></span><br><span class="line">        scheduler.schedule(</span><br><span class="line">            <span class="keyword">new</span> TimedSupervisorTask(</span><br><span class="line">                <span class="string">"cacheRefresh"</span>,</span><br><span class="line">                scheduler,</span><br><span class="line">                cacheRefreshExecutor,</span><br><span class="line">                registryFetchIntervalSeconds,</span><br><span class="line">                TimeUnit.SECONDS,</span><br><span class="line">                expBackOffBound,</span><br><span class="line">                <span class="keyword">new</span> CacheRefreshThread()</span><br><span class="line">            ),</span><br><span class="line">            registryFetchIntervalSeconds, TimeUnit.SECONDS);</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">//注册到eureka server</span></span><br><span class="line">    <span class="keyword">if</span> (clientConfig.shouldRegisterWithEureka()) &#123;</span><br><span class="line">        <span class="comment">//续租时间间隔，默认30s</span></span><br><span class="line">        <span class="keyword">int</span> renewalIntervalInSecs = instanceInfo.getLeaseInfo().getRenewalIntervalInSecs();</span><br><span class="line">        <span class="comment">// 如果心跳任务超时，下一次执行的delay最大是renewalIntervalInSecs的几倍（默认10），默认每次执行是上一次的2倍</span></span><br><span class="line">        <span class="keyword">int</span> expBackOffBound = clientConfig.getHeartbeatExecutorExponentialBackOffBound();</span><br><span class="line">        logger.info(<span class="string">"Starting heartbeat executor: "</span> + <span class="string">"renew interval is: &#123;&#125;"</span>, renewalIntervalInSecs);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Heartbeat timer</span></span><br><span class="line">        <span class="comment">//执行HeartbeatThread，发送心跳数据</span></span><br><span class="line">        scheduler.schedule(</span><br><span class="line">            <span class="keyword">new</span> TimedSupervisorTask(</span><br><span class="line">                <span class="string">"heartbeat"</span>,</span><br><span class="line">                scheduler,</span><br><span class="line">                heartbeatExecutor,</span><br><span class="line">                renewalIntervalInSecs,</span><br><span class="line">                TimeUnit.SECONDS,</span><br><span class="line">                expBackOffBound,</span><br><span class="line">                <span class="keyword">new</span> HeartbeatThread()</span><br><span class="line">            ),</span><br><span class="line">            renewalIntervalInSecs, TimeUnit.SECONDS);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 客户端实例信息复制</span></span><br><span class="line">        instanceInfoReplicator = <span class="keyword">new</span> InstanceInfoReplicator(</span><br><span class="line">            <span class="keyword">this</span>,</span><br><span class="line">            instanceInfo,</span><br><span class="line">            clientConfig.getInstanceInfoReplicationIntervalSeconds(),</span><br><span class="line">            <span class="number">2</span>); <span class="comment">// burstSize</span></span><br><span class="line">		<span class="comment">//注册监听器</span></span><br><span class="line">        statusChangeListener = <span class="keyword">new</span> ApplicationInfoManager.StatusChangeListener() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> String <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="string">"statusChangeListener"</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">notify</span><span class="params">(StatusChangeEvent statusChangeEvent)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">if</span> (InstanceStatus.DOWN == statusChangeEvent.getStatus() ||</span><br><span class="line">                    InstanceStatus.DOWN == statusChangeEvent.getPreviousStatus()) &#123;</span><br><span class="line">                    <span class="comment">// log at warn level if DOWN was involved</span></span><br><span class="line">                    logger.warn(<span class="string">"Saw local status change event &#123;&#125;"</span>, statusChangeEvent);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    logger.info(<span class="string">"Saw local status change event &#123;&#125;"</span>, statusChangeEvent);</span><br><span class="line">                &#125;</span><br><span class="line">                instanceInfoReplicator.onDemandUpdate();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (clientConfig.shouldOnDemandUpdateStatusChange()) &#123;</span><br><span class="line">            applicationInfoManager.registerStatusChangeListener(statusChangeListener);</span><br><span class="line">        &#125;</span><br><span class="line">		<span class="comment">//进行服务刷新</span></span><br><span class="line">        instanceInfoReplicator.start(clientConfig.getInitialInstanceInfoReplicationIntervalSeconds());</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        logger.info(<span class="string">"Not registering with Eureka server per configuration"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>总的来说<code>initScheduledTasks()</code>做了以下几件事：</p>
+<ul>
+<li>
+<p>如果shouldFetchRegistry=true，即要从Eureka Server获取服务列表：</p>
+<p>启动刷新服务列表定时线程（DiscoveryClient-CacheRefreshExecutor-%d），默认registryFetchIntervalSeconds=30s执行一次，任务为<code>CacheRefreshThread</code>，即从Eureka Server获取服务列表，也刷新客户端缓存。</p>
+</li>
+<li>
+<p>如果shouldRegisterWithEureka=true，即要注册到Eureka Server。</p>
+<p>启动heartbeat心跳定时线程（DiscoveryClient-HeartbeatExecutor-%d），默认renewalIntervalInSecs=30s续约一次，任务为<code>HeartbeatThread</code>，即客户端向Eureka Server发送心跳；</p>
+<p>启动InstanceInfo复制器定时线程（DiscoveryClient-InstanceInfoReplicator-%d），开启定时线程检查当前Instance的DataCenterInfo、LeaseInfo、InstanceStatus，如果发现变更就执行<code>discoveryClient.register()</code>，将实例信息同步到Server端。</p>
+</li>
+</ul>
+<p>上面有一个需要关注的点是：InstanceInfoReplicator。它会去定时刷新客户端实例的最新信息：当前实例最新数据，租约信息，实例状态。InstanceInfoReplicator 是一个线程类，关注 run()方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 刷新 InstanceInfo</span></span><br><span class="line"><span class="comment">         * 1、刷新 DataCenterInfo</span></span><br><span class="line"><span class="comment">         * 2、刷新 LeaseInfo 租约信息</span></span><br><span class="line"><span class="comment">         * 3、根据HealthCheckHandler获取InstanceStatus，并更新，如果状态发生变化会触发所有StatusChangeListener</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        discoveryClient.refreshInstanceInfo();</span><br><span class="line">		<span class="comment">//刷新完之后，当前服务有变更，还未同步给server，发起注册</span></span><br><span class="line">        Long dirtyTimestamp = instanceInfo.isDirtyWithTime();</span><br><span class="line">        <span class="keyword">if</span> (dirtyTimestamp != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">//发起注册</span></span><br><span class="line">            discoveryClient.register();</span><br><span class="line">            instanceInfo.unsetIsDirty(dirtyTimestamp);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Throwable t) &#123;</span><br><span class="line">        logger.warn(<span class="string">"There was a problem with the instance info replicator"</span>, t);</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        Future next = scheduler.schedule(<span class="keyword">this</span>, replicationIntervalSeconds, TimeUnit.SECONDS);</span><br><span class="line">        scheduledPeriodicRef.set(next);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看一下<code>register（）</code>的实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Register with the eureka service by making the appropriate REST call.</span></span><br><span class="line"><span class="comment">     * 使用http的方式注册eureka服务</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">register</span><span class="params">()</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">    logger.info(PREFIX + <span class="string">"&#123;&#125;: registering service..."</span>, appPathIdentifier);</span><br><span class="line">    EurekaHttpResponse&lt;Void&gt; httpResponse;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        httpResponse = eurekaTransport.registrationClient.register(instanceInfo);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        logger.warn(PREFIX + <span class="string">"&#123;&#125; - registration failed &#123;&#125;"</span>, appPathIdentifier, e.getMessage(), e);</span><br><span class="line">        <span class="keyword">throw</span> e;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (logger.isInfoEnabled()) &#123;</span><br><span class="line">        logger.info(PREFIX + <span class="string">"&#123;&#125; - registration status: &#123;&#125;"</span>, appPathIdentifier, httpResponse.getStatusCode());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> httpResponse.getStatusCode() == <span class="number">204</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>往下跟踪到 <code>RestTemplateEurekaHttpClient</code>类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RestTemplateEurekaHttpClient</span> <span class="keyword">implements</span> <span class="title">EurekaHttpClient</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">protected</span> <span class="keyword">final</span> Log logger = LogFactory.getLog(getClass());</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> RestTemplate restTemplate;</span><br><span class="line">	<span class="keyword">private</span> String serviceUrl;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">RestTemplateEurekaHttpClient</span><span class="params">(RestTemplate restTemplate, String serviceUrl)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.restTemplate = restTemplate;</span><br><span class="line">		<span class="keyword">this</span>.serviceUrl = serviceUrl;</span><br><span class="line">		<span class="keyword">if</span> (!serviceUrl.endsWith(<span class="string">"/"</span>)) &#123;</span><br><span class="line">			<span class="keyword">this</span>.serviceUrl = <span class="keyword">this</span>.serviceUrl+<span class="string">"/"</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> EurekaHttpResponse&lt;Void&gt; <span class="title">register</span><span class="params">(InstanceInfo info)</span> </span>&#123;</span><br><span class="line">		String urlPath = serviceUrl + <span class="string">"apps/"</span> + info.getAppName();</span><br><span class="line"></span><br><span class="line">		HttpHeaders headers = <span class="keyword">new</span> HttpHeaders();</span><br><span class="line">		headers.add(HttpHeaders.ACCEPT_ENCODING, <span class="string">"gzip"</span>);</span><br><span class="line">		headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);</span><br><span class="line"></span><br><span class="line">		ResponseEntity&lt;Void&gt; response = restTemplate.exchange(urlPath, HttpMethod.POST,</span><br><span class="line">				<span class="keyword">new</span> HttpEntity&lt;&gt;(info, headers), Void.class);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> anEurekaHttpResponse(response.getStatusCodeValue())</span><br><span class="line">				.headers(headersOf(response)).build();</span><br><span class="line">	&#125;</span><br><span class="line">    </span><br><span class="line">    ......</span><br><span class="line">    ......</span><br><span class="line">    ......</span><br><span class="line">        </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>封装了<code>RestTemplate</code> http client 模板方法，给 server 端发送一个post 请求。所以启动 client 的时候，向服务端发送注册请求的地方就在这里。</p>
+<h5 id="22-服务续约"><a class="markdownIt-Anchor" href="#22-服务续约"></a> 2.2  服务续约</h5>
+<p>服务续约的入口在DiscoveryClient 类initScheduledTasks()方法的heartBeat timer定时器任务中：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Heartbeat timer</span></span><br><span class="line"><span class="comment">//开启定时任务每隔30s发送一次 心跳请求</span></span><br><span class="line">scheduler.schedule(</span><br><span class="line">    <span class="keyword">new</span> TimedSupervisorTask(</span><br><span class="line">        <span class="string">"heartbeat"</span>,</span><br><span class="line">        scheduler,</span><br><span class="line">        heartbeatExecutor,</span><br><span class="line">        renewalIntervalInSecs,</span><br><span class="line">        TimeUnit.SECONDS,</span><br><span class="line">        expBackOffBound,</span><br><span class="line">        <span class="keyword">new</span> HeartbeatThread()</span><br><span class="line">    ),</span><br><span class="line">    renewalIntervalInSecs, TimeUnit.SECONDS);</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">     * The heartbeat task that renews the lease in the given intervals.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"><span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">HeartbeatThread</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (renew()) &#123;</span><br><span class="line">            lastSuccessfulHeartbeatTimestamp = System.currentTimeMillis();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Renew with the eureka service by making the appropriate REST call</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">renew</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    EurekaHttpResponse&lt;InstanceInfo&gt; httpResponse;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        httpResponse = eurekaTransport.registrationClient.sendHeartBeat(instanceInfo.getAppName(), instanceInfo.getId(), instanceInfo, <span class="keyword">null</span>);</span><br><span class="line">        logger.debug(PREFIX + <span class="string">"&#123;&#125; - Heartbeat status: &#123;&#125;"</span>, appPathIdentifier, httpResponse.getStatusCode());</span><br><span class="line">        <span class="keyword">if</span> (httpResponse.getStatusCode() == <span class="number">404</span>) &#123;</span><br><span class="line">            REREGISTER_COUNTER.increment();</span><br><span class="line">            logger.info(PREFIX + <span class="string">"&#123;&#125; - Re-registering apps/&#123;&#125;"</span>, appPathIdentifier, instanceInfo.getAppName());</span><br><span class="line">            <span class="keyword">long</span> timestamp = instanceInfo.setIsDirtyWithTime();</span><br><span class="line">            <span class="keyword">boolean</span> success = register();</span><br><span class="line">            <span class="keyword">if</span> (success) &#123;</span><br><span class="line">                instanceInfo.unsetIsDirty(timestamp);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> success;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> httpResponse.getStatusCode() == <span class="number">200</span>;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">        logger.error(PREFIX + <span class="string">"&#123;&#125; - was unable to send heartbeat!"</span>, appPathIdentifier, e);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> EurekaHttpResponse&lt;InstanceInfo&gt; <span class="title">sendHeartBeat</span><span class="params">(String appName, String id,</span></span></span><br><span class="line"><span class="function"><span class="params">                                                      InstanceInfo info, InstanceStatus overriddenStatus)</span> </span>&#123;</span><br><span class="line">    String urlPath = serviceUrl + <span class="string">"apps/"</span> + appName + <span class="string">'/'</span> + id + <span class="string">"?status="</span></span><br><span class="line">        + info.getStatus().toString() + <span class="string">"&amp;lastDirtyTimestamp="</span></span><br><span class="line">        + info.getLastDirtyTimestamp().toString() + (overriddenStatus != <span class="keyword">null</span></span><br><span class="line">                                                     ? <span class="string">"&amp;overriddenstatus="</span> + overriddenStatus.name() : <span class="string">""</span>);</span><br><span class="line"></span><br><span class="line">    ResponseEntity&lt;InstanceInfo&gt; response = restTemplate.exchange(urlPath,</span><br><span class="line">                                                                  HttpMethod.PUT, <span class="keyword">null</span>, InstanceInfo.class);</span><br><span class="line"></span><br><span class="line">    EurekaHttpResponseBuilder&lt;InstanceInfo&gt; eurekaResponseBuilder = anEurekaHttpResponse(</span><br><span class="line">        response.getStatusCodeValue(), InstanceInfo.class)</span><br><span class="line">        .headers(headersOf(response));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (response.hasBody())</span><br><span class="line">        eurekaResponseBuilder.entity(response.getBody());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> eurekaResponseBuilder.build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面贴出来了客户端发送心跳请求的完整调用过程，每隔30s客户端向服务端发送一次请求，向服务端重新注册自己。</p>
+<h5 id="23-服务下线"><a class="markdownIt-Anchor" href="#23-服务下线"></a> 2.3 服务下线</h5>
+<p>服务下线比较好理解，在服务关闭的时候取消本机的各种定时任务，给服务端发送请求告知自己下线。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Shuts down Eureka Client. Also sends a deregistration request to the</span></span><br><span class="line"><span class="comment">     * eureka server.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"><span class="meta">@PreDestroy</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">shutdown</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (isShutdown.compareAndSet(<span class="keyword">false</span>, <span class="keyword">true</span>)) &#123;</span><br><span class="line">        logger.info(<span class="string">"Shutting down DiscoveryClient ..."</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (statusChangeListener != <span class="keyword">null</span> &amp;&amp; applicationInfoManager != <span class="keyword">null</span>) &#123;</span><br><span class="line">            applicationInfoManager.unregisterStatusChangeListener(statusChangeListener.getId());</span><br><span class="line">        &#125;</span><br><span class="line">		<span class="comment">//取消各种定时任务</span></span><br><span class="line">        cancelScheduledTasks();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// If APPINFO was registered</span></span><br><span class="line">        <span class="keyword">if</span> (applicationInfoManager != <span class="keyword">null</span></span><br><span class="line">            &amp;&amp; clientConfig.shouldRegisterWithEureka()</span><br><span class="line">            &amp;&amp; clientConfig.shouldUnregisterOnShutdown()) &#123;</span><br><span class="line">            applicationInfoManager.setInstanceStatus(InstanceStatus.DOWN);</span><br><span class="line">            <span class="comment">//向服务端发送请求告知自己下线</span></span><br><span class="line">            unregister();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (eurekaTransport != <span class="keyword">null</span>) &#123;</span><br><span class="line">            eurekaTransport.shutdown();</span><br><span class="line">        &#125;</span><br><span class="line">		<span class="comment">//关闭监控</span></span><br><span class="line">        heartbeatStalenessMonitor.shutdown();</span><br><span class="line">        registryStalenessMonitor.shutdown();</span><br><span class="line"></span><br><span class="line">        logger.info(<span class="string">"Completed shut down of DiscoveryClient"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">     * unregister w/ the eureka service.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">unregister</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// It can be null if shouldRegisterWithEureka == false</span></span><br><span class="line">    <span class="keyword">if</span>(eurekaTransport != <span class="keyword">null</span> &amp;&amp; eurekaTransport.registrationClient != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            logger.info(<span class="string">"Unregistering ..."</span>);</span><br><span class="line">            EurekaHttpResponse&lt;Void&gt; httpResponse = eurekaTransport.registrationClient.cancel(instanceInfo.getAppName(), instanceInfo.getId());</span><br><span class="line">            logger.info(PREFIX + <span class="string">"&#123;&#125; - deregister  status: &#123;&#125;"</span>, appPathIdentifier, httpResponse.getStatusCode());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            logger.error(PREFIX + <span class="string">"&#123;&#125; - de-registration failed&#123;&#125;"</span>, appPathIdentifier, e.getMessage(), e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> EurekaHttpResponse&lt;Void&gt; <span class="title">cancel</span><span class="params">(String appName, String id)</span> </span>&#123;</span><br><span class="line">    String urlPath = serviceUrl + <span class="string">"apps/"</span> + appName + <span class="string">'/'</span> + id;</span><br><span class="line"></span><br><span class="line">    ResponseEntity&lt;Void&gt; response = restTemplate.exchange(urlPath, HttpMethod.DELETE,</span><br><span class="line">                                                          <span class="keyword">null</span>, Void.class);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> anEurekaHttpResponse(response.getStatusCodeValue())</span><br><span class="line">        .headers(headersOf(response)).build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="24-服务获取-和-服务刷新"><a class="markdownIt-Anchor" href="#24-服务获取-和-服务刷新"></a> 2.4 服务获取 和 服务刷新</h5>
+<p>服务启动的时候会去服务端全量拉取所有已经注册过的其余client实例信息，增量的时候就是在<code>initScheduledTasks()</code> 方法中每30s增量跑一次。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initScheduledTasks</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (clientConfig.shouldFetchRegistry()) &#123;</span><br><span class="line">        <span class="comment">// registry cache refresh timer</span></span><br><span class="line">        <span class="keyword">int</span> registryFetchIntervalSeconds = clientConfig.getRegistryFetchIntervalSeconds();</span><br><span class="line">        <span class="keyword">int</span> expBackOffBound = clientConfig.getCacheRefreshExecutorExponentialBackOffBound();</span><br><span class="line">        scheduler.schedule(</span><br><span class="line">            <span class="keyword">new</span> TimedSupervisorTask(</span><br><span class="line">                <span class="string">"cacheRefresh"</span>,</span><br><span class="line">                scheduler,</span><br><span class="line">                cacheRefreshExecutor,</span><br><span class="line">                registryFetchIntervalSeconds,</span><br><span class="line">                TimeUnit.SECONDS,</span><br><span class="line">                expBackOffBound,</span><br><span class="line">                <span class="keyword">new</span> CacheRefreshThread()</span><br><span class="line">            ),</span><br><span class="line">            registryFetchIntervalSeconds, TimeUnit.SECONDS);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    ......</span><br><span class="line">    ......</span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">     * The task that fetches the registry information at specified intervals.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CacheRefreshThread</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        refreshRegistry();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@VisibleForTesting</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">refreshRegistry</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">boolean</span> isFetchingRemoteRegionRegistries = isFetchingRemoteRegionRegistries();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">boolean</span> remoteRegionsModified = <span class="keyword">false</span>;</span><br><span class="line">        <span class="comment">// This makes sure that a dynamic change to remote regions to fetch is honored.</span></span><br><span class="line">        String latestRemoteRegions = clientConfig.fetchRegistryForRemoteRegions();</span><br><span class="line">        ......</span><br><span class="line">            ......</span><br><span class="line">            ......</span><br><span class="line"></span><br><span class="line">            <span class="keyword">boolean</span> success = fetchRegistry(remoteRegionsModified);</span><br><span class="line">        <span class="keyword">if</span> (success) &#123;</span><br><span class="line">            registrySize = localRegionApps.get().size();</span><br><span class="line">            lastSuccessfulRegistryFetchTimestamp = System.currentTimeMillis();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        ......</span><br><span class="line">            ......</span><br><span class="line">            ......</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">        logger.error(<span class="string">"Cannot fetch registry from server"</span>, e);</span><br><span class="line">    &#125;        </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Fetches the registry information.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * &lt;p&gt;</span></span><br><span class="line"><span class="comment">     * This method tries to get only deltas after the first fetch unless there</span></span><br><span class="line"><span class="comment">     * is an issue in reconciling eureka server and client registry information.</span></span><br><span class="line"><span class="comment">     * &lt;/p&gt;</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> forceFullRegistryFetch Forces a full registry fetch.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> true if the registry was fetched</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">fetchRegistry</span><span class="params">(<span class="keyword">boolean</span> forceFullRegistryFetch)</span> </span>&#123;</span><br><span class="line">    Stopwatch tracer = FETCH_REGISTRY_TIMER.start();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// 如果现在增量服务获取不可用，或者是第一次获取服务的时候，拉去所有的应用</span></span><br><span class="line">        Applications applications = getApplications();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (clientConfig.shouldDisableDelta()</span><br><span class="line">            || (!Strings.isNullOrEmpty(clientConfig.getRegistryRefreshSingleVipAddress()))</span><br><span class="line">            || forceFullRegistryFetch</span><br><span class="line">            || (applications == <span class="keyword">null</span>)</span><br><span class="line">            || (applications.getRegisteredApplications().size() == <span class="number">0</span>)</span><br><span class="line">            || (applications.getVersion() == -<span class="number">1</span>)) <span class="comment">//Client application does not have latest library supporting delta</span></span><br><span class="line">        &#123;</span><br><span class="line">            logger.info(<span class="string">"Disable delta property : &#123;&#125;"</span>, clientConfig.shouldDisableDelta());</span><br><span class="line">            logger.info(<span class="string">"Single vip registry refresh property : &#123;&#125;"</span>, clientConfig.getRegistryRefreshSingleVipAddress());</span><br><span class="line">            logger.info(<span class="string">"Force full registry fetch : &#123;&#125;"</span>, forceFullRegistryFetch);</span><br><span class="line">            logger.info(<span class="string">"Application is null : &#123;&#125;"</span>, (applications == <span class="keyword">null</span>));</span><br><span class="line">            logger.info(<span class="string">"Registered Applications size is zero : &#123;&#125;"</span>,</span><br><span class="line">                        (applications.getRegisteredApplications().size() == <span class="number">0</span>));</span><br><span class="line">            logger.info(<span class="string">"Application version is -1: &#123;&#125;"</span>, (applications.getVersion() == -<span class="number">1</span>));</span><br><span class="line">            getAndStoreFullRegistry();</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            getAndUpdateDelta(applications);</span><br><span class="line">        &#125;</span><br><span class="line">        applications.setAppsHashCode(applications.getReconcileHashCode());</span><br><span class="line">        logTotalInstances();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">        logger.error(PREFIX + <span class="string">"&#123;&#125; - was unable to refresh its cache! status = &#123;&#125;"</span>, appPathIdentifier, e.getMessage(), e);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (tracer != <span class="keyword">null</span>) &#123;</span><br><span class="line">            tracer.stop();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Notify about cache refresh before updating the instance remote status</span></span><br><span class="line">    onCacheRefreshed();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Update remote status based on refreshed data held in the cache</span></span><br><span class="line">    updateInstanceRemoteStatus();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// registry was fetched successfully, so return true</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>客户端拉取服务端保存的所有客户端节点信息保存时间为3分钟，Eureka client取得的数据虽然是增量更新，仍然可能和30秒前取的数据一样，所以Eureka client要自己来处理重复信息。</p>
+<p>另外，注意到在<code>fetchRegistry()</code>方法中：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">applications.setAppsHashCode(applications.getReconcileHashCode());</span><br></pre></td></tr></table></figure>
+<p>每次增量更新，服务端都会带过来一个一致性hash码。Eureka client的增量更新，其实获取的是Eureka server最近三分钟内的变更，如果Eureka client有超过三分钟没有做增量更新的话（例如网络问题），这就造成了Eureka server和Eureka client之间的数据不一致。正常情况下，Eureka client多次增量更新后，最终的服务列表数据应该Eureka server保持一致，但如果期间发生异常，可能导致和Eureka server的数据不一致，为了暴露这个问题，Eureka server每次返回的增量更新数据中，会带有一致性哈希码，Eureka client用本地服务列表数据算出的一致性哈希码应该和Eureka server返回的一致，若不一致就证明增量更新出了问题导致Eureka client和Eureka server上的服务列表信息不一致了，此时需要全量更新。</p>
+<p>关于客户端的代码分析就到这里，本篇主要从两个角度去分析：</p>
+<ol>
+<li>从启动类入手，查看初始化了什么；</li>
+<li>从启动日志入手，查看启动类做了什么。</li>
+</ol>
+<p>如果大家有更好的分析角度，可以一起探讨，让我们踩着巨人的肩膀越走越远。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/posts/d4e07de.html">Spring Cloud Eureka源码分析 --- client 注册流程</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Rickiyang 的个人博客">Rickiyang</a></p>
+  <p><span>发布时间:</span>2019年10月04日 - 12:36</p>
+  <p><span>最后更新:</span>2019年12月25日 - 23:48</p>
+  <p><span>原始链接:</span><a href="/posts/d4e07de.html" title="Spring Cloud Eureka源码分析 --- client 注册流程">http://blog.rickiyang.cn/posts/d4e07de.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://blog.rickiyang.cn/posts/d4e07de.html" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
+</div>
+<script>
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({
+          title: "",
+          text: '复制成功',
+          icon: "success",
+          showConfirmButton: true
+          });
+    });
+    });
+</script>
+
+
+      
+    </div>
+    
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #636363;font-size:14px;letter-spacing: 10px">本文结束啦<i class="fa fa-bell"></i>感谢您的阅读</div>
+    
+</div>
+
+      
+    </div>
+
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/1ff1988.html" rel="next" title="Spring Cloud Eureka源码分析---服务注册">
+                <i class="fa fa-chevron-left"></i> Spring Cloud Eureka源码分析---服务注册
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/fe2781e4.html" rel="prev" title="Eureka配置信息详解">
+                Eureka配置信息详解 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/adele.png" alt="Rickiyang">
+            
+              <p class="site-author-name" itemprop="name">Rickiyang</p>
+              <p class="site-description motion-element" itemprop="description">分享对coding生活的见解</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">136</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3JpY2tpeWFuZw==" title="GitHub &rarr; https://github.com/rickiyang"><i class="fa fa-fw fa-github"></i>GitHub</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="bWFpbHRvOm1lZGVlMTMyMEBnbWFpbC5jb20=" title="E-Mail &rarr; mailto:medee1320@gmail.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2E5NTM3MTM0Mjg=" title="CSDN &rarr; https://blog.csdn.net/a953713428"><i class="fa fa-fw fa-google"></i>CSDN</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="/953713428" title="QQ &rarr; 953713428"><i class="fa fa-fw fa-twitter"></i>QQ</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1从启动类入手"><span class="nav-number">1.</span> <span class="nav-text"> 1.从启动类入手</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-discoveryclient"><span class="nav-number">2.</span> <span class="nav-text"> 2. DiscoveryClient</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#21-服务注册"><span class="nav-number">2.1.</span> <span class="nav-text"> 2.1 服务注册</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#22-服务续约"><span class="nav-number">2.2.</span> <span class="nav-text"> 2.2  服务续约</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#23-服务下线"><span class="nav-number">2.3.</span> <span class="nav-text"> 2.3 服务下线</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#24-服务获取-和-服务刷新"><span class="nav-number">2.4.</span> <span class="nav-text"> 2.4 服务获取 和 服务刷新</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Rickiyang</span>
+
+  
+
+  
+</div>
+
+<!--<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>-->
+
+
+
+
+
+<!--
+  <div class="theme-info">主题 – <span class="exturl theme-link" data-url="aHR0cHM6Ly90aGVtZS1uZXh0Lm9yZw==">NexT.Gemini</span> v6.7.0</div>
+-->
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共344.6k字</span>
+</div>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https'){
+   bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else{
+  bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      网站总访客数 <span class="busuanzi-value" id="busuanzi_value_site_uv"></span> 人次. |
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      &nbsp;<i class="fa fa-eye"></i>
+      总访问量 <span class="busuanzi-value" id="busuanzi_value_site_pv"></span> 次.
+    </span>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </div></footer>
+
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  <script id="ribbon" size="300" alpha="0.6" zindex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/three/three.min.js"></script>
+
+  
+  <script src="/lib/three/canvas_sphere.min.js"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script>
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+      el: '#comments' ,
+      verify: false,
+      notify: false,
+      appId: 'X5fy0b9Gknu0SAse5areilGR-gzGzoHsz',
+      appKey: 'URk4cyPQ8Ttqtwhop5t26kok',
+      placeholder: 'Just go go',
+      avatar: 'mm',
+      meta:guest,
+      pageSize: '10' || 10,
+      visitor: false
+    });
+  </script>
+
+
+
+
+  
+
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function ({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', `/classes/Counter/${counter.objectId}`, JSON.stringify({ time: { "__op":"Increment", "amount":1 } }))
+            
+            .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.time + 1);
+            })
+            
+            .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+            })
+          } else {
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1}))
+                .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function () {
+                  console.log('Failed to create');
+                });
+            
+          }
+        })
+      .fail(function ({ responseJSON }) {
+        console.log('LeanCloud Counter Error:' + responseJSON.code + " " + responseJSON.error);
+      });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + "X5fy0b9Gknu0SAse5areilGR-gzGzoHsz")
+        .done(function ({ api_server }) {
+          var Counter = function (method, url, data) {
+            return $.ajax({
+              method: method,
+              url: `https://${api_server}/1.1${url}`,
+              headers: {
+                'X-LC-Id': "X5fy0b9Gknu0SAse5areilGR-gzGzoHsz",
+                'X-LC-Key': "URk4cyPQ8Ttqtwhop5t26kok",
+                'Content-Type': 'application/json',
+              },
+              data: data,
+            });
+          };
+          
+          addCount(Counter);
+          
+        })
+    });
+  </script>
+
+
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+      }
+      else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+  <script>
+    
+    
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+  <script src="/js/src/exturl.js?v=6.7.0"></script>
+
+
+  
+
+  
+
+  
+
+
+  <!-- 页面点击小红心 -->
+    <script type="text/javascript" src="/js/src/love.js"></script>
+    <!---->
+</body>
+</html>
