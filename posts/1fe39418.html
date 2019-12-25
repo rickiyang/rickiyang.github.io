@@ -1,0 +1,1875 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-center-circle.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
+  
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/adele.ico?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/adele.ico?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/adele.ico?v=6.7.0">
+
+
+  <link rel="mask-icon" href="/images/adele.ico?v=6.7.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="日常开发中，无论你是使用什么语言，都应该遇到过使用加解密的使用场景，比如接口数据需要加密传给前端保证数据传输的安全；HTTPS使用证书的方式首先进行非对称加密，将客户端的私匙传递给服务端，然后双方后面的通信都使用该私匙进行对称加密传输；使用MD5进行文件一致性校验，等等很多的场景都使用到了加解密技术。 很多时候我们对于什么时候要使用什么样的加解密方式是很懵的。因为可用的加解密方案实在是太多，大家对">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="加解密算法分析">
+<meta property="og:url" content="http://blog.rickiyang.cn/posts/1fe39418.html">
+<meta property="og:site_name" content="Rickiyang&#39;s blog">
+<meta property="og:description" content="日常开发中，无论你是使用什么语言，都应该遇到过使用加解密的使用场景，比如接口数据需要加密传给前端保证数据传输的安全；HTTPS使用证书的方式首先进行非对称加密，将客户端的私匙传递给服务端，然后双方后面的通信都使用该私匙进行对称加密传输；使用MD5进行文件一致性校验，等等很多的场景都使用到了加解密技术。 很多时候我们对于什么时候要使用什么样的加解密方式是很懵的。因为可用的加解密方案实在是太多，大家对">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.loli.net/2019/12/25/4hKZt6EHe5d87Yj.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/12/25/AdHrf15FLW3k6Ei.jpg">
+<meta property="og:updated_time" content="2019-12-25T15:28:52.859Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="加解密算法分析">
+<meta name="twitter:description" content="日常开发中，无论你是使用什么语言，都应该遇到过使用加解密的使用场景，比如接口数据需要加密传给前端保证数据传输的安全；HTTPS使用证书的方式首先进行非对称加密，将客户端的私匙传递给服务端，然后双方后面的通信都使用该私匙进行对称加密传输；使用MD5进行文件一致性校验，等等很多的场景都使用到了加解密技术。 很多时候我们对于什么时候要使用什么样的加解密方式是很懵的。因为可用的加解密方案实在是太多，大家对">
+<meta name="twitter:image" content="https://i.loli.net/2019/12/25/4hKZt6EHe5d87Yj.jpg">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Rickiyang's blog" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://blog.rickiyang.cn/posts/1fe39418.html">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>加解密算法分析 | Rickiyang's blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Rickiyang's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">java,大数据,分布式组件</h1>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-首页">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.rickiyang.cn/posts/1fe39418.html">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Rickiyang">
+      <meta itemprop="description" content="分享对coding生活的见解">
+      <meta itemprop="image" content="/images/adele.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rickiyang's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">加解密算法分析
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-09-21 23:11:33" itemprop="dateCreated datePublished" datetime="2019-09-21T23:11:33+08:00">2019-09-21</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-12-25 23:28:52" itemprop="dateModified" datetime="2019-12-25T23:28:52+08:00">2019-12-25</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/不为人知的Java/" itemprop="url" rel="index"><span itemprop="name">不为人知的Java</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/posts/1fe39418.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/posts/1fe39418.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/posts/1fe39418.html" class="leancloud_visitors" data-flag-title="加解密算法分析">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>℃</span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">16k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">15 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>日常开发中，无论你是使用什么语言，都应该遇到过使用加解密的使用场景，比如接口数据需要加密传给前端保证数据传输的安全；HTTPS使用证书的方式首先进行非对称加密，将客户端的私匙传递给服务端，然后双方后面的通信都使用该私匙进行对称加密传输；使用MD5进行文件一致性校验，等等很多的场景都使用到了加解密技术。</p>
+<p>很多时候我们对于什么时候要使用什么样的加解密方式是很懵的。因为可用的加解密方案实在是太多，大家对加解密技术的类型可能不是很清楚，今天这篇文章就来梳理一下目前主流的加解密技术，本篇文档只针对算法做科普性说明，不涉及具体算法分析。日常使用的加解密大致可以分为以下四类：</p>
+<ol>
+<li><strong>散列函数(也称信息摘要)算法</strong></li>
+<li><strong>对称加密算法</strong></li>
+<li><strong>非对称加密算法</strong></li>
+<li><strong>组合加密技术</strong></li>
+</ol>
+<h4 id="1-散列函数算法"><a class="markdownIt-Anchor" href="#1-散列函数算法"></a> 1. 散列函数算法</h4>
+<p>听名字似乎不是一种加密算法，类似于给一个对象计算出hash值。所以这种算法一般用于数据特征提取。常用的散列函数包括：MD5、SHA1、SHA2（包括SHA128、SHA256等）散列函数的应用很广，散列函数有个特点，它是一种单向加密算法，只能加密、无法解密。</p>
+<h5 id="11-md5"><a class="markdownIt-Anchor" href="#11-md5"></a> 1.1 MD5</h5>
+<p>先来看MD5算法，MD5算法是广为使用的数据特征提取算法，最常见的就是我们在下载一些软件，网站都会提供MD5值给你进行校验，你可以通过MD5值是否一致来检查当前文件是否被别人篡改。MD5算法具有以下特点：</p>
+<ol>
+<li>任意长度的数据得到的MD5值长度都是相等的；</li>
+<li>对原数据进行任一点修改，得到的MD5值就会有很大的变化；</li>
+<li>散列函数的不可逆性，即已知原数据，无法通过特征值反向获取原数据。（<code>需要说明的是2004年的国际密码讨论年会（CRYPTO）尾声，王小云及其研究同事展示了MD5、SHA-0及其他相关杂凑函数的杂凑冲撞。也就是说，她找出了第一个 两个值不同，但 MD5 值相同的碰撞的例子。这个应该不能称之为破解</code>）</li>
+</ol>
+<h5 id="12-md5用途"><a class="markdownIt-Anchor" href="#12-md5用途"></a> 1.2 MD5用途：</h5>
+<ol>
+<li>防篡改。上面说过用于文件完整性校验。</li>
+<li>用于不想让别人看到明文的地方。比如用户密码入库，可以将用户密码使用MD5加密存储，下次用户输入密码登录只用将他的输入进行MD5加密与数据库的值判断是否一致即可，这样就有效防止密码泄露的风险。</li>
+<li>用于文件秒传。比如百度云的文件秒传功能可以用这种方式来实现。在你点击上传的时候，前端同学会先计算文件的MD5值然后与服务端比对是否存在，如果有就会告诉你文件上传成功，即完成所谓的秒传。</li>
+</ol>
+<p>在JDK中提供了MD5的实现：<code>java.security</code>包中有个类<code>MessageDigest</code>，MessageDigest 类为应用程序提供信息摘要算法的功能，如 MD5 或 SHA 算法。信息摘要是安全的单向哈希函数，它接收任意大小的数据，输出固定长度的哈希值。</p>
+<p>MessageDigest 对象使用<code>getInstance</code>函数初始化，该对象通过使用 update 方法处理数据。任何时候都可以调用 reset 方法重置摘要。一旦所有需要更新的数据都已经被更新了，应该调用 digest 方法之一完成哈希计算。</p>
+<p>对于给定数量的更新数据，digest 方法只能被调用一次。digest 被调用后，MessageDigest 对象被重新设置成其初始状态。</p>
+<p>下面的例子展示了使用JDK自带的MessageDigest类使用MD5算法。同时也展示了如果使用了<code>update</code>方法后没有调用<code>digest</code>方法，则会累计当前所有的update中的值在下一次调用digest方法的时候一并输出：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> other;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.security.MessageDigest;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: rickiyang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 2019/9/13</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>:</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MD5Test</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">char</span>[] hex = &#123;<span class="string">'0'</span>, <span class="string">'1'</span>, <span class="string">'2'</span>, <span class="string">'3'</span>, <span class="string">'4'</span>, <span class="string">'5'</span>, <span class="string">'6'</span>, <span class="string">'7'</span>, <span class="string">'8'</span>, <span class="string">'9'</span>, <span class="string">'A'</span>, <span class="string">'B'</span>, <span class="string">'C'</span>, <span class="string">'D'</span>, <span class="string">'E'</span>, <span class="string">'F'</span>&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//申明使用MD5算法</span></span><br><span class="line">            MessageDigest md5 = MessageDigest.getInstance(<span class="string">"MD5"</span>);</span><br><span class="line">            md5.update(<span class="string">"a"</span>.getBytes());<span class="comment">//</span></span><br><span class="line">            System.out.println(<span class="string">"md5(a)="</span> + byte2str(md5.digest()));</span><br><span class="line">            md5.update(<span class="string">"a"</span>.getBytes());</span><br><span class="line">            md5.update(<span class="string">"bc"</span>.getBytes());</span><br><span class="line">            System.out.println(<span class="string">"md5(abc)="</span> + byte2str(md5.digest()));</span><br><span class="line">            <span class="comment">//你会发现上面的md5值与下面的一样</span></span><br><span class="line">            md5.update(<span class="string">"abc"</span>.getBytes());</span><br><span class="line">            System.out.println(<span class="string">"md5(abc)="</span> + byte2str(md5.digest()));</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 将字节数组转换成十六进制字符串</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> bytes</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> String <span class="title">byte2str</span><span class="params">(<span class="keyword">byte</span>[] bytes)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> len = bytes.length;</span><br><span class="line">        StringBuffer result = <span class="keyword">new</span> StringBuffer();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">            <span class="keyword">byte</span> byte0 = bytes[i];</span><br><span class="line">            result.append(hex[byte0 &gt;&gt;&gt; <span class="number">4</span> &amp; <span class="number">0xf</span>]);</span><br><span class="line">            result.append(hex[byte0 &amp; <span class="number">0xf</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">md5(a)=<span class="number">0</span>CC175B9C0F1B6A831C399E269772661</span><br><span class="line">md5(abc)=<span class="number">900150983</span>CD24FB0D6963F7D28E17F72</span><br><span class="line">md5(abc)=<span class="number">900150983</span>CD24FB0D6963F7D28E17F72</span><br></pre></td></tr></table></figure>
+<h5 id="21-sha系列算法"><a class="markdownIt-Anchor" href="#21-sha系列算法"></a> 2.1 SHA系列算法</h5>
+<p>Secure Hash Algorithm，是一种与MD5同源的数据加密算法。SHA算法能计算出一个数位信息所对应到的，长度固定的字串，又称信息摘要。而且如果输入信息有任何的不同，输出的对应摘要不同的机率非常高。因此SHA算法也是FIPS所认证的五种安全杂凑算法之一。原因有两点：一是由信息摘要反推原输入信息，从计算理论上来说是极为困难的；二是，想要找到两组不同的输入信息发生信息摘要碰撞的几率，从计算理论上来说是非常小的。任何对输入信息的变动，都有很高的几率导致的信息摘要大相径庭。</p>
+<p>SHA实际上是一系列算法的统称，分别包括：SHA-1、SHA-224、SHA-256、SHA-384以及SHA-512。后面4中统称为SHA-2，事实上SHA-224是SHA-256的缩减版，SHA-384是SHA-512的缩减版。各中SHA算法的数据比较如下表，其中的长度单位均为位：</p>
+<table>
+<thead>
+<tr>
+<th><strong>类别</strong></th>
+<th><strong>SHA-1</strong></th>
+<th><strong>SHA-224</strong></th>
+<th><strong>SHA-256</strong></th>
+<th><strong>SHA-384</strong></th>
+<th><strong>SHA-512</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>消息摘要长度</td>
+<td>160</td>
+<td>224</td>
+<td>256</td>
+<td>384</td>
+<td>512</td>
+</tr>
+<tr>
+<td>消息长度</td>
+<td>小于264位</td>
+<td>小于264位</td>
+<td>小于264位</td>
+<td>小于2128位</td>
+<td>小于2128位</td>
+</tr>
+<tr>
+<td>分组长度</td>
+<td>512</td>
+<td>512</td>
+<td>512</td>
+<td>1024</td>
+<td>1024</td>
+</tr>
+<tr>
+<td>计算字长度</td>
+<td>32</td>
+<td>32</td>
+<td>32</td>
+<td>64</td>
+<td>64</td>
+</tr>
+<tr>
+<td>计算步骤数</td>
+<td>80</td>
+<td>64</td>
+<td>64</td>
+<td>80</td>
+<td>80</td>
+</tr>
+</tbody>
+</table>
+<p>SHA-1算法输入报文的最大长度不超过264位，产生的输出是一个160位的报文摘要。输入是按512 位的分组进行处理的。SHA-1是不可逆的、防冲突，并具有良好的雪崩效应。</p>
+<p>上面提到的<code>MessageDigest</code>类同时也支持SHA系列算法，使用方式与MD5一样，注意SHA不同的类型：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MessageDigest md = MessageDigest.getInstance(<span class="string">"SHA"</span>);</span><br><span class="line">MessageDigest md = MessageDigest.getInstance(<span class="string">"SHA-224"</span>);</span><br><span class="line">MessageDigest md = MessageDigest.getInstance(<span class="string">"SHA-384"</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="2-对称加密算法"><a class="markdownIt-Anchor" href="#2-对称加密算法"></a> 2. 对称加密算法</h4>
+<p>所谓的对称加密，意味着加密者和解密者需要同时持有一份相同的密匙，加密者用密匙加密，解密者用密匙解密即可。</p>
+<p>常用的对称加密算法包括DES算法、AES算法等。 由于对称加密需要一个秘钥，而秘钥在加密者与解密者之间传输又很难保证安全性，所以目前用对称加密算法的话主要是用在加密者解密者相同，或者加密者解密者相对固定的场景。</p>
+<p>对称算法又可分为两类：</p>
+<p>第一种是一次只对明文中的单个位（有时对字节）运算的算法称为序列算法或序列密码；</p>
+<p>另一种算法是对明文的一组位进行运算，这些位组称为分组，相应的算法称为分组算法或分组密码。现代计算机密码算法的典型分组长度为64位――这个长度既考虑到分析破译密码的难度，又考虑到使用的方便性。</p>
+<h5 id="21-base64算法"><a class="markdownIt-Anchor" href="#21-base64算法"></a> 2.1 BASE64算法</h5>
+<p>我们很熟悉的BASE64算法就是一个没有秘密的对称加密算法。因为他的加密解密算法都是公开的，所以加密数据是没有任何秘密可言，典型的防菜鸟不防程序员的算法。</p>
+<p><strong>BASE64算法作用：</strong></p>
+<ol>
+<li>
+<p>用于简单的数据加密传输；</p>
+</li>
+<li>
+<p>用于数据传输过程中的转码，解决中文问题和特殊符号在网络传输中的乱码现象。</p>
+<p>网络传输过程中如果双方使用的编解码字符集方式不一致，对于中文可能会出现乱码；与此类似，网络上传输的字符并不全是可打印的字符，比如二进制文件、图片等。Base64的出现就是为了解决此问题，它是基于64个可打印的字符来表示二进制的数据的一种方法。</p>
+</li>
+</ol>
+<p><strong>BASE64原理</strong></p>
+<p>BASE64的原理比较简单，每当我们使用BASE64时都会先定义一个类似这样的数组：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">'A'</span>, <span class="string">'B'</span>, <span class="string">'C'</span>, ... <span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, ... <span class="string">'0'</span>, <span class="string">'1'</span>, ... <span class="string">'+'</span>, <span class="string">'/'</span>]</span><br></pre></td></tr></table></figure>
+<p>上面就是BASE64的索引表，字符选用了&quot;A-Z、a-z、0-9、+、/&quot; 64个可打印字符，这是标准的BASE64协议规定。在日常使用中我们还会看到“=”或“==”号出现在BASE64的编码结果中，“=”在此是作为填充字符出现。</p>
+<p>JDK提供了BASE64的实现：<code>BASE64Encoder</code>，我们可以直接使用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用base64加密</span></span><br><span class="line">BASE64Encoder encoder = <span class="keyword">new</span> BASE64Encoder();  </span><br><span class="line">String encrypt = encoder.encode(str.getBytes());  </span><br><span class="line"><span class="comment">//使用base64解密</span></span><br><span class="line">BASE64Decoder decoder = <span class="keyword">new</span> BASE64Decoder();  </span><br><span class="line">String decrypt = <span class="keyword">new</span> String(decoder.decodeBuffer(encryptStr));</span><br></pre></td></tr></table></figure>
+<h5 id="22-des"><a class="markdownIt-Anchor" href="#22-des"></a> 2.2 DES</h5>
+<p>DES (Data Encryption Standard)，在很长时间内，许多人心目中“密码生成”与DES一直是个同义词。</p>
+<p>DES是一个分组加密算法，典型的DES以64位为分组对数据加密，加密和解密用的是同一个算法。它的密钥长度是56位（因为每个第8 位都用作奇偶校验），密钥可以是任意的56位的数，而且可以任意时候改变。</p>
+<p>DES加密过程大致如下：</p>
+<ol>
+<li>首先需要从用户处获取一个64位长的密码口令，然后通过等分、移位、选取和迭代形成一套16个加密密钥，分别供每一轮运算中使用；</li>
+<li>然后将64位的明文分组M进行操作，M经过一个初始置换IP，置换成m0。将m0明文分成左半部分和右半部分m0 = (L0，R0)，各32位长。然后进行16轮完全相同的运算（迭代），这些运算被称为函数f，在每一轮运算过程中数据与相应的密钥结合；</li>
+<li>在每一轮迭代中密钥位移位，然后再从密钥的56位中选出48位。通过一个扩展置换将数据的右半部分扩展成48位，并通过一个异或操作替代成新的48位数据，再将其压缩置换成32位。这四步运算构成了函数f。然后，通过另一个异或运算，函数f的输出与左半部分结合，其结果成为新的右半部分，原来的右半部分成为新的左半部分。将该操作重复16次；</li>
+<li>经过16轮迭代后，左，右半部分合在一起经过一个末置换（数据整理），这样就完成了加密过程。</li>
+</ol>
+<p>对于DES解密的过程大家猛然一想应该是使用跟加密过程相反的算法，事实上解密和加密使用的是一样的算法，有区别的地方在于加密和解密在使用密匙的时候次序是相反的。比如加密的时候是K0,K1,K2…K15，那么解密使用密匙的次序就是倒过来的。之所以能用相同的算法去解密，这跟DES特意设计的加密算法有关，感兴趣的同学可以深入分析。</p>
+<h5 id="23-aes"><a class="markdownIt-Anchor" href="#23-aes"></a> 2.3 AES</h5>
+<p>高级加密标准(AES,Advanced Encryption Standard)，与DES一样，使用AES加密函数和密匙来对明文进行加密，区别就是使用的加密函数不同。</p>
+<p>上面说过DES的密钥长度是56比特，因此算法的理论安全强度是2^56。但以目前计算机硬件的制作水准和升级情况，破解DES可能只是山脉问题，最终NIST(美国国家标准技术研究所（National Institute of Standards and Technology))选择了分组长度为128位的Rijndael算法作为AES算法。</p>
+<p>AES为分组密码，分组密码也就是把明文分成一组一组的，每组长度相等，每次加密一组数据，直到加密完整个明文。在AES标准规范中，分组长度只能是128位，也就是说，每个分组为16个字节（每个字节8位）。密钥的长度可以使用128位、192位或256位。密钥的长度不同，推荐加密轮数也不同，如下表所示：</p>
+<table>
+<thead>
+<tr>
+<th>AES</th>
+<th>密钥长度（32位比特字)</th>
+<th>分组长度(32位比特字)</th>
+<th>加密轮数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AES-128</td>
+<td>4</td>
+<td>4</td>
+<td>10</td>
+</tr>
+<tr>
+<td>AES-192</td>
+<td>6</td>
+<td>4</td>
+<td>12</td>
+</tr>
+<tr>
+<td>AES-256</td>
+<td>8</td>
+<td>4</td>
+<td>14</td>
+</tr>
+</tbody>
+</table>
+<h4 id="3-非对称加密"><a class="markdownIt-Anchor" href="#3-非对称加密"></a> 3. 非对称加密</h4>
+<p>非对称加密算法的特点是，秘钥一次会生成一对，其中一份秘钥由自己保存，不能公开出去，称为“私钥”，另外一份是可以公开出去的，称为“公钥”。</p>
+<p>将原文用公钥进行加密，得到的密文只有用对应私钥才可以解密得到原文；</p>
+<p>将原文用私钥加密得到的密文，也只有用对应的公钥才能解密得到原文；</p>
+<p>因为加密和解密使用的是两个<code>不同</code>的密钥，所以这种算法叫作<code>非对称加密算法</code>。</p>
+<p><img src="https://i.loli.net/2019/12/25/4hKZt6EHe5d87Yj.jpg" alt=""></p>
+<p>#####与对称加密算法的对比</p>
+<ul>
+<li>优点：其安全性更好，对称加密的通信双方使用相同的秘钥，如果一方的秘钥遭泄露，那么整个通信就会被破解。而非对称加密使用一对秘钥，一个用来加密，一个用来解密，而且公钥是公开的，秘钥是自己保存的，不需要像对称加密那样在通信之前要先同步秘钥。</li>
+<li>缺点：非对称加密的缺点是加密和解密花费时间长、速度慢，只适合对少量数据进行加密。</li>
+</ul>
+<p>在非对称加密中使用的主要算法有：RSA、Elgamal、ESA、背包算法、Rabin、D-H、ECC（椭圆曲线加密算法）等。不同算法的实现机制不同。</p>
+<h5 id="非对称加密工作原理"><a class="markdownIt-Anchor" href="#非对称加密工作原理"></a> 非对称加密工作原理</h5>
+<p>下面我们就看一下非对称加密的工作原理。</p>
+<ul>
+<li>乙方生成一对密钥（公钥和私钥）并将公钥向其它方公开。</li>
+<li>得到该公钥的甲方使用该密钥对机密信息进行加密后再发送给乙方。</li>
+<li>乙方再用自己保存的另一把专用密钥（私钥）对加密后的信息进行解密。乙方只能用其专用密钥（私钥）解密由对应的公钥加密后的信息。</li>
+<li>在传输过程中，即使攻击者截获了传输的密文，并得到了乙的公钥，也无法破解密文，因为只有乙的私钥才能解密密文。同样，如果乙要回复加密信息给甲，那么需要甲先公布甲的公钥给乙用于加密，甲自己保存甲的私钥用于解密。</li>
+</ul>
+<h5 id="非对称加密鼻祖rsa"><a class="markdownIt-Anchor" href="#非对称加密鼻祖rsa"></a> 非对称加密鼻祖：RSA</h5>
+<p>RSA算法基于一个十分简单的数论事实：将两个大质数（素数）相乘十分容易，但是想要对其乘积进行因式分解却极其困难，因此可以将乘积公开作为加密密钥。比如：取两个简单的质数：67，73，得到两者乘积很简单4891；但是要想对4891进行因式分解，其工作量成几何增加。</p>
+<p>应用场景：</p>
+<p>HTTPS请求的SSL层。</p>
+<p><img src="https://i.loli.net/2019/12/25/AdHrf15FLW3k6Ei.jpg" alt=""></p>
+<p>在JDK中也提供了RSA的实现，下面给出示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 创建密匙对</span></span><br><span class="line"><span class="comment">    *</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="function"><span class="keyword">private</span> KeyPair <span class="title">genKeyPair</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="comment">//创建 RSA Key 的生产者。</span></span><br><span class="line">       KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(<span class="string">"RSA"</span>);</span><br><span class="line"></span><br><span class="line">       <span class="comment">//利用用户密码作为随机数初始化出 1024 比特 Key 的生产者。</span></span><br><span class="line">       <span class="comment">//SecureRandom 是生成安全随机数序列，password.getBytes() 是种子，只要种子相同，序列就一样。</span></span><br><span class="line">       keyPairGen.initialize(<span class="number">1024</span>, <span class="keyword">new</span> SecureRandom(<span class="string">"password"</span>.getBytes()));</span><br><span class="line"></span><br><span class="line">       <span class="comment">//创建密钥对</span></span><br><span class="line">       <span class="keyword">return</span> keyPairGen.generateKeyPair();</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 生成公匙</span></span><br><span class="line"><span class="comment">    *</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> PublicKey <span class="title">genPublicKey</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">try</span> &#123;</span><br><span class="line">           <span class="comment">//创建密钥对</span></span><br><span class="line">           KeyPair keyPair = genKeyPair();</span><br><span class="line"></span><br><span class="line">           <span class="comment">//生成公钥</span></span><br><span class="line">           PublicKey publicKey = keyPair.getPublic();</span><br><span class="line">           X509EncodedKeySpec keySpec = <span class="keyword">new</span> X509EncodedKeySpec(publicKey.getEncoded());</span><br><span class="line">           KeyFactory keyFactory = KeyFactory.getInstance(<span class="string">"RSA"</span>);</span><br><span class="line">           publicKey = keyFactory.generatePublic(keySpec);</span><br><span class="line">           <span class="keyword">return</span> publicKey;</span><br><span class="line">       &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">           e.printStackTrace();</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 生成私匙</span></span><br><span class="line"><span class="comment">    *</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> PrivateKey <span class="title">genPrivateKey</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">try</span> &#123;</span><br><span class="line">           <span class="comment">//创建密钥对</span></span><br><span class="line">           KeyPair keyPair = genKeyPair();</span><br><span class="line"></span><br><span class="line">           <span class="comment">//生成私匙</span></span><br><span class="line">           PrivateKey privateKey = keyPair.getPrivate();</span><br><span class="line">           X509EncodedKeySpec keySpec = <span class="keyword">new</span> X509EncodedKeySpec(privateKey.getEncoded());</span><br><span class="line">           KeyFactory keyFactory = KeyFactory.getInstance(<span class="string">"RSA"</span>);</span><br><span class="line">           <span class="keyword">return</span> keyFactory.generatePrivate(keySpec);</span><br><span class="line">       &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">           e.printStackTrace();</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 公钥加密</span></span><br><span class="line"><span class="comment">    *</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> data</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> publicKey</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">    * <span class="doctag">@throws</span> Exception</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] encryptByPublicKey(<span class="keyword">byte</span>[] data, String publicKey)</span><br><span class="line">           <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">       X509EncodedKeySpec x509KeySpec = <span class="keyword">new</span> X509EncodedKeySpec(publicKey.getBytes());</span><br><span class="line">       KeyFactory keyFactory = KeyFactory.getInstance(<span class="string">"RSA"</span>);</span><br><span class="line">       Key publicK = keyFactory.generatePublic(x509KeySpec);</span><br><span class="line">       <span class="comment">// 对数据加密</span></span><br><span class="line">       Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());</span><br><span class="line">       cipher.init(Cipher.ENCRYPT_MODE, publicK);</span><br><span class="line">       <span class="keyword">int</span> inputLen = data.length;</span><br><span class="line">       ByteArrayOutputStream out = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line">       <span class="keyword">int</span> offSet = <span class="number">0</span>;</span><br><span class="line">       <span class="keyword">byte</span>[] cache;</span><br><span class="line">       <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">       <span class="comment">// 对数据分段加密</span></span><br><span class="line">       <span class="keyword">while</span> (inputLen - offSet &gt; <span class="number">0</span>) &#123;</span><br><span class="line">           <span class="keyword">if</span> (inputLen - offSet &gt; <span class="number">117</span>) &#123;</span><br><span class="line">               cache = cipher.doFinal(data, offSet, <span class="number">117</span>);</span><br><span class="line">           &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">               cache = cipher.doFinal(data, offSet, inputLen - offSet);</span><br><span class="line">           &#125;</span><br><span class="line">           out.write(cache, <span class="number">0</span>, cache.length);</span><br><span class="line">           i++;</span><br><span class="line">           offSet = i * <span class="number">117</span>;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">byte</span>[] encryptedData = out.toByteArray();</span><br><span class="line">       out.close();</span><br><span class="line">       <span class="keyword">return</span> encryptedData;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 私钥解密</span></span><br><span class="line"><span class="comment">    *</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> encryptedData</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> privateKey</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">    * <span class="doctag">@throws</span> Exception</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] decryptByPrivateKey(<span class="keyword">byte</span>[] encryptedData,</span><br><span class="line">                                            String privateKey) <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">       PKCS8EncodedKeySpec pkcs8KeySpec = <span class="keyword">new</span> PKCS8EncodedKeySpec(privateKey.getBytes());</span><br><span class="line">       KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);</span><br><span class="line">       Key privateK = keyFactory.generatePrivate(pkcs8KeySpec);</span><br><span class="line">       Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());</span><br><span class="line">       cipher.init(Cipher.DECRYPT_MODE, privateK);</span><br><span class="line">       <span class="keyword">int</span> inputLen = encryptedData.length;</span><br><span class="line">       ByteArrayOutputStream out = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line">       <span class="keyword">int</span> offSet = <span class="number">0</span>;</span><br><span class="line">       <span class="keyword">byte</span>[] cache;</span><br><span class="line">       <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">       <span class="comment">// 对数据分段解密</span></span><br><span class="line">       <span class="keyword">while</span> (inputLen - offSet &gt; <span class="number">0</span>) &#123;</span><br><span class="line">           <span class="keyword">if</span> (inputLen - offSet &gt; <span class="number">118</span>) &#123;</span><br><span class="line">               cache = cipher.doFinal(encryptedData, offSet, <span class="number">118</span>);</span><br><span class="line">           &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">               cache = cipher.doFinal(encryptedData, offSet, inputLen - offSet);</span><br><span class="line">           &#125;</span><br><span class="line">           out.write(cache, <span class="number">0</span>, cache.length);</span><br><span class="line">           i++;</span><br><span class="line">           offSet = i * <span class="number">118</span>;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">byte</span>[] decryptedData = out.toByteArray();</span><br><span class="line">       out.close();</span><br><span class="line">       <span class="keyword">return</span> decryptedData;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 私钥加密</span></span><br><span class="line"><span class="comment">    *</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> data</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> privateKey</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">    * <span class="doctag">@throws</span> Exception</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] encryptByPrivateKey(<span class="keyword">byte</span>[] data, String privateKey)</span><br><span class="line">           <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">       PKCS8EncodedKeySpec pkcs8KeySpec = <span class="keyword">new</span> PKCS8EncodedKeySpec(publicKey.getBytes());</span><br><span class="line">       KeyFactory keyFactory = KeyFactory.getInstance(<span class="string">"RSA"</span>);</span><br><span class="line">       Key privateK = keyFactory.generatePrivate(pkcs8KeySpec);</span><br><span class="line">       Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());</span><br><span class="line">       cipher.init(Cipher.ENCRYPT_MODE, privateK);</span><br><span class="line">       <span class="keyword">int</span> inputLen = data.length;</span><br><span class="line">       ByteArrayOutputStream out = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line">       <span class="keyword">int</span> offSet = <span class="number">0</span>;</span><br><span class="line">       <span class="keyword">byte</span>[] cache;</span><br><span class="line">       <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">       <span class="comment">// 对数据分段加密</span></span><br><span class="line">       <span class="keyword">while</span> (inputLen - offSet &gt; <span class="number">0</span>) &#123;</span><br><span class="line">           <span class="keyword">if</span> (inputLen - offSet &gt; <span class="number">117</span>) &#123;</span><br><span class="line">               cache = cipher.doFinal(data, offSet, <span class="number">117</span>);</span><br><span class="line">           &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">               cache = cipher.doFinal(data, offSet, inputLen - offSet);</span><br><span class="line">           &#125;</span><br><span class="line">           out.write(cache, <span class="number">0</span>, cache.length);</span><br><span class="line">           i++;</span><br><span class="line">           offSet = i * <span class="number">117</span>;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">byte</span>[] encryptedData = out.toByteArray();</span><br><span class="line">       out.close();</span><br><span class="line">       <span class="keyword">return</span> encryptedData;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 公钥解密</span></span><br><span class="line"><span class="comment">    *</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> encryptedData</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> publicKey</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">    * <span class="doctag">@throws</span> Exception</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] decryptByPublicKey(<span class="keyword">byte</span>[] encryptedData,</span><br><span class="line">                                           String publicKey) <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">       X509EncodedKeySpec x509KeySpec = <span class="keyword">new</span> X509EncodedKeySpec(publicKey.getBytes());</span><br><span class="line">       KeyFactory keyFactory = KeyFactory.getInstance(<span class="string">"RSA"</span>);</span><br><span class="line">       Key publicK = keyFactory.generatePublic(x509KeySpec);</span><br><span class="line">       Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());</span><br><span class="line">       cipher.init(Cipher.DECRYPT_MODE, publicK);</span><br><span class="line">       <span class="keyword">int</span> inputLen = encryptedData.length;</span><br><span class="line">       ByteArrayOutputStream out = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line">       <span class="keyword">int</span> offSet = <span class="number">0</span>;</span><br><span class="line">       <span class="keyword">byte</span>[] cache;</span><br><span class="line">       <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">       <span class="comment">// 对数据分段解密</span></span><br><span class="line">       <span class="keyword">while</span> (inputLen - offSet &gt; <span class="number">0</span>) &#123;</span><br><span class="line">           <span class="keyword">if</span> (inputLen - offSet &gt; <span class="number">118</span>) &#123;</span><br><span class="line">               cache = cipher.doFinal(encryptedData, offSet, <span class="number">118</span>);</span><br><span class="line">           &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">               cache = cipher.doFinal(encryptedData, offSet, inputLen - offSet);</span><br><span class="line">           &#125;</span><br><span class="line">           out.write(cache, <span class="number">0</span>, cache.length);</span><br><span class="line">           i++;</span><br><span class="line">           offSet = i * <span class="number">118</span>;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">byte</span>[] decryptedData = out.toByteArray();</span><br><span class="line">       out.close();</span><br><span class="line">       <span class="keyword">return</span> decryptedData;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="4-组合加密"><a class="markdownIt-Anchor" href="#4-组合加密"></a> 4. 组合加密</h4>
+<p>上面介绍的3种加密技术，每一种都有自己的特点，比如散列技术用于特征值提取，对称加密速度虽快但是有私匙泄露的危险，非对称加密虽然安全但是速度却慢。基于这些情况，现在的加密技术更加趋向于将这些加密的方案组合起来使用，基于此来研发新的加密算法。</p>
+<p>MAC（Message Authentication Code，消息认证码算法）是含有密钥散列函数算法，兼容了MD和SHA算法的特性，并在此基础上加上了密钥。因此MAC算法也经常被称作HMAC算法。MAC（Message Authentication Code，消息认证码算法）是含有密钥散列函数算法，HMAC加密可以理解为加盐的散列算法，此处的“盐”就相当于HMAC算法的秘钥。</p>
+<p>HMAC算法的实现过程需要一个加密用的散列函数（表示为H）和一个密钥。</p>
+<p>经过MAC算法得到的摘要值也可以使用十六进制编码表示，其摘要值得长度与实现算法的摘要值长度相同。例如 HmacSHA算法得到的摘要长度就是SHA1算法得到的摘要长度，都是160位二进制数，换算成十六进制的编码为40位。</p>
+<p><strong>MAC算法的实现：</strong></p>
+<table>
+<thead>
+<tr>
+<th>算法</th>
+<th>摘要长度</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HmacMD5</td>
+<td>128</td>
+<td>JAVA6实现</td>
+</tr>
+<tr>
+<td>HmacSHA1</td>
+<td>160</td>
+<td>JAVA6实现</td>
+</tr>
+<tr>
+<td>HmacSHA256</td>
+<td>256</td>
+<td>JAVA6实现</td>
+</tr>
+<tr>
+<td>HmacSHA384</td>
+<td>384</td>
+<td>JAVA6实现</td>
+</tr>
+<tr>
+<td>HmacSHA512</td>
+<td>512</td>
+<td>JAVA6实现</td>
+</tr>
+<tr>
+<td>HmacMD2</td>
+<td>128</td>
+<td>BouncyCastle实现</td>
+</tr>
+<tr>
+<td>HmacMD4</td>
+<td>128</td>
+<td>BouncyCastle实现</td>
+</tr>
+<tr>
+<td>HmacSHA224</td>
+<td>224</td>
+<td>BouncyCastle实现</td>
+</tr>
+</tbody>
+</table>
+<p>过程如下：</p>
+<ol>
+<li>在密钥key后面添加0来创建一个长为B(64字节)的字符串（str）；</li>
+<li>将上一步生成的字符串(str)  与ipad（0x36）做异或运算，形成结果字符串（istr）;</li>
+<li>将数据流data附加到第二步的结果字符串(istr)的末尾；</li>
+<li>做md5运算于第三步生成的数据流(istr)；</li>
+<li>将第一步生成的字符串(str) 与opad（0x5c）做异或运算，形成结果字符串（ostr），再将第四步的结果(istr) 附加到第五步的结果字符串（ostr）的末尾做md5运算于第6步生成的数据流（ostr），最终输出结果(out)</li>
+</ol>
+<p>注意：如果第一步中，key的长度klen大于64字节，则先进行md5运算，使其长度klen = 16字节。</p>
+<p>JDK中的实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">jdkHmacMD5</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// 初始化KeyGenerator</span></span><br><span class="line">        KeyGenerator keyGenerator = KeyGenerator.getInstance(<span class="string">"HmacMD5"</span>);</span><br><span class="line">        <span class="comment">// 产生密钥</span></span><br><span class="line">        SecretKey secretKey = keyGenerator.generateKey();</span><br><span class="line">        <span class="comment">// 获取密钥</span></span><br><span class="line">        <span class="keyword">byte</span>[] key = secretKey.getEncoded();</span><br><span class="line">        <span class="comment">//            byte[] key = Hex.decodeHex(new char[]&#123;'1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e'&#125;);</span></span><br><span class="line">        <span class="comment">// 还原密钥</span></span><br><span class="line">        SecretKey restoreSecretKey = <span class="keyword">new</span> SecretKeySpec(key, <span class="string">"HmacMD5"</span>);</span><br><span class="line">        <span class="comment">// 实例化MAC</span></span><br><span class="line">        Mac mac = Mac.getInstance(restoreSecretKey.getAlgorithm());</span><br><span class="line">        <span class="comment">// 初始化MAC</span></span><br><span class="line">        mac.init(restoreSecretKey);</span><br><span class="line">        <span class="comment">// 执行摘要</span></span><br><span class="line">        <span class="keyword">byte</span>[] hmacMD5Bytes = mac.doFinal(<span class="string">"data"</span>.getBytes());</span><br><span class="line">        System.out.println(<span class="string">"jdk hmacMD5:"</span> + <span class="keyword">new</span> String(hmacMD5Bytes));</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/posts/1fe39418.html">加解密算法分析</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Rickiyang 的个人博客">Rickiyang</a></p>
+  <p><span>发布时间:</span>2019年09月21日 - 23:11</p>
+  <p><span>最后更新:</span>2019年12月25日 - 23:28</p>
+  <p><span>原始链接:</span><a href="/posts/1fe39418.html" title="加解密算法分析">http://blog.rickiyang.cn/posts/1fe39418.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://blog.rickiyang.cn/posts/1fe39418.html" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
+</div>
+<script>
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({
+          title: "",
+          text: '复制成功',
+          icon: "success",
+          showConfirmButton: true
+          });
+    });
+    });
+</script>
+
+
+      
+    </div>
+    
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #636363;font-size:14px;letter-spacing: 10px">本文结束啦<i class="fa fa-bell"></i>感谢您的阅读</div>
+    
+</div>
+
+      
+    </div>
+
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/931f0d54.html" rel="next" title="Java SPI机制">
+                <i class="fa fa-chevron-left"></i> Java SPI机制
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/adele.png" alt="Rickiyang">
+            
+              <p class="site-author-name" itemprop="name">Rickiyang</p>
+              <p class="site-description motion-element" itemprop="description">分享对coding生活的见解</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">132</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3JpY2tpeWFuZw==" title="GitHub &rarr; https://github.com/rickiyang"><i class="fa fa-fw fa-github"></i>GitHub</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="bWFpbHRvOm1lZGVlMTMyMEBnbWFpbC5jb20=" title="E-Mail &rarr; mailto:medee1320@gmail.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2E5NTM3MTM0Mjg=" title="CSDN &rarr; https://blog.csdn.net/a953713428"><i class="fa fa-fw fa-google"></i>CSDN</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="/953713428" title="QQ &rarr; 953713428"><i class="fa fa-fw fa-twitter"></i>QQ</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-散列函数算法"><span class="nav-number">1.</span> <span class="nav-text"> 1. 散列函数算法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#11-md5"><span class="nav-number">1.1.</span> <span class="nav-text"> 1.1 MD5</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#12-md5用途"><span class="nav-number">1.2.</span> <span class="nav-text"> 1.2 MD5用途：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#21-sha系列算法"><span class="nav-number">1.3.</span> <span class="nav-text"> 2.1 SHA系列算法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-对称加密算法"><span class="nav-number">2.</span> <span class="nav-text"> 2. 对称加密算法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#21-base64算法"><span class="nav-number">2.1.</span> <span class="nav-text"> 2.1 BASE64算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#22-des"><span class="nav-number">2.2.</span> <span class="nav-text"> 2.2 DES</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#23-aes"><span class="nav-number">2.3.</span> <span class="nav-text"> 2.3 AES</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-非对称加密"><span class="nav-number">3.</span> <span class="nav-text"> 3. 非对称加密</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#非对称加密工作原理"><span class="nav-number">3.1.</span> <span class="nav-text"> 非对称加密工作原理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#非对称加密鼻祖rsa"><span class="nav-number">3.2.</span> <span class="nav-text"> 非对称加密鼻祖：RSA</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-组合加密"><span class="nav-number">4.</span> <span class="nav-text"> 4. 组合加密</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Rickiyang</span>
+
+  
+
+  
+</div>
+
+<!--<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>-->
+
+
+
+
+
+<!--
+  <div class="theme-info">主题 – <span class="exturl theme-link" data-url="aHR0cHM6Ly90aGVtZS1uZXh0Lm9yZw==">NexT.Gemini</span> v6.7.0</div>
+-->
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共332.6k字</span>
+</div>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https'){
+   bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else{
+  bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      网站总访客数 <span class="busuanzi-value" id="busuanzi_value_site_uv"></span> 人次. |
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      &nbsp;<i class="fa fa-eye"></i>
+      总访问量 <span class="busuanzi-value" id="busuanzi_value_site_pv"></span> 次.
+    </span>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </div></footer>
+
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  <script id="ribbon" size="300" alpha="0.6" zindex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/three/three.min.js"></script>
+
+  
+  <script src="/lib/three/canvas_sphere.min.js"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script>
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+      el: '#comments' ,
+      verify: false,
+      notify: false,
+      appId: 'X5fy0b9Gknu0SAse5areilGR-gzGzoHsz',
+      appKey: 'URk4cyPQ8Ttqtwhop5t26kok',
+      placeholder: 'Just go go',
+      avatar: 'mm',
+      meta:guest,
+      pageSize: '10' || 10,
+      visitor: false
+    });
+  </script>
+
+
+
+
+  
+
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function ({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', `/classes/Counter/${counter.objectId}`, JSON.stringify({ time: { "__op":"Increment", "amount":1 } }))
+            
+            .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.time + 1);
+            })
+            
+            .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+            })
+          } else {
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1}))
+                .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function () {
+                  console.log('Failed to create');
+                });
+            
+          }
+        })
+      .fail(function ({ responseJSON }) {
+        console.log('LeanCloud Counter Error:' + responseJSON.code + " " + responseJSON.error);
+      });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + "X5fy0b9Gknu0SAse5areilGR-gzGzoHsz")
+        .done(function ({ api_server }) {
+          var Counter = function (method, url, data) {
+            return $.ajax({
+              method: method,
+              url: `https://${api_server}/1.1${url}`,
+              headers: {
+                'X-LC-Id': "X5fy0b9Gknu0SAse5areilGR-gzGzoHsz",
+                'X-LC-Key': "URk4cyPQ8Ttqtwhop5t26kok",
+                'Content-Type': 'application/json',
+              },
+              data: data,
+            });
+          };
+          
+          addCount(Counter);
+          
+        })
+    });
+  </script>
+
+
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+      }
+      else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+  <script>
+    
+    
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+  <script src="/js/src/exturl.js?v=6.7.0"></script>
+
+
+  
+
+  
+
+  
+
+
+  <!-- 页面点击小红心 -->
+    <script type="text/javascript" src="/js/src/love.js"></script>
+    <!---->
+</body>
+</html>
